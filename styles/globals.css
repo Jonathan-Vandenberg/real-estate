@@ -1,26 +1,41 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@layer base {
+  :root {
+    --navigation-height: 6rem;
   }
-  body {
-    color: white;
-    background: black;
+
+  html {
+    @apply bg-off-white font-sans text-black;
+    font-size: 62.5%;
+  }
+
+  @layer utilities {
+    .text-shadow {
+      text-shadow: rgb(0 0 0 / 56%) 0px 3px 12px;
+    }
+
+    .text-gradient {
+      background: linear-gradient(
+        to right bottom,
+        rgb(255, 255, 255) 30%,
+        rgba(255, 255, 255, 0.38)
+      );
+      background-clip: text;
+      color: transparent;
+    }
+
+    .mask-radial-faded {
+      mask-image: radial-gradient(
+        circle at center center,
+        black,
+        transparent 80%
+      );
+    }
+    .mask-linear-faded {
+      mask-image: linear-gradient(black, transparent 70%);
+    }
   }
 }
