@@ -258,7 +258,6 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
         </p>
       </div>
       <form onSubmit={onFinish} className="space-y-3 py-6">
-        <UploadImage />
         <div className="px-8 flex items-start space-y-3 justify-center flex-col pt-3">
           <input
             id="form"
