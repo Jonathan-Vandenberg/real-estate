@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { Logo } from "./svgs/Logo";
 import { Container } from "./Container";
-import { Button } from "./Button";
 import { HamburgerIcon } from "./svgs/HamburgerIcon";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import LoginBtn from "./LoginBtn";
-import ModalAddListing from "./ModalAddListing";
 
-export const Nav = () => {
+function Nav() {
   const [hamburgerMenuIsOpen, setHamburgerMenuIsOpen] = useState(false);
 
   useEffect(() => {
@@ -114,4 +112,6 @@ export const Nav = () => {
       </Container>
     </header>
   );
-};
+}
+
+export default Nav;
