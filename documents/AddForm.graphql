@@ -1,0 +1,7 @@
+# import Form from './FormFragment.graphql'
+
+mutation AddForm($input: FormInput!) {
+  addForm(input: $input) {
+    ...Form
+  }
+}

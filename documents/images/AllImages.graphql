@@ -1,0 +1,7 @@
+# import Image from "./ImageFragment.graphql"
+
+query AllImages {
+  allImages {
+    ...Image
+  }
+}

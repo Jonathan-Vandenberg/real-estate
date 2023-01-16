@@ -1,0 +1,7 @@
+# import Property from "./PropertyFragment.graphql"
+
+query AllProperties {
+  allProperties {
+    ...Property
+  }
+}

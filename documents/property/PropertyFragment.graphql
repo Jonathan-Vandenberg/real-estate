@@ -1,0 +1,36 @@
+fragment Property on Property {
+  id
+  interior
+  bedrooms
+  bathrooms
+  basement
+  flooring
+  appliances
+  otherPropertyFeatures
+  otherInteriorFeatures
+  schools
+  distanceToNearestSchool
+  shopping
+  nightlife
+  forKids
+  surroundingSuburbs
+  featured
+  status
+  title
+  overview
+  address
+  price
+  yearBuilt
+  heating
+  cooling
+  parking
+  lotSize
+  propertyCategory
+  residentialCategory
+  images {
+    url
+    id
+    imageCategory
+    propertyId
+  }
+}

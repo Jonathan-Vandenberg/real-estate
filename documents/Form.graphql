@@ -1,0 +1,7 @@
+# import Form from "./FormFragment.graphql"
+
+query Form($id: ID!) {
+  form(id: $id) {
+    ...Form
+  }
+}

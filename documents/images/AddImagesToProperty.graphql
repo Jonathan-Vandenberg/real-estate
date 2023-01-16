@@ -1,0 +1,7 @@
+# import Images from './Images.graphql'
+
+mutation addImagesToProperty($propertyId: ID!, $imagesIds: [ID]!) {
+  addImagesToProperty(propertyId: $propertyId, imagesIds: $imagesIds) {
+    id
+  }
+}

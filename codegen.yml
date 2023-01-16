@@ -1,0 +1,27 @@
+overwrite: true
+schema: "schema.prisma"
+documents: "**/*.graphql"
+generates:
+  types.ts:
+    config:
+      enumValues:
+        PROPERTY_CATEGORY: "@prisma/client#PROPERTY_CATEGORY"
+        RESIDENTIAL_CATEGORY: "@prisma/client#RESIDENTIAL_CATEGORY"
+        IMAGE_CATEGORY: "@prisma/client#IMAGE_CATEGORY"
+        STATUS: "@prisma/client#STATUS"
+      mapperTypeSuffix: Model
+      mappers:
+        Form: "@prisma/client#Form"
+        Property: "@prisma/client#Property"
+        BlogPost: "@prisma/client#BlogPost"
+        InteriorImage: "@prisma/client#InteriorImage"
+        # Session: "@prisma/client#Session"
+        # User: "@prisma/client#User"
+        # Account: "@prisma/client#Account"
+        # VerificationToken: "@prisma/client#VerificationToken"
+      contextType: ./pages/api/index#GraphQLContext
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+      - "typescript-react-apollo"
+      - "typescript-operations"

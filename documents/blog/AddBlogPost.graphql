@@ -1,0 +1,7 @@
+# import BlogPost from './BlogPostFragment.graphql'
+
+mutation AddBlogPost($input: BlogPostInput!) {
+  addBlogPost(input: $input) {
+    ...BlogPost
+  }
+}

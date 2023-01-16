@@ -1,0 +1,6 @@
+fragment Image on Image {
+  id
+  url
+  propertyId
+  imageCategory
+}

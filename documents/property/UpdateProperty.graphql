@@ -1,0 +1,7 @@
+# import Property from './PropertyFragment.graphql'
+
+mutation UpdateProperty($input: PropertyInput!) {
+  updateProperty(input: $input) {
+    ...Property
+  }
+}

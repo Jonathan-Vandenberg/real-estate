@@ -1,0 +1,184 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  identifier String   @id @default(auto()) @map("_id") @db.ObjectId
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Form {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  message String
+  name    String
+  email   String
+}
+
+model Property {
+  id                      String                @id @default(auto()) @map("_id") @db.ObjectId
+  interior                String
+  featured                Boolean?
+  status                  STATUS?
+  title                   String
+  overview                String
+  address                 String
+  price                   String
+  yearBuilt               String
+  heating                 String?
+  cooling                 String?
+  parking                 Int?
+  lotSize                 String
+  otherPropertyFeatures   String?
+  bedrooms                Int
+  bathrooms               Int
+  basement                String?
+  flooring                String
+  appliances              String?
+  otherInteriorFeatures   String?
+  schools                 String?
+  distanceToNearestSchool String?
+  shopping                String?
+  nightlife               String?
+  forKids                 String?
+  surroundingSuburbs      String?
+  propertyCategory        PROPERTY_CATEGORY
+  residentialCategory     RESIDENTIAL_CATEGORY?
+
+  images Image[]
+}
+
+model Image {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  url           String?
+  property      Property       @relation(fields: [propertyId], references: [id])
+  propertyId    String         @db.ObjectId
+  imageCategory IMAGE_CATEGORY
+}
+
+enum STATUS {
+  FOR_RENT
+  FOR_SALE
+  SOLD
+}
+
+enum IMAGE_CATEGORY {
+  INTERIOR
+  SURROUNDINGS
+  PROPERTY
+  MAIN
+  SUBMAIN
+}
+
+enum PROPERTY_CATEGORY {
+  RESIDENTIAL
+  COMMERCIAL
+  INDUSTRIAL
+  RAW_LAND
+  SPECIAL_USE
+  OFFICE
+}
+
+enum RESIDENTIAL_CATEGORY {
+  FREE_STANDING
+  DUPLEX
+  SIMPLEX
+  GRANNY_FLAT
+  FLAT
+  LUXURY
+  CONDO
+}
+
+model BlogPost {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  title          String?
+  subtitle1      String?
+  tableContents1 String?
+  tableContents2 String?
+  tableContents3 String?
+  tableContents4 String?
+  p1             String?
+  p2             String?
+  p3             String?
+  subtitle2      String?
+  p4             String?
+  p5             String?
+  l1             String?
+  l2             String?
+  l3             String?
+  l4             String?
+  l5             String?
+  subtitle3      String?
+  p6             String?
+  p7             String?
+  l6             String?
+  l7             String?
+  l8             String?
+  l9             String?
+  l10            String?
+  l11            String?
+  l12            String?
+  l13            String?
+  l14            String?
+  l15            String?
+  p8             String?
+  subtitle4      String?
+  conclusion1    String?
+  conclusion2    String?
+  conclusion3    String?
+  reference1     String?
+  reference2     String?
+  authorName     String?
+  authorAbout    String?
+  authorLink     String?
+  editedBy       String?
+  photoCredit    String?
+  mainImage      String?
+  publishedDate  String?
+}

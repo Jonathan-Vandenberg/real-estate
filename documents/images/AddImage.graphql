@@ -1,0 +1,7 @@
+# import Image from './ImageFragment.graphql'
+
+mutation AddImage($input: ImageInput!) {
+  addImage(input: $input) {
+    ...Image
+  }
+}

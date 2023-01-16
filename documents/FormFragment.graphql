@@ -1,0 +1,6 @@
+fragment Form on Form {
+  id
+  name
+  email
+  message
+}

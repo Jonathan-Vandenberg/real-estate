@@ -1,0 +1,271 @@
+type Query {
+  form(id: ID!): Form
+  allForms: [Form]
+
+  blogPosts: [BlogPost]
+  blogPost(id: ID!): BlogPost
+  blogCard: [BlogPost]
+
+  property(id: ID!): Property
+  allProperties: [Property]
+
+  allImages: [Image]
+  image(id: ID!): Image
+
+  allResidentialFeatures: [ResidentialFeatures]
+  allCommercialFeatures: [CommercialFeatures]
+}
+
+type Mutation {
+  addForm(input: FormInput!): Form
+
+  addBlogPost(input: BlogPostInput!): BlogPost
+  updateBlogPost(input: BlogPostInput!): BlogPost
+
+  addProperty(input: PropertyInput!): Property
+  updateProperty(input: PropertyInput!): Property
+
+  addImage(input: ImageInput!): Image
+  addImagesToProperty(propertyId: ID!, imagesIds: [ID]!): Property
+}
+
+type Form {
+  id: ID!
+  name: String!
+  email: String!
+  message: String!
+}
+
+input FormInput {
+  name: String!
+  email: String!
+  message: String!
+}
+
+type BlogPost {
+  id: ID!
+  title: String
+  subtitle1: String
+  tableContents1: String
+  tableContents2: String
+  tableContents3: String
+  tableContents4: String
+  p1: String
+  p2: String
+  p3: String
+  subtitle2: String
+  p4: String
+  p5: String
+  l1: String
+  l2: String
+  l3: String
+  l4: String
+  l5: String
+  subtitle3: String
+  p6: String
+  p7: String
+  l6: String
+  l7: String
+  l8: String
+  l9: String
+  l10: String
+  l11: String
+  l12: String
+  l13: String
+  l14: String
+  l15: String
+  p8: String
+  subtitle4: String
+  conclusion1: String
+  conclusion2: String
+  conclusion3: String
+  reference1: String
+  reference2: String
+  authorName: String
+  authorAbout: String
+  authorLink: String
+  editedBy: String
+  photoCredit: String
+  mainImage: String
+  publishedDate: String
+}
+
+input BlogPostInput {
+  id: ID!
+  title: String
+  subtitle1: String
+  tableContents1: String
+  tableContents2: String
+  tableContents3: String
+  tableContents4: String
+  p1: String
+  p2: String
+  p3: String
+  subtitle2: String
+  p4: String
+  p5: String
+  l1: String
+  l2: String
+  l3: String
+  l4: String
+  l5: String
+  subtitle3: String
+  p6: String
+  p7: String
+  l6: String
+  l7: String
+  l8: String
+  l9: String
+  l10: String
+  l11: String
+  l12: String
+  l13: String
+  l14: String
+  l15: String
+  p8: String
+  subtitle4: String
+  conclusion1: String
+  conclusion2: String
+  conclusion3: String
+  reference1: String
+  reference2: String
+  authorName: String
+  authorAbout: String
+  authorLink: String
+  editedBy: String
+  photoCredit: String
+  mainImage: String
+  publishedDate: String
+}
+
+type Property {
+  id: ID!
+  interior: String!
+  featured: Boolean
+  status: STATUS
+  title: String!
+  overview: String!
+  address: String!
+  price: String!
+  yearBuilt: String!
+  heating: String
+  cooling: String
+  parking: Int!
+  lotSize: String!
+  bedrooms: Int!
+  bathrooms: Int!
+  basement: String
+  flooring: String!
+  appliances: String
+  otherPropertyFeatures: String
+  otherInteriorFeatures: String
+  schools: String
+  distanceToNearestSchool: String
+  shopping: String
+  nightlife: String
+  forKids: String
+  surroundingSuburbs: String
+  propertyCategory: PROPERTY_CATEGORY!
+  residentialCategory: RESIDENTIAL_CATEGORY
+  images: [Image]
+  residentialFeatures: [ResidentialFeatures]
+}
+
+input PropertyInput {
+  id: ID!
+  interior: String!
+  featured: Boolean
+  status: STATUS
+  title: String!
+  overview: String!
+  address: String!
+  price: String!
+  yearBuilt: String!
+  heating: String
+  cooling: String
+  parking: Int!
+  lotSize: String!
+  bedrooms: Int!
+  bathrooms: Int!
+  basement: String
+  flooring: String!
+  appliances: String
+  otherPropertyFeatures: String
+  otherInteriorFeatures: String
+  schools: String
+  distanceToNearestSchool: String
+  shopping: String
+  nightlife: String
+  forKids: String
+  surroundingSuburbs: String
+  propertyCategory: PROPERTY_CATEGORY!
+  residentialCategory: RESIDENTIAL_CATEGORY
+}
+
+type ResidentialFeatures {
+  id: ID!
+  propertyId: ID!
+  residentialFeature: String
+}
+
+input ResidentialFeaturesInput {
+  propertyId: ID!
+  residentialFeature: String
+}
+
+type CommercialFeatures {
+  id: ID!
+  propertyId: ID!
+  commercialFeature: String
+}
+
+input CommercialFeaturesInput {
+  propertyId: ID!
+  commercialFeature: String
+}
+
+type Image {
+  id: ID!
+  propertyId: ID!
+  url: String
+  imageCategory: IMAGE_CATEGORY!
+}
+
+input ImageInput {
+  propertyId: ID!
+  url: String
+  imageCategory: IMAGE_CATEGORY!
+}
+
+enum STATUS {
+  FOR_RENT
+  FOR_SALE
+  SOLD
+}
+
+enum IMAGE_CATEGORY {
+  INTERIOR
+  SURROUNDINGS
+  PROPERTY
+  MAIN
+  SUBMAIN
+}
+
+enum PROPERTY_CATEGORY {
+  RESIDENTIAL
+  COMMERCIAL
+  INDUSTRIAL
+  RAW_LAND
+  SPECIAL_USE
+  OFFICE
+}
+
+enum RESIDENTIAL_CATEGORY {
+  FREE_STANDING
+  DUPLEX
+  SIMPLEX
+  GRANNY_FLAT
+  FLAT
+  LUXURY
+  CONDO
+}
