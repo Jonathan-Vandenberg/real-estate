@@ -44,37 +44,54 @@ export const Form = () => {
     <Container>
       <form
         onSubmit={onFinish}
-        className="max-w-[600px] mx-auto flex flex-col space-y-4 [&_div]:rounded-md [&_div]:text-md"
+        className="max-w-[600px] mx-auto flex flex-col space-y-6 [&_div]:rounded-md [&_div]:text-md"
       >
-        <div className="flex items-start  justify-center flex-col text-[rgb(0,0,0)]">
+        <div className="w-56 relative group mt-12">
           <input
             id="name"
             value={name as string}
-            placeholder="Name"
+            required
             onChange={(e) => setName(e.target.value)}
-            className="p-3 rounded-xl w-full text-[rgb(0,0,0)]"
+            className="w-full h-10 px-3 text-md peer bg-gray-100 outline-none rounded-lg"
           />
+          <label
+            htmlFor="name"
+            className="transform transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0"
+          >
+            Name
+          </label>
         </div>
-        <div className="flex items-start  justify-center flex-col">
+        <div className="w-56 relative group mt-12">
           <input
             id="email"
             value={email as string}
-            placeholder="Email"
+            required
             onChange={(e) => setEmail(e.target.value)}
-            className="p-3 rounded-xl w-full text-[rgb(0,0,0)]"
+            className="w-full h-10 px-3 text-md peer bg-gray-100 outline-none rounded-lg"
           />
+          <label
+            htmlFor="email"
+            className="transform transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0"
+          >
+            Email
+          </label>
         </div>
-        <div className="flex items-start  justify-center flex-col">
-          <textarea
-            rows={4}
-            cols={50}
+        <div className="w-56 relative group mt-12">
+          <input
+            id="message"
             value={message as string}
-            placeholder="Message"
+            required
             onChange={(e) => setMessage(e.target.value)}
-            className="text-[rgb(0,0,0)] p-3 rounded-xl w-full resize-none"
+            className="w-full h-10 px-3 text-md peer bg-gray-100 outline-none rounded-lg"
           />
+          <label
+            htmlFor="message"
+            className="transform transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0"
+          >
+            Message
+          </label>
         </div>
-        <button>Submit</button>
+        <Button className="text-md text-white w-auto mx-auto">Submit</Button>
       </form>
     </Container>
   );

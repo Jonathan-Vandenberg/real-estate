@@ -143,7 +143,7 @@ type Property {
   id: ID!
   interior: String!
   featured: Boolean
-  status: STATUS
+  status: Status
   title: String!
   overview: String!
   address: String!
@@ -166,8 +166,8 @@ type Property {
   nightlife: String
   forKids: String
   surroundingSuburbs: String
-  propertyCategory: PROPERTY_CATEGORY!
-  residentialCategory: RESIDENTIAL_CATEGORY
+  propertyCategory: Property_Category!
+  residentialCategory: Residential_Category
   images: [Image]
   residentialFeatures: [ResidentialFeatures]
 }
@@ -176,7 +176,7 @@ input PropertyInput {
   id: ID!
   interior: String!
   featured: Boolean
-  status: STATUS
+  status: Status
   title: String!
   overview: String!
   address: String!
@@ -199,8 +199,8 @@ input PropertyInput {
   nightlife: String
   forKids: String
   surroundingSuburbs: String
-  propertyCategory: PROPERTY_CATEGORY!
-  residentialCategory: RESIDENTIAL_CATEGORY
+  propertyCategory: Property_Category!
+  residentialCategory: Residential_Category
 }
 
 type ResidentialFeatures {
@@ -229,22 +229,22 @@ type Image {
   id: ID!
   propertyId: ID!
   url: String
-  imageCategory: IMAGE_CATEGORY!
+  imageCategory: Image_Category!
 }
 
 input ImageInput {
   propertyId: ID!
   url: String
-  imageCategory: IMAGE_CATEGORY!
+  imageCategory: Image_Category!
 }
 
-enum STATUS {
+enum Status {
   FOR_RENT
   FOR_SALE
   SOLD
 }
 
-enum IMAGE_CATEGORY {
+enum Image_Category {
   INTERIOR
   SURROUNDINGS
   PROPERTY
@@ -252,7 +252,7 @@ enum IMAGE_CATEGORY {
   SUBMAIN
 }
 
-enum PROPERTY_CATEGORY {
+enum Property_Category {
   RESIDENTIAL
   COMMERCIAL
   INDUSTRIAL
@@ -261,7 +261,7 @@ enum PROPERTY_CATEGORY {
   OFFICE
 }
 
-enum RESIDENTIAL_CATEGORY {
+enum Residential_Category {
   FREE_STANDING
   DUPLEX
   SIMPLEX

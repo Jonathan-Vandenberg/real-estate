@@ -6,6 +6,7 @@ import HomeContent from "../components/HomeContent";
 import HomeGallery from "../components/HomeGallery";
 import TeamMembers from "../components/TeamMembers";
 import JokeCard from "../components/JokeCard";
+import headerImage from "../public/headerImage.jpeg";
 
 const Home: NextPage = () => {
   return (
@@ -34,7 +35,12 @@ const Home: NextPage = () => {
         <meta property="og:locale" content="en_GB" />
       </Head>
       <main>
-        <Hero />
+        <Hero subHeading="Landmark Properties" image={headerImage} logo={true}>
+          <p>
+            Making a Mark on the <br /> Real Estate Industry
+          </p>
+        </Hero>
+
         <Container>
           <HomeContent />
         </Container>

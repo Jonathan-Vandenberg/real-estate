@@ -1,6 +1,6 @@
 import React from "react";
 import { statusOptionsType } from "../lib/property-types";
-import { STATUS } from "@prisma/client";
+import { Status } from "../types";
 import Collapsible from "react-collapsible";
 import SelectField from "./SelectResidential";
 
@@ -38,8 +38,8 @@ const RadioButtonGroup = ({
   selectedStatus,
   onStatusChange,
 }: {
-  value: STATUS | undefined | null;
-  selectedStatus: STATUS;
+  value: Status | undefined | null;
+  selectedStatus: Status;
   onStatusChange: (event: any) => void;
 }) => {
   return (

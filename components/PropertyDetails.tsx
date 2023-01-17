@@ -1,7 +1,9 @@
 import ModalImage from "react-modal-image";
-import { IMAGE_CATEGORY, Image, Property, STATUS } from "@prisma/client";
+import { Image_Category, Image, Property, Status } from "../types";
 import { statusOptionsType } from "../lib/property-types";
 import Map from "../components/Map";
+import classNames from "classnames";
+import { Property_Category } from "@prisma/client";
 
 export const ImageGallery = ({
   image,
@@ -16,7 +18,7 @@ export const ImageGallery = ({
   newId: string;
   add: boolean;
   property: Property | undefined | null;
-  category: IMAGE_CATEGORY;
+  category: Image_Category;
 }) => {
   return (
     <section className="pb-6">
@@ -53,14 +55,11 @@ export default function PropertyDetails({
 }) {
   let heroImage;
   image?.map((i) => {
-    if (i.propertyId === property.id && i.imageCategory === IMAGE_CATEGORY.MAIN)
+    if (i.propertyId === property.id && i.imageCategory === Image_Category.MAIN)
       heroImage = i.url;
   });
 
-  const styleStatus =
-    property?.status === STATUS.FOR_SALE || STATUS.FOR_RENT
-      ? "bg-[rgb(36,197,30)] w-3 h-3  rounded-full"
-      : "bg-[rgb(158,21,21)] w-3 h-3  rounded-full";
+  let styleStatus;
 
   return (
     <section>
@@ -90,7 +89,7 @@ export default function PropertyDetails({
                 property={property}
                 newId={newId}
                 add={add}
-                category={IMAGE_CATEGORY.SUBMAIN}
+                category={Image_Category.Submain}
               />
             </div>
           </div>
@@ -99,9 +98,15 @@ export default function PropertyDetails({
             <form className="space-y-4 lg:pt-8">
               <div>
                 <legend className="text-lg font-bold">Listing Status</legend>
-
                 <div className="space-x-2 flex items-center ">
-                  <span className={styleStatus} />
+                  <span
+                    className={classNames(
+                      "w-3 h-3 rounded-full",
+                      property?.status === Status.Sold
+                        ? "bg-[rgb(249,57,57)]"
+                        : "bg-[rgb(30,212,60)]"
+                    )}
+                  />
                   <p className="text-md">
                     {statusOptionsType.map((s) => {
                       if (s.value === property?.status) return s.label;
@@ -216,7 +221,7 @@ export default function PropertyDetails({
                 property={property}
                 newId={newId}
                 add={add}
-                category={IMAGE_CATEGORY.PROPERTY}
+                category={Image_Category.Property}
               />
             </div>
             <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light">
@@ -250,7 +255,7 @@ export default function PropertyDetails({
                 property={property}
                 newId={newId}
                 add={add}
-                category={IMAGE_CATEGORY.INTERIOR}
+                category={Image_Category.Interior}
               />
             </div>
 
@@ -289,7 +294,7 @@ export default function PropertyDetails({
                 property={property}
                 newId={newId}
                 add={add}
-                category={IMAGE_CATEGORY.SURROUNDINGS}
+                category={Image_Category.Surroundings}
               />
             </div>
           </div>

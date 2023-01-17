@@ -1,10 +1,15 @@
+import image1 from "../public/houseImage.jpeg";
+import image2 from "../public/houseImage1.jpeg";
+import image3 from "../public/heroImage.jpeg";
+import image4 from "../public/heroImage.jpeg";
+
 import Image from "next/image";
 export default function HomeGallery() {
   return (
     <section className="py-12">
       <div className="container grid grid-cols-2 gap-4 mx-auto md:grid-cols-4">
         <Image
-          src="https://source.unsplash.com/random/301x301/"
+          src={image1}
           alt="Gallery image"
           layout="responsive"
           width={600}
@@ -17,7 +22,7 @@ export default function HomeGallery() {
           width={600}
           height={600}
           className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-          src="https://source.unsplash.com/random/200x200/?0"
+          src={image2}
         />
         <Image
           alt="Gallery image"
@@ -25,7 +30,7 @@ export default function HomeGallery() {
           width={600}
           height={600}
           className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-          src="https://source.unsplash.com/random/200x200/?1"
+          src={image3}
         />
         <Image
           alt="Gallery image"
@@ -33,7 +38,7 @@ export default function HomeGallery() {
           width={600}
           height={600}
           className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-          src="https://source.unsplash.com/random/200x200/?2"
+          src={image4}
         />
         <div className="hidden md-block">
           <Image
@@ -42,7 +47,7 @@ export default function HomeGallery() {
             width={600}
             height={600}
             className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src="https://source.unsplash.com/random/200x200/?3"
+            src={image1}
           />
           <Image
             alt="Gallery image"
@@ -50,7 +55,7 @@ export default function HomeGallery() {
             width={600}
             height={600}
             className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src="https://source.unsplash.com/random/200x200/?4"
+            src={image2}
           />
           <Image
             alt="Gallery image"
@@ -58,7 +63,7 @@ export default function HomeGallery() {
             width={600}
             height={600}
             className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src="https://source.unsplash.com/random/200x200/?5"
+            src={image3}
           />
           <Image
             alt="Gallery image"
@@ -66,7 +71,7 @@ export default function HomeGallery() {
             width={600}
             height={600}
             className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src="https://source.unsplash.com/random/200x200/?6"
+            src={image4}
           />
           <Image
             alt="Gallery image"
@@ -74,10 +79,10 @@ export default function HomeGallery() {
             width={600}
             height={600}
             className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src="https://source.unsplash.com/random/200x200/?7"
+            src={image1}
           />
           <Image
-            src="https://source.unsplash.com/random/302x302/?8"
+            src={image2}
             alt="Gallery image"
             layout="responsive"
             width={600}
@@ -90,10 +95,10 @@ export default function HomeGallery() {
             width={600}
             height={600}
             className="w-full h-full shadow-sm min-h-48 dark:bg-gray-500 aspect-square"
-            src="https://source.unsplash.com/random/200x200/?9"
+            src={image3}
           />
           <Image
-            src="https://source.unsplash.com/random/302x302/?10"
+            src={image4}
             alt="Gallery image"
             layout="responsive"
             width={600}

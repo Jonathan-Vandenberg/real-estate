@@ -1,6 +1,6 @@
 import React from "react";
 import { propertyOptionsType } from "../lib/property-types";
-import { PROPERTY_CATEGORY, RESIDENTIAL_CATEGORY } from "@prisma/client";
+import { Property_Category, Residential_Category } from "../types";
 import Collapsible from "react-collapsible";
 import SelectField from "./SelectResidential";
 
@@ -38,11 +38,11 @@ const RadioButtonGroup = ({
   onResidentialChange,
   residentialCategory,
 }: {
-  value: PROPERTY_CATEGORY | undefined | null;
-  selectedPropertyCategory: PROPERTY_CATEGORY;
+  value: Property_Category | undefined | null;
+  selectedPropertyCategory: Property_Category;
   onPropertyChange: (event: any) => void;
   onResidentialChange: (event: any) => void;
-  residentialCategory: RESIDENTIAL_CATEGORY;
+  residentialCategory: Residential_Category;
 }) => {
   return (
     <>

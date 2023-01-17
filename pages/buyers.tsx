@@ -1,5 +1,10 @@
-import { BondCalculator } from "../components/Calculators";
+import { BondCalculator, PricePerSquareMeter } from "../components/Calculators";
 
 export default function buyers() {
-  return <BondCalculator />;
+  return (
+    <>
+      <BondCalculator />
+      <PricePerSquareMeter />
+    </>
+  );
 }

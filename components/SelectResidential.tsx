@@ -1,18 +1,18 @@
-import { RESIDENTIAL_CATEGORY } from "@prisma/client";
+import { Residential_Category } from "../types";
 import React from "react";
 
 export interface IOption {
-  value: RESIDENTIAL_CATEGORY | undefined | null;
+  value: Residential_Category | undefined | null;
   label: string;
 }
 
 export const options: IOption[] = [
-  { value: RESIDENTIAL_CATEGORY.FREE_STANDING, label: "Free Standing" },
-  { value: RESIDENTIAL_CATEGORY.DUPLEX, label: "Duplex" },
-  { value: RESIDENTIAL_CATEGORY.SIMPLEX, label: "Simplex" },
-  { value: RESIDENTIAL_CATEGORY.GRANNY_FLAT, label: "Granny Flat" },
-  { value: RESIDENTIAL_CATEGORY.FLAT, label: "Flat" },
-  { value: RESIDENTIAL_CATEGORY.LUXURY, label: "Luxury" },
+  { value: Residential_Category.FreeStanding, label: "Free Standing" },
+  { value: Residential_Category.Duplex, label: "Duplex" },
+  { value: Residential_Category.Simplex, label: "Simplex" },
+  { value: Residential_Category.GrannyFlat, label: "Granny Flat" },
+  { value: Residential_Category.Flat, label: "Flat" },
+  { value: Residential_Category.Luxury, label: "Luxury" },
 ];
 
 interface IProps {
@@ -32,7 +32,7 @@ const SelectField = ({ value, onChange }: IProps) => {
         {options.map((option) => (
           <option
             key={option.value}
-            value={option.value as RESIDENTIAL_CATEGORY}
+            value={option.value as Residential_Category}
           >
             {option.label}
           </option>

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 import React from "react";
-import { IMAGE_CATEGORY } from "@prisma/client";
+import { Image_Category } from "../types";
 import { Property } from "../types";
 import Furnished from "./svgs/Furnished";
 import { convertEnum } from "../lib/property-types";
@@ -26,13 +26,17 @@ export default function PropertyCard1({ property, image }: IProps) {
               <div className="shadow p-4 rounded-lg bg-white">
                 <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
                   <div className="transition-transform duration-500 transform ease-in-out hover:scale-110 w-full">
-                    {image.map((image) => {
+                    {image.map((image, i) => {
                       if (
                         image.propertyId === listing.id &&
-                        image.imageCategory === IMAGE_CATEGORY.MAIN
+                        image.imageCategory === Image_Category.MAIN
                       )
                         return (
-                          <>{image.url && <img src={image.url} alt="" />}</>
+                          <>
+                            {image.url && (
+                              <img key={i} src={image.url} alt="" />
+                            )}
+                          </>
                         );
                     })}
                     <div className="absolute inset-0 bg-black opacity-10"></div>

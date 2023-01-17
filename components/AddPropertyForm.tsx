@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import {
-  RESIDENTIAL_CATEGORY,
-  PROPERTY_CATEGORY,
+  Residential_Category,
+  Property_Category,
   Image,
-  IMAGE_CATEGORY,
-  STATUS,
+  Image_Category,
+  Status,
   Property,
-} from "@prisma/client";
-import {
   useAddImageMutation,
   useUpdatePropertyMutation,
   useAddPropertyMutation,
@@ -17,7 +15,8 @@ import RadioButtonGroup from "./RadioPropertyType";
 import UploadImage from "./UploadImage";
 import { ImageGallery } from "./PropertyDetails";
 import RadioStatus from "./RadioStatus";
-import Features from "./Features";
+import FeaturesResidential from "./FeaturesResidential";
+import FeaturesCommercial from "./FeaturesCommercial";
 
 interface IProps {
   property: Property | undefined | null;
@@ -63,7 +62,7 @@ export default function AddPropertyForm({
   const editOtherPropertyFeatures = add ? "" : property?.otherPropertyFeatures;
   const editResidentialCategory = add ? null : property?.residentialCategory;
   const editPropertyCategory = add
-    ? PROPERTY_CATEGORY.COMMERCIAL
+    ? Property_Category.Commercial
     : property?.propertyCategory;
 
   const [interior, setInterior] = useState(editInterior);
@@ -135,7 +134,7 @@ export default function AddPropertyForm({
         url: "https://landmark-real-eastate.s3.ap-southeast-1.amazonaws.com/houseImage1.jpeg",
         property: property,
         propertyId: newId,
-        imageCategory: IMAGE_CATEGORY.MAIN,
+        imageCategory: Image_Category.MAIN,
       },
     },
   };
@@ -146,7 +145,7 @@ export default function AddPropertyForm({
         id: add ? newId : property!.id,
         interior: interior,
         featured: featured,
-        status: status as STATUS,
+        status: status as Status,
         title: title,
         overview: overview,
         address: address,
@@ -170,8 +169,8 @@ export default function AddPropertyForm({
         appliances: appliances,
         otherPropertyFeatures: otherPropertyFeatures,
         residentialCategory:
-          selectedResidentialCategory as RESIDENTIAL_CATEGORY,
-        propertyCategory: selectedPropertyCategory as PROPERTY_CATEGORY,
+          selectedResidentialCategory as Residential_Category,
+        propertyCategory: selectedPropertyCategory as Property_Category,
       },
     },
   };
@@ -232,7 +231,7 @@ export default function AddPropertyForm({
   image?.map((i) => {
     if (
       i.propertyId === property?.id &&
-      i.imageCategory === IMAGE_CATEGORY.MAIN
+      i.imageCategory === Image_Category.Main
     ) {
       src = i.url;
     }
@@ -262,9 +261,9 @@ export default function AddPropertyForm({
             Listing Status
           </label>
           <RadioStatus
-            value={status as STATUS}
-            selectedStatus={status as STATUS}
-            onStatusChange={(event: { target: { value: STATUS } }) =>
+            value={status as Status}
+            selectedStatus={status as Status}
+            onStatusChange={(event: { target: { value: Status } }) =>
               setStatus(event.target.value)
             }
           />
@@ -281,7 +280,7 @@ export default function AddPropertyForm({
         ) : (
           <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
             <UploadImage
-              category={IMAGE_CATEGORY.MAIN}
+              category={Image_Category.MAIN}
               propertyId={add ? newId : property!.id}
             />
           </div>
@@ -318,7 +317,7 @@ export default function AddPropertyForm({
             showNoImage={true}
             image={image}
             property={property}
-            category={IMAGE_CATEGORY.SUBMAIN}
+            category={Image_Category.Submain}
           />
         </div>
 
@@ -326,7 +325,7 @@ export default function AddPropertyForm({
 
         <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
           <UploadImage
-            category={IMAGE_CATEGORY.SUBMAIN}
+            category={Image_Category.Submain}
             propertyId={add ? newId : property!.id}
           />
         </div>
@@ -338,7 +337,7 @@ export default function AddPropertyForm({
             showNoImage={true}
             image={image}
             property={property}
-            category={IMAGE_CATEGORY.PROPERTY}
+            category={Image_Category.Property}
           />
         </div>
 
@@ -348,14 +347,17 @@ export default function AddPropertyForm({
 
         <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
           <UploadImage
-            category={IMAGE_CATEGORY.PROPERTY}
+            category={Image_Category.Property}
             propertyId={add ? newId : property!.id}
           />
         </div>
 
         {/* listing status */}
         <div className="pb-4">
-          <Features />
+          <FeaturesResidential />
+        </div>
+        <div className="pb-4">
+          <FeaturesCommercial />
         </div>
 
         <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
@@ -412,24 +414,24 @@ export default function AddPropertyForm({
         </div>
 
         <RadioButtonGroup
-          value={selectedPropertyCategory as PROPERTY_CATEGORY}
+          value={selectedPropertyCategory as Property_Category}
           onPropertyChange={(event: {
-            target: { value: PROPERTY_CATEGORY };
+            target: { value: Property_Category };
           }) => {
-            if (event.target.value !== ("RESIDENTIAL" as PROPERTY_CATEGORY)) {
+            if (event.target.value !== ("RESIDENTIAL" as Property_Category)) {
               setPropertyCategory(event.target.value);
               setResidentialCategory(null);
             }
             setPropertyCategory(event.target.value);
           }}
           selectedPropertyCategory={
-            selectedPropertyCategory as PROPERTY_CATEGORY
+            selectedPropertyCategory as Property_Category
           }
           residentialCategory={
-            selectedResidentialCategory as RESIDENTIAL_CATEGORY
+            selectedResidentialCategory as Residential_Category
           }
           onResidentialChange={(event: {
-            target: { value: RESIDENTIAL_CATEGORY };
+            target: { value: Residential_Category };
           }) => {
             setResidentialCategory(event.target.value);
           }}
@@ -517,13 +519,13 @@ export default function AddPropertyForm({
             showNoImage={true}
             image={image}
             property={property}
-            category={IMAGE_CATEGORY.INTERIOR}
+            category={Image_Category.Interior}
           />
         </div>
 
         <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
           <UploadImage
-            category={IMAGE_CATEGORY.INTERIOR}
+            category={Image_Category.Interior}
             propertyId={add ? newId : property!.id}
           />
         </div>
@@ -617,13 +619,13 @@ export default function AddPropertyForm({
             showNoImage={true}
             image={image}
             property={property}
-            category={IMAGE_CATEGORY.SURROUNDINGS}
+            category={Image_Category.Surroundings}
           />
         </div>
 
         <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
           <UploadImage
-            category={IMAGE_CATEGORY.SURROUNDINGS}
+            category={Image_Category.Surroundings}
             propertyId={add ? newId : property!.id}
           />
         </div>

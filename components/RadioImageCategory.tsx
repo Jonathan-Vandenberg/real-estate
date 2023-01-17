@@ -1,6 +1,6 @@
 import React from "react";
 import { imageOptionsType } from "../lib/property-types";
-import { IMAGE_CATEGORY, RESIDENTIAL_CATEGORY } from "@prisma/client";
+import { Image_Category, Residential_Category } from "../types";
 import Collapsible from "react-collapsible";
 import SelectField from "./SelectResidential";
 
@@ -36,8 +36,8 @@ const RadioButtonGroup = ({
   selectedImageCategory,
   onImageChange,
 }: {
-  value: IMAGE_CATEGORY | undefined | null;
-  selectedImageCategory: IMAGE_CATEGORY;
+  value: Image_Category | undefined | null;
+  selectedImageCategory: Image_Category;
   onImageChange: (event: any) => void;
 }) => {
   return (

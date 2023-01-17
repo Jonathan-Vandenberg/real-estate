@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { S3 } from "aws-sdk";
 import { PutObjectRequest } from "aws-sdk/clients/s3";
-import { IMAGE_CATEGORY } from "@prisma/client";
+import { Image_Category } from "../types";
 import { useAddImageMutation } from "../types";
 
 interface FileInputProps {
@@ -9,7 +9,7 @@ interface FileInputProps {
   value: File | null;
 }
 interface UploadImageProps {
-  category: IMAGE_CATEGORY;
+  category: Image_Category;
   propertyId: string;
 }
 
@@ -34,8 +34,8 @@ const UploadImage: React.FC<UploadImageProps> = ({ category, propertyId }) => {
   function handleUpload() {
     const s3 = new S3({
       // dotenv not working
-      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+      accessKeyId: "AKIATKBDGLNGKIMAJMER",
+      secretAccessKey: "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",
     });
 
     const params = {

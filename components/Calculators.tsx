@@ -5,28 +5,32 @@ import classNames from "classnames";
 import { Button } from "./Button";
 
 export const BondCalculator = () => {
-  const [Area, setArea] = useState("");
+  const [principal, setPrincipal] = useState("");
   const [annualInterestRate, setAnnualInterestRate] = useState("");
   const [TotalPriceInYears, setTotalPriceInYears] = useState("");
   const [bondAnswer, setBondAnswer] = useState(0);
 
-  const [touchedArea, setTouchedArea] = useState(false);
+  const [touchedPrincipal, setTouchedPrincipal] = useState(false);
   const [touchedTotalPrice, setTouchedTotalPrice] = useState(false);
   const [touchedInterest, setTouchedInterest] = useState(false);
 
   interface ICalcProps {
-    Area: string;
+    principal: string;
     annualInterestRate: string;
     TotalPriceInYears: string;
   }
 
+  function formatMoney(num: number): string {
+    return num.toLocaleString("en-US");
+  }
+
   const CalculateBond = ({
-    Area,
+    principal,
     annualInterestRate,
     TotalPriceInYears,
   }: ICalcProps) => {
     const bond = bondRepayment(
-      +Area.replace(/[^0-9.]+/g, ""),
+      +principal.replace(/[^0-9.]+/g, ""),
       +annualInterestRate.replace(/[^0-9.]+/g, ""),
       +TotalPriceInYears.replace(/[^0-9.]+/g, "")
     );
@@ -42,18 +46,18 @@ export const BondCalculator = () => {
         </p>
         <div className="space-y-6">
           <div className="flex items-start  justify-center flex-col space-y-1 text-dark-gray">
-            <label htmlFor="Area">Area</label>
+            Principal
             <input
-              id="Area"
+              id="principal"
               required
-              onBlur={() => setTouchedArea(true)}
-              value={Area as string}
+              onBlur={() => setTouchedPrincipal(true)}
+              value={principal as string}
               placeholder="R 1, 250, 000"
-              onChange={(e) => setArea(e.target.value)}
+              onChange={(e) => setPrincipal(e.target.value)}
               className={classNames(
                 "p-3 rounded-xl w-full text-[rgb(0,0,0)]",
-                touchedArea
-                  ? Area == ""
+                touchedPrincipal
+                  ? principal == ""
                     ? "border-black border-2"
                     : "border-primary-text"
                   : null
@@ -80,9 +84,9 @@ export const BondCalculator = () => {
             />
           </div>
           <div className="flex items-start  justify-center flex-col space-y-1 text-dark-gray">
-            <label htmlFor="TotalPriceInYears">TotalPrice In Years</label>
+            <label htmlFor="TermtoMaturity">Term to Maturity</label>
             <input
-              id="TotalPriceInYears"
+              id="TermtoMaturity"
               required
               onBlur={() => setTouchedTotalPrice(true)}
               value={TotalPriceInYears as string}
@@ -99,17 +103,19 @@ export const BondCalculator = () => {
             />
           </div>
         </div>
-        {bondAnswer != 0 && (
+        {
           <div className="flex space-x-2">
             <p className="text-md">Monthly Repayment:</p>
-            <p className="text-lg font-bold">R {bondAnswer.toFixed(2)}</p>
+            <p className="text-lg font-bold">
+              R {bondAnswer != 0 && formatMoney(+bondAnswer.toFixed(2))}
+            </p>
           </div>
-        )}
+        }
         <Button
           className="text-md w-auto mx-auto text-white"
           onClick={() =>
             CalculateBond({
-              Area,
+              principal,
               annualInterestRate,
               TotalPriceInYears,
             })
@@ -125,78 +131,90 @@ export const BondCalculator = () => {
 
 //TODO Area Calculator
 
-// export const PricePerSquareMeter = () => {
-//   const [propertyArea, setPropertyArea] = useState(0);
-//   const [propertyTotalPrice, setPropertyTotalPrice] = useState(0);
-//   const [answer, setAnswer] = useState(0);
+export const PricePerSquareMeter = () => {
+  const [lotSize, setLotSize] = useState("");
+  const [propertyValue, setPropertyValue] = useState("");
+  const [answer, setAnswer] = useState(0);
 
-//   const [touchedArea, setTouchedArea] = useState(false);
-//   const [touchedPropertyTotal, setTouchedPropertyTotal] = useState(false);
+  const [touchedLotSize, setLotSizeTouched] = useState(false);
+  const [touchedPropertyValue, setTouchedPropertyValue] = useState(false);
 
-//   const pricePerSquareMeter = totalPrice / area;
+  function pricePerSquareMeter({
+    propertyValue,
+    lotSize,
+  }: {
+    propertyValue: string;
+    lotSize: string;
+  }) {
+    let answer =
+      +propertyValue.replace(/[^0-9.]+/g, "") /
+      +lotSize.replace(/[^0-9.]+/g, "");
 
-//   return (
-//     <Container>
-//       <div className="max-w-[600px] mx-auto flex flex-col space-y-8 [&_div]:rounded-md [&_div]:text-md">
-//         <p className="text-2xl text-center">Calculate the Price per m2</p>
-//         <div className="space-y-6">
-//           <div className="flex items-start  justify-center flex-col space-y-1 text-dark-gray">
-//             <label htmlFor="property-area">Property Area</label>
-//             <input
-//               id="property-area"
-//               required
-//               onBlur={() => setTouchedArea(true)}
-//               value={propertyArea as number}
-//               placeholder="1000"
-//               onChange={(e) => setPropertyArea(e.target.valueAsNumber)}
-//               className={classNames(
-//                 "p-3 rounded-xl w-full text-[rgb(0,0,0)]",
-//                 touchedArea && propertyArea === 0
-//                   ? "border-black  border-2"
-//                   : "border-primary-text"
-//               )}
-//             />
-//           </div>
-//           <div className="flex items-start  justify-center flex-col space-y-1 text-dark-gray">
-//             <label htmlFor="TotalPriceInYears">TotalPrice In Years</label>
-//             <input
-//               id="TotalPriceInYears"
-//               required
-//               onBlur={() => setTouchedPropertyTotal(true)}
-//               value={TotalPriceInYears as number}
-//               placeholder="20"
-//               onChange={(e) => setPropertyTotalPrice(e.target.value)}
-//               className={classNames(
-//                 "p-3 rounded-xl w-full text-[rgb(0,0,0)]",
-//                 touchedTotalPrice
-//                   ? TotalPriceInYears == ""
-//                     ? "border-black  border-2"
-//                     : "border-primary-text"
-//                   : null
-//               )}
-//             />
-//           </div>
-//         </div>
-//         {bondAnswer != 0 && (
-//           <div className="flex space-x-2">
-//             <p className="text-md">Monthly Repayment:</p>
-//             <p className="text-lg font-bold">R {bondAnswer.toFixed(2)}</p>
-//           </div>
-//         )}
-//         <Button
-//           className="text-md w-auto mx-auto text-white"
-//           onClick={() =>
-//             CalculateBond({
-//               Area,
-//               annualInterestRate,
-//               TotalPriceInYears,
-//             })
-//           }
-//           href={""}
-//         >
-//           Calculate
-//         </Button>
-//       </div>
-//     </Container>
-//   );
-// };
+    setAnswer(answer);
+  }
+
+  function formatMoney(num: number): string {
+    return num.toLocaleString("en-US");
+  }
+
+  return (
+    <Container>
+      <div className="max-w-[600px] mx-auto flex flex-col space-y-8 [&_div]:rounded-md [&_div]:text-md">
+        <p className="text-2xl text-center">Calculate the Price per m2</p>
+        <div className="space-y-6">
+          <div className="flex items-start  justify-center flex-col space-y-1 text-dark-gray">
+            <label htmlFor="property-area">Lot Size in m2</label>
+            <input
+              id="property-area"
+              required
+              onBlur={() => setLotSizeTouched(true)}
+              value={lotSize as string}
+              placeholder="1000m2"
+              onChange={(e) => setLotSize(e.target.value)}
+              className={classNames(
+                "p-3 rounded-xl w-full text-[rgb(0,0,0)]",
+                touchedLotSize && lotSize === ""
+                  ? "border-black  border-2"
+                  : "border-primary-text"
+              )}
+            />
+          </div>
+          <div className="flex items-start  justify-center flex-col space-y-1 text-dark-gray">
+            <label htmlFor="Value">Property Value</label>
+            <input
+              id="Value"
+              required
+              onBlur={() => setTouchedPropertyValue(true)}
+              value={propertyValue as string}
+              placeholder="R 800 000"
+              onChange={(e) => setPropertyValue(e.target.value)}
+              className={classNames(
+                "p-3 rounded-xl w-full text-[rgb(0,0,0)]",
+                touchedPropertyValue
+                  ? propertyValue == ""
+                    ? "border-black  border-2"
+                    : "border-primary-text"
+                  : null
+              )}
+            />
+          </div>
+        </div>
+        {answer != 0 && (
+          <div className="flex space-x-2">
+            <p className="text-md">Price Per m2:</p>
+            <p className="text-lg font-bold">
+              R {answer != 0 && formatMoney(+answer.toFixed(2))}
+            </p>
+          </div>
+        )}
+        <Button
+          className="text-md w-auto mx-auto text-white"
+          onClick={() => pricePerSquareMeter({ propertyValue, lotSize })}
+          href={""}
+        >
+          Calculate
+        </Button>
+      </div>
+    </Container>
+  );
+};

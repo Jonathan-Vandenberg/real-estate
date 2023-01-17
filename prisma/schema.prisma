@@ -65,7 +65,7 @@ model Property {
   id                      String                @id @default(auto()) @map("_id") @db.ObjectId
   interior                String
   featured                Boolean?
-  status                  STATUS?
+  status                  Status?
   title                   String
   overview                String
   address                 String
@@ -88,8 +88,8 @@ model Property {
   nightlife               String?
   forKids                 String?
   surroundingSuburbs      String?
-  propertyCategory        PROPERTY_CATEGORY
-  residentialCategory     RESIDENTIAL_CATEGORY?
+  propertyCategory        Property_Category
+  residentialCategory     Residential_Category?
 
   images Image[]
 }
@@ -99,16 +99,16 @@ model Image {
   url           String?
   property      Property       @relation(fields: [propertyId], references: [id])
   propertyId    String         @db.ObjectId
-  imageCategory IMAGE_CATEGORY
+  imageCategory Image_Category
 }
 
-enum STATUS {
+enum Status {
   FOR_RENT
   FOR_SALE
   SOLD
 }
 
-enum IMAGE_CATEGORY {
+enum Image_Category {
   INTERIOR
   SURROUNDINGS
   PROPERTY
@@ -116,7 +116,7 @@ enum IMAGE_CATEGORY {
   SUBMAIN
 }
 
-enum PROPERTY_CATEGORY {
+enum Property_Category {
   RESIDENTIAL
   COMMERCIAL
   INDUSTRIAL
@@ -125,7 +125,7 @@ enum PROPERTY_CATEGORY {
   OFFICE
 }
 
-enum RESIDENTIAL_CATEGORY {
+enum Residential_Category {
   FREE_STANDING
   DUPLEX
   SIMPLEX
@@ -182,32 +182,3 @@ model BlogPost {
   mainImage      String?
   publishedDate  String?
 }
-
-// # enumTypeSuffix: "Enum"
-// #   enumValues:
-// #     PROPERTY_CATEGORY:
-// #       values: 
-// #         RESIDENTIAL: "@prisma/client#RESIDENTIAL"
-// #         COMMERCIAL: "@prisma/client#COMMERCIAL"
-// #         INDUSTRIAL: "@prisma/client#INDUSTRIAL"
-// #         RAW_LAND: "@prisma/client#RAW_LAND"
-// #         SPECIAL_USE: "@prisma/client#SPECIAL_USE"
-// #         OFFICE: "@prisma/client#OFFICE"
-// #     RESIDENTIAL_CATEGORY:
-// #       FREE_STANDING: "@prisma/client#FREE_STANDING"
-// #       DUPLEX: "@prisma/client#DUPLEX"
-// #       SIMPLEX: "@prisma/client#SIMPLEX"
-// #       GRANNY_FLAT: "@prisma/client#GRANNY_FLAT"
-// #       FLAT: "@prisma/client#FLAT"
-// #       LUXURY: "@prisma/client#LUXURY"
-// #       CONDO: "@prisma/client#CONDO"
-// #     IMAGE_CATEGORY:
-// #       INTERIOR: "@prisma/client#INTERIOR"
-// #       SURROUNDINGS: "@prisma/client#SURROUNDINGS"
-// #       PROPERTY: "@prisma/client#PROPERTY"
-// #       MAIN: "@prisma/client#MAIN"
-// #       SUBMAIN: "@prisma/client#SUBMAIN"
-// #     STATUS:
-// #       FOR_RENT: "@prisma/client#FOR_RENT"
-// #       SOLD: "@prisma/client#FOR_SALE"
-// #       FOR_SALE: "@prisma/client#SOLD"
