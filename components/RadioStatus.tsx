@@ -1,8 +1,6 @@
 import React from "react";
 import { statusOptionsType } from "../lib/property-types";
 import { Status } from "../types";
-import Collapsible from "react-collapsible";
-import SelectField from "./SelectResidential";
 
 interface RadioButtonProps {
   label: string;

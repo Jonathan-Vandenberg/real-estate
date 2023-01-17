@@ -1,4 +1,4 @@
-import { MouseParallax, ScrollParallax } from "react-just-parallax";
+import { ScrollParallax } from "react-just-parallax";
 import backgroundParallax from "../../public/heroImage.jpeg";
 import Image from "next/image";
 import Link from "next/link";

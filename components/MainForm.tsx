@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Plus from "../components/svgs/Plus";
 import {
   BlogPost,
   useAddBlogPostMutation,
   useUpdateBlogPostMutation,
 } from "../types";
-import UploadImage from "./UploadImage";
 
 interface IProps {
   details: BlogPost | undefined | null;

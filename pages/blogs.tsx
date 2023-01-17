@@ -1,10 +1,8 @@
-import { PrismaClient } from "@prisma/client";
 import BlogPageHero from "../components/Blog/BlogPageHero";
 import { BlogPost } from "../types";
 import prisma from "../lib/prisma";
 import Head from "next/head";
 import { Container } from "../components/Container";
-import AddBlogPost from "../components/MainForm";
 
 interface IProps {
   data: BlogPost[];

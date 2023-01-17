@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { BlogPost } from "../../types";
 import image from "../../public/heroImage.jpeg";
+import { BlogPost } from "../../types";
 
 interface IHeroProps {
   data: BlogPost | undefined | null;

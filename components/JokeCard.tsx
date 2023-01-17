@@ -1,6 +1,5 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { jokes } from "../lib/jokes";
-import classNames from "classnames";
 
 export default function JokeCard() {
   const [joke, setJoke] = useState<IJoke>({

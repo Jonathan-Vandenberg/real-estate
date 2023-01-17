@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useState } from "react";
 import { Container } from "../components/Container";
 import PropertyCard1 from "../components/PropertyCard1";
 import prisma from "../lib/prisma";

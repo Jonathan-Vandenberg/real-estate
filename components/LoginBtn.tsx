@@ -1,31 +1,3 @@
-// import { useSession, signIn, signOut } from "next-auth/react";
-// import { Button } from "./Button";
-// export default function Component({
-//   children,
-//   className,
-// }: {
-//   children: React.ReactNode;
-//   className?: string;
-// }) {
-//   const { data: session } = useSession();
-//   if (session) {
-//     return (
-//       <>
-//         Signed in as {session?.user?.email} <br />
-//         <button onClick={() => signOut()}>Sign out</button>
-//       </>
-//     );
-//   }
-//   return (
-//     <>
-//       Not signed in <br />
-//       <Button onClick={() => signIn()} href={""} className="text-white">
-//         {children}
-//       </Button>
-//     </>
-//   );
-// }
-
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import placeholderImage from "../public/heroImage.jpeg";
