@@ -19,17 +19,19 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   onChange,
   checked,
 }) => (
-  <label className="inline-flex items-center">
+  <>
+    <label className="inline-flex items-center">
+      <p className="ml-2 text-md whitespace-nowrap">{label}</p>
+    </label>
     <input
       type="radio"
-      className="form-radio"
+      className="form-radio "
       value={value}
       name={name}
       onChange={onChange}
       checked={checked}
     />
-    <span className="ml-2 text-md">{label}</span>
-  </label>
+  </>
 );
 
 const RadioButtonGroup = ({

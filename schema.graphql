@@ -27,6 +27,7 @@ type Mutation {
 
   addImage(input: ImageInput!): Image
   addImagesToProperty(propertyId: ID!, imagesIds: [ID]!): Property
+  updateImage(id: ID!, input: ImageInput!): Image
 }
 
 type Form {

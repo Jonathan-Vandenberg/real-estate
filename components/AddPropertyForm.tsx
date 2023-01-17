@@ -15,6 +15,7 @@ import RadioButtonGroup from "./RadioPropertyType";
 import UploadImage from "./UploadImage";
 import { ImageGallery } from "./PropertyDetails";
 import RadioStatus from "./RadioStatus";
+import Features from "./Features";
 
 interface IProps {
   property: Property | undefined | null;
@@ -241,22 +242,20 @@ export default function AddPropertyForm({
         onSubmit={onFinish}
         className="space-y-1 py-4 max-w-[100rem] w-full mx-auto"
       >
-        <div className="max-w-[20rem] py-10 bg-white rounded-xl ml-3">
-          <div className="px-3 flex items-center w-full">
-            <label className="text-black font-bold w-full text-md">
-              Featured
-            </label>
-            <input
-              id="featured"
-              type="checkbox"
-              checked={featured as boolean}
-              placeholder="Featured"
-              onChange={(e) => setFeatured(e.target.checked)}
-              className="p-3 rounded-xl w-full"
-            />
-          </div>
+        <div className="px-3 flex items-center w-full py-10 bg-white rounded-xl ml-3">
+          <label className="text-black font-bold w-full text-md">
+            Featured
+          </label>
+          <input
+            id="featured"
+            type="checkbox"
+            checked={featured as boolean}
+            placeholder="Featured"
+            onChange={(e) => setFeatured(e.target.checked)}
+            className="p-3 rounded-xl w-full"
+          />
         </div>
-        <div className="px-3 flex items-center pt-3 w-full">
+        <div className="px-3 flex items-center w-full py-10 bg-white rounded-xl ml-3">
           <label className="text-black font-bold w-full text-md whitespace-nowrap">
             Listing Status
           </label>
@@ -353,7 +352,9 @@ export default function AddPropertyForm({
         </div>
 
         {/* listing status */}
-        {/* features */}
+        <div className="pb-4">
+          <Features />
+        </div>
 
         <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold" htmlFor="bedrooms">

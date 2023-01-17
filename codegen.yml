@@ -1,5 +1,5 @@
 overwrite: true
-schema: "schema.prisma"
+schema: "schema.graphql"
 documents: "**/*.graphql"
 generates:
   types.ts:
@@ -14,7 +14,7 @@ generates:
         Form: "@prisma/client#Form"
         Property: "@prisma/client#Property"
         BlogPost: "@prisma/client#BlogPost"
-        InteriorImage: "@prisma/client#InteriorImage"
+        Image: "@prisma/client#Image"
         # Session: "@prisma/client#Session"
         # User: "@prisma/client#User"
         # Account: "@prisma/client#Account"

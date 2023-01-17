@@ -274,6 +274,25 @@ const resolvers: Resolvers = {
       });
       return interiorImage;
     },
+    // updateImage: async (_, { id, input }, { prisma }) => {
+    //   const interiorImage = await prisma.image.update({
+    //     where:{id: id},
+    //     data: {
+    //       url: input!.url,
+    //       propertyId: input!.propertyId,
+    //       imageCategory: input!.imageCategory,
+    //     }
+    //   });
+    //   await prisma.property.update({
+    //     where: { id: input.propertyId },
+    //     data: {
+    //       images: {
+    //         connect: { id: interiorImage.id },
+    //       },
+    //     },
+    //   });
+    //   return interiorImage;
+    // },
   },
 };
 

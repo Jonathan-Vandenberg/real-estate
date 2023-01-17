@@ -18,7 +18,7 @@ export default function PropertyCard1({ property, image }: IProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {property.map((listing, i) => (
             <a
-              key={i}
+              key={listing.id}
               href={`/property/${listing.id}`}
               className="relative inline-block duration-300 ease-in-out transition-[transform, shadow] transform hover:-translate-y-1 w-full hover:drop-shadow-md hover:ease-in-out"
             >

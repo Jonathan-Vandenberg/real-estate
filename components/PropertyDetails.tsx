@@ -65,7 +65,7 @@ export default function PropertyDetails({
 
   return (
     <section>
-      <div className="relative mx-auto px-4 pt-8 md:max-w-[110rem]">
+      <div className="relative mx-auto px-4 pt-8 md:max-w-[110rem] bg-white">
         <div>
           <h1 className="text-2xl font-bold lg:text-3xl">{property?.title}</h1>
 
@@ -96,7 +96,7 @@ export default function PropertyDetails({
             </div>
           </div>
 
-          <div className="lg:sticky lg:top-[var(--navigation-height)]">
+          <div className="border-black border-[0.1rem] mt-4 p-3 rounded-xl lg:sticky lg:top-[calc(var(--navigation-height)+0.1rem)]">
             <form className="space-y-4 lg:pt-8">
               <div>
                 <legend className="text-lg font-bold">Listing Status</legend>

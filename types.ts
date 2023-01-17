@@ -3,7 +3,7 @@ import { RESIDENTIAL_CATEGORY } from '@prisma/client';
 import { IMAGE_CATEGORY } from '@prisma/client';
 import { STATUS } from '@prisma/client';
 import { GraphQLResolveInfo } from 'graphql';
-import { Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, InteriorImage as InteriorImageModel } from '@prisma/client';
+import { Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, Image as ImageModel } from '@prisma/client';
 import { GraphQLContext } from './pages/api/index';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -121,6 +121,18 @@ export type BlogPostInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type CommercialFeatures = {
+  __typename?: 'CommercialFeatures';
+  commercialFeature?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  propertyId: Scalars['ID'];
+};
+
+export type CommercialFeaturesInput = {
+  commercialFeature?: InputMaybe<Scalars['String']>;
+  propertyId: Scalars['ID'];
+};
+
 export type Form = {
   __typename?: 'Form';
   email: Scalars['String'];
@@ -159,6 +171,7 @@ export type Mutation = {
   addImagesToProperty?: Maybe<Property>;
   addProperty?: Maybe<Property>;
   updateBlogPost?: Maybe<BlogPost>;
+  updateImage?: Maybe<Image>;
   updateProperty?: Maybe<Property>;
 };
 
@@ -194,6 +207,12 @@ export type MutationUpdateBlogPostArgs = {
 };
 
 
+export type MutationUpdateImageArgs = {
+  id: Scalars['ID'];
+  input: ImageInput;
+};
+
+
 export type MutationUpdatePropertyArgs = {
   input: PropertyInput;
 };
@@ -225,6 +244,7 @@ export type Property = {
   price: Scalars['String'];
   propertyCategory: PROPERTY_CATEGORY;
   residentialCategory?: Maybe<RESIDENTIAL_CATEGORY>;
+  residentialFeatures?: Maybe<Array<Maybe<ResidentialFeatures>>>;
   schools?: Maybe<Scalars['String']>;
   shopping?: Maybe<Scalars['String']>;
   status?: Maybe<STATUS>;
@@ -266,9 +286,11 @@ export type PropertyInput = {
 
 export type Query = {
   __typename?: 'Query';
+  allCommercialFeatures?: Maybe<Array<Maybe<CommercialFeatures>>>;
   allForms?: Maybe<Array<Maybe<Form>>>;
   allImages?: Maybe<Array<Maybe<Image>>>;
   allProperties?: Maybe<Array<Maybe<Property>>>;
+  allResidentialFeatures?: Maybe<Array<Maybe<ResidentialFeatures>>>;
   blogCard?: Maybe<Array<Maybe<BlogPost>>>;
   blogPost?: Maybe<BlogPost>;
   blogPosts?: Maybe<Array<Maybe<BlogPost>>>;
@@ -298,6 +320,18 @@ export type QueryPropertyArgs = {
 };
 
 export { RESIDENTIAL_CATEGORY };
+
+export type ResidentialFeatures = {
+  __typename?: 'ResidentialFeatures';
+  id: Scalars['ID'];
+  propertyId: Scalars['ID'];
+  residentialFeature?: Maybe<Scalars['String']>;
+};
+
+export type ResidentialFeaturesInput = {
+  propertyId: Scalars['ID'];
+  residentialFeature?: InputMaybe<Scalars['String']>;
+};
 
 export { STATUS };
 
@@ -373,11 +407,13 @@ export type ResolversTypes = {
   BlogPost: ResolverTypeWrapper<BlogPostModel>;
   BlogPostInput: BlogPostInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CommercialFeatures: ResolverTypeWrapper<CommercialFeatures>;
+  CommercialFeaturesInput: CommercialFeaturesInput;
   Form: ResolverTypeWrapper<FormModel>;
   FormInput: FormInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   IMAGE_CATEGORY: IMAGE_CATEGORY;
-  Image: ResolverTypeWrapper<Image>;
+  Image: ResolverTypeWrapper<ImageModel>;
   ImageInput: ImageInput;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -386,6 +422,8 @@ export type ResolversTypes = {
   PropertyInput: PropertyInput;
   Query: ResolverTypeWrapper<{}>;
   RESIDENTIAL_CATEGORY: RESIDENTIAL_CATEGORY;
+  ResidentialFeatures: ResolverTypeWrapper<ResidentialFeatures>;
+  ResidentialFeaturesInput: ResidentialFeaturesInput;
   STATUS: STATUS;
   String: ResolverTypeWrapper<Scalars['String']>;
 };
@@ -395,16 +433,20 @@ export type ResolversParentTypes = {
   BlogPost: BlogPostModel;
   BlogPostInput: BlogPostInput;
   Boolean: Scalars['Boolean'];
+  CommercialFeatures: CommercialFeatures;
+  CommercialFeaturesInput: CommercialFeaturesInput;
   Form: FormModel;
   FormInput: FormInput;
   ID: Scalars['ID'];
-  Image: Image;
+  Image: ImageModel;
   ImageInput: ImageInput;
   Int: Scalars['Int'];
   Mutation: {};
   Property: PropertyModel;
   PropertyInput: PropertyInput;
   Query: {};
+  ResidentialFeatures: ResidentialFeatures;
+  ResidentialFeaturesInput: ResidentialFeaturesInput;
   String: Scalars['String'];
 };
 
@@ -457,6 +499,13 @@ export type BlogPostResolvers<ContextType = GraphQLContext, ParentType extends R
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CommercialFeaturesResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['CommercialFeatures'] = ResolversParentTypes['CommercialFeatures']> = {
+  commercialFeature?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  propertyId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type FormResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Form'] = ResolversParentTypes['Form']> = {
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -482,6 +531,7 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   addImagesToProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationAddImagesToPropertyArgs, 'imagesIds' | 'propertyId'>>;
   addProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationAddPropertyArgs, 'input'>>;
   updateBlogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<MutationUpdateBlogPostArgs, 'input'>>;
+  updateImage?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<MutationUpdateImageArgs, 'id' | 'input'>>;
   updateProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationUpdatePropertyArgs, 'input'>>;
 };
 
@@ -511,6 +561,7 @@ export type PropertyResolvers<ContextType = GraphQLContext, ParentType extends R
   price?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   propertyCategory?: Resolver<ResolversTypes['PROPERTY_CATEGORY'], ParentType, ContextType>;
   residentialCategory?: Resolver<Maybe<ResolversTypes['RESIDENTIAL_CATEGORY']>, ParentType, ContextType>;
+  residentialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ResidentialFeatures']>>>, ParentType, ContextType>;
   schools?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   shopping?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['STATUS']>, ParentType, ContextType>;
@@ -521,9 +572,11 @@ export type PropertyResolvers<ContextType = GraphQLContext, ParentType extends R
 };
 
 export type QueryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  allCommercialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommercialFeatures']>>>, ParentType, ContextType>;
   allForms?: Resolver<Maybe<Array<Maybe<ResolversTypes['Form']>>>, ParentType, ContextType>;
   allImages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Image']>>>, ParentType, ContextType>;
   allProperties?: Resolver<Maybe<Array<Maybe<ResolversTypes['Property']>>>, ParentType, ContextType>;
+  allResidentialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ResidentialFeatures']>>>, ParentType, ContextType>;
   blogCard?: Resolver<Maybe<Array<Maybe<ResolversTypes['BlogPost']>>>, ParentType, ContextType>;
   blogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<QueryBlogPostArgs, 'id'>>;
   blogPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['BlogPost']>>>, ParentType, ContextType>;
@@ -534,10 +587,18 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
 
 export type Residential_CategoryResolvers = EnumResolverSignature<{ CONDO?: any, DUPLEX?: any, FLAT?: any, FREE_STANDING?: any, GRANNY_FLAT?: any, LUXURY?: any, SIMPLEX?: any }, ResolversTypes['RESIDENTIAL_CATEGORY']>;
 
+export type ResidentialFeaturesResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['ResidentialFeatures'] = ResolversParentTypes['ResidentialFeatures']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  propertyId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  residentialFeature?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type StatusResolvers = EnumResolverSignature<{ FOR_RENT?: any, FOR_SALE?: any, SOLD?: any }, ResolversTypes['STATUS']>;
 
 export type Resolvers<ContextType = GraphQLContext> = {
   BlogPost?: BlogPostResolvers<ContextType>;
+  CommercialFeatures?: CommercialFeaturesResolvers<ContextType>;
   Form?: FormResolvers<ContextType>;
   IMAGE_CATEGORY?: Image_CategoryResolvers;
   Image?: ImageResolvers<ContextType>;
@@ -546,6 +607,7 @@ export type Resolvers<ContextType = GraphQLContext> = {
   Property?: PropertyResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   RESIDENTIAL_CATEGORY?: Residential_CategoryResolvers;
+  ResidentialFeatures?: ResidentialFeaturesResolvers<ContextType>;
   STATUS?: StatusResolvers;
 };
 
