@@ -1,6 +1,6 @@
 import React from "react";
 import { statusOptionsType } from "../lib/property-types";
-import { STATUS } from "../types";
+import { STATUS } from "@prisma/client";
 import Collapsible from "react-collapsible";
 import SelectField from "./SelectResidential";
 

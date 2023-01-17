@@ -1,6 +1,6 @@
 import React from "react";
 import { propertyOptionsType } from "../lib/property-types";
-import { PROPERTY_CATEGORY, RESIDENTIAL_CATEGORY } from "../types";
+import { PROPERTY_CATEGORY, RESIDENTIAL_CATEGORY } from "@prisma/client";
 import Collapsible from "react-collapsible";
 import SelectField from "./SelectResidential";
 

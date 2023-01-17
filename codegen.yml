@@ -4,22 +4,55 @@ documents: "**/*.graphql"
 generates:
   types.ts:
     config:
+      contextType: ./pages/api/index#GraphQLContext
       enumValues:
-        PROPERTY_CATEGORY: "@prisma/client#PROPERTY_CATEGORY"
-        RESIDENTIAL_CATEGORY: "@prisma/client#RESIDENTIAL_CATEGORY"
-        IMAGE_CATEGORY: "@prisma/client#IMAGE_CATEGORY"
-        STATUS: "@prisma/client#STATUS"
+        PROPERTY_CATEGORY:
+          enumName: PROPERTY_CATEGORY
+          values:
+            RESIDENTIAL: "@prisma/client#RESIDENTIAL"
+            COMMERCIAL: "@prisma/client#COMMERCIAL"
+            INDUSTRIAL: "@prisma/client#INDUSTRIAL"
+            RAW_LAND: "@prisma/client#RAW_LAND"
+            SPECIAL_USE: "@prisma/client#SPECIAL_USE"
+            OFFICE: "@prisma/client#OFFICE"
+        RESIDENTIAL_CATEGORY:
+          enumName: RESIDENTIAL_CATEGORY
+          values:
+            FREE_STANDING: "@prisma/client#FREE_STANDING"
+            DUPLEX: "@prisma/client#DUPLEX"
+            SIMPLEX: "@prisma/client#SIMPLEX"
+            GRANNY_FLAT: "@prisma/client#GRANNY_FLAT"
+            FLAT: "@prisma/client#FLAT"
+            LUXURY: "@prisma/client#LUXURY"
+            CONDO: "@prisma/client#CONDO"
+        IMAGE_CATEGORY:
+          enumName: IMAGE_CATEGORY
+          values:
+            INTERIOR: "@prisma/client#INTERIOR"
+            SURROUNDINGS: "@prisma/client#SURROUNDINGS"
+            PROPERTY: "@prisma/client#PROPERTY"
+            MAIN: "@prisma/client#MAIN"
+            SUBMAIN: "@prisma/client#SUBMAIN"
+        STATUS:
+          enumName: STATUS
+          values:
+            FOR_RENT: "@prisma/client#FOR_RENT"
+            SOLD: "@prisma/client#FOR_SALE"
+            FOR_SALE: "@prisma/client#SOLD"
       mapperTypeSuffix: Model
       mappers:
         Form: "@prisma/client#Form"
         Property: "@prisma/client#Property"
         BlogPost: "@prisma/client#BlogPost"
         Image: "@prisma/client#Image"
+        # PROPERTY_CATEGORY: "@prisma/client#PROPERTY_CATEGORY"
+        # RESIDENTIAL_CATEGORY: "@prisma/client#RESIDENTIAL_CATEGORY"
+        # IMAGE_CATEGORY: "@prisma/client#IMAGE_CATEGORY"
+        # STATUS: "@prisma/client#STATUS"
         # Session: "@prisma/client#Session"
         # User: "@prisma/client#User"
         # Account: "@prisma/client#Account"
         # VerificationToken: "@prisma/client#VerificationToken"
-      contextType: ./pages/api/index#GraphQLContext
     plugins:
       - "typescript"
       - "typescript-resolvers"

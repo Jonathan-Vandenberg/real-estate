@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Script from "next/script";
 import React from "react";
-import { IMAGE_CATEGORY, Property } from "../types";
+import { IMAGE_CATEGORY } from "@prisma/client";
+import { Property } from "../types";
 import Furnished from "./svgs/Furnished";
 import { convertEnum } from "../lib/property-types";
 import { Image } from "../types";

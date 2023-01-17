@@ -1,6 +1,5 @@
 import ModalImage from "react-modal-image";
-import { IMAGE_CATEGORY, Image, Property, STATUS } from "../types";
-import classNames from "classnames";
+import { IMAGE_CATEGORY, Image, Property, STATUS } from "@prisma/client";
 import { statusOptionsType } from "../lib/property-types";
 import Map from "../components/Map";
 

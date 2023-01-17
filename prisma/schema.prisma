@@ -73,7 +73,7 @@ model Property {
   yearBuilt               String
   heating                 String?
   cooling                 String?
-  parking                 Int?
+  parking                 Int
   lotSize                 String
   otherPropertyFeatures   String?
   bedrooms                Int
@@ -182,3 +182,32 @@ model BlogPost {
   mainImage      String?
   publishedDate  String?
 }
+
+// # enumTypeSuffix: "Enum"
+// #   enumValues:
+// #     PROPERTY_CATEGORY:
+// #       values: 
+// #         RESIDENTIAL: "@prisma/client#RESIDENTIAL"
+// #         COMMERCIAL: "@prisma/client#COMMERCIAL"
+// #         INDUSTRIAL: "@prisma/client#INDUSTRIAL"
+// #         RAW_LAND: "@prisma/client#RAW_LAND"
+// #         SPECIAL_USE: "@prisma/client#SPECIAL_USE"
+// #         OFFICE: "@prisma/client#OFFICE"
+// #     RESIDENTIAL_CATEGORY:
+// #       FREE_STANDING: "@prisma/client#FREE_STANDING"
+// #       DUPLEX: "@prisma/client#DUPLEX"
+// #       SIMPLEX: "@prisma/client#SIMPLEX"
+// #       GRANNY_FLAT: "@prisma/client#GRANNY_FLAT"
+// #       FLAT: "@prisma/client#FLAT"
+// #       LUXURY: "@prisma/client#LUXURY"
+// #       CONDO: "@prisma/client#CONDO"
+// #     IMAGE_CATEGORY:
+// #       INTERIOR: "@prisma/client#INTERIOR"
+// #       SURROUNDINGS: "@prisma/client#SURROUNDINGS"
+// #       PROPERTY: "@prisma/client#PROPERTY"
+// #       MAIN: "@prisma/client#MAIN"
+// #       SUBMAIN: "@prisma/client#SUBMAIN"
+// #     STATUS:
+// #       FOR_RENT: "@prisma/client#FOR_RENT"
+// #       SOLD: "@prisma/client#FOR_SALE"
+// #       FOR_SALE: "@prisma/client#SOLD"

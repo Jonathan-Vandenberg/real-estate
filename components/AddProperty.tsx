@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddPropertyForm from "./AddPropertyForm";
 import Plus from "./svgs/Plus";
-import { Image, Property } from "../types";
+import { Image, Property } from "@prisma/client";
 import Edit from "./svgs/Edit";
 
 interface IData {

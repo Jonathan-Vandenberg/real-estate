@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { S3 } from "aws-sdk";
 import { PutObjectRequest } from "aws-sdk/clients/s3";
-import { IMAGE_CATEGORY, useAddImageMutation } from "../types";
+import { IMAGE_CATEGORY } from "@prisma/client";
+import { useAddImageMutation } from "../types";
 
 interface FileInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

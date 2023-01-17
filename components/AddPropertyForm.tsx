@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import {
-  useAddPropertyMutation,
-  useUpdatePropertyMutation,
-  Property,
   RESIDENTIAL_CATEGORY,
   PROPERTY_CATEGORY,
-  useAddImageMutation,
   Image,
   IMAGE_CATEGORY,
   STATUS,
+  Property,
+} from "@prisma/client";
+import {
+  useAddImageMutation,
+  useUpdatePropertyMutation,
+  useAddPropertyMutation,
 } from "../types";
 import { Button } from "./Button";
 import RadioButtonGroup from "./RadioPropertyType";

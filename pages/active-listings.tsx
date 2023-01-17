@@ -6,11 +6,11 @@ import prisma from "../lib/prisma";
 import { Image, Property } from "../types";
 
 interface IProps {
-  data: Property[];
+  property: Property[];
   image: Image[];
 }
 
-export default function ActiveListings({ data, image }: IProps) {
+export default function ActiveListings({ property, image }: IProps) {
   return (
     <>
       <Head>
@@ -42,19 +42,19 @@ export default function ActiveListings({ data, image }: IProps) {
         <p>Active Listings</p>
       </div>
       <Container>
-        <PropertyCard1 image={image} property={data} />
+        <PropertyCard1 image={image} property={property} />
       </Container>
     </>
   );
 }
 
 export async function getStaticProps() {
-  const data = await prisma.property.findMany();
+  const property = await prisma.property.findMany();
   const image = await prisma.image.findMany();
 
   return {
     props: {
-      data,
+      property,
       image,
     },
   };

@@ -1,7 +1,3 @@
-import { PROPERTY_CATEGORY } from '@prisma/client';
-import { RESIDENTIAL_CATEGORY } from '@prisma/client';
-import { IMAGE_CATEGORY } from '@prisma/client';
-import { STATUS } from '@prisma/client';
 import { GraphQLResolveInfo } from 'graphql';
 import { Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, Image as ImageModel } from '@prisma/client';
 import { GraphQLContext } from './pages/api/index';
@@ -12,7 +8,6 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type EnumResolverSignature<T, AllowedValues = any> = { [key in keyof T]?: AllowedValues };
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
@@ -147,7 +142,13 @@ export type FormInput = {
   name: Scalars['String'];
 };
 
-export { IMAGE_CATEGORY };
+export enum Image_Category {
+  Interior = 'INTERIOR',
+  Main = 'MAIN',
+  Property = 'PROPERTY',
+  Submain = 'SUBMAIN',
+  Surroundings = 'SURROUNDINGS'
+}
 
 export type Image = {
   __typename?: 'Image';
@@ -217,7 +218,14 @@ export type MutationUpdatePropertyArgs = {
   input: PropertyInput;
 };
 
-export { PROPERTY_CATEGORY };
+export enum Property_Category {
+  Commercial = 'COMMERCIAL',
+  Industrial = 'INDUSTRIAL',
+  Office = 'OFFICE',
+  RawLand = 'RAW_LAND',
+  Residential = 'RESIDENTIAL',
+  SpecialUse = 'SPECIAL_USE'
+}
 
 export type Property = {
   __typename?: 'Property';
@@ -319,7 +327,15 @@ export type QueryPropertyArgs = {
   id: Scalars['ID'];
 };
 
-export { RESIDENTIAL_CATEGORY };
+export enum Residential_Category {
+  Condo = 'CONDO',
+  Duplex = 'DUPLEX',
+  Flat = 'FLAT',
+  FreeStanding = 'FREE_STANDING',
+  GrannyFlat = 'GRANNY_FLAT',
+  Luxury = 'LUXURY',
+  Simplex = 'SIMPLEX'
+}
 
 export type ResidentialFeatures = {
   __typename?: 'ResidentialFeatures';
@@ -333,7 +349,11 @@ export type ResidentialFeaturesInput = {
   residentialFeature?: InputMaybe<Scalars['String']>;
 };
 
-export { STATUS };
+export enum Status {
+  ForRent = 'FOR_RENT',
+  ForSale = 'FOR_SALE',
+  Sold = 'SOLD'
+}
 
 
 
@@ -412,19 +432,19 @@ export type ResolversTypes = {
   Form: ResolverTypeWrapper<FormModel>;
   FormInput: FormInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  IMAGE_CATEGORY: IMAGE_CATEGORY;
+  IMAGE_CATEGORY: Image_Category;
   Image: ResolverTypeWrapper<ImageModel>;
   ImageInput: ImageInput;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
-  PROPERTY_CATEGORY: PROPERTY_CATEGORY;
+  PROPERTY_CATEGORY: Property_Category;
   Property: ResolverTypeWrapper<PropertyModel>;
   PropertyInput: PropertyInput;
   Query: ResolverTypeWrapper<{}>;
-  RESIDENTIAL_CATEGORY: RESIDENTIAL_CATEGORY;
+  RESIDENTIAL_CATEGORY: Residential_Category;
   ResidentialFeatures: ResolverTypeWrapper<ResidentialFeatures>;
   ResidentialFeaturesInput: ResidentialFeaturesInput;
-  STATUS: STATUS;
+  STATUS: Status;
   String: ResolverTypeWrapper<Scalars['String']>;
 };
 
@@ -514,7 +534,7 @@ export type FormResolvers<ContextType = GraphQLContext, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Image_CategoryResolvers = EnumResolverSignature<{ INTERIOR?: any, MAIN?: any, PROPERTY?: any, SUBMAIN?: any, SURROUNDINGS?: any }, ResolversTypes['IMAGE_CATEGORY']>;
+export type Image_CategoryResolvers = { INTERIOR: 'undefined', MAIN: 'undefined', PROPERTY: 'undefined', SUBMAIN: 'undefined', SURROUNDINGS: 'undefined' };
 
 export type ImageResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -535,7 +555,7 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   updateProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationUpdatePropertyArgs, 'input'>>;
 };
 
-export type Property_CategoryResolvers = EnumResolverSignature<{ COMMERCIAL?: any, INDUSTRIAL?: any, OFFICE?: any, RAW_LAND?: any, RESIDENTIAL?: any, SPECIAL_USE?: any }, ResolversTypes['PROPERTY_CATEGORY']>;
+export type Property_CategoryResolvers = { COMMERCIAL: 'undefined', INDUSTRIAL: 'undefined', OFFICE: 'undefined', RAW_LAND: 'undefined', RESIDENTIAL: 'undefined', SPECIAL_USE: 'undefined' };
 
 export type PropertyResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Property'] = ResolversParentTypes['Property']> = {
   address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -585,7 +605,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   property?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<QueryPropertyArgs, 'id'>>;
 };
 
-export type Residential_CategoryResolvers = EnumResolverSignature<{ CONDO?: any, DUPLEX?: any, FLAT?: any, FREE_STANDING?: any, GRANNY_FLAT?: any, LUXURY?: any, SIMPLEX?: any }, ResolversTypes['RESIDENTIAL_CATEGORY']>;
+export type Residential_CategoryResolvers = { CONDO: 'undefined', DUPLEX: 'undefined', FLAT: 'undefined', FREE_STANDING: 'undefined', GRANNY_FLAT: 'undefined', LUXURY: 'undefined', SIMPLEX: 'undefined' };
 
 export type ResidentialFeaturesResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['ResidentialFeatures'] = ResolversParentTypes['ResidentialFeatures']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -594,7 +614,7 @@ export type ResidentialFeaturesResolvers<ContextType = GraphQLContext, ParentTyp
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type StatusResolvers = EnumResolverSignature<{ FOR_RENT?: any, FOR_SALE?: any, SOLD?: any }, ResolversTypes['STATUS']>;
+export type StatusResolvers = { FOR_RENT: 'undefined', FOR_SALE: 'undefined', SOLD: 'undefined' };
 
 export type Resolvers<ContextType = GraphQLContext> = {
   BlogPost?: BlogPostResolvers<ContextType>;

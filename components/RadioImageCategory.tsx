@@ -1,6 +1,6 @@
 import React from "react";
 import { imageOptionsType } from "../lib/property-types";
-import { IMAGE_CATEGORY, RESIDENTIAL_CATEGORY } from "../types";
+import { IMAGE_CATEGORY, RESIDENTIAL_CATEGORY } from "@prisma/client";
 import Collapsible from "react-collapsible";
 import SelectField from "./SelectResidential";
 
