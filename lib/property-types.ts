@@ -10,10 +10,7 @@ export const propertyOptionsType = [
 ];
 
 export const imageOptionsType = [
-  { value: Image_Category.MAIN, label: "Main" },
-  { value: Image_Category.Submain, label: "Sub-Main" },
-  { value: Image_Category.Interior, label: "Interior" },
-  { value: Image_Category.Surroundings, label: "Surroundings" },
+  { value: Image_Category.Main, label: "Main" },
   { value: Image_Category.Property, label: "Property" },
 ];
 
@@ -21,6 +18,7 @@ export const statusOptionsType = [
   { value: Status.ForSale, label: "For Sale" },
   { value: Status.ForRent, label: "For Rent" },
   { value: Status.Sold, label: "Sold" },
+  { value: Status.OfferIn, label: "Offer-In" },
 ];
 
 export const residentialOptionType = [
@@ -87,9 +85,7 @@ export const commercialOptionType = [
   "Sprinkler System",
   "Generator",
   "Solar Panels",
-
   "Green/Energy-Efficient Features",
-
   "Smart Building Technology",
   "Building Automation System",
   "Conference Room",
@@ -105,47 +101,19 @@ export const commercialOptionType = [
   "IT Room",
   "Data Center",
   "Server Room",
-  "Mailroom",
   "Copier Room",
   "Supply Room",
   "Restroom",
   "Shower",
   "Change Room",
-  "Fitness Center",
   "On-Site Gym",
   "Shower Room",
   "Locker Room",
-  "Sauna",
-  "Swimming Pool",
-  "Tennis Court",
-  "Basketball Court",
-  "Volleyball Court",
-  "Baseball Diamond",
-  "Soccer Field",
-  "Running Track",
-  "Putting Green",
-  "Driving Range",
-  "Golf Simulator",
-  "Ice-Skating Rink",
-  "Skatepark",
-  "Rock-Climbing Wall",
-  "Zip Line",
-  "Trampoline Park",
-  "Indoor Playground",
-  "Outdoor Playground",
   "Picnic Area",
   "BBQ Area",
   "Beer Garden",
   "Food Court",
   "Convenience Store",
-  "Daycare Center",
-  "Pet Daycare",
-  "Pet Grooming",
-  "Pet Hotel",
-  "Pet Park",
-  "Dog Park",
-  "Dog Run",
-  "Cat Jungle Gym",
 ];
 
 export const convertEnum = (value: string | undefined | null) => {
@@ -167,6 +135,53 @@ export const convertEnum = (value: string | undefined | null) => {
       break;
     case "OFFICE":
       return "Office";
+      break;
+    default:
+      "Property Type";
+  }
+};
+
+export const convertResidentialTypes = (value: string | undefined | null) => {
+  switch (value) {
+    case "FREE_STANDING":
+      return "Free-Standing";
+      break;
+    case "DUPLEX":
+      return "Duplex";
+      break;
+    case "SIMPLEX":
+      return "Simplex";
+      break;
+    case "GRANNY_FLAT":
+      return "Granny-Flat Land";
+      break;
+    case "FLAT":
+      return "Flat";
+      break;
+    case "LUXURY":
+      return "Luxury";
+      break;
+    case "CONDO":
+      return "Condo";
+      break;
+    default:
+      "Property Type";
+  }
+};
+
+export const convertStatus = (value: string | undefined | null) => {
+  switch (value) {
+    case "FOR_RENT":
+      return "For Rent";
+      break;
+    case "SOLD":
+      return "Sold";
+      break;
+    case "FOR_SALE":
+      return "For Sale";
+      break;
+    case "OFFER_IN":
+      return "Offer-In";
       break;
     default:
       "Property Type";

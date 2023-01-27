@@ -1,0 +1,7 @@
+# import UpdateOfferInResponse from './UpdateOfferInResponseFragment.graphql'
+
+mutation UpdateOfferIn($input: OfferInInput!) {
+  updateOfferIn(input: $input) {
+    ...UpdateOfferInResponse
+  }
+}

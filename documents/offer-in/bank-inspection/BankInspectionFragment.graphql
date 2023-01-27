@@ -1,0 +1,9 @@
+fragment BankInspection on BankInspection {
+  id
+  offerInId
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

@@ -1,0 +1,43 @@
+# import ElecCompCompany from "./elec-comp-com/ElecCompCompanyFragment.graphql"
+# import Intermologist from "./intermologist/IntermologistFragment.graphql"
+# import GasCompliance from "./gas-compliance/GasComplianceFragment.graphql"
+# import WaterCert from "./water-cert/WaterCertFragment.graphql"
+# import OfferAccepted from "./offer-accepted/OfferAcceptedFragment.graphql"
+# import BankInspection from "./bank-inspection/BankInspectionFragment.graphql"
+# import Conveyancer from "./conveyancer/ConveyancerFragment.graphql"
+# import MortgageOriginator from "./mortgage-originator/MortgageOriginatorFragment.graphql"
+# import FicaDocs from "./fica-docs/FicaDocsFragment.graphql"
+# import OfferIn from "./OfferInFragment.graphql"
+
+fragment UpdateOfferInResponse on UpdateOfferInResponse {
+  offerIn {
+    ...OfferIn
+  }
+  elecCompCompany {
+    ...ElecCompCompany
+  }
+  intermologist {
+    ...Intermologist
+  }
+  gasCompliance {
+    ...GasCompliance
+  }
+  waterCert {
+    ...WaterCert
+  }
+  offerAccepted {
+    ...OfferAccepted
+  }
+  bankInspection {
+    ...BankInspection
+  }
+  conveyancer {
+    ...Conveyancer
+  }
+  mortgageOriginator {
+    ...MortgageOriginator
+  }
+  ficaDocs {
+    ...FicaDocs
+  }
+}

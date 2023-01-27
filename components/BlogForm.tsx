@@ -1,10 +1,11 @@
 import { useState } from "react";
-import Plus from "../components/svgs/Plus";
+import Plus from "./svgs/Plus";
 import {
   BlogPost,
   useAddBlogPostMutation,
   useUpdateBlogPostMutation,
 } from "../types";
+import { Button } from "./Button";
 
 interface IProps {
   details: BlogPost | undefined | null;
@@ -695,20 +696,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           />
         </div>
 
-        <div className="flex flex-col space-y-2 items-center justify-center border-green-600">
-          <button
-            type="submit"
-            className="flex items-center justify-between space-x-2 px-4 h-10 rounded-full text-green-500 bg-white border-2 border-green-500"
-          >
-            <Plus className="w-8 h-8" />
-            {formSent ? "đã được cập nhật" : "Cập Nhật"}
-          </button>
-          {formSent && (
-            <p className="text-xl text-gray-800 font-semibold text-center">
-              Chờ 1 phút rồi làm mới để xem kết quả
-            </p>
-          )}
-        </div>
+        <Button type="submit" className="text-white">
+          <Plus className="w-8 h-8" />
+        </Button>
       </form>
     </div>
   );

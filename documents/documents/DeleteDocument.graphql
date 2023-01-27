@@ -1,0 +1,7 @@
+# import Document from "./DocumentFragment.graphql"
+
+mutation deleteDocument($id: ID!) {
+  deleteDocument(id: $id) {
+    ...Document
+  }
+}

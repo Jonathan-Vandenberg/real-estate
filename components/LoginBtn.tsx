@@ -1,11 +1,14 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import placeholderImage from "../public/heroImage.jpeg";
 import { Button } from "./Button";
 import Spinner from "./Spinner";
+import { useRouter } from "next/router";
 
 const AuthBtn = () => {
   const { data: session, status } = useSession();
+  const router = useRouter();
+
   if (status === "loading") {
     return <Spinner />;
   }
@@ -13,9 +16,8 @@ const AuthBtn = () => {
     return (
       <div className="auth-btn">
         <Button
-          href={""}
+          onClick={() => router.push("/auth/signin")}
           className="text-sm text-white"
-          onClick={() => signIn()}
         >
           Login
         </Button>
@@ -34,11 +36,7 @@ const AuthBtn = () => {
         />
       </div>
       <div className="flex items-center space-x-2">
-        <Button
-          onClick={() => signOut()}
-          href={""}
-          className="text-sm text-white"
-        >
+        <Button onClick={() => signOut()} className="text-sm text-white">
           Logout
         </Button>
       </div>

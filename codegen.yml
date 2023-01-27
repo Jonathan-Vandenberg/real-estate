@@ -4,13 +4,36 @@ documents: "**/*.graphql"
 generates:
   types.ts:
     config:
+      scalars:
+        Date: Date
+        Time: Date
+        DateTime: Date
       contextType: ./pages/api/index#GraphQLContext
+      types:
+        UpdateOfferInResponse: "./documents/offer-in/UpdateOfferInResponseFragment.graphql"
       mapperTypeSuffix: Model
       mappers:
+        Agent: "@prisma/client#Agent"
         Form: "@prisma/client#Form"
         Property: "@prisma/client#Property"
         BlogPost: "@prisma/client#BlogPost"
         Image: "@prisma/client#Image"
+        OfferIn: "@prisma/client#OfferIn"
+        ElecCompCompany: "@prisma/client#ElecCompCompany"
+        Intermologist: "@prisma/client#Intermologist"
+        GasCompliance: "@prisma/client#GasCompliance"
+        WaterCert: "@prisma/client#WaterCert"
+        OfferAccepted: "@prisma/client#OfferAccepted"
+        BankInspection: "@prisma/client#BankInspection"
+        Conveyancer: "@prisma/client#Conveyancer"
+        MortgageOriginator: "@prisma/client#MortgageOriginator"
+        FicaDocs: "@prisma/client#FicaDocs"
+        AdminMessage: "@prisma/client#AdminMessage"
+        Document: "@prisma/client#Document"
+        # User: "@prisma/client#User"
+        # Session: "@prisma/client#Session"
+        # Account: "@prisma/client#Account"
+        # VerificationToken: "@prisma/client#VerificationToken"
       enumValues:
         Property_Category:
           enumName: Property_Category
@@ -45,10 +68,42 @@ generates:
             FOR_RENT: "FOR_RENT"
             SOLD: "FOR_SALE"
             FOR_SALE: "SOLD"
-        # Session: "@prisma/client#Session"
-        # User: "@prisma/client#User"
-        # Account: "@prisma/client#Account"
-        # VerificationToken: "@prisma/client#VerificationToken"
+            OFFER_IN: OFFER_IN
+        Roles:
+          enumName: Roles
+          values:
+            CEO: "CEO"
+            ADMIN: "ADMIN"
+            AGENT: "AGENT"
+        Offer_In_Categories:
+          enumName: Offer_In_Categories
+          values:
+            GENERAL: "GENERAL"
+            ELECCOMPCOMPANY: "ELECCOMPCOMPANY"
+            INTERMOLOGIST: "INTERMOLOGIST"
+            GASCOMPLIANCE: "GASCOMPLIANCE"
+            WATERCERT: "WATERCERT"
+            OFFERACCEPTED: "OFFERACCEPTED"
+            BANKINSPECTION: "BANKINSPECTION"
+            CONVEYANCER: "CONVEYANCER"
+            MORTGAGEORIGINATOR: "MORTGAGEORIGINATOR"
+            FICADOCS: "FICADOCS"
+        Document_Category:
+          enumName: Document_Category
+          values:
+            COM_CERT: "COM_CERT"
+            MARRIAGE_LICENSE: "MARRIAGE_LICENSE"
+            COP: "COP"
+            TAX_CERT: "TAX_CERT"
+            MORTGAGE: "MORTGAGE"
+            CONVEYANCER: "CONVEYANCER"
+            BANK_INSPECTION: "BANK_INSPECTION"
+            OFFER_ACCEPTED: "OFFER_ACCEPTED"
+            WATER_CERT: "WATER_CERT"
+            GAS_COM_CERT: "GAS_COM_CERT"
+            INTERMOLOGIST: "INTERMOLOGIST"
+            ELECCOMPCOMPANY: "ELECCOMPCOMPANY"
+            FICA_DOCUMENTS: "FICA_DOCUMENTS"
     plugins:
       - "typescript"
       - "typescript-resolvers"

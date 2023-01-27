@@ -1,0 +1,7 @@
+# import Document from './DocumentFragment.graphql'
+
+mutation AddDocument($input: DocumentInput!) {
+  addDocument(input: $input) {
+    ...Document
+  }
+}

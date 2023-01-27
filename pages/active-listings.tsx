@@ -1,15 +1,16 @@
 import Head from "next/head";
 import { Container } from "../components/Container";
-import PropertyCard1 from "../components/PropertyCard1";
+import PropertyCard from "../components/PropertyCard";
 import prisma from "../lib/prisma";
-import { Image, Property } from "../types";
+import { Image, Property, Agent } from "../types";
 
 interface IProps {
   property: Property[];
   image: Image[];
+  agent: Agent[];
 }
 
-export default function ActiveListings({ property, image }: IProps) {
+export default function ActiveListings({ property, image, agent }: IProps) {
   return (
     <>
       <Head>
@@ -41,7 +42,7 @@ export default function ActiveListings({ property, image }: IProps) {
         <p>Active Listings</p>
       </div>
       <Container>
-        <PropertyCard1 image={image} property={property} />
+        <PropertyCard agent={agent} image={image} property={property} />
       </Container>
     </>
   );
@@ -50,11 +51,13 @@ export default function ActiveListings({ property, image }: IProps) {
 export async function getStaticProps() {
   const property = await prisma.property.findMany();
   const image = await prisma.image.findMany();
+  const agent = await prisma.agent.findMany();
 
   return {
     props: {
       property,
       image,
+      agent,
     },
   };
 }

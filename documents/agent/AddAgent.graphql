@@ -1,0 +1,7 @@
+# import Agent from "./AgentFragment.graphql"
+
+mutation AddAgent($input: AgentInput!) {
+  addAgent(input: $input) {
+    ...Agent
+  }
+}

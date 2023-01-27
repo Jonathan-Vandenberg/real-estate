@@ -1,0 +1,10 @@
+fragment AdminMessage on AdminMessage {
+  id
+  offerInId
+  adminId
+  title
+  message
+  read
+  urgent
+  relatingTo
+}

@@ -1,0 +1,11 @@
+fragment OfferAccepted on OfferAccepted {
+  id
+  offerInId
+  withConditions
+  conditions
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

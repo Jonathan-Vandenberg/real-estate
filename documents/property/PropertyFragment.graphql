@@ -1,5 +1,6 @@
 fragment Property on Property {
   id
+  agentId
   interior
   bedrooms
   bathrooms

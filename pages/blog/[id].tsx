@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
 import BlogMain from "../../components/Blog/BlogMain";
-import MainForm from "../../components/MainForm";
+import MainForm from "../../components/BlogForm";
 import { Form } from "../../components/Form";
 import { BlogPost } from "../../types";
 import prisma from "../../lib/prisma";

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ChevRight } from "./svgs/Arrows";
 import Edit from "./svgs/Edit";
 import Plus from "./svgs/Plus";
+import { Button } from "./Button";
 
 interface IProps {
   data: BlogPost | undefined | null;
@@ -279,9 +280,7 @@ export default function BlogPostMarkup({
           "event.uptogo@gmail.com") && (
         <div
           className={
-            editActivated
-              ? "flex cursor-pointer space-x-5 justify-center items-center py-6 border-4 border-green-600 rounded-xl w-auto"
-              : "flex cursor-pointer space-x-5 justify-center items-center py-6 border-4 border-red-500 rounded-xl w-auto"
+            "flex cursor-pointer space-x-5 justify-center items-center py-6 w-auto"
           }
         >
           <div
@@ -290,16 +289,11 @@ export default function BlogPostMarkup({
               handleEdit(), setEditActivated(!editActivated);
             }}
           >
-            <p
-              className={
-                editActivated
-                  ? "text-lg text-green-600"
-                  : "text-lg text-red-600"
-              }
+            <Button
+              type="button"
+              variant="secondary"
+              className="flex items-center space-x-1"
             >
-              {editActivated ? "Cuộn xuống" : "Nhấp một lần và cuộn xuống"}
-            </p>
-            <div className="flex items-center space-x-1">
               {!editActivated && (
                 <>
                   <div className="text-xl cursor-pointer">
@@ -308,17 +302,18 @@ export default function BlogPostMarkup({
                   <p className="text-lg text-red-600 cursor-pointer">Edit</p>
                 </>
               )}
-            </div>
+            </Button>
           </div>
-          <div
+          <Button
+            type="button"
             className="flex items-center space-x-1"
             onClick={() => handleAdd()}
           >
-            <div className="text-xl text-green-600">
+            <div className="text-xl text-white">
               <Plus className="w-6 h-6" />
             </div>
-            <p className="text-lg bg-gray">Add</p>
-          </div>
+            <p className="text-md text-white">Add</p>
+          </Button>
         </div>
       )}
     </div>

@@ -1,0 +1,7 @@
+# import Document from "./DocumentFragment.graphql"
+
+query Document($id: ID!) {
+  document(id: $id) {
+    ...Document
+  }
+}

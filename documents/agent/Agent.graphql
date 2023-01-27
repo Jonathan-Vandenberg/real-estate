@@ -1,0 +1,7 @@
+# import Agent from './AgentFragment.graphql'
+
+query Agent($email: String!) {
+  agent(email: $email) {
+    ...Agent
+  }
+}

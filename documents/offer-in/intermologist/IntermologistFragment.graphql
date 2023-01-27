@@ -1,0 +1,12 @@
+fragment Intermologist on Intermologist {
+  id
+  offerInId
+  name
+  phone
+  email
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

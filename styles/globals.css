@@ -37,5 +37,9 @@
     .mask-linear-faded {
       mask-image: linear-gradient(black, transparent 70%);
     }
+
+    .react-datepicker-popper {
+      z-index: 10;
+    }
   }
 }

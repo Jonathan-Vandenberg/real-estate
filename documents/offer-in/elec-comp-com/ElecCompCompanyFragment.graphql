@@ -1,0 +1,12 @@
+fragment ElecCompCompany on ElecCompCompany {
+  id
+  offerInId
+  name
+  phone
+  email
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

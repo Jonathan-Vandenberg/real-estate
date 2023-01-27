@@ -54,7 +54,7 @@ function Footer() {
           <div className="flex flex-row justify-between lg:flex-col md:flex-row h-full">
             <div className="flex items-center">
               <Logo className="w-6 h-6" />{" "}
-              <p className="text-gray ml-4">Landmark Properties</p>
+              <p className="text-gray ml-4">Highway Properties</p>
             </div>
             <div className="mt-auto flex space-x-4 text-gray">
               <Twitter />

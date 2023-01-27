@@ -1,0 +1,9 @@
+fragment GasCompliance on GasCompliance {
+  id
+  offerInId
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

@@ -1,84 +1,77 @@
-// import React, { useState } from "react";
-// import { S3 } from "aws-sdk";
-// import { Image, useUpdateImageMutation } from "../types";
+import { useDeleteDocumentMutation, useDeleteImageMutation } from "../types";
+import { S3 } from "aws-sdk";
+import Delete from "./svgs/Delete";
+import { useState } from "react";
 
-// const s3 = new S3({
-//   // dotenv not working
-//   accessKeyId: "AKIATKBDGLNGKIMAJMER",
-//   secretAccessKey: "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",
-// });
+const RemoveFile = ({ url, imageId, removeType, documentId }) => {
+  const [deleteSingleImage] = useDeleteImageMutation();
+  const [deleteSingleDocument] = useDeleteDocumentMutation();
+  const [showConfirm, setShowConfirm] = useState(false);
 
-// interface Props {
-//   images: Images | null | undefined;
-//   imagesId: string;
-// }
+  const deleteFile = async (
+    url: string,
+    removeType: "image" | "document",
+    imageId: string,
+    documentId: string
+  ) => {
+    const s3 = new S3({
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    });
+    // parse the url to extract the image's key from it
+    const imageKey = url?.split(
+      `https://landmark-real-eastate.s3.ap-southeast-1.amazonaws.com/`
+    )[1];
 
-// export default function DeleteImages({ images, imagesId }) {
-//   const [fileNames, setFileNames] = useState<string[]>([]);
-//   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+    try {
+      await s3
+        .deleteObject({ Bucket: "landmark-real-eastate", Key: imageKey })
+        .promise();
+      console.log("Image deleted from S3 successfully");
 
-//   const [updateImages] = useUpdateImagesMutation();
+      // call the deleteImage mutation to remove the image's name from the MongoDB database
+      if (removeType === "image") {
+        await deleteSingleImage({ variables: { id: imageId } });
+        console.log("Image deleted from MongoDB successfully");
+      }
+      if (removeType === "document") {
+        await deleteSingleDocument({
+          variables: { id: documentId },
+        });
+        console.log("Image deleted from MongoDB successfully");
+      }
+    } catch (err) {
+      console.log("Error deleting image: ", err);
+    }
+  };
+  return (
+    <div>
+      <div onClick={() => setShowConfirm(true)}>
+        {!showConfirm && (
+          <Delete className="w-10 h-10 bg-white/30 p-2 rounded-full" />
+        )}
+      </div>
+      {showConfirm && (
+        <div className="space-x-4 flex items-center justify-between space">
+          <div
+            onClick={() => {
+              deleteFile(url, removeType, imageId, documentId),
+                setShowConfirm(false);
+            }}
+            className="w-auto bg-white/30 text-sm hover:cursor-pointer rounded-full p-2"
+          >
+            Delete
+          </div>
+          <div
+            className="w-auto bg-white/30 text-sm hover:cursor-pointer rounded-full p-2"
+            onClick={() => setShowConfirm(false)}
+          >
+            Cancel
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
-//   let imagesDetails = {
-//     variables: {
-//       input: {
-//         id: imagesId,
-//         interiorImage1: fileNames[0]
-//           ? `https://landmark-real-eastate.s3.ap-southeast-1.amazonaws.com/${fileNames[0]}`
-//           : ""
-//       },
-//     },
-//   };
-
-//   const handleFileDelete = (fileNames: string[]) => {
-//     const params = {
-//       Bucket: "landmark-real-eastate",
-//       Delete: {
-//         Objects: fileNames.map((fileName) => {
-//           return { Key: fileName };
-//         }),
-//       },
-//     };
-
-//     s3.deleteObject(params, (err, data) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         console.log(`Successfully deleted ${fileNames.join(", ")}`);
-//         setFileNames(fileNames.filter((name) => !fileNames.includes(name)));
-//       }
-//     });
-//   };
-
-//   function sliceURL(fileName) {
-//     var parts = fileName.split("/");
-//     return parts[parts.length - 1];
-//   }
-//   return (
-//     <div>
-//       {images?.interiorImage1 != null && (
-//         <>
-//           <label>{sliceURL(images?.interiorImage1)}</label>
-//           <input
-//             type="checkbox"
-//             name={`InteriorImage1: ${images.interiorImage1}`}
-//             value={images?.interiorImage1}
-//             onClick={() => {
-//               setSelectedFiles((prev) => [
-//                 ...prev,
-//                 sliceURL(images?.interiorImage1),
-//               ]),
-//                 setFileNames((prev) => [...prev, ""]),
-//                 updateImages(imagesDetails);
-//             }}
-//           />
-//           <button onClick={() => handleFileDelete(selectedFiles)}>
-//             DELETE
-//           </button>
-//         </>
-//       )}
-//     </div>
-//   );
-// }
-
-export {};
+export default RemoveFile;

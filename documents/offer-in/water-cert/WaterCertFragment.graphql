@@ -1,0 +1,9 @@
+fragment WaterCert on WaterCert {
+  id
+  offerInId
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

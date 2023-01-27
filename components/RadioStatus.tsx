@@ -1,6 +1,7 @@
 import React from "react";
 import { statusOptionsType } from "../lib/property-types";
 import { Status } from "../types";
+import Switch from "./Switch";
 
 interface RadioButtonProps {
   label: string;
@@ -17,19 +18,25 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   onChange,
   checked,
 }) => (
-  <>
-    <label className="inline-flex items-center">
-      <p className="ml-2 text-md whitespace-nowrap">{label}</p>
-    </label>
+  <label className="inline-flex items-center">
     <input
       type="radio"
-      className="form-radio "
+      className="hidden"
       value={value}
       name={name}
       onChange={onChange}
       checked={checked}
     />
-  </>
+    <Switch
+      backGround="bg-off-white"
+      switchOn={checked}
+      checked={checked}
+      radioMode={true}
+    />
+    <label className="inline-flex items-center w-[10rem]">
+      <p className="ml-2 text-md whitespace-nowrap">{label}</p>
+    </label>
+  </label>
 );
 
 const RadioButtonGroup = ({

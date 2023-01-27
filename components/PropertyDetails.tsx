@@ -1,24 +1,43 @@
 import ModalImage from "react-modal-image";
-import { Image_Category, Image, Property, Status } from "../types";
-import { statusOptionsType } from "../lib/property-types";
+import {
+  Property_Category,
+  Image_Category,
+  Image,
+  Property,
+  Status,
+  Agent,
+} from "../types";
+import {
+  convertEnum,
+  convertResidentialTypes,
+  residentialOptionType,
+  statusOptionsType,
+} from "../lib/property-types";
 import Map from "../components/Map";
 import classNames from "classnames";
-import { Property_Category } from "@prisma/client";
+import { Button } from "./Button";
+import RemoveImage from "./DeleteImages";
 
 export const ImageGallery = ({
   image,
   showNoImage,
   newId,
   add,
+  edit,
   property,
   category,
+  removeType,
+  documentId,
 }: {
   image: Image[] | undefined | null;
   showNoImage: boolean;
   newId: string;
   add: boolean;
+  edit: boolean;
   property: Property | undefined | null;
   category: Image_Category;
+  documentId: string;
+  removeType: "image" | "document";
 }) => {
   return (
     <section className="pb-6">
@@ -27,14 +46,25 @@ export const ImageGallery = ({
           (img, i) =>
             img.propertyId === property?.id &&
             img.imageCategory === category && (
-              <ModalImage
-                key={i}
-                className=" rounded-xl object-cover aspect-square"
-                small={img.url}
-                large={img.url}
-                hideDownload
-                hideZoom
-              />
+              <div key={i} className="relative">
+                <ModalImage
+                  className="rounded-xl object-cover aspect-square"
+                  small={img.url}
+                  large={img.url}
+                  hideDownload
+                  hideZoom
+                />
+                {edit && (
+                  <div className="absolute bottom-5 left-5">
+                    <RemoveImage
+                      url={img.url}
+                      imageId={img.id}
+                      removeType={removeType}
+                      documentId={documentId}
+                    />
+                  </div>
+                )}
+              </div>
             )
         )}
       </div>
@@ -47,261 +77,238 @@ export default function PropertyDetails({
   image,
   newId,
   add,
+  agent,
 }: {
   property: Property;
   image: Image[];
   newId: string;
   add: boolean;
+  agent: Agent[];
 }) {
   let heroImage;
   image?.map((i) => {
-    if (i.propertyId === property.id && i.imageCategory === Image_Category.MAIN)
+    if (i.propertyId === property.id && i.imageCategory === Image_Category.Main)
       heroImage = i.url;
   });
 
-  let styleStatus;
-
   return (
-    <section>
-      <div className="relative mx-auto px-4 pt-8 md:max-w-[110rem] bg-white">
-        <div>
-          <h1 className="text-2xl font-bold lg:text-3xl">{property?.title}</h1>
+    <section className="relative mx-auto px-4 pt-8 w-full md:max-w-[110rem] bg-white">
+      <div className="">
+        <h1 className="text-xl tracking-wider font-thin text-black">
+          {property?.title}
+        </h1>
 
-          <p className="text-xl tracking-wider font-light text-gray-500 mt-1">
-            <i>{property?.address}</i>
-          </p>
-        </div>
+        <p className="text-md font-semibold lg:text-3xl">
+          <i>{property?.address}</i>
+        </p>
+      </div>
 
-        <div className="grid gap-8 lg:grid-cols-4 lg:items-start">
-          <div className="lg:col-span-3">
-            <div className="relative mt-4 ">
-              <img
-                alt={heroImage}
-                src={heroImage}
-                className="aspect-video object-cover w-full h-full rounded-xl"
-              />
-            </div>
-
-            <div className="mt-2">
-              <ImageGallery
-                showNoImage={false}
-                image={image}
-                property={property}
-                newId={newId}
-                add={add}
-                category={Image_Category.Submain}
-              />
-            </div>
+      <div className="grid gap-8 lg:grid-cols-4 lg:items-start">
+        <div className="lg:col-span-3">
+          <div className="relative mt-4 ">
+            <img
+              alt={heroImage}
+              src={heroImage}
+              className="aspect-video object-cover w-full h-full rounded-xl"
+            />
           </div>
 
-          <div className="border-black border-[0.1rem] mt-4 p-3 rounded-xl lg:sticky lg:top-[calc(var(--navigation-height)+0.1rem)]">
-            <form className="space-y-4 lg:pt-8">
-              <div>
-                <legend className="text-lg font-bold">Listing Status</legend>
-                <div className="space-x-2 flex items-center ">
-                  <span
-                    className={classNames(
-                      "w-3 h-3 rounded-full",
-                      property?.status === Status.Sold
-                        ? "bg-[rgb(249,57,57)]"
-                        : "bg-[rgb(30,212,60)]"
-                    )}
-                  />
-                  <p className="text-md">
-                    {statusOptionsType.map((s) => {
-                      if (s.value === property?.status) return s.label;
-                    })}
+          <div className="mt-2">
+            <ImageGallery
+              showNoImage={false}
+              image={image}
+              edit={false}
+              property={property}
+              newId={newId}
+              add={add}
+              category={Image_Category.Property}
+              documentId={""}
+              removeType={"image"}
+            />
+          </div>
+        </div>
+
+        <div className="mt-4 p-3 rounded-xl border-[1px] lg:sticky lg:top-[calc(var(--navigation-height)+0.2rem)]">
+          <form className="space-y-4">
+            <div>
+              <legend className="text-lg font-bold">Listing Status</legend>
+              <div className="space-x-2 flex items-center ">
+                <span
+                  className={classNames(
+                    "w-3 h-3 rounded-full",
+                    property?.status === Status.Sold
+                      ? "bg-[rgb(249,57,57)]"
+                      : property?.status === Status.OfferIn
+                      ? "bg-orange-gradient"
+                      : "bg-[rgb(30,212,60)]"
+                  )}
+                />
+                <p className="text-md">
+                  {statusOptionsType.map((s) => {
+                    if (s.value === property?.status) return s.label;
+                  })}
+                </p>
+              </div>
+            </div>
+
+            <fieldset>
+              <legend className="text-lg font-bold">Features</legend>
+
+              <div className="mt-2 flex gap-1">
+                <label htmlFor="material_cotton" className="cursor-pointer">
+                  <span className="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
+                    Pool
+                  </span>
+                </label>
+
+                <label htmlFor="material_wool" className="cursor-pointer">
+                  <span className="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
+                    Jacuzzi
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div className="rounded border bg-gray-100 p-4">
+              <div className="text-sm">
+                <div className="flex flex-col space-y-2">
+                  <p>
+                    <strong>Bedrooms:</strong> {property?.bedrooms}
+                  </p>
+                  <p>
+                    <strong>Bathrooms:</strong> {property?.bathrooms}
+                  </p>
+                  <p>
+                    <strong>Lot size:</strong> {property?.lotSize}
                   </p>
                 </div>
               </div>
+            </div>
 
-              <fieldset>
-                <legend className="text-lg font-bold">Features</legend>
-
-                <div className="mt-2 flex gap-1">
-                  <label htmlFor="material_cotton" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="material_cotton"
-                      name="material"
-                      className="peer sr-only"
-                      checked
+            {agent.map(
+              (a, i) =>
+                a.id === property.agentId && (
+                  <div
+                    key={i}
+                    className="flex-col items-center p-2 space-y-2 justify-center hidden md:flex"
+                  >
+                    <img
+                      src={
+                        a.profileImage ||
+                        "/Users/jonathanvandenberg/2023/real-estate/public/ppraLogo.png"
+                      }
+                      alt={"user name"}
+                      className="w-12 h-12 rounded-full"
                     />
-
-                    <span className="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
-                      Pool
-                    </span>
-                  </label>
-
-                  <label htmlFor="material_wool" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="material_wool"
-                      name="material"
-                      className="peer sr-only"
-                      checked
-                    />
-
-                    <span className="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
-                      Jacuzzi
-                    </span>
-                  </label>
-                </div>
-              </fieldset>
-
-              <div className="rounded border bg-gray-100 p-4">
-                <div className="text-sm">
-                  <div className="flex flex-col space-y-2">
-                    <p>
-                      <strong>Bedrooms:</strong> {property?.bedrooms}
-                    </p>
-                    <p>
-                      <strong>Bathrooms:</strong> {property?.bathrooms}
-                    </p>
-                    <p>
-                      <strong>Lot size:</strong> {property?.lotSize}
-                    </p>
+                    <div>
+                      <h2 className="text-sm font-semibold hidden md:block">
+                        {a.firstName}
+                      </h2>
+                    </div>
                   </div>
-                </div>
-              </div>
+                )
+            )}
 
-              <div>
-                <p className="text-xl font-bold">{property?.price}</p>
-              </div>
+            <div className="flex justify-center">
+              <p className="text-xl font-bold">{property?.price}</p>
+            </div>
 
-              <button
-                type="submit"
-                className="w-full rounded bg-red-700 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white"
-              >
-                Add to cart
-              </button>
-
-              <button
-                type="button"
-                className="w-full rounded border border-gray-300 bg-gray-100 px-6 py-3 text-sm font-bold uppercase tracking-wide"
-              >
+            <div className="flex justify-center">
+              <Button type="button" className="text-white">
                 Contact
-              </button>
-            </form>
+              </Button>
+            </div>
+          </form>
+        </div>
+
+        <div className="lg:col-span-3">
+          <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light pb-4">
+            <p className="ml-4 md:ml-8">{property?.overview}</p>
+
+            <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)]">
+              Property
+            </h2>
+
+            <ul className="">
+              <li className="mb-5 text-lg list-none  border-[rgb(212,210,214)] -ml-6">
+                {property?.otherPropertyFeatures}
+              </li>
+              <li>
+                <strong>Category:</strong>{" "}
+                {convertEnum(property?.propertyCategory)}
+              </li>
+              <li>
+                <strong>Residential Category</strong>:{" "}
+                {convertResidentialTypes(property?.residentialCategory)}
+              </li>
+              <li>
+                <strong>Parking: </strong>
+                {property?.parking}
+              </li>
+              <li>
+                <strong>Year Built:</strong> {property?.yearBuilt}
+              </li>
+            </ul>
           </div>
 
-          <div className="lg:col-span-3">
-            <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light">
-              <p>{property?.overview}</p>
+          <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light pb-4">
+            <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)]">
+              Interior
+            </h2>
 
-              <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)]">
-                Property
-              </h2>
+            <ul className="">
+              <li className="mb-5 text-lg list-none -ml-6">
+                {property?.interior}
+              </li>
+              <li>
+                <strong>Flooring:</strong> {property?.flooring}
+              </li>
+              <li>
+                <strong>Cooling:</strong> {property?.cooling}
+              </li>
+              <li>
+                <strong>Heating:</strong> {property?.heating}
+              </li>
+              <li>
+                <strong>Appliances:</strong> {property?.appliances}
+              </li>
+              <li>
+                <strong>Other:</strong> {property?.otherInteriorFeatures}
+              </li>
+            </ul>
+          </div>
 
-              <ul className="list-none -ml-5 font-light">
-                <li className="mb-5 text-lg  border-[rgb(212,210,214)]">
-                  {property?.otherPropertyFeatures}
-                </li>
-                <li>
-                  <strong>Category:</strong> {property?.propertyCategory}
-                </li>
-                <li>
-                  <strong>Residential Category</strong>:{" "}
-                  {property?.residentialCategory}
-                </li>
-                <li>
-                  <strong>Parking: </strong>
-                  {property?.parking}
-                </li>
-                <li>
-                  <strong>Year Built:</strong> {property?.yearBuilt}
-                </li>
-              </ul>
-            </div>
+          <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light pb-4">
+            <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)]">
+              Surroundings
+            </h2>
 
-            <div className="pt-6">
-              <ImageGallery
-                showNoImage={false}
-                image={image}
-                property={property}
-                newId={newId}
-                add={add}
-                category={Image_Category.Property}
-              />
-            </div>
-            <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light">
-              <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)]">
-                Interior
-              </h2>
-
-              <ul className="list-none -ml-5 font-light">
-                <li className="mb-5 text-lg">{property?.interior}</li>
-                <li>
-                  <strong>Flooring:</strong> {property?.flooring}
-                </li>
-                <li>
-                  <strong>Cooling:</strong> {property?.cooling}
-                </li>
-                <li>
-                  <strong>Heating:</strong> {property?.heating}
-                </li>
-                <li>
-                  <strong>Appliances:</strong> {property?.appliances}
-                </li>
-                <li>
-                  <strong>Other:</strong> {property?.otherInteriorFeatures}
-                </li>
-              </ul>
-            </div>
-            <div className="pt-6">
-              <ImageGallery
-                showNoImage={false}
-                image={image}
-                property={property}
-                newId={newId}
-                add={add}
-                category={Image_Category.Interior}
-              />
-            </div>
-
-            <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light">
-              <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)] font-light">
-                Surroundings
-              </h2>
-
-              <ul className="">
-                <li>
-                  <strong>Suburbs:</strong> {property?.surroundingSuburbs}
-                </li>
-                <li>
-                  <strong>Schools:</strong> {property?.schools}
-                </li>
-                <li>
-                  <strong>Distance to nearest school:</strong>{" "}
-                  {property?.distanceToNearestSchool}
-                </li>
-                <li>
-                  <strong>NightLifeIcon:</strong> {property?.nightlife}
-                </li>
-                <li>
-                  <strong>ShoppingIcon:</strong> {property?.shopping}
-                </li>
-                <li>
-                  <strong>Childertainment:</strong> {property?.forKids}
-                </li>
-              </ul>
-            </div>
-
-            <div className="pt-6">
-              <ImageGallery
-                showNoImage={false}
-                image={image}
-                property={property}
-                newId={newId}
-                add={add}
-                category={Image_Category.Surroundings}
-              />
-            </div>
+            <ul className="">
+              <li>
+                <strong>Suburbs:</strong> {property?.surroundingSuburbs}
+              </li>
+              <li>
+                <strong>Schools:</strong> {property?.schools}
+              </li>
+              <li>
+                <strong>Distance to nearest school:</strong>{" "}
+                {property?.distanceToNearestSchool}
+              </li>
+              <li>
+                <strong>NightLifeIcon:</strong> {property?.nightlife}
+              </li>
+              <li>
+                <strong>ShoppingIcon:</strong> {property?.shopping}
+              </li>
+              <li>
+                <strong>Childertainment:</strong> {property?.forKids}
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="pt-10 rounded-lg">
-          <Map />
-        </div>
+      </div>
+      <div className="pt-10 rounded-lg pb-9">
+        <Map />
       </div>
     </section>
   );

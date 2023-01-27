@@ -1,0 +1,7 @@
+# import Document from "./DocumentFragment.graphql"
+
+query AllDocuments {
+  allDocuments {
+    ...Document
+  }
+}

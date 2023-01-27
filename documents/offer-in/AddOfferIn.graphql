@@ -1,0 +1,7 @@
+# import OfferIn from './OfferInFragment.graphql'
+
+mutation AddOfferIn($input: OfferInInput!) {
+  addOfferIn(input: $input) {
+    ...OfferIn
+  }
+}

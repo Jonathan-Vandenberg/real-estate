@@ -7,7 +7,34 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = env("MONGODB_URI")
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Agent {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String     @db.ObjectId
+  firstName    String?
+  lastName     String?
+  email        String?    @unique
+  password     String?
+  createdAt    String?
+  updatedAt    String?
+  address      String?
+  phoneNumber  String?
+  aboutMe      String?
+  profileImage String?
+  properties   Property[]
+  roles        ROLES?
 }
 
 model Account {
@@ -36,16 +63,6 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-}
-
 model VerificationToken {
   identifier String   @id @default(auto()) @map("_id") @db.ObjectId
   token      String   @unique
@@ -61,82 +78,16 @@ model Form {
   email   String
 }
 
-model Property {
-  id                      String                @id @default(auto()) @map("_id") @db.ObjectId
-  interior                String
-  featured                Boolean?
-  status                  Status?
-  title                   String
-  overview                String
-  address                 String
-  price                   String
-  yearBuilt               String
-  heating                 String?
-  cooling                 String?
-  parking                 Int
-  lotSize                 String
-  otherPropertyFeatures   String?
-  bedrooms                Int
-  bathrooms               Int
-  basement                String?
-  flooring                String
-  appliances              String?
-  otherInteriorFeatures   String?
-  schools                 String?
-  distanceToNearestSchool String?
-  shopping                String?
-  nightlife               String?
-  forKids                 String?
-  surroundingSuburbs      String?
-  propertyCategory        Property_Category
-  residentialCategory     Residential_Category?
-
-  images Image[]
-}
-
-model Image {
-  id            String         @id @default(auto()) @map("_id") @db.ObjectId
-  url           String?
-  property      Property       @relation(fields: [propertyId], references: [id])
-  propertyId    String         @db.ObjectId
-  imageCategory Image_Category
-}
-
-enum Status {
-  FOR_RENT
-  FOR_SALE
-  SOLD
-}
-
-enum Image_Category {
-  INTERIOR
-  SURROUNDINGS
-  PROPERTY
-  MAIN
-  SUBMAIN
-}
-
-enum Property_Category {
-  RESIDENTIAL
-  COMMERCIAL
-  INDUSTRIAL
-  RAW_LAND
-  SPECIAL_USE
-  OFFICE
-}
-
-enum Residential_Category {
-  FREE_STANDING
-  DUPLEX
-  SIMPLEX
-  GRANNY_FLAT
-  FLAT
-  LUXURY
-  CONDO
-}
-
 model BlogPost {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  authorName    String?
+  authorAbout   String?
+  authorLink    String?
+  editedBy      String?
+  photoCredit   String?
+  mainImage     String?
+  publishedDate String?
+
   title          String?
   subtitle1      String?
   tableContents1 String?
@@ -174,11 +125,323 @@ model BlogPost {
   conclusion3    String?
   reference1     String?
   reference2     String?
-  authorName     String?
-  authorAbout    String?
-  authorLink     String?
-  editedBy       String?
-  photoCredit    String?
-  mainImage      String?
-  publishedDate  String?
+}
+
+model Property {
+  id                      String                @id @default(auto()) @map("_id") @db.ObjectId
+  interior                String
+  featured                Boolean?
+  status                  Status?
+  title                   String
+  overview                String
+  address                 String
+  price                   String
+  yearBuilt               String
+  heating                 String?
+  cooling                 String?
+  parking                 Int
+  lotSize                 String
+  otherPropertyFeatures   String?
+  bedrooms                Int
+  bathrooms               Int
+  basement                String?
+  flooring                String
+  appliances              String?
+  otherInteriorFeatures   String?
+  schools                 String?
+  distanceToNearestSchool String?
+  shopping                String?
+  nightlife               String?
+  forKids                 String?
+  surroundingSuburbs      String?
+  propertyCategory        Property_Category
+  residentialCategory     Residential_Category?
+  offerIn                 OfferIn?
+  images                  Image[]
+
+  agent   Agent? @relation(fields: [agentId], references: [id])
+  agentId String @db.ObjectId
+}
+
+model Image {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  url           String?
+  imageCategory Image_Category?
+
+  property   Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String    @db.ObjectId
+}
+
+model AdminMessage {
+  id         String              @id @default(auto()) @map("_id") @db.ObjectId
+  adminId    String?             @db.ObjectId
+  message    String?
+  reply      Boolean?
+  urgent     Boolean?
+  relatingTo Offer_In_Categories
+
+  OfferIn              OfferIn?            @relation(fields: [offerInId], references: [id])
+  offerInId            String              @db.ObjectId
+  ElecCompCompany      ElecCompCompany?    @relation(fields: [elecCompCompanyId], references: [id])
+  elecCompCompanyId    String?             @db.ObjectId
+  Intermologist        Intermologist?      @relation(fields: [intermologistId], references: [id])
+  intermologistId      String?             @db.ObjectId
+  GasCompliance        GasCompliance?      @relation(fields: [gasComplianceId], references: [id])
+  gasComplianceId      String?             @db.ObjectId
+  WaterCert            WaterCert?          @relation(fields: [waterCertId], references: [id])
+  waterCertId          String?             @db.ObjectId
+  OfferAccepted        OfferAccepted?      @relation(fields: [offerAcceptedId], references: [id])
+  offerAcceptedId      String?             @db.ObjectId
+  BankInspection       BankInspection?     @relation(fields: [bankInspectionId], references: [id])
+  bankInspectionId     String?             @db.ObjectId
+  Conveyancer          Conveyancer?        @relation(fields: [conveyancerId], references: [id])
+  conveyancerId        String?             @db.ObjectId
+  MortgageOriginator   MortgageOriginator? @relation(fields: [mortgageOriginatorId], references: [id])
+  mortgageOriginatorId String?             @db.ObjectId
+  FicaDocs             FicaDocs?           @relation(fields: [ficaDocsId], references: [id])
+  ficaDocsId           String?             @db.ObjectId
+}
+
+enum Status {
+  FOR_RENT
+  FOR_SALE
+  SOLD
+  OFFER_IN
+}
+
+enum Image_Category {
+  INTERIOR
+  SURROUNDINGS
+  PROPERTY
+  MAIN
+  SUBMAIN
+}
+
+enum Property_Category {
+  RESIDENTIAL
+  COMMERCIAL
+  INDUSTRIAL
+  RAW_LAND
+  SPECIAL_USE
+  OFFICE
+}
+
+enum Residential_Category {
+  FREE_STANDING
+  DUPLEX
+  SIMPLEX
+  GRANNY_FLAT
+  FLAT
+  LUXURY
+  CONDO
+}
+
+enum ROLES {
+  CEO
+  ADMIN
+  AGENT
+}
+
+enum Offer_In_Categories {
+  GENERAL
+  ELECCOMPCOMPANY
+  INTERMOLOGIST
+  GASCOMPLIANCE
+  WATERCERT
+  OFFERACCEPTED
+  BANKINSPECTION
+  CONVEYANCER
+  MORTGAGEORIGINATOR
+  FICADOCS
+}
+
+enum Document_Category {
+  COM_CERT
+  MARRIAGE_LICENSE
+  COP
+  TAX_CERT
+  MORTGAGE
+  CONVEYANCER
+  BANK_INSPECTION
+  OFFER_ACCEPTED
+  WATER_CERT
+  GAS_COM_CERT
+  INTERMOLOGIST
+  ELECCOMPCOMPANY
+  FICA_DOCUMENTS
+}
+
+//???????????????????? OFFER IN //????????????????????
+
+model OfferIn {
+  id                            String              @id @default(auto()) @map("_id") @db.ObjectId
+  amount                        String?
+  dot                           DateTime?
+  dateOfBondApplication         DateTime?
+  dateOfBondApprovalInPrincipal DateTime?
+  dateOfBondApproved            DateTime?
+  bankName                      String?
+  flag                          Boolean?
+  documents                     Document[]
+  elecCompCompany               ElecCompCompany?
+  intermologist                 Intermologist?
+  gasCompliance                 GasCompliance?
+  waterCert                     WaterCert?
+  offerAccepted                 OfferAccepted?
+  bankInspection                BankInspection?
+  conveyancer                   Conveyancer?
+  mortgageOriginator            MortgageOriginator?
+  ficaDocs                      FicaDocs?
+  elecCompCompanyId             String              @db.ObjectId
+  intermologistId               String              @db.ObjectId
+  gasComplianceId               String              @db.ObjectId
+  waterCertId                   String              @db.ObjectId
+  offerAcceptedId               String              @db.ObjectId
+  bankInspectionId              String              @db.ObjectId
+  conveyancerId                 String              @db.ObjectId
+  mortgageOriginatorId          String              @db.ObjectId
+  ficaDocsId                    String              @db.ObjectId
+  message                       AdminMessage[]
+
+  property   Property? @relation(fields: [propertyId], references: [id])
+  propertyId String    @unique @db.ObjectId
+}
+
+model ElecCompCompany {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  phone            String?
+  email            String?
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model Intermologist {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  phone            String?
+  email            String?
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model GasCompliance {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model WaterCert {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model OfferAccepted {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  withConditions   Boolean?
+  conditions       String?
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model BankInspection {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model Conveyancer {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  phone            String?
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model MortgageOriginator {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  phone            String?
+  name             String?
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model FicaDocs {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  address          String?
+  notes            String?
+  completed        Boolean?
+  urgentAssistance Boolean?
+  deadline         DateTime?
+  flag             Boolean?
+  message          AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model Document {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  url              String?
+  documentCategory Document_Category?
+
+  OfferIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @db.ObjectId
 }

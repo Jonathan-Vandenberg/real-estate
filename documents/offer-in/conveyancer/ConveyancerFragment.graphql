@@ -1,0 +1,11 @@
+fragment Conveyancer on Conveyancer {
+  id
+  offerInId
+  name
+  phone
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cva, VariantProps } from "class-variance-authority";
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import classNames from "classnames";
 
 interface ButtonProps extends VariantProps<typeof buttonClasses> {
@@ -8,6 +8,8 @@ interface ButtonProps extends VariantProps<typeof buttonClasses> {
   href?: string;
   className?: string;
   onClick?: () => void;
+  type?: "button" | "reset" | "submit";
+  disabled?: boolean;
 }
 
 const buttonClasses = cva("rounded-full inline-flex items-center", {
@@ -18,9 +20,8 @@ const buttonClasses = cva("rounded-full inline-flex items-center", {
         "transition-[shadow,text-shadow]",
       ],
       secondary: [
-        "text-off-white bg-white/10 border border-transparent-white",
-        "backdrop-filter-[12px] [&_.highlighter]:bg-transparent-white [&_.highlighter]:rounded-full",
-        "[&_.highlighter:first-child]:-ml-2 [&_.highlighter:first-child]:mr-2 [&_.highlighter:last-child]:ml-2 [&_.highlighter:last-child]:-mr-2 [&_.highlighter]:px-2 hover:bg-white/20",
+        "text-black bg-white/10 border border-gray",
+        "hover:bg-white/20",
         "transition-colors ease-in",
       ],
       tertiary: "",
@@ -54,13 +55,17 @@ export const Button = ({
   children,
   href,
   variant,
+  disabled,
   size,
   onClick,
+  type = "button",
 }: ButtonProps) => {
   return (
     <button
+      type={type}
       onClick={onClick}
       className={buttonClasses({ variant, size, className })}
+      disabled={disabled}
     >
       {children}
     </button>

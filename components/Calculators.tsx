@@ -84,9 +84,9 @@ export const BondCalculator = () => {
             />
           </div>
           <div className="flex items-start  justify-center flex-col space-y-1 text-dark-gray">
-            <label htmlFor="TermtoMaturity">Term to Maturity</label>
+            <label htmlFor="TermToMaturity">Term to Maturity</label>
             <input
-              id="TermtoMaturity"
+              id="TermToMaturity"
               required
               onBlur={() => setTouchedTotalPrice(true)}
               value={TotalPriceInYears as string}
@@ -160,7 +160,7 @@ export const PricePerSquareMeter = () => {
   return (
     <Container>
       <div className="max-w-[600px] mx-auto flex flex-col space-y-8 [&_div]:rounded-md [&_div]:text-md">
-        <p className="text-2xl text-center">Calculate the Price per m2</p>
+        <p className="text-2xl text-center">Calculate the Price per m²</p>
         <div className="space-y-6">
           <div className="flex items-start  justify-center flex-col space-y-1 text-dark-gray">
             <label htmlFor="property-area">Lot Size in m2</label>

@@ -6,9 +6,9 @@ import {
   Image_Category,
   Status,
   Property,
-  useAddImageMutation,
   useUpdatePropertyMutation,
   useAddPropertyMutation,
+  Document_Category,
 } from "../types";
 import { Button } from "./Button";
 import RadioButtonGroup from "./RadioPropertyType";
@@ -17,19 +17,24 @@ import { ImageGallery } from "./PropertyDetails";
 import RadioStatus from "./RadioStatus";
 import FeaturesResidential from "./FeaturesResidential";
 import FeaturesCommercial from "./FeaturesCommercial";
+import Switch from "./Switch";
 
 interface IProps {
   property: Property | undefined | null;
   image: Image[] | undefined | null;
   add: boolean;
   edit: boolean;
+  onClick: () => void;
+  agentId: string;
 }
 
 export default function AddPropertyForm({
   property,
+  agentId,
   add,
   edit,
   image,
+  onClick,
 }: IProps) {
   const [formSent, setFormSent] = useState(false);
 
@@ -106,11 +111,14 @@ export default function AddPropertyForm({
 
   const [newId, setNewId] = useState("");
 
-  const [addProperty] = useAddPropertyMutation();
-  const [updateProperty] = useUpdatePropertyMutation();
-  const [AddInteriorImage] = useAddImageMutation();
-
-  useEffect(() => {}, []);
+  const [
+    addProperty,
+    { loading: loadingAddProperty, error: errorAddProperty },
+  ] = useAddPropertyMutation();
+  const [
+    updateProperty,
+    { loading: loadingUpdateProperty, error: errorUpdateProperty },
+  ] = useUpdatePropertyMutation();
 
   useEffect(() => {
     var mongoObjectId = function () {
@@ -126,18 +134,6 @@ export default function AddPropertyForm({
     };
     setNewId(mongoObjectId());
   }, [add]);
-
-  let imageDetails = {
-    variables: {
-      input: {
-        id: newId,
-        url: "https://landmark-real-eastate.s3.ap-southeast-1.amazonaws.com/houseImage1.jpeg",
-        property: property,
-        propertyId: newId,
-        imageCategory: Image_Category.MAIN,
-      },
-    },
-  };
 
   let propertyDetails = {
     variables: {
@@ -171,16 +167,17 @@ export default function AddPropertyForm({
         residentialCategory:
           selectedResidentialCategory as Residential_Category,
         propertyCategory: selectedPropertyCategory as Property_Category,
+        agentId: agentId,
       },
+      agentId: agentId,
     },
   };
   const onFinish = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    function sendForm() {
+    async function sendForm() {
       if (add) {
-        addProperty(propertyDetails);
-        AddInteriorImage(imageDetails);
+        await addProperty(propertyDetails);
       }
       if (edit) {
         updateProperty(propertyDetails);
@@ -226,37 +223,66 @@ export default function AddPropertyForm({
     }, 1000);
   };
 
-  let src;
+  let mainImage;
 
-  image?.map((i) => {
+  image?.map((img) => {
     if (
-      i.propertyId === property?.id &&
-      i.imageCategory === Image_Category.Main
+      img.propertyId === property?.id &&
+      img.imageCategory === Image_Category.Main
     ) {
-      src = i.url;
+      mainImage = img.url;
     }
   });
 
   return (
     <>
-      <form
-        onSubmit={onFinish}
-        className="space-y-1 py-4 max-w-[100rem] w-full mx-auto"
-      >
-        <div className="px-3 flex items-center w-full py-10 bg-white rounded-xl ml-3">
-          <label className="text-black font-bold w-full text-md">
-            Featured
-          </label>
+      <form onSubmit={onFinish} className="space-y-1 py-4 w-full mx-auto">
+        <div className="pt-4 text-md">
+          <p className="text-black font-bold">Property type</p>
+          <RadioButtonGroup
+            value={selectedPropertyCategory as Property_Category}
+            onPropertyChange={(event: {
+              target: { value: Property_Category };
+            }) => {
+              if (event.target.value !== ("RESIDENTIAL" as Property_Category)) {
+                setPropertyCategory(event.target.value);
+                setResidentialCategory(null);
+              }
+              setPropertyCategory(event.target.value);
+            }}
+            selectedPropertyCategory={
+              selectedPropertyCategory as Property_Category
+            }
+            residentialCategory={
+              selectedResidentialCategory as Residential_Category
+            }
+            onResidentialChange={(event: {
+              target: { value: Residential_Category };
+            }) => {
+              setResidentialCategory(event.target.value);
+            }}
+          />
+        </div>
+
+        <label className="justify-center pt-4 text-md pb-4 inline-flex items-center">
           <input
             id="featured"
             type="checkbox"
             checked={featured as boolean}
             placeholder="Featured"
             onChange={(e) => setFeatured(e.target.checked)}
-            className="p-3 rounded-xl w-full"
+            className="hidden"
           />
-        </div>
-        <div className="px-3 flex items-center w-full py-10 bg-white rounded-xl ml-3">
+          <label className="mr-2 text-md font-bold">Featured</label>
+          <Switch
+            backGround="bg-off-white"
+            switchOn={featured}
+            checked={featured as boolean}
+            radioMode={false}
+          />
+        </label>
+
+        <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold w-full text-md whitespace-nowrap">
             Listing Status
           </label>
@@ -269,24 +295,39 @@ export default function AddPropertyForm({
           />
         </div>
 
-        <p className="prose text-center font-bold w-full pt-8 text-3xl pb-6">
-          Property
-        </p>
-
-        {src ? (
-          <div className="p-3 rounded-xl py-3">
-            <img src={src} alt="" />
-          </div>
-        ) : (
-          <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
-            <UploadImage
-              category={Image_Category.MAIN}
-              propertyId={add ? newId : property!.id}
-            />
+        {edit && (
+          <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
+            <label className="text-black font-bold">
+              Main Image (One Image)
+            </label>
+            {mainImage ? (
+              <div className="pt-6">
+                <ImageGallery
+                  add={add}
+                  edit={edit}
+                  newId={newId}
+                  showNoImage={true}
+                  image={image}
+                  property={property}
+                  category={Image_Category.Main}
+                  documentId={""}
+                  removeType={"image"}
+                />
+              </div>
+            ) : (
+              <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
+                <UploadImage
+                  category={Image_Category.Main}
+                  propertyId={add ? newId : property!.id}
+                  uploadType={"image"}
+                  offerInId={""}
+                />
+              </div>
+            )}
           </div>
         )}
 
-        <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md pb-4">
+        <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold">Title</label>
           <input
             required
@@ -294,11 +335,11 @@ export default function AddPropertyForm({
             value={title as string}
             placeholder="Stunning 3 Bed Home for New Family"
             onChange={(e) => setTitle(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
-        <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
+        <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold">Address</label>
           <input
             required
@@ -306,59 +347,51 @@ export default function AddPropertyForm({
             value={address as string}
             placeholder="Address"
             onChange={(e) => setAddress(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
-        <div className="pt-6">
-          <ImageGallery
-            add={add}
-            newId={newId}
-            showNoImage={true}
-            image={image}
-            property={property}
-            category={Image_Category.Submain}
-          />
-        </div>
+        {edit && (
+          <>
+            <div className="pt-6">
+              <ImageGallery
+                add={add}
+                edit={edit}
+                newId={newId}
+                showNoImage={true}
+                image={image}
+                property={property}
+                category={Image_Category.Property}
+                documentId={""}
+                removeType={"image"}
+              />
+            </div>
 
-        <p className="text-lg font-bold py-2">Below Main Image</p>
-
-        <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
-          <UploadImage
-            category={Image_Category.Submain}
-            propertyId={add ? newId : property!.id}
-          />
-        </div>
-
-        <div className="pt-6">
-          <ImageGallery
-            add={add}
-            newId={newId}
-            showNoImage={true}
-            image={image}
-            property={property}
-            category={Image_Category.Property}
-          />
-        </div>
-
-        <p className="text-lg font-bold py-2">
-          Pictures of Property from the Outside
-        </p>
-
-        <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
-          <UploadImage
-            category={Image_Category.Property}
-            propertyId={add ? newId : property!.id}
-          />
-        </div>
+            <p className="text-black font-bold text-md">
+              Other Images (Multiple)
+            </p>
+            <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center text-md">
+              <UploadImage
+                category={Image_Category.Property}
+                propertyId={add ? newId : property!.id}
+                uploadType={"image"}
+                offerInId={""}
+                documentCategory={Document_Category.Cop}
+              />
+            </div>
+          </>
+        )}
 
         {/* listing status */}
-        <div className="pb-4">
-          <FeaturesResidential />
-        </div>
-        <div className="pb-4">
-          <FeaturesCommercial />
-        </div>
+        {/* {selectedPropertyCategory === Property_Category.Residential ? (
+          <div className="pb-4">
+            <FeaturesResidential />
+          </div>
+        ) : (
+          <div className="py-4">
+            <FeaturesCommercial />
+          </div>
+        )} */}
 
         <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold" htmlFor="bedrooms">
@@ -371,7 +404,7 @@ export default function AddPropertyForm({
             value={bedrooms as number}
             placeholder="3"
             onChange={(e) => setBedrooms(e.target.valueAsNumber)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -386,7 +419,7 @@ export default function AddPropertyForm({
             value={bathrooms as number}
             placeholder="2"
             onChange={(e) => setBathrooms(e.target.valueAsNumber)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -397,7 +430,7 @@ export default function AddPropertyForm({
             value={lotSize as string}
             placeholder="1000m2"
             onChange={(e) => setLotSize(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -409,33 +442,9 @@ export default function AddPropertyForm({
             value={price as string}
             placeholder="R 1, 250, 000"
             onChange={(e) => setPrice(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
-
-        <RadioButtonGroup
-          value={selectedPropertyCategory as Property_Category}
-          onPropertyChange={(event: {
-            target: { value: Property_Category };
-          }) => {
-            if (event.target.value !== ("RESIDENTIAL" as Property_Category)) {
-              setPropertyCategory(event.target.value);
-              setResidentialCategory(null);
-            }
-            setPropertyCategory(event.target.value);
-          }}
-          selectedPropertyCategory={
-            selectedPropertyCategory as Property_Category
-          }
-          residentialCategory={
-            selectedResidentialCategory as Residential_Category
-          }
-          onResidentialChange={(event: {
-            target: { value: Residential_Category };
-          }) => {
-            setResidentialCategory(event.target.value);
-          }}
-        />
 
         <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold" htmlFor="parking">
@@ -448,7 +457,7 @@ export default function AddPropertyForm({
             value={parking as number}
             placeholder="2"
             onChange={(e) => setParking(e.target.valueAsNumber)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -460,7 +469,7 @@ export default function AddPropertyForm({
             value={yearBuilt as string}
             placeholder="1992"
             onChange={(e) => setYearBuilt(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -474,7 +483,7 @@ export default function AddPropertyForm({
             value={basement as string}
             placeholder="Yes"
             onChange={(e) => setBasement(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -491,7 +500,7 @@ export default function AddPropertyForm({
             value={otherPropertyFeatures as string}
             placeholder="Other Property Features"
             onChange={(e) => setOtherPropertyFeatures(e.target.value)}
-            className="p-3 rounded-xl w-full resize-none"
+            className="p-3 rounded-xl w-full bg-off-white resize-none"
           />
         </div>
 
@@ -504,31 +513,13 @@ export default function AddPropertyForm({
             value={overview as string}
             placeholder="A lengthy overview of the property"
             onChange={(e) => setOverview(e.target.value)}
-            className="p-3 rounded-xl w-full resize-none"
+            className="p-3 rounded-xl w-full bg-off-white resize-none"
           />
         </div>
 
         <p className="prose text-center font-bold w-full pt-8 text-3xl">
           Interior
         </p>
-
-        <div className="pt-6">
-          <ImageGallery
-            add={add}
-            newId={newId}
-            showNoImage={true}
-            image={image}
-            property={property}
-            category={Image_Category.Interior}
-          />
-        </div>
-
-        <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
-          <UploadImage
-            category={Image_Category.Interior}
-            propertyId={add ? newId : property!.id}
-          />
-        </div>
 
         <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold">Interior</label>
@@ -538,7 +529,7 @@ export default function AddPropertyForm({
             value={interior as string}
             placeholder="Short Description of Interior"
             onChange={(e) => setInterior(e.target.value)}
-            className="p-3 rounded-xl w-full resize-none"
+            className="p-3 rounded-xl w-full bg-off-white resize-none"
           />
         </div>
 
@@ -552,7 +543,7 @@ export default function AddPropertyForm({
             value={flooring as string}
             placeholder="Wood | Tiles"
             onChange={(e) => setFlooring(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -563,7 +554,7 @@ export default function AddPropertyForm({
             value={cooling as string}
             placeholder="AC in Master Bedroom and Lounge/Dining-Room"
             onChange={(e) => setCooling(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -574,7 +565,7 @@ export default function AddPropertyForm({
             value={heating as string}
             placeholder="Oil Heaters / No Heating"
             onChange={(e) => setHeating(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -587,7 +578,7 @@ export default function AddPropertyForm({
             value={appliances as string}
             placeholder="Kitchen and Laundry appliances included"
             onChange={(e) => setAppliances(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -604,31 +595,13 @@ export default function AddPropertyForm({
             value={otherInteriorFeatures as string}
             placeholder="Other Interior Features"
             onChange={(e) => setOtherInteriorFeatures(e.target.value)}
-            className="p-3 rounded-xl w-full resize-none"
+            className="p-3 rounded-xl w-full bg-off-white resize-none"
           />
         </div>
 
         <p className="prose text-center font-bold w-full pt-8 text-3xl">
           Surroundings
         </p>
-
-        <div className="pt-6">
-          <ImageGallery
-            add={add}
-            newId={newId}
-            showNoImage={true}
-            image={image}
-            property={property}
-            category={Image_Category.Surroundings}
-          />
-        </div>
-
-        <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center">
-          <UploadImage
-            category={Image_Category.Surroundings}
-            propertyId={add ? newId : property!.id}
-          />
-        </div>
 
         <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold" htmlFor="surroundingSuburbs">
@@ -639,7 +612,7 @@ export default function AddPropertyForm({
             value={surroundingSuburbs as string}
             placeholder="Kloof | Hillcrest | Gillets | Everton"
             onChange={(e) => setSurroundingSuburbs(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -652,7 +625,7 @@ export default function AddPropertyForm({
             value={schools as string}
             placeholder="Schools in the Area"
             onChange={(e) => setSchools(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -668,7 +641,7 @@ export default function AddPropertyForm({
             value={distanceToNearestSchool as string}
             placeholder="10"
             onChange={(e) => setDistanceToNearestSchool(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -681,7 +654,7 @@ export default function AddPropertyForm({
             value={nightlife as string}
             placeholder="Highly rated restaurants and live music venues nearby"
             onChange={(e) => setNightlife(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -694,7 +667,7 @@ export default function AddPropertyForm({
             value={shopping as string}
             placeholder="Large mall 2km away, Groceries 200m away"
             onChange={(e) => setShopping(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
@@ -707,16 +680,27 @@ export default function AddPropertyForm({
             value={forKids as string}
             placeholder="Park/Zoo/Fishing/Sport-Field nearby to keep your child entertained"
             onChange={(e) => setForKids(e.target.value)}
-            className="p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>
 
         <div className="w-full mx-auto flex items-center justify-center pt-10">
-          {formSent ? (
-            <Button className="text-white">Changes Saved</Button>
-          ) : (
-            <Button className="text-white">Save</Button>
-          )}
+          <div className="space-x-3">
+            <Button
+              variant="secondary"
+              onClick={onClick}
+              className="text-white"
+            >
+              Cancel
+            </Button>
+            {loadingUpdateProperty || loadingAddProperty ? (
+              <Button className="text-white">Saving Changes</Button>
+            ) : (
+              <Button type="submit" className="text-white">
+                Save
+              </Button>
+            )}
+          </div>
         </div>
       </form>
     </>

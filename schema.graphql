@@ -1,3 +1,7 @@
+scalar Date
+scalar Time
+scalar DateTime
+
 type Query {
   form(id: ID!): Form
   allForms: [Form]
@@ -12,8 +16,14 @@ type Query {
   allImages: [Image]
   image(id: ID!): Image
 
+  allDocuments: [Document]
+  document(id: ID!): Document
+
   allResidentialFeatures: [ResidentialFeatures]
   allCommercialFeatures: [CommercialFeatures]
+
+  agent(email: String!): Agent
+  allAgents: [Agent]
 }
 
 type Mutation {
@@ -22,12 +32,82 @@ type Mutation {
   addBlogPost(input: BlogPostInput!): BlogPost
   updateBlogPost(input: BlogPostInput!): BlogPost
 
+  addAgent(input: AgentInput): Agent
+
   addProperty(input: PropertyInput!): Property
   updateProperty(input: PropertyInput!): Property
 
   addImage(input: ImageInput!): Image
-  addImagesToProperty(propertyId: ID!, imagesIds: [ID]!): Property
+  deleteImage(id: ID!): Image
   updateImage(id: ID!, input: ImageInput!): Image
+
+  addDocument(input: DocumentInput!): Document
+  deleteDocument(id: ID!): Document
+  updateDocument(id: ID!, input: DocumentInput!): Document
+
+  addOfferIn(input: OfferInInput!): OfferIn
+
+  updateOfferIn(input: OfferInInput!): UpdateOfferInResponse
+}
+
+type UpdateOfferInResponse {
+  offerIn: OfferIn
+  elecCompCompany: ElecCompCompany
+  ficaDocs: FicaDocs
+  mortgageOriginator: MortgageOriginator
+  conveyancer: Conveyancer
+  bankInspection: BankInspection
+  offerAccepted: OfferAccepted
+  waterCert: WaterCert
+  gasCompliance: GasCompliance
+  intermologist: Intermologist
+}
+
+type Account {
+  id: ID!
+  type: String!
+  provider: String!
+  providerAccountId: String!
+  refresh_token: String
+  access_token: String
+  expires_at: Int
+  token_type: String
+  scope: String
+  id_token: String
+  session_state: String
+}
+
+type Agent {
+  id: ID!
+  userId: ID!
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  createdAt: String
+  updatedAt: String
+  address: String
+  phoneNumber: String
+  aboutMe: String
+  profileImage: String
+  properties: [Property]
+  roles: Roles
+}
+
+input AgentInput {
+  userId: ID!
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  createdAt: String
+  updatedAt: String
+  address: String
+  phoneNumber: String
+  aboutMe: String
+  profileImage: String
+  roles: Roles
+  properties: [PropertyInput]
 }
 
 type Form {
@@ -141,6 +221,7 @@ input BlogPostInput {
 
 type Property {
   id: ID!
+  agentId: ID!
   interior: String!
   featured: Boolean
   status: Status
@@ -170,10 +251,12 @@ type Property {
   residentialCategory: Residential_Category
   images: [Image]
   residentialFeatures: [ResidentialFeatures]
+  offerIn: OfferIn
 }
 
 input PropertyInput {
   id: ID!
+  agentId: ID!
   interior: String!
   featured: Boolean
   status: Status
@@ -229,27 +312,31 @@ type Image {
   id: ID!
   propertyId: ID!
   url: String
-  imageCategory: Image_Category!
+  imageCategory: Image_Category
 }
 
 input ImageInput {
   propertyId: ID!
   url: String
-  imageCategory: Image_Category!
+  imageCategory: Image_Category
+}
+
+enum Roles {
+  CEO
+  ADMIN
+  AGENT
 }
 
 enum Status {
   FOR_RENT
   FOR_SALE
   SOLD
+  OFFER_IN
 }
 
 enum Image_Category {
-  INTERIOR
-  SURROUNDINGS
   PROPERTY
   MAIN
-  SUBMAIN
 }
 
 enum Property_Category {
@@ -269,4 +356,348 @@ enum Residential_Category {
   FLAT
   LUXURY
   CONDO
+}
+
+enum Offer_In_Categories {
+  GENERAL
+  ELECCOMPCOMPANY
+  INTERMOLOGIST
+  GASCOMPLIANCE
+  WATERCERT
+  OFFERACCEPTED
+  BANKINSPECTION
+  CONVEYANCER
+  MORTGAGEORIGINATOR
+  FICADOCS
+}
+
+enum Document_Category {
+  COM_CERT
+  MARRIAGE_LICENSE
+  COP
+  TAX_CERT
+  MORTGAGE
+  CONVEYANCER
+  BANK_INSPECTION
+  OFFER_ACCEPTED
+  WATER_CERT
+  GAS_COM_CERT
+  INTERMOLOGIST
+  ELECCOMPCOMPANY
+  FICA_DOCUMENTS
+}
+
+type OfferIn {
+  id: ID!
+  propertyId: ID!
+  elecCompCompanyId: ID!
+  intermologistId: ID!
+  gasComplianceId: ID!
+  waterCertId: ID!
+  offerAcceptedId: ID!
+  bankInspectionId: ID!
+  conveyancerId: ID!
+  mortgageOriginatorId: ID!
+  ficaDocsId: ID!
+  amount: String
+  dot: DateTime
+  dateOfBondApplication: DateTime
+  dateOfBondApprovalInPrincipal: DateTime
+  dateOfBondApproved: DateTime
+  bankName: String
+  documents: [Document]
+  elecCompCompany: ElecCompCompany
+  intermologist: Intermologist
+  gasCompliance: GasCompliance
+  waterCert: WaterCert
+  offerAccepted: OfferAccepted
+  bankInspection: BankInspection
+  conveyancer: Conveyancer
+  mortgageOriginator: MortgageOriginator
+  ficaDocs: FicaDocs
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input OfferInInput {
+  id: ID!
+  propertyId: ID!
+  elecCompCompanyId: ID!
+  intermologistId: ID!
+  gasComplianceId: ID!
+  waterCertId: ID!
+  offerAcceptedId: ID!
+  bankInspectionId: ID!
+  conveyancerId: ID!
+  mortgageOriginatorId: ID!
+  ficaDocsId: ID!
+  amount: String
+  dot: DateTime
+  documents: DocumentInput
+  dateOfBondApplication: DateTime
+  dateOfBondApprovalInPrincipal: DateTime
+  dateOfBondApproved: DateTime
+  bankName: String
+  elecCompCompany: ElecCompCompanyInput
+  intermologist: IntermologistInput
+  gasCompliance: GasComplianceInput
+  waterCert: WaterCertInput
+  offerAccepted: OfferAcceptedInput
+  bankInspection: BankInspectionInput
+  conveyancer: ConveyancerInput
+  mortgageOriginator: MortgageOriginatorInput
+  ficaDocs: FicaDocsInput
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type ElecCompCompany {
+  id: ID!
+  offerInId: ID!
+  name: String
+  phone: String
+  email: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input ElecCompCompanyInput {
+  offerInId: ID!
+  name: String
+  phone: String
+  email: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type Intermologist {
+  id: ID!
+  offerInId: ID!
+  name: String
+  phone: String
+  email: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input IntermologistInput {
+  offerInId: ID!
+  name: String
+  phone: String
+  email: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type GasCompliance {
+  id: ID!
+  offerInId: ID!
+  gasCompCerUrl: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input GasComplianceInput {
+  offerInId: ID!
+  gasCompCerUrl: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type WaterCert {
+  id: ID!
+  offerInId: ID!
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input WaterCertInput {
+  offerInId: ID!
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type OfferAccepted {
+  id: ID!
+  offerInId: ID!
+  withConditions: Boolean
+  conditions: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input OfferAcceptedInput {
+  offerInId: ID!
+  withConditions: Boolean
+  conditions: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type BankInspection {
+  id: ID!
+  offerInId: ID!
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input BankInspectionInput {
+  offerInId: ID!
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type Conveyancer {
+  id: ID!
+  offerInId: ID!
+  name: String
+  phone: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input ConveyancerInput {
+  offerInId: ID!
+  name: String
+  phone: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type MortgageOriginator {
+  id: ID!
+  offerInId: ID!
+  phone: String
+  name: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input MortgageOriginatorInput {
+  offerInId: ID!
+  phone: String
+  name: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type FicaDocs {
+  id: ID!
+  offerInId: ID!
+  address: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input FicaDocsInput {
+  offerInId: ID!
+  address: String
+  notes: String
+  completed: Boolean
+  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type Document {
+  id: ID!
+  offerInId: ID!
+  url: String
+  documentCategory: Document_Category
+}
+
+input DocumentInput {
+  offerInId: ID!
+  url: String
+  documentCategory: Document_Category
+}
+
+type AdminMessage {
+  id: ID!
+  offerInId: ID!
+  adminId: ID
+  title: String
+  message: String
+  read: Boolean
+  urgent: Boolean
+  relatingTo: Offer_In_Categories
+}
+
+input AdminMessageInput {
+  offerInId: ID!
+  adminId: ID
+  title: String
+  message: String
+  read: Boolean
+  urgent: Boolean
+  relatingTo: Offer_In_Categories
 }

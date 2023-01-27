@@ -1,8 +1,6 @@
 import React from "react";
 import { imageOptionsType } from "../lib/property-types";
-import { Image_Category, Residential_Category } from "../types";
-import Collapsible from "react-collapsible";
-import SelectField from "./SelectResidential";
+import { Image_Category } from "../types";
 
 interface RadioButtonProps {
   label: string;

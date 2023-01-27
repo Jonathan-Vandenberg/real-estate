@@ -1,0 +1,54 @@
+# import Property from "../property/PropertyFragment.graphql"
+
+fragment Agent on Agent {
+  id
+  userId
+  roles
+  firstName
+  lastName
+  email
+  password
+  createdAt
+  updatedAt
+  address
+  phoneNumber
+  aboutMe
+  profileImage
+  properties {
+    id
+    agentId
+    interior
+    bedrooms
+    bathrooms
+    basement
+    flooring
+    appliances
+    otherPropertyFeatures
+    otherInteriorFeatures
+    schools
+    distanceToNearestSchool
+    shopping
+    nightlife
+    forKids
+    surroundingSuburbs
+    featured
+    status
+    title
+    overview
+    address
+    price
+    yearBuilt
+    heating
+    cooling
+    parking
+    lotSize
+    propertyCategory
+    residentialCategory
+    images {
+      url
+      id
+      imageCategory
+      propertyId
+    }
+  }
+}

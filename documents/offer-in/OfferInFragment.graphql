@@ -1,0 +1,219 @@
+fragment OfferIn on OfferIn {
+  id
+  propertyId
+  elecCompCompanyId
+  intermologistId
+  gasComplianceId
+  waterCertId
+  offerAcceptedId
+  bankInspectionId
+  conveyancerId
+  mortgageOriginatorId
+  ficaDocsId
+  amount
+  dot
+  dateOfBondApplication
+  dateOfBondApprovalInPrincipal
+  dateOfBondApproved
+  bankName
+  flag
+  documents {
+    offerInId
+    documentCategory
+    url
+  }
+  message {
+    id
+    offerInId
+    adminId
+    title
+    message
+    read
+    urgent
+    relatingTo
+  }
+  elecCompCompany {
+    id
+    offerInId
+    name
+    phone
+    email
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  intermologist {
+    id
+    offerInId
+    name
+    phone
+    email
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  gasCompliance {
+    id
+    offerInId
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  waterCert {
+    id
+    offerInId
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  offerAccepted {
+    id
+    offerInId
+    withConditions
+    conditions
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  bankInspection {
+    id
+    offerInId
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  conveyancer {
+    id
+    offerInId
+    name
+    phone
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  mortgageOriginator {
+    id
+    offerInId
+    phone
+    name
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  ficaDocs {
+    id
+    offerInId
+    address
+    notes
+    completed
+    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+}

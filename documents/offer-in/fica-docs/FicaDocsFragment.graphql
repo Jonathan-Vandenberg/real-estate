@@ -1,0 +1,10 @@
+fragment FicaDocs on FicaDocs {
+  id
+  offerInId
+  address
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

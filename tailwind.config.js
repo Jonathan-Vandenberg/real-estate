@@ -53,6 +53,12 @@ module.exports = {
     backgroundImage: {
       "primary-gradient":
         "linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%)",
+      "red-gradient":
+        "linear-gradient(90deg, rgba(222,37,37,1) 11%, rgba(246,66,66,1) 38%, rgba(255,101,101,1) 100%)",
+      "orange-gradient":
+        "linear-gradient(90deg, rgba(251,130,0,1) 0%, rgba(251,130,0,1) 50%, rgba(251,130,0,1) 100%)",
+      "green-gradient":
+        "linear-gradient(90deg, rgba(44,222,55,1) 0%, rgba(24,208,47,1) 10%, rgba(24,208,47,1) 50%, rgba(24,208,47,1) 90%, rgba(44,222,55,1) 100%)",
       "background-gradient":
         "radial-gradient(ellipse 80% 50% at 50% -20%,rgba(120,119,198,0.3),transparent)",
       "hero-gradient":

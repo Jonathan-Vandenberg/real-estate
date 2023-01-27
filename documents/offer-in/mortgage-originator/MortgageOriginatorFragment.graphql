@@ -1,0 +1,11 @@
+fragment MortgageOriginator on MortgageOriginator {
+  id
+  offerInId
+  phone
+  name
+  notes
+  completed
+  urgentAssistance
+  deadline
+  flag
+}

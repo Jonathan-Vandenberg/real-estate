@@ -1,0 +1,7 @@
+# import Image from "./ImageFragment.graphql"
+
+mutation deleteImage($id: ID!) {
+  deleteImage(id: $id) {
+    ...Image
+  }
+}

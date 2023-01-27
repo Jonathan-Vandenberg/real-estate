@@ -30,10 +30,10 @@ export default function JokeCard() {
     <>
       <div
         onClick={() => setShowAnswer(!showAnswer)}
-        className="[&_p]:drop-shadow-lg text-lg bg-gray hover:cursor-pointer max-w-[40rem] rounded-xl mx-auto"
+        className="[&_p]:drop-shadow-lg h-auto text-lg bg-gray hover:cursor-pointer max-w-[40rem] rounded-xl mx-auto"
       >
         {!showAnswer && (
-          <p className="h-full p-6 text-[rgb(74,74,74)] rounded-xl bg-[rgb(244,243,243)]">
+          <p className="h-auto p-6 text-[rgb(74,74,74)] rounded-xl bg-[rgb(244,243,243)]">
             {joke.part1}
           </p>
         )}
@@ -42,7 +42,7 @@ export default function JokeCard() {
             onClick={() => {
               setShowAnswer(!showAnswer), sendJoke();
             }}
-            className="h-full p-6 text-[rgb(74,74,74)] border-[rgb(202,202,247)]  border-2 rounded-xl bg-[rgb(244,243,243)] drop-shadow-2xl"
+            className="h-auto p-6 text-[rgb(74,74,74)] border-[rgb(202,202,247)]  border-2 rounded-xl bg-[rgb(244,243,243)] drop-shadow-2xl"
           >
             {joke.part2}
           </p>

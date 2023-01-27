@@ -3,6 +3,8 @@ import { propertyOptionsType } from "../lib/property-types";
 import { Property_Category, Residential_Category } from "../types";
 import Collapsible from "react-collapsible";
 import SelectField from "./SelectResidential";
+import Switch from "./Switch";
+import classNames from "classnames";
 
 interface RadioButtonProps {
   label: string;
@@ -22,13 +24,19 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   <label className="inline-flex items-center">
     <input
       type="radio"
-      className="form-radio"
-      value={value}
+      className="hidden"
+      value={value || ""}
       name={name}
       onChange={onChange}
       checked={checked}
     />
-    <span className="ml-2 text-md">{label}</span>
+    <Switch
+      backGround="bg-off-white"
+      switchOn={checked}
+      checked={checked}
+      radioMode={true}
+    />
+    <label className="ml-2 text-md">{label}</label>
   </label>
 );
 
@@ -55,8 +63,13 @@ const RadioButtonGroup = ({
             onChange={onPropertyChange}
             checked={selectedPropertyCategory === option.value}
           />
-          {option.value === "RESIDENTIAL" && (
-            <div className="ml-6">
+          {option.value === "RESIDENTIAL" ? (
+            <div
+              className={classNames(
+                "ml-6 bg-off-white rounded-xl max-w-[50rem] transition-all duration-300",
+                selectedPropertyCategory === "RESIDENTIAL" ? "my-4" : "my-0"
+              )}
+            >
               <Collapsible
                 open={selectedPropertyCategory === "RESIDENTIAL"}
                 trigger=""
@@ -67,7 +80,7 @@ const RadioButtonGroup = ({
                 />
               </Collapsible>
             </div>
-          )}
+          ) : null}
         </div>
       ))}
     </>

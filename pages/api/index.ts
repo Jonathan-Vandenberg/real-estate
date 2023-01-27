@@ -1,10 +1,11 @@
 import { createServer } from "@graphql-yoga/node";
-import type { PrismaClient } from "@prisma/client";
+import { PrismaClient, Status } from "@prisma/client";
 import { readFileSync } from "fs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { join } from "path";
 import prisma from "../../lib/prisma";
 import { Resolvers } from "../../types";
+import { DateScalar, TimeScalar, DateTimeScalar } from "graphql-date-scalars";
 
 export async function createContext(): Promise<GraphQLContext> {
   return { prisma };
@@ -19,7 +20,19 @@ const typeDefs = readFileSync(join(process.cwd(), "schema.graphql"), {
 });
 
 const resolvers: Resolvers = {
+  Date: DateScalar,
+  Time: TimeScalar,
+  DateTime: DateTimeScalar,
+
   Query: {
+    agent: (_, { email }, { prisma }) => {
+      const agent = prisma.agent.findUnique({
+        where: {
+          email,
+        },
+      });
+      return agent;
+    },
     form: (_, { id }, { prisma }) => {
       const _form = prisma.form.findUnique({
         where: {
@@ -68,6 +81,384 @@ const resolvers: Resolvers = {
   },
 
   Mutation: {
+    addOfferIn: async (_, { input }, { prisma }) => {
+      const elecCompCompany = await prisma.elecCompCompany.create({
+        data: {
+          id: input!.elecCompCompanyId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const intermologist = await prisma.intermologist.create({
+        data: {
+          id: input!.intermologistId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const gasCompliance = await prisma.gasCompliance.create({
+        data: {
+          id: input!.gasComplianceId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const waterCert = await prisma.waterCert.create({
+        data: {
+          id: input!.waterCertId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const offerAccepted = await prisma.offerAccepted.create({
+        data: {
+          id: input!.offerAcceptedId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const bankInspection = await prisma.bankInspection.create({
+        data: {
+          id: input!.bankInspectionId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const conveyancer = await prisma.conveyancer.create({
+        data: {
+          id: input!.conveyancerId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const mortgageOriginator = await prisma.mortgageOriginator.create({
+        data: {
+          id: input!.mortgageOriginatorId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const ficaDocs = await prisma.ficaDocs.create({
+        data: {
+          id: input!.ficaDocsId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const offerIn = await prisma.offerIn.create({
+        data: {
+          id: input!.id,
+          propertyId: input!.propertyId,
+          amount: input?.amount,
+          flag: input?.flag,
+          dot: new Date(),
+          dateOfBondApplication: new Date(),
+          dateOfBondApprovalInPrincipal: new Date(),
+          dateOfBondApproved: new Date(),
+          bankName: input?.bankName,
+          elecCompCompanyId: input?.elecCompCompanyId,
+          intermologistId: input?.intermologistId,
+          gasComplianceId: input?.gasComplianceId,
+          waterCertId: input?.waterCertId,
+          offerAcceptedId: input?.offerAcceptedId,
+          bankInspectionId: input?.bankInspectionId,
+          conveyancerId: input?.conveyancerId,
+          mortgageOriginatorId: input?.mortgageOriginatorId,
+          ficaDocsId: input?.ficaDocsId,
+          elecCompCompany: {
+            connect: {
+              id: elecCompCompany.id,
+            },
+          },
+          intermologist: {
+            connect: {
+              id: intermologist.id,
+            },
+          },
+          gasCompliance: {
+            connect: {
+              id: gasCompliance.id,
+            },
+          },
+          waterCert: {
+            connect: {
+              id: waterCert.id,
+            },
+          },
+          offerAccepted: {
+            connect: {
+              id: offerAccepted.id,
+            },
+          },
+          bankInspection: {
+            connect: {
+              id: bankInspection.id,
+            },
+          },
+          conveyancer: {
+            connect: {
+              id: conveyancer.id,
+            },
+          },
+          mortgageOriginator: {
+            connect: {
+              id: mortgageOriginator.id,
+            },
+          },
+          ficaDocs: {
+            connect: {
+              id: ficaDocs.id,
+            },
+          },
+        },
+      });
+
+      await prisma.property.update({
+        where: { id: input.propertyId },
+        data: {
+          status: Status.OFFER_IN,
+          offerIn: {
+            connect: { id: offerIn.id },
+          },
+        },
+      });
+
+      return offerIn;
+    },
+    updateOfferIn: async (_, { input }, { prisma }) => {
+      const offerIn = await prisma.offerIn.update({
+        where: {
+          propertyId: input!.propertyId,
+        },
+        data: {
+          amount: input?.amount,
+          dot: input?.dot,
+          flag: input?.flag,
+          dateOfBondApplication: input?.dateOfBondApplication,
+          dateOfBondApprovalInPrincipal: input?.dateOfBondApprovalInPrincipal,
+          dateOfBondApproved: input?.dateOfBondApproved,
+          bankName: input?.bankName,
+          elecCompCompanyId: input!.elecCompCompanyId,
+          intermologistId: input!.intermologistId,
+          gasComplianceId: input!.gasComplianceId,
+          waterCertId: input!.waterCertId,
+          offerAcceptedId: input!.offerAcceptedId,
+          bankInspectionId: input!.bankInspectionId,
+          conveyancerId: input!.conveyancerId,
+          mortgageOriginatorId: input!.mortgageOriginatorId,
+          ficaDocsId: input!.ficaDocsId,
+        },
+      });
+
+      const elecCompCompany = await prisma.elecCompCompany.update({
+        where: {
+          id: input!.elecCompCompanyId,
+        },
+        data: {
+          offerInId: input!.id,
+          name: input?.elecCompCompany?.name,
+          phone: input?.elecCompCompany?.phone,
+          email: input?.elecCompCompany?.email,
+          notes: input?.elecCompCompany?.notes,
+          completed: input?.elecCompCompany?.completed,
+          urgentAssistance: input?.elecCompCompany?.urgentAssistance,
+          deadline: input?.elecCompCompany?.deadline,
+          flag: input?.elecCompCompany?.flag,
+        },
+      });
+
+      const intermologist = await prisma.intermologist.update({
+        where: {
+          id: input!.intermologistId,
+        },
+        data: {
+          offerInId: input!.id,
+          name: input?.intermologist?.name,
+          phone: input?.intermologist?.phone,
+          email: input?.intermologist?.email,
+          notes: input?.intermologist?.notes,
+          completed: input?.intermologist?.completed,
+          urgentAssistance: input?.intermologist?.urgentAssistance,
+          deadline: input?.intermologist?.deadline,
+          flag: input?.intermologist?.flag,
+        },
+      });
+
+      const gasCompliance = await prisma.gasCompliance.update({
+        where: {
+          id: input!.gasComplianceId,
+        },
+        data: {
+          offerInId: input!.id,
+          notes: input?.gasCompliance?.notes,
+          completed: input?.gasCompliance?.completed,
+          urgentAssistance: input?.gasCompliance?.urgentAssistance,
+          deadline: input?.gasCompliance?.deadline,
+          flag: input?.gasCompliance?.flag,
+        },
+      });
+
+      const waterCert = await prisma.waterCert.update({
+        where: {
+          id: input?.waterCertId,
+        },
+        data: {
+          offerInId: input?.id,
+          notes: input?.waterCert?.notes,
+          completed: input?.waterCert?.completed,
+          urgentAssistance: input?.waterCert?.urgentAssistance,
+          deadline: input?.waterCert?.deadline,
+          flag: input?.waterCert?.flag,
+        },
+      });
+
+      const offerAccepted = await prisma.offerAccepted.update({
+        where: {
+          id: input!.offerAcceptedId,
+        },
+        data: {
+          offerInId: input?.id,
+          withConditions: input?.offerAccepted?.withConditions,
+          conditions: input?.offerAccepted?.conditions,
+          notes: input?.offerAccepted?.notes,
+          completed: input?.offerAccepted?.completed,
+          urgentAssistance: input?.offerAccepted?.urgentAssistance,
+          deadline: input?.offerAccepted?.deadline,
+          flag: input?.offerAccepted?.flag,
+        },
+      });
+
+      const bankInspection = await prisma.bankInspection.update({
+        where: {
+          id: input!.bankInspectionId,
+        },
+        data: {
+          offerInId: input?.id,
+          notes: input?.bankInspection?.notes,
+          completed: input?.bankInspection?.completed,
+          urgentAssistance: input?.bankInspection?.urgentAssistance,
+          deadline: input?.bankInspection?.deadline,
+          flag: input?.bankInspection?.flag,
+        },
+      });
+
+      const conveyancer = await prisma.conveyancer.update({
+        where: {
+          id: input!.conveyancerId,
+        },
+        data: {
+          offerInId: input?.id,
+          name: input?.conveyancer?.name,
+          phone: input?.conveyancer?.phone,
+          notes: input?.conveyancer?.notes,
+          completed: input?.conveyancer?.completed,
+          urgentAssistance: input?.conveyancer?.urgentAssistance,
+          deadline: input?.conveyancer?.deadline,
+          flag: input?.conveyancer?.flag,
+        },
+      });
+
+      const mortgageOriginator = await prisma.mortgageOriginator.update({
+        where: {
+          id: input!.mortgageOriginatorId,
+        },
+        data: {
+          offerInId: input?.id,
+          phone: input?.mortgageOriginator?.phone,
+          name: input?.mortgageOriginator?.name,
+          notes: input?.mortgageOriginator?.notes,
+          completed: input?.mortgageOriginator?.completed,
+          urgentAssistance: input?.mortgageOriginator?.urgentAssistance,
+          deadline: input?.mortgageOriginator?.deadline,
+          flag: input?.mortgageOriginator?.flag,
+        },
+      });
+
+      const ficaDocs = await prisma.ficaDocs.update({
+        where: {
+          id: input!.ficaDocsId,
+        },
+        data: {
+          offerInId: input?.id,
+          address: input?.ficaDocs?.address,
+          notes: input?.ficaDocs?.notes,
+          completed: input?.ficaDocs?.completed,
+          urgentAssistance: input?.ficaDocs?.urgentAssistance,
+          deadline: input?.ficaDocs?.deadline,
+          flag: input?.ficaDocs?.flag,
+        },
+      });
+
+      return {
+        offerIn,
+        elecCompCompany,
+        intermologist,
+        gasCompliance,
+        waterCert,
+        offerAccepted,
+        bankInspection,
+        conveyancer,
+        mortgageOriginator,
+        ficaDocs,
+      };
+    },
+    addAgent: async (_, { input }, { prisma }) => {
+      const agent = await prisma.agent.create({
+        data: {
+          userId: input!.userId,
+          firstName: input?.firstName,
+          lastName: input?.lastName,
+          email: input?.email,
+          password: input?.password,
+          createdAt: input!.createdAt,
+          updatedAt: input!.updatedAt,
+          address: input?.address,
+          phoneNumber: input?.phoneNumber,
+          aboutMe: input?.aboutMe,
+          profileImage: input?.profileImage,
+        },
+      });
+      return agent;
+    },
+    deleteImage: async (_, { id }, { prisma }) => {
+      const image = await prisma.image.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (image)
+        await prisma.image.delete({
+          where: {
+            id,
+          },
+        });
+      return image;
+    },
+    deleteDocument: async (_, { id }, { prisma }) => {
+      const document = await prisma.document.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (document)
+        await prisma.document.delete({
+          where: {
+            id,
+          },
+        });
+      return document;
+    },
     addForm: async (_, { input }, { prisma }) => {
       const addItem = await prisma.form.create({
         data: {
@@ -184,40 +575,19 @@ const resolvers: Resolvers = {
       return blogPost;
     },
     addProperty: async (_, { input }, { prisma }) => {
-      const property = await prisma.property.create({
-        data: {
-          id: input!.id,
-          interior: input!.interior,
-          featured: input?.featured,
-          status: input?.status,
-          title: input!.title,
-          overview: input!.overview,
-          address: input!.address,
-          price: input!.price,
-          yearBuilt: input!.yearBuilt,
-          heating: input?.heating,
-          cooling: input?.cooling,
-          parking: input!.parking,
-          lotSize: input?.lotSize,
-          otherPropertyFeatures: input?.otherPropertyFeatures,
-          schools: input?.schools,
-          distanceToNearestSchool: input?.distanceToNearestSchool,
-          shopping: input?.shopping,
-          nightlife: input?.nightlife,
-          forKids: input?.forKids,
-          surroundingSuburbs: input?.surroundingSuburbs,
-          bedrooms: input!.bedrooms,
-          bathrooms: input!.bathrooms,
-          basement: input?.basement,
-          flooring: input!.flooring,
-          appliances: input?.appliances,
-          otherInteriorFeatures: input?.otherInteriorFeatures,
-          propertyCategory: input!.propertyCategory,
-          residentialCategory: input?.residentialCategory,
-        },
-      });
-
-      return property;
+      return prisma.property
+        .create({
+          data: {
+            ...input,
+          },
+        })
+        .then((property) => {
+          prisma.agent.update({
+            where: { id: property.agentId },
+            data: { properties: { connect: { id: property.id } } },
+          });
+          return property;
+        });
     },
     updateProperty: async (_, { input }, { prisma }) => {
       const property = await prisma.property.update({
@@ -257,42 +627,47 @@ const resolvers: Resolvers = {
       return property;
     },
     addImage: async (_, { input }, { prisma }) => {
-      const interiorImage = await prisma.image.create({
-        data: {
-          url: input!.url,
-          propertyId: input!.propertyId,
-          imageCategory: input!.imageCategory,
-        },
-      });
-      await prisma.property.update({
-        where: { id: input.propertyId },
-        data: {
-          images: {
-            connect: { id: interiorImage.id },
+      return prisma.image
+        .create({
+          data: {
+            url: input?.url,
+            propertyId: input!.propertyId,
+            imageCategory: input?.imageCategory,
           },
-        },
-      });
-      return interiorImage;
+        })
+        .then((image) => {
+          prisma.property.update({
+            where: { id: input.propertyId },
+            data: {
+              images: {
+                connect: { id: image.id },
+              },
+            },
+          });
+          return image;
+        });
     },
-    // updateImage: async (_, { id, input }, { prisma }) => {
-    //   const interiorImage = await prisma.image.update({
-    //     where:{id: id},
-    //     data: {
-    //       url: input!.url,
-    //       propertyId: input!.propertyId,
-    //       imageCategory: input!.imageCategory,
-    //     }
-    //   });
-    //   await prisma.property.update({
-    //     where: { id: input.propertyId },
-    //     data: {
-    //       images: {
-    //         connect: { id: interiorImage.id },
-    //       },
-    //     },
-    //   });
-    //   return interiorImage;
-    // },
+    addDocument: async (_, { input }, { prisma }) => {
+      return prisma.document
+        .create({
+          data: {
+            url: input?.url,
+            offerInId: input!.offerInId,
+            documentCategory: input?.documentCategory,
+          },
+        })
+        .then((document) => {
+          prisma.offerIn.update({
+            where: { id: input.offerInId },
+            data: {
+              documents: {
+                connect: { id: document.id },
+              },
+            },
+          });
+          return document;
+        });
+    },
   },
 };
 
