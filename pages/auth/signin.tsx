@@ -1,12 +1,11 @@
-import { signIn, useSession, getProviders } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 import Router from "next/router";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const { data: session, status } = useSession();
 
   useEffect(() => {

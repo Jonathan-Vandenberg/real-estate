@@ -84,7 +84,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
           CORSConfiguration: {
             CORSRules: [
               {
-                AllowedOrigins: ["*"],
+                AllowedOrigins: ["*", "https://real-estate-qyxn.vercel.app/"],
                 AllowedMethods: ["GET", "PUT", "POST", "DELETE"],
                 AllowedHeaders: ["*"],
                 MaxAgeSeconds: 3000,

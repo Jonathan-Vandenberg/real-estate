@@ -511,11 +511,11 @@ export default function OfferInForm({
   return (
     <form
       onSubmit={onFinish}
-      className="space-y-1 py-4 w-full mx-auto bg-white px-6"
+      className="md:space-y-1 py-4 w-full mx-auto bg-white px-6"
     >
       <h2
         id="general"
-        className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+        className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
       >
         Offer In
       </h2>
@@ -599,7 +599,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="ECC"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Electrical Compliance Company
         </h2>
@@ -728,7 +728,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="FICA"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           FICA
         </h2>
@@ -835,7 +835,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Mortgage"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Mortgage Originator
         </h2>
@@ -957,7 +957,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Conveyancer"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Conveyancer
         </h2>
@@ -1075,7 +1075,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="BankInspection"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Bank Inspection
         </h2>
@@ -1177,7 +1177,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="OfferAccepted"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Offer Accepted
         </h2>
@@ -1302,7 +1302,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Water"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Water Certificate
         </h2>
@@ -1398,7 +1398,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Gas"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Gas Compliance
         </h2>
@@ -1505,7 +1505,7 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Intermologist"
-          className="scroll-mt-navigation-height text-3xl font-light text-center border-y-4 border-off-white py-12"
+          className="scroll-mt-navigation-height text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Entomologist
         </h2>
