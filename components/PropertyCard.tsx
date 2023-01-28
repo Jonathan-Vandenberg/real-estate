@@ -2,15 +2,16 @@ import Head from "next/head";
 import Script from "next/script";
 import React from "react";
 import { Image_Category } from "../types";
-import { Property, Agent, Image } from "../types";
+import { Property, Agent, ImageProduct } from "../types";
 import Furnished from "./svgs/Furnished";
 import { convertEnum, convertStatus } from "../lib/property-types";
 import SkeletonPropertyCard from "./SkeletonPropertyCard";
 import classNames from "classnames";
+import Image from "next/image";
 
 interface IProps {
   property: Property[];
-  image: Image[];
+  image: ImageProduct[];
   agent: Agent[];
 }
 
@@ -36,8 +37,17 @@ export default function PropertyCard({ property, image, agent }: IProps) {
                             img.imageCategory === Image_Category.Main
                           )
                             return (
-                              <div key={img.url}>
-                                {img.url && <img src={img.url} alt={img.url} />}
+                              <div
+                                key={img.url}
+                                className="object-contain relative overflow-hidden block h-[25rem] w-[40rem] aspect-video mx-auto"
+                              >
+                                {img.url && (
+                                  <Image
+                                    layout="fill"
+                                    src={img.url}
+                                    alt={img.url}
+                                  />
+                                )}
                               </div>
                             );
                         })}

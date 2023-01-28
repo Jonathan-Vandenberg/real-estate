@@ -7,41 +7,30 @@ const footerLinks = [
   {
     title: "Properties",
     links: [
-      { title: "features", href: "#" },
+      { title: "Active-Listings", href: "/active-listings" },
       { title: "Integrations", href: "#" },
-      { title: "Pricing", href: "#" },
-      { title: "ChangeLog", href: "#" },
-      { title: "Docs", href: "#" },
-      { title: "Linear Method", href: "#" },
-      { title: "Download", href: "#" },
     ],
   },
   {
     title: "Company",
     links: [
-      { title: "About us", href: "#" },
-      { title: "Blog", href: "#" },
-      { title: "Careers", href: "#" },
-      { title: "Customers", href: "#" },
-      { title: "Brand", href: "#" },
+      { title: "About us", href: "/about" },
+      { title: "News", href: "/blog" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { title: "Community", href: "#" },
-      { title: "Contact", href: "#" },
-      { title: "DPA", href: "#" },
-      { title: "Terms of service", href: "#" },
-      { title: "Brand", href: "#" },
+      { title: "Bond Calculator", href: "/buyers" },
+      { title: "Land Value by Size Calculator", href: "/sellers" },
     ],
   },
   {
-    title: "Developers",
+    title: "Information",
     links: [
-      { title: "API", href: "#" },
-      { title: "Status", href: "#" },
-      { title: "Github", href: "#" },
+      { title: "General Buying/Selling Process", href: "#" },
+      { title: "Buyers Law", href: "#" },
+      { title: "Sellers Law", href: "#" },
     ],
   },
 ];
@@ -54,7 +43,7 @@ function Footer() {
           <div className="flex flex-row justify-between lg:flex-col md:flex-row h-full">
             <div className="flex items-center">
               <Logo className="w-6 h-6" />{" "}
-              <p className="text-gray ml-4">Highway Properties</p>
+              <p className="text-gray ml-4">Nicole Properties</p>
             </div>
             <div className="mt-auto flex space-x-4 text-gray">
               <Twitter />

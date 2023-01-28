@@ -17,7 +17,7 @@ generates:
         Form: "@prisma/client#Form"
         Property: "@prisma/client#Property"
         BlogPost: "@prisma/client#BlogPost"
-        Image: "@prisma/client#Image"
+        ImageProduct: "@prisma/client#ImageProduct"
         OfferIn: "@prisma/client#OfferIn"
         ElecCompCompany: "@prisma/client#ElecCompCompany"
         Intermologist: "@prisma/client#Intermologist"
@@ -75,6 +75,7 @@ generates:
             CEO: "CEO"
             ADMIN: "ADMIN"
             AGENT: "AGENT"
+            MANAGER: "MANAGER"
         Offer_In_Categories:
           enumName: Offer_In_Categories
           values:

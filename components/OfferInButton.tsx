@@ -20,18 +20,6 @@ export default function OfferInButton({
   const [mortgageOriginatorId, setMortgageOriginatorId] = useState("");
   const [ficaDocsId, setFicaDocsId] = useState("");
 
-  console.log(id);
-  console.log(offerInId);
-  console.log(elecCompCompanyId);
-  console.log(intermologistId);
-  console.log(gasComplianceId);
-  console.log(waterCertId);
-  console.log(offerAcceptedId);
-  console.log(bankInspectionId);
-  console.log(conveyancerId);
-  console.log(mortgageOriginatorId);
-  console.log(ficaDocsId);
-
   useEffect(() => {
     var mongoObjectId = function () {
       var timestamp = ((new Date().getTime() / 1000) | 0).toString(16);
@@ -80,19 +68,6 @@ export default function OfferInButton({
         },
       },
     });
-    return console.log(
-      propertyId,
-      id,
-      elecCompCompanyId,
-      intermologistId,
-      gasComplianceId,
-      waterCertId,
-      offerAcceptedId,
-      bankInspectionId,
-      conveyancerId,
-      mortgageOriginatorId,
-      ficaDocsId
-    );
   };
 
   if (error)

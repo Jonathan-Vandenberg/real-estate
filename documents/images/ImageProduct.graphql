@@ -1,7 +1,7 @@
 # import ImageProduct from "./ImageProductFragment.graphql"
 
-mutation deleteImage($id: ID!) {
-  deleteImage(id: $id) {
+query Image($id: ID!) {
+  image(id: $id) {
     ...ImageProduct
   }
 }

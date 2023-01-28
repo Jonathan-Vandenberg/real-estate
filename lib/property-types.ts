@@ -1,4 +1,4 @@
-import { Property_Category, Image_Category, Status } from "../types";
+import { Property_Category, Image_Category, Status, Roles } from "../types";
 
 export const propertyOptionsType = [
   { value: Property_Category.Commercial, label: "Commercial" },
@@ -19,6 +19,13 @@ export const statusOptionsType = [
   { value: Status.ForRent, label: "For Rent" },
   { value: Status.Sold, label: "Sold" },
   { value: Status.OfferIn, label: "Offer-In" },
+];
+
+export const rolesOptionsType = [
+  { value: Roles.Ceo, label: "CEO" },
+  { value: Roles.Admin, label: "Admin" },
+  { value: Roles.Manager, label: "Manager" },
+  { value: Roles.Agent, label: "Agent" },
 ];
 
 export const residentialOptionType = [
@@ -185,5 +192,24 @@ export const convertStatus = (value: string | undefined | null) => {
       break;
     default:
       "Property Type";
+  }
+};
+
+export const convertRoles = (value: string | undefined | null) => {
+  switch (value) {
+    case "CEO":
+      return "Ceo";
+      break;
+    case "ADMIN":
+      return "Admin";
+      break;
+    case "MANAGER":
+      return "Manager";
+      break;
+    case "AGENT":
+      return "Agent";
+      break;
+    default:
+      "Role";
   }
 };

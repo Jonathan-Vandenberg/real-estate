@@ -1,7 +1,0 @@
-# import Image from "./ImageFragment.graphql"
-
-query Image($id: ID!) {
-  image(id: $id) {
-    ...Image
-  }
-}

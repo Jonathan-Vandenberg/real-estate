@@ -71,7 +71,7 @@ const resolvers: Resolvers = {
       return property;
     },
     image: (_, { id }, { prisma }) => {
-      const image = prisma.image.findUnique({
+      const image = prisma.imageProduct.findUnique({
         where: {
           id,
         },
@@ -429,15 +429,34 @@ const resolvers: Resolvers = {
       });
       return agent;
     },
+    updateAgent: async (_, { input }, { prisma }) => {
+      const updatedAgent = await prisma.agent.update({
+        where: {
+          id: input!.id,
+        },
+        data: {
+          userId: input!.userId,
+          roles: input?.roles,
+          updatedAt: input?.updatedAt,
+          profileImage: input?.profileImage,
+          firstName: input?.firstName,
+          lastName: input?.lastName,
+          address: input?.address,
+          phoneNumber: input?.phoneNumber,
+          aboutMe: input?.aboutMe,
+        },
+      });
+      return updatedAgent;
+    },
     deleteImage: async (_, { id }, { prisma }) => {
-      const image = await prisma.image.findUnique({
+      const image = await prisma.imageProduct.findUnique({
         where: {
           id,
         },
       });
 
       if (image)
-        await prisma.image.delete({
+        await prisma.imageProduct.delete({
           where: {
             id,
           },
@@ -627,7 +646,7 @@ const resolvers: Resolvers = {
       return property;
     },
     addImage: async (_, { input }, { prisma }) => {
-      return prisma.image
+      return prisma.imageProduct
         .create({
           data: {
             url: input?.url,

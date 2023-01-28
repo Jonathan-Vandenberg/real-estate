@@ -34,8 +34,10 @@ function Nav() {
       <Container className="flex h-navigation-height">
         <Link href="/">
           <div className="flex items-center text-md space-x-2 hover:cursor-pointer">
-            <Logo className="w-[1.8rem] h-[1.8rem]" />
-            <p className="hidden md:block">Highway Properties</p>
+            <p className="md:hidden text-lg tracking-tighter font-light">HP</p>
+            <p className="hidden md:block text-lg tracking-widest font-light">
+              Highway Properties
+            </p>
           </div>
         </Link>
         <div

@@ -520,7 +520,7 @@ export default function OfferInForm({
         Offer In
       </h2>
 
-      <label className="justify-center text-md pb-4 flex flex-row-reverse items-center pt-12">
+      <label className="justify-end  text-md pb-4 flex flex-row-reverse items-center pt-12">
         <input
           id="flag"
           type="checkbox"
@@ -529,7 +529,7 @@ export default function OfferInForm({
           onChange={(e) => setFlag(e.target.checked)}
           className="hidden"
         />
-        <label className="ml-4 text-md font-bold">Flag</label>
+        <label className="ml-4  text-md font-bold">Flag</label>
         <Switch
           switchOn={flag}
           backGround="bg-gray"
@@ -560,19 +560,19 @@ export default function OfferInForm({
         />
       </div>
 
-      <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
-        <label className="text-black font-bold">Date Of Transfer</label>
-        <Calender
-          onChange={(date: Date) => setDot(new Date(date))}
-          selected={dot || null}
-        />
-      </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-6 text-md">
         <label className="text-black font-bold">Date Of Bond Application</label>
         <Calender
           onChange={(date: Date) => setDateOfBondApplication(new Date(date))}
           selected={dateOfBondApplication || null}
+        />
+      </div>
+
+      <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
+        <label className="text-black font-bold">Date Of Transfer</label>
+        <Calender
+          onChange={(date: Date) => setDot(new Date(date))}
+          selected={dot || null}
         />
       </div>
 
@@ -618,7 +618,7 @@ export default function OfferInForm({
       </div>
 
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className=" text-black font-bold">name ElecCompCompany</label>
+        <label className=" text-black font-bold">Name</label>
         <input
           id="nameElecCompCompany"
           value={nameElecCompCompany as string}
@@ -629,7 +629,7 @@ export default function OfferInForm({
       </div>
 
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">phone ElecCompCompany</label>
+        <label className="text-black font-bold">Phone</label>
         <input
           id="phoneElecCompCompany"
           value={phoneElecCompCompany as string}
@@ -640,7 +640,7 @@ export default function OfferInForm({
       </div>
 
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">email ElecCompCompany</label>
+        <label className="text-black font-bold">Email</label>
         <input
           id="emailElecCompCompany"
           value={emailElecCompCompany as string}
@@ -651,7 +651,7 @@ export default function OfferInForm({
       </div>
 
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">notes ElecCompCompany</label>
+        <label className="text-black font-bold">Notes</label>
         <input
           id="notesElecCompCompany"
           value={notesElecCompCompany as string}
@@ -708,7 +708,7 @@ export default function OfferInForm({
             }
             className="hidden"
           />
-          <label className="ml-4 text-md font-bold">urgentAssistance</label>
+          <label className="ml-4 text-md font-bold">Urgent Assistance</label>
           <Switch
             switchOn={urgentAssistanceElecCompCompany}
             backGround="bg-gray"
@@ -743,14 +743,6 @@ export default function OfferInForm({
           offerIn={offerIn}
           documentCategory={Document_Category.FicaDocuments}
           edit={true}
-        />
-      </div>
-
-      <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
-        <label className="text-black font-bold">Deadline</label>
-        <Calender
-          onChange={(date: Date) => setDeadlineFicaDocs(new Date(date))}
-          selected={deadlineFicaDocs || null}
         />
       </div>
 
@@ -830,6 +822,14 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
+
+        <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
+          <label className="text-black font-bold">Deadline</label>
+          <Calender
+            onChange={(date: Date) => setDeadlineFicaDocs(new Date(date))}
+            selected={deadlineFicaDocs || null}
+          />
+        </div>
       </div>
 
       <ContainerTitle>

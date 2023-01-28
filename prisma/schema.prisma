@@ -157,13 +157,13 @@ model Property {
   propertyCategory        Property_Category
   residentialCategory     Residential_Category?
   offerIn                 OfferIn?
-  images                  Image[]
+  images                  ImageProduct[]
 
   agent   Agent? @relation(fields: [agentId], references: [id])
   agentId String @db.ObjectId
 }
 
-model Image {
+model ImageProduct {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   url           String?
   imageCategory Image_Category?
@@ -240,6 +240,7 @@ enum ROLES {
   CEO
   ADMIN
   AGENT
+  MANAGER
 }
 
 enum Offer_In_Categories {

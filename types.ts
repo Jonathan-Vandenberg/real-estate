@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { Agent as AgentModel, Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, Image as ImageModel, OfferIn as OfferInModel, ElecCompCompany as ElecCompCompanyModel, Intermologist as IntermologistModel, GasCompliance as GasComplianceModel, WaterCert as WaterCertModel, OfferAccepted as OfferAcceptedModel, BankInspection as BankInspectionModel, Conveyancer as ConveyancerModel, MortgageOriginator as MortgageOriginatorModel, FicaDocs as FicaDocsModel, AdminMessage as AdminMessageModel, Document as DocumentModel } from '@prisma/client';
+import { Agent as AgentModel, Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, ImageProduct as ImageProductModel, OfferIn as OfferInModel, ElecCompCompany as ElecCompCompanyModel, Intermologist as IntermologistModel, GasCompliance as GasComplianceModel, WaterCert as WaterCertModel, OfferAccepted as OfferAcceptedModel, BankInspection as BankInspectionModel, Conveyancer as ConveyancerModel, MortgageOriginator as MortgageOriginatorModel, FicaDocs as FicaDocsModel, AdminMessage as AdminMessageModel, Document as DocumentModel } from '@prisma/client';
 import { GraphQLContext } from './pages/api/index';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -84,6 +84,7 @@ export type AgentInput = {
   createdAt?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
+  id: Scalars['ID'];
   lastName?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   phoneNumber?: InputMaybe<Scalars['String']>;
@@ -371,15 +372,15 @@ export type GasComplianceInput = {
   urgentAssistance?: InputMaybe<Scalars['Boolean']>;
 };
 
-export type Image = {
-  __typename?: 'Image';
+export type ImageProduct = {
+  __typename?: 'ImageProduct';
   id: Scalars['ID'];
   imageCategory?: Maybe<Image_Category>;
   propertyId: Scalars['ID'];
   url?: Maybe<Scalars['String']>;
 };
 
-export type ImageInput = {
+export type ImageProductInput = {
   imageCategory?: InputMaybe<Image_Category>;
   propertyId: Scalars['ID'];
   url?: InputMaybe<Scalars['String']>;
@@ -450,14 +451,15 @@ export type Mutation = {
   addBlogPost?: Maybe<BlogPost>;
   addDocument?: Maybe<Document>;
   addForm?: Maybe<Form>;
-  addImage?: Maybe<Image>;
+  addImage?: Maybe<ImageProduct>;
   addOfferIn?: Maybe<OfferIn>;
   addProperty?: Maybe<Property>;
   deleteDocument?: Maybe<Document>;
-  deleteImage?: Maybe<Image>;
+  deleteImage?: Maybe<ImageProduct>;
+  updateAgent?: Maybe<Agent>;
   updateBlogPost?: Maybe<BlogPost>;
   updateDocument?: Maybe<Document>;
-  updateImage?: Maybe<Image>;
+  updateImage?: Maybe<ImageProduct>;
   updateOfferIn?: Maybe<UpdateOfferInResponse>;
   updateProperty?: Maybe<Property>;
 };
@@ -484,7 +486,7 @@ export type MutationAddFormArgs = {
 
 
 export type MutationAddImageArgs = {
-  input: ImageInput;
+  input: ImageProductInput;
 };
 
 
@@ -508,6 +510,11 @@ export type MutationDeleteImageArgs = {
 };
 
 
+export type MutationUpdateAgentArgs = {
+  input?: InputMaybe<AgentInput>;
+};
+
+
 export type MutationUpdateBlogPostArgs = {
   input: BlogPostInput;
 };
@@ -521,7 +528,7 @@ export type MutationUpdateDocumentArgs = {
 
 export type MutationUpdateImageArgs = {
   id: Scalars['ID'];
-  input: ImageInput;
+  input: ImageProductInput;
 };
 
 
@@ -653,7 +660,7 @@ export type Property = {
   forKids?: Maybe<Scalars['String']>;
   heating?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  images?: Maybe<Array<Maybe<Image>>>;
+  images?: Maybe<Array<Maybe<ImageProduct>>>;
   interior: Scalars['String'];
   lotSize: Scalars['String'];
   nightlife?: Maybe<Scalars['String']>;
@@ -722,7 +729,7 @@ export type Query = {
   allCommercialFeatures?: Maybe<Array<Maybe<CommercialFeatures>>>;
   allDocuments?: Maybe<Array<Maybe<Document>>>;
   allForms?: Maybe<Array<Maybe<Form>>>;
-  allImages?: Maybe<Array<Maybe<Image>>>;
+  allImages?: Maybe<Array<Maybe<ImageProduct>>>;
   allProperties?: Maybe<Array<Maybe<Property>>>;
   allResidentialFeatures?: Maybe<Array<Maybe<ResidentialFeatures>>>;
   blogCard?: Maybe<Array<Maybe<BlogPost>>>;
@@ -730,7 +737,7 @@ export type Query = {
   blogPosts?: Maybe<Array<Maybe<BlogPost>>>;
   document?: Maybe<Document>;
   form?: Maybe<Form>;
-  image?: Maybe<Image>;
+  image?: Maybe<ImageProduct>;
   property?: Maybe<Property>;
 };
 
@@ -789,7 +796,8 @@ export enum Residential_Category {
 export enum Roles {
   Admin = 'ADMIN',
   Agent = 'AGENT',
-  Ceo = 'CEO'
+  Ceo = 'CEO',
+  Manager = 'MANAGER'
 }
 
 export enum Status {
@@ -932,8 +940,8 @@ export type ResolversTypes = {
   GasCompliance: ResolverTypeWrapper<GasComplianceModel>;
   GasComplianceInput: GasComplianceInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  Image: ResolverTypeWrapper<ImageModel>;
-  ImageInput: ImageInput;
+  ImageProduct: ResolverTypeWrapper<ImageProductModel>;
+  ImageProductInput: ImageProductInput;
   Image_Category: Image_Category;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Intermologist: ResolverTypeWrapper<IntermologistModel>;
@@ -991,8 +999,8 @@ export type ResolversParentTypes = {
   GasCompliance: GasComplianceModel;
   GasComplianceInput: GasComplianceInput;
   ID: Scalars['ID'];
-  Image: ImageModel;
-  ImageInput: ImageInput;
+  ImageProduct: ImageProductModel;
+  ImageProductInput: ImageProductInput;
   Int: Scalars['Int'];
   Intermologist: IntermologistModel;
   IntermologistInput: IntermologistInput;
@@ -1209,7 +1217,7 @@ export type GasComplianceResolvers<ContextType = GraphQLContext, ParentType exte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type ImageResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
+export type ImageProductResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['ImageProduct'] = ResolversParentTypes['ImageProduct']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   imageCategory?: Resolver<Maybe<ResolversTypes['Image_Category']>, ParentType, ContextType>;
   propertyId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -1253,14 +1261,15 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   addBlogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<MutationAddBlogPostArgs, 'input'>>;
   addDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationAddDocumentArgs, 'input'>>;
   addForm?: Resolver<Maybe<ResolversTypes['Form']>, ParentType, ContextType, RequireFields<MutationAddFormArgs, 'input'>>;
-  addImage?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<MutationAddImageArgs, 'input'>>;
+  addImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationAddImageArgs, 'input'>>;
   addOfferIn?: Resolver<Maybe<ResolversTypes['OfferIn']>, ParentType, ContextType, RequireFields<MutationAddOfferInArgs, 'input'>>;
   addProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationAddPropertyArgs, 'input'>>;
   deleteDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationDeleteDocumentArgs, 'id'>>;
-  deleteImage?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
+  deleteImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
+  updateAgent?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, Partial<MutationUpdateAgentArgs>>;
   updateBlogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<MutationUpdateBlogPostArgs, 'input'>>;
   updateDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationUpdateDocumentArgs, 'id' | 'input'>>;
-  updateImage?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<MutationUpdateImageArgs, 'id' | 'input'>>;
+  updateImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationUpdateImageArgs, 'id' | 'input'>>;
   updateOfferIn?: Resolver<Maybe<ResolversTypes['UpdateOfferInResponse']>, ParentType, ContextType, RequireFields<MutationUpdateOfferInArgs, 'input'>>;
   updateProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationUpdatePropertyArgs, 'input'>>;
 };
@@ -1328,7 +1337,7 @@ export type PropertyResolvers<ContextType = GraphQLContext, ParentType extends R
   forKids?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   heating?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images?: Resolver<Maybe<Array<Maybe<ResolversTypes['Image']>>>, ParentType, ContextType>;
+  images?: Resolver<Maybe<Array<Maybe<ResolversTypes['ImageProduct']>>>, ParentType, ContextType>;
   interior?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lotSize?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   nightlife?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1358,7 +1367,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   allCommercialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommercialFeatures']>>>, ParentType, ContextType>;
   allDocuments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Document']>>>, ParentType, ContextType>;
   allForms?: Resolver<Maybe<Array<Maybe<ResolversTypes['Form']>>>, ParentType, ContextType>;
-  allImages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Image']>>>, ParentType, ContextType>;
+  allImages?: Resolver<Maybe<Array<Maybe<ResolversTypes['ImageProduct']>>>, ParentType, ContextType>;
   allProperties?: Resolver<Maybe<Array<Maybe<ResolversTypes['Property']>>>, ParentType, ContextType>;
   allResidentialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ResidentialFeatures']>>>, ParentType, ContextType>;
   blogCard?: Resolver<Maybe<Array<Maybe<ResolversTypes['BlogPost']>>>, ParentType, ContextType>;
@@ -1366,7 +1375,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   blogPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['BlogPost']>>>, ParentType, ContextType>;
   document?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<QueryDocumentArgs, 'id'>>;
   form?: Resolver<Maybe<ResolversTypes['Form']>, ParentType, ContextType, RequireFields<QueryFormArgs, 'id'>>;
-  image?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType, RequireFields<QueryImageArgs, 'id'>>;
+  image?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<QueryImageArgs, 'id'>>;
   property?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<QueryPropertyArgs, 'id'>>;
 };
 
@@ -1379,7 +1388,7 @@ export type ResidentialFeaturesResolvers<ContextType = GraphQLContext, ParentTyp
 
 export type Residential_CategoryResolvers = { CONDO: 'undefined', DUPLEX: 'undefined', FLAT: 'undefined', FREE_STANDING: 'undefined', GRANNY_FLAT: 'undefined', LUXURY: 'undefined', SIMPLEX: 'undefined' };
 
-export type RolesResolvers = { ADMIN: 'undefined', AGENT: 'undefined', CEO: 'undefined' };
+export type RolesResolvers = { ADMIN: 'undefined', AGENT: 'undefined', CEO: 'undefined', MANAGER: 'undefined' };
 
 export type StatusResolvers = { FOR_RENT: 'undefined', FOR_SALE: 'undefined', OFFER_IN: 'undefined', SOLD: 'undefined' };
 
@@ -1429,7 +1438,7 @@ export type Resolvers<ContextType = GraphQLContext> = {
   FicaDocs?: FicaDocsResolvers<ContextType>;
   Form?: FormResolvers<ContextType>;
   GasCompliance?: GasComplianceResolvers<ContextType>;
-  Image?: ImageResolvers<ContextType>;
+  ImageProduct?: ImageProductResolvers<ContextType>;
   Image_Category?: Image_CategoryResolvers;
   Intermologist?: IntermologistResolvers<ContextType>;
   MortgageOriginator?: MortgageOriginatorResolvers<ContextType>;
@@ -1596,8 +1605,8 @@ export const DocumentFragmentDoc = gql`
   documentCategory
 }
     `;
-export const ImageFragmentDoc = gql`
-    fragment Image on Image {
+export const ImageProductFragmentDoc = gql`
+    fragment ImageProduct on ImageProduct {
   id
   url
   propertyId
@@ -2065,6 +2074,39 @@ export function useAgentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Agen
 export type AgentQueryHookResult = ReturnType<typeof useAgentQuery>;
 export type AgentLazyQueryHookResult = ReturnType<typeof useAgentLazyQuery>;
 export type AgentQueryResult = Apollo.QueryResult<AgentQuery, AgentQueryVariables>;
+export const UpdateAgentDocument = gql`
+    mutation UpdateAgent($input: AgentInput!) {
+  updateAgent(input: $input) {
+    ...Agent
+  }
+}
+    ${AgentFragmentDoc}`;
+export type UpdateAgentMutationFn = Apollo.MutationFunction<UpdateAgentMutation, UpdateAgentMutationVariables>;
+
+/**
+ * __useUpdateAgentMutation__
+ *
+ * To run a mutation, you first call `useUpdateAgentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAgentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAgentMutation, { data, loading, error }] = useUpdateAgentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAgentMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAgentMutation, UpdateAgentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateAgentMutation, UpdateAgentMutationVariables>(UpdateAgentDocument, options);
+      }
+export type UpdateAgentMutationHookResult = ReturnType<typeof useUpdateAgentMutation>;
+export type UpdateAgentMutationResult = Apollo.MutationResult<UpdateAgentMutation>;
+export type UpdateAgentMutationOptions = Apollo.BaseMutationOptions<UpdateAgentMutation, UpdateAgentMutationVariables>;
 export const AddBlogPostDocument = gql`
     mutation AddBlogPost($input: BlogPostInput!) {
   addBlogPost(input: $input) {
@@ -2336,12 +2378,12 @@ export type DocumentQueryHookResult = ReturnType<typeof useDocumentQuery>;
 export type DocumentLazyQueryHookResult = ReturnType<typeof useDocumentLazyQuery>;
 export type DocumentQueryResult = Apollo.QueryResult<DocumentQuery, DocumentQueryVariables>;
 export const AddImageDocument = gql`
-    mutation AddImage($input: ImageInput!) {
+    mutation AddImage($input: ImageProductInput!) {
   addImage(input: $input) {
-    ...Image
+    ...ImageProduct
   }
 }
-    ${ImageFragmentDoc}`;
+    ${ImageProductFragmentDoc}`;
 export type AddImageMutationFn = Apollo.MutationFunction<AddImageMutation, AddImageMutationVariables>;
 
 /**
@@ -2371,10 +2413,10 @@ export type AddImageMutationOptions = Apollo.BaseMutationOptions<AddImageMutatio
 export const AllImagesDocument = gql`
     query AllImages {
   allImages {
-    ...Image
+    ...ImageProduct
   }
 }
-    ${ImageFragmentDoc}`;
+    ${ImageProductFragmentDoc}`;
 
 /**
  * __useAllImagesQuery__
@@ -2405,10 +2447,10 @@ export type AllImagesQueryResult = Apollo.QueryResult<AllImagesQuery, AllImagesQ
 export const DeleteImageDocument = gql`
     mutation deleteImage($id: ID!) {
   deleteImage(id: $id) {
-    ...Image
+    ...ImageProduct
   }
 }
-    ${ImageFragmentDoc}`;
+    ${ImageProductFragmentDoc}`;
 export type DeleteImageMutationFn = Apollo.MutationFunction<DeleteImageMutation, DeleteImageMutationVariables>;
 
 /**
@@ -2438,10 +2480,10 @@ export type DeleteImageMutationOptions = Apollo.BaseMutationOptions<DeleteImageM
 export const ImageDocument = gql`
     query Image($id: ID!) {
   image(id: $id) {
-    ...Image
+    ...ImageProduct
   }
 }
-    ${ImageFragmentDoc}`;
+    ${ImageProductFragmentDoc}`;
 
 /**
  * __useImageQuery__
@@ -2696,16 +2738,23 @@ export type AddAgentMutationVariables = Exact<{
 }>;
 
 
-export type AddAgentMutation = { __typename?: 'Mutation', addAgent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'Image', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
+export type AddAgentMutation = { __typename?: 'Mutation', addAgent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type AgentQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type AgentQuery = { __typename?: 'Query', agent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'Image', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
+export type AgentQuery = { __typename?: 'Query', agent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
-export type AgentFragment = { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'Image', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
+export type AgentFragment = { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
+
+export type UpdateAgentMutationVariables = Exact<{
+  input: AgentInput;
+}>;
+
+
+export type UpdateAgentMutation = { __typename?: 'Mutation', updateAgent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type AddBlogPostMutationVariables = Exact<{
   input: BlogPostInput;
@@ -2764,32 +2813,32 @@ export type DocumentQuery = { __typename?: 'Query', document?: { __typename?: 'D
 export type DocumentFragment = { __typename?: 'Document', id: string, url?: string | null, offerInId: string, documentCategory?: Document_Category | null };
 
 export type AddImageMutationVariables = Exact<{
-  input: ImageInput;
+  input: ImageProductInput;
 }>;
 
 
-export type AddImageMutation = { __typename?: 'Mutation', addImage?: { __typename?: 'Image', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null };
+export type AddImageMutation = { __typename?: 'Mutation', addImage?: { __typename?: 'ImageProduct', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null };
 
 export type AllImagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllImagesQuery = { __typename?: 'Query', allImages?: Array<{ __typename?: 'Image', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null> | null };
+export type AllImagesQuery = { __typename?: 'Query', allImages?: Array<{ __typename?: 'ImageProduct', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null> | null };
 
 export type DeleteImageMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type DeleteImageMutation = { __typename?: 'Mutation', deleteImage?: { __typename?: 'Image', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null };
+export type DeleteImageMutation = { __typename?: 'Mutation', deleteImage?: { __typename?: 'ImageProduct', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null };
+
+export type ImageProductFragment = { __typename?: 'ImageProduct', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null };
 
 export type ImageQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type ImageQuery = { __typename?: 'Query', image?: { __typename?: 'Image', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null };
-
-export type ImageFragment = { __typename?: 'Image', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null };
+export type ImageQuery = { __typename?: 'Query', image?: { __typename?: 'ImageProduct', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null };
 
 export type AddOfferInMutationVariables = Exact<{
   input: OfferInInput;
@@ -2832,25 +2881,25 @@ export type AddPropertyMutationVariables = Exact<{
 }>;
 
 
-export type AddPropertyMutation = { __typename?: 'Mutation', addProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'Image', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
+export type AddPropertyMutation = { __typename?: 'Mutation', addProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
 
 export type AllPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllPropertiesQuery = { __typename?: 'Query', allProperties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'Image', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
+export type AllPropertiesQuery = { __typename?: 'Query', allProperties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
 
 export type PropertyQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type PropertyQuery = { __typename?: 'Query', property?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'Image', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
+export type PropertyQuery = { __typename?: 'Query', property?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
 
-export type PropertyFragment = { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'Image', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null };
+export type PropertyFragment = { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null };
 
 export type UpdatePropertyMutationVariables = Exact<{
   input: PropertyInput;
 }>;
 
 
-export type UpdatePropertyMutation = { __typename?: 'Mutation', updateProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'Image', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
+export type UpdatePropertyMutation = { __typename?: 'Mutation', updateProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };

@@ -2,7 +2,7 @@ import ModalImage from "react-modal-image";
 import {
   Property_Category,
   Image_Category,
-  Image,
+  ImageProduct,
   Property,
   Status,
   Agent,
@@ -17,6 +17,8 @@ import Map from "../components/Map";
 import classNames from "classnames";
 import { Button } from "./Button";
 import RemoveImage from "./DeleteImages";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export const ImageGallery = ({
   image,
@@ -29,7 +31,7 @@ export const ImageGallery = ({
   removeType,
   documentId,
 }: {
-  image: Image[] | undefined | null;
+  image: ImageProduct[] | undefined | null;
   showNoImage: boolean;
   newId: string;
   add: boolean;
@@ -39,6 +41,8 @@ export const ImageGallery = ({
   documentId: string;
   removeType: "image" | "document";
 }) => {
+  const { data: session } = useSession();
+
   return (
     <section className="pb-6">
       <div className="grid grid-cols-2 gap-2 w-full mx-auto md:grid-cols-4">
@@ -80,7 +84,7 @@ export default function PropertyDetails({
   agent,
 }: {
   property: Property;
-  image: Image[];
+  image: ImageProduct[];
   newId: string;
   add: boolean;
   agent: Agent[];
@@ -103,13 +107,13 @@ export default function PropertyDetails({
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-4 lg:items-start">
+      <div className="grid gap-8 lg:grid-cols-4 lg:items-start pt-4">
         <div className="lg:col-span-3">
-          <div className="relative mt-4 ">
+          <div className="block">
             <img
               alt={heroImage}
               src={heroImage}
-              className="aspect-video object-cover w-full h-full rounded-xl"
+              className="aspect-video object-cover w-full h-full"
             />
           </div>
 
@@ -128,7 +132,7 @@ export default function PropertyDetails({
           </div>
         </div>
 
-        <div className="mt-4 p-3 rounded-xl border-[1px] lg:sticky lg:top-[calc(var(--navigation-height)+0.2rem)]">
+        <div className="p-4 rounded-xl lg:sticky lg:top-[calc(var(--navigation-height)+0.2rem)] bg-off-white drop-shadow-md">
           <form className="space-y-4">
             <div>
               <legend className="text-lg font-bold">Listing Status</legend>
@@ -156,20 +160,20 @@ export default function PropertyDetails({
 
               <div className="mt-2 flex gap-1">
                 <label htmlFor="material_cotton" className="cursor-pointer">
-                  <span className="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
+                  <span className="block rounded-full border border-[#d7d7d7] px-3 py-1 text-xs bg-white">
                     Pool
                   </span>
                 </label>
 
                 <label htmlFor="material_wool" className="cursor-pointer">
-                  <span className="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
+                  <span className="block rounded-full border border-[rgb(215,215,215)] px-3 py-1 text-xs peer-checked:bg-gray-100 bg-white">
                     Jacuzzi
                   </span>
                 </label>
               </div>
             </fieldset>
 
-            <div className="rounded border bg-gray-100 p-4">
+            <div className="rounded border border-[rgb(215,215,215)] p-4 bg-white">
               <div className="text-sm">
                 <div className="flex flex-col space-y-2">
                   <p>
@@ -192,18 +196,23 @@ export default function PropertyDetails({
                     key={i}
                     className="flex-col items-center p-2 space-y-2 justify-center hidden md:flex"
                   >
-                    <img
-                      src={
-                        a.profileImage ||
-                        "/Users/jonathanvandenberg/2023/real-estate/public/ppraLogo.png"
-                      }
-                      alt={"user name"}
-                      className="w-12 h-12 rounded-full"
-                    />
+                    {a.profileImage && (
+                      <Image
+                        src={
+                          a.profileImage ||
+                          "/Users/jonathanvandenberg/2023/real-estate/public/ppraLogo.png"
+                        }
+                        width={50}
+                        height={50}
+                        alt={"Profile image"}
+                        className="w-12 h-12 rounded-full"
+                      />
+                    )}
                     <div>
                       <h2 className="text-sm font-semibold hidden md:block">
-                        {a.firstName}
+                        {a.firstName} {a.lastName}
                       </h2>
+                      <p className="text-sm text-gray">{a.aboutMe}</p>
                     </div>
                   </div>
                 )
@@ -225,7 +234,7 @@ export default function PropertyDetails({
           <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light pb-4">
             <p className="ml-4 md:ml-8">{property?.overview}</p>
 
-            <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)]">
+            <h2 className="w-full md:ml-[6rem] pt-8 border-t-2 border-t-[rgb(231,229,229)]">
               Property
             </h2>
 
@@ -252,7 +261,7 @@ export default function PropertyDetails({
           </div>
 
           <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light pb-4">
-            <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)]">
+            <h2 className="w-full md:ml-[6rem] pt-8 border-t-2 border-t-[rgb(231,229,229)]">
               Interior
             </h2>
 
@@ -279,7 +288,7 @@ export default function PropertyDetails({
           </div>
 
           <div className="prose w-full text-lg [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl tracking-wider font-light pb-4">
-            <h2 className="w-full pt-8 border-t-2 border-t-[rgb(231,229,229)]">
+            <h2 className="w-full md:ml-[6rem] pt-8 border-t-2 border-t-[rgb(231,229,229)]">
               Surroundings
             </h2>
 

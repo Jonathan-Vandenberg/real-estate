@@ -1,7 +1,7 @@
-# import Image from './ImageFragment.graphql'
+# import ImageProduct from './ImageProductFragment.graphql'
 
-mutation AddImage($input: ImageInput!) {
+mutation AddImage($input: ImageProductInput!) {
   addImage(input: $input) {
-    ...Image
+    ...ImageProduct
   }
 }

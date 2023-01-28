@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Residential_Category,
   Property_Category,
-  Image,
+  ImageProduct,
   Image_Category,
   Status,
   Property,
@@ -21,10 +21,10 @@ import Switch from "./Switch";
 
 interface IProps {
   property: Property | undefined | null;
-  image: Image[] | undefined | null;
+  image: ImageProduct[] | undefined | null;
   add: boolean;
   edit: boolean;
-  onClick: () => void;
+  onCancel: () => void;
   agentId: string;
 }
 
@@ -34,7 +34,7 @@ export default function AddPropertyForm({
   add,
   edit,
   image,
-  onClick,
+  onCancel,
 }: IProps) {
   const [formSent, setFormSent] = useState(false);
 
@@ -688,7 +688,7 @@ export default function AddPropertyForm({
           <div className="space-x-3">
             <Button
               variant="secondary"
-              onClick={onClick}
+              onClick={onCancel}
               className="text-white"
             >
               Cancel

@@ -68,7 +68,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
         });
 
         const params = {
-          Bucket: process.env.AWS_BUCKET_NAME,
+          Bucket: "landmark-real-eastate",
           Key: `${prefix}/${file.name}`,
           Body: file,
           ContentType:
@@ -84,7 +84,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
           CORSConfiguration: {
             CORSRules: [
               {
-                AllowedOrigins: ["*", "https://real-estate-qyxn.vercel.app/"],
+                AllowedOrigins: ["*"],
                 AllowedMethods: ["GET", "PUT", "POST", "DELETE"],
                 AllowedHeaders: ["*"],
                 MaxAgeSeconds: 3000,

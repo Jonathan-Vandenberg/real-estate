@@ -18,7 +18,7 @@ function App({
     <SessionProvider session={session}>
       <ApolloProvider client={client}>
         <Nav />
-        <div className="pt-[6.1rem]">
+        <div className="pt-navigation-height">
           <Component {...pageProps} />
         </div>
         <Footer />

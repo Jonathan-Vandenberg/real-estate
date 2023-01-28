@@ -14,8 +14,6 @@ const Signup = () => {
     }
   }, [session]);
 
-  console.log(session);
-
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {

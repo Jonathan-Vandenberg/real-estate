@@ -1,4 +1,4 @@
-fragment Image on Image {
+fragment ImageProduct on ImageProduct {
   id
   url
   propertyId

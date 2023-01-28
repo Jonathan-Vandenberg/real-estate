@@ -1,7 +1,7 @@
-# import Image from "./ImageFragment.graphql"
+# import ImageProduct from "./ImageProductFragment.graphql"
 
 query AllImages {
   allImages {
-    ...Image
+    ...ImageProduct
   }
 }

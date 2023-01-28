@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import AddAgentForm from "./AddAgentForm";
-import { Image, Property, Agent, Status } from "../types";
+import AddAgentForm from "./AddStaffForm";
+import { ImageProduct, Property, Agent, Status } from "../types";
 import Plus from "./svgs/Plus";
 import { convertStatus } from "../lib/property-types";
 import Message from "./svgs/Message";
 
 interface IAdminUsers {
   property: Property[];
-  image: Image[];
+  image: ImageProduct[];
   agents: Agent[];
   user: any[];
 }
@@ -19,36 +19,8 @@ export default function AdminUsers({
   agents,
   user,
 }: IAdminUsers) {
-  const [showAddAgent, setShowAddAgent] = useState(false);
-  const [showEditListing, setShowEditListing] = useState(false);
-
   return (
     <div className="w-full p-2 mx-auto sm:p-4 bg-white border-l-2 border-l-off-white">
-      <div
-        className={classNames(
-          "flex items-center justify-between px-12 mb-4 w-full",
-          showAddAgent && "flex-col"
-        )}
-      >
-        {!showAddAgent && !showEditListing && (
-          <h2 className="text-2xl font-semibold leading-tight">Agents</h2>
-        )}
-
-        {showAddAgent && (
-          <h2 className="text-2xl font-semibold leading-tight">New Agent</h2>
-        )}
-
-        <div
-          className=""
-          onClick={() => {
-            setShowAddAgent(true), setShowEditListing(false);
-          }}
-        >
-          {!showAddAgent && (
-            <Plus className="w-10 h-10 text-[rgb(50,188,62)]" />
-          )}
-        </div>
-      </div>
       <div className="overflow-x-auto">
         <table className="min-w-full text-xs">
           <colgroup>
@@ -148,7 +120,6 @@ export default function AdminUsers({
             ))}
           </tbody>
         </table>
-        {showAddAgent && <AddAgentForm user={user} />}
       </div>
     </div>
   );

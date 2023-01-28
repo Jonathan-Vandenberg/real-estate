@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { convertEnum, convertStatus } from "../lib/property-types";
-import { Image, Property, Status } from "../types";
+import { ImageProduct, Property, Status } from "../types";
 import AddPropertyForm from "./AddPropertyForm";
 import Edit from "./svgs/Edit";
 import Plus from "./svgs/Plus";
@@ -14,7 +14,7 @@ export default function AdminListings({
   agentId,
 }: {
   property: Property[];
-  image: Image[];
+  image: ImageProduct[];
   agentId: string;
 }) {
   const [showAddListing, setShowAddListing] = useState(false);
@@ -25,7 +25,7 @@ export default function AdminListings({
   const editForm = (listing) => setListing(listing);
 
   return (
-    <div className="w-full p-2 mx-auto sm:p-4 bg-white border-l-2 border-l-off-white">
+    <div className="w-full p-2 mx-auto sm:p-4 bg-white">
       <div
         className={classNames(
           "flex items-center justify-between px-12 mb-4 w-full",
@@ -33,27 +33,27 @@ export default function AdminListings({
         )}
       >
         {!showAddListing && !showEditListing && (
-          <h2 className="text-xl md:text-2xl font-semibold leading-tight">
+          <h2 className="text-xl md:text-2xl font-light tracking-widest">
             Listings
           </h2>
         )}
 
+        {!showAddListing && (
+          <div
+            className=""
+            onClick={() => {
+              setShowAddListing(true), setShowEditListing(false);
+            }}
+          >
+            <Plus className="w-10 h-10 text-[rgb(50,188,62)]" />
+          </div>
+        )}
+
         {showAddListing && (
-          <h2 className="text-xl md:text-2xl font-semibold leading-tight">
+          <h2 className="text-xl md:text-2xl font-light tracking-widest py-[2.4rem] ">
             New Listing
           </h2>
         )}
-
-        <div
-          className=""
-          onClick={() => {
-            setShowAddListing(true), setShowEditListing(false);
-          }}
-        >
-          {!showAddListing && (
-            <Plus className="w-10 h-10 text-[rgb(50,188,62)]" />
-          )}
-        </div>
       </div>
 
       {showAddListing && (
@@ -64,118 +64,120 @@ export default function AdminListings({
             property={listing}
             add={true}
             edit={false}
-            onClick={() => setShowAddListing(false)}
+            onCancel={() => setShowAddListing(false)}
           />
         </div>
       )}
 
       <div className="overflow-x-auto">
-        <table className="min-w-full text-xs">
-          <colgroup>
-            {!showAddListing && (
-              <>
-                <col className="w-auto" />
-                <col className="w-auto" />
-                <col className="w-auto" />
-                <col className="w-auto" />
-                <col className="w-auto" />
-                <col className="w-auto" />
-                <col className="w-auto" />
-              </>
-            )}
-          </colgroup>
-
-          <thead className="w-auto border-y-2 border-y-off-white">
-            <tr className="text-left">
+        {!showAddListing && !showEditListing && (
+          <table className="min-w-full text-xs">
+            <colgroup>
               {!showAddListing && (
                 <>
-                  <th className="p-3">Edit</th>
-                  <th className="p-3">Todo</th>
-                  <th className="p-3">Address</th>
-                  <th className="p-3">Property</th>
-                  <th className="p-3">Price</th>
-                  <th className="p-3">Status</th>
-                  <th className="p-3">Offer-In</th>
+                  <col className="w-auto" />
+                  <col className="w-auto" />
+                  <col className="w-auto" />
+                  <col className="w-auto" />
+                  <col className="w-auto" />
+                  <col className="w-auto" />
+                  <col className="w-auto" />
                 </>
               )}
-            </tr>
-          </thead>
+            </colgroup>
 
-          <tbody>
-            {property.map(
-              (listing, i) =>
-                listing.agentId === agentId && (
-                  <tr key={i} className="border-b-2 border-b-off-white">
-                    <td className="p-3">
-                      <div
-                        onClick={() => {
-                          editForm(listing),
-                            setShowEditListing(!showEditListing),
-                            setShowAddListing(false);
-                          setSelectedListing(!selectedListing);
-                        }}
-                      >
-                        <Edit className="w-5 h-5" />
-                      </div>
-                    </td>
-                    <td className="p-3">
-                      <Todo className="h-6 w-6" />
-                    </td>
-                    <td className="p-3">
-                      <p className="font-bold whitespace-nowrap">
-                        {listing.address}
-                      </p>
-                    </td>
-                    <td className="p-3">
-                      <p>{convertEnum(listing.propertyCategory)}</p>
-                    </td>
-                    <td className="p-3">
-                      <p className="whitespace-nowrap">{listing.price}</p>
-                    </td>
-                    <td className="p-3">
-                      <span
-                        className={classNames(
-                          "px-3 py-1 font-semibold rounded-full text-white",
-                          listing.status === "SOLD"
-                            ? "bg-primary-gradient"
-                            : listing.status === "OFFER_IN"
-                            ? "bg-primary-gradient"
-                            : "bg-white text-black border-[1px]"
-                        )}
-                      >
-                        <span className="whitespace-nowrap">
-                          {listing.status === Status.OfferIn ? (
-                            <a
-                              className="hover:cursor-pointer"
-                              href={`/offer-in/${listing.id}`}
-                            >
-                              {convertStatus(listing.status)}
-                            </a>
-                          ) : (
-                            convertStatus(listing.status)
+            <thead className="w-auto border-y-2 border-y-off-white">
+              <tr className="text-left">
+                {!showAddListing && (
+                  <>
+                    <th className="p-3">Edit</th>
+                    <th className="p-3">Todo</th>
+                    <th className="p-3">Address</th>
+                    <th className="p-3">Property</th>
+                    <th className="p-3">Price</th>
+                    <th className="p-3">Status</th>
+                    <th className="p-3">Offer-In</th>
+                  </>
+                )}
+              </tr>
+            </thead>
+
+            <tbody>
+              {property.map(
+                (listing, i) =>
+                  listing.agentId === agentId && (
+                    <tr key={i} className="border-b-2 border-b-off-white">
+                      <td className="p-3">
+                        <div
+                          onClick={() => {
+                            editForm(listing),
+                              setShowEditListing(!showEditListing),
+                              setShowAddListing(false);
+                            setSelectedListing(!selectedListing);
+                          }}
+                        >
+                          <Edit className="w-5 h-5" />
+                        </div>
+                      </td>
+                      <td className="p-3">
+                        <Todo className="h-6 w-6" />
+                      </td>
+                      <td className="p-3">
+                        <p className="font-bold whitespace-nowrap">
+                          {listing.address}
+                        </p>
+                      </td>
+                      <td className="p-3">
+                        <p>{convertEnum(listing.propertyCategory)}</p>
+                      </td>
+                      <td className="p-3">
+                        <p className="whitespace-nowrap">{listing.price}</p>
+                      </td>
+                      <td className="p-3">
+                        <span
+                          className={classNames(
+                            "px-3 py-1 font-semibold rounded-full text-white",
+                            listing.status === "SOLD"
+                              ? "bg-primary-gradient"
+                              : listing.status === "OFFER_IN"
+                              ? "bg-primary-gradient"
+                              : "bg-white text-black border-[1px]"
                           )}
+                        >
+                          <span className="whitespace-nowrap">
+                            {listing.status === Status.OfferIn ? (
+                              <a
+                                className="hover:cursor-pointer"
+                                href={`/offer-in/${listing.id}`}
+                              >
+                                {convertStatus(listing.status)}
+                              </a>
+                            ) : (
+                              convertStatus(listing.status)
+                            )}
+                          </span>
                         </span>
-                      </span>
-                    </td>
-                    <td className="p-3">
-                      {listing.status === Status.ForRent && (
-                        <OfferInButton
-                          className="text-white text-xs px-3 py-1 rounded-full bg-green-gradient whitespace-nowrap font-semibold"
-                          propertyId={listing.id}
-                        />
-                      )}
-                      {listing.status === Status.ForSale && (
-                        <OfferInButton
-                          className="text-white text-xs px-3 py-1 rounded-full bg-green-gradient whitespace-nowrap font-semibold"
-                          propertyId={listing.id}
-                        />
-                      )}
-                    </td>
-                  </tr>
-                )
-            )}
-          </tbody>
-        </table>
+                      </td>
+                      <td className="p-3">
+                        {listing.status === Status.ForRent && (
+                          <OfferInButton
+                            className="text-white text-xs px-3 py-1 rounded-full bg-green-gradient whitespace-nowrap font-semibold"
+                            propertyId={listing.id}
+                          />
+                        )}
+                        {listing.status === Status.ForSale && (
+                          <OfferInButton
+                            className="text-white text-xs px-3 py-1 rounded-full bg-green-gradient whitespace-nowrap font-semibold"
+                            propertyId={listing.id}
+                          />
+                        )}
+                      </td>
+                    </tr>
+                  )
+              )}
+            </tbody>
+          </table>
+        )}
         {showEditListing && (
           <div className="flex-col flex items-center justify-center space-x-2 py-8">
             <h2 className="text-3xl md:text-5xl font-extralight leading-tight md:pb-3">
@@ -194,7 +196,7 @@ export default function AdminListings({
               image={image}
               add={false}
               edit={true}
-              onClick={() => setShowEditListing(false)}
+              onCancel={() => setShowEditListing(false)}
             />
           </div>
         )}

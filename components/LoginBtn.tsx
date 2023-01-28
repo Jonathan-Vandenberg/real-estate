@@ -36,7 +36,11 @@ const AuthBtn = () => {
         />
       </div>
       <div className="flex items-center space-x-2">
-        <Button onClick={() => signOut()} className="text-sm text-white">
+        <Button
+          variant="secondary"
+          onClick={() => signOut()}
+          className="text-sm text-white"
+        >
           Logout
         </Button>
       </div>

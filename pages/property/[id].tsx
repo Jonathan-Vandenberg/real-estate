@@ -3,11 +3,11 @@ import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
 import PropertyDetails from "../../components/PropertyDetails";
 import prisma from "../../lib/prisma";
-import { Agent, Image, Property } from "../../types";
+import { Agent, ImageProduct, Property } from "../../types";
 
 interface IProperty {
   property: Property;
-  image: Image[];
+  image: ImageProduct[];
   agent: Agent[];
 }
 
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       id: params!.id,
     },
   });
-  let image = await prisma.image.findMany();
+  let image = await prisma.imageProduct.findMany();
   let agent = await prisma.agent.findMany();
   return {
     props: {
