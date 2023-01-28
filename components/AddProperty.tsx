@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import AddPropertyForm from "./AddPropertyForm";
 import Plus from "./svgs/Plus";
-import { Image, Property } from "../types";
+import { ImageProduct, Property } from "../types";
 import Edit from "./svgs/Edit";
 
 interface IData {
   property: Property | undefined | null;
-  image: Image[] | undefined | null;
+  image: ImageProduct[] | undefined | null;
   addType: boolean;
   editType: boolean;
   onEdit: () => void;
