@@ -18,6 +18,7 @@ import RadioStatus from "./RadioStatus";
 import FeaturesResidential from "./FeaturesResidential";
 import FeaturesCommercial from "./FeaturesCommercial";
 import Switch from "./Switch";
+import { useAppSelector } from "../redux-hooks/hooks";
 
 interface IProps {
   property: Property | undefined | null;
@@ -25,12 +26,10 @@ interface IProps {
   add: boolean;
   edit: boolean;
   onCancel: () => void;
-  agentId: string;
 }
 
 export default function AddPropertyForm({
   property,
-  agentId,
   add,
   edit,
   image,
@@ -134,6 +133,8 @@ export default function AddPropertyForm({
     };
     setNewId(mongoObjectId());
   }, [add]);
+
+  const { agentId } = useAppSelector((state) => state.agentId);
 
   let propertyDetails = {
     variables: {

@@ -454,6 +454,7 @@ export type Mutation = {
   addImage?: Maybe<ImageProduct>;
   addOfferIn?: Maybe<OfferIn>;
   addProperty?: Maybe<Property>;
+  deleteAgentImage?: Maybe<Agent>;
   deleteDocument?: Maybe<Document>;
   deleteImage?: Maybe<ImageProduct>;
   updateAgent?: Maybe<Agent>;
@@ -497,6 +498,11 @@ export type MutationAddOfferInArgs = {
 
 export type MutationAddPropertyArgs = {
   input: PropertyInput;
+};
+
+
+export type MutationDeleteAgentImageArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -1264,6 +1270,7 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   addImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationAddImageArgs, 'input'>>;
   addOfferIn?: Resolver<Maybe<ResolversTypes['OfferIn']>, ParentType, ContextType, RequireFields<MutationAddOfferInArgs, 'input'>>;
   addProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationAddPropertyArgs, 'input'>>;
+  deleteAgentImage?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, RequireFields<MutationDeleteAgentImageArgs, 'id'>>;
   deleteDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationDeleteDocumentArgs, 'id'>>;
   deleteImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
   updateAgent?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, Partial<MutationUpdateAgentArgs>>;
@@ -2074,6 +2081,39 @@ export function useAgentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Agen
 export type AgentQueryHookResult = ReturnType<typeof useAgentQuery>;
 export type AgentLazyQueryHookResult = ReturnType<typeof useAgentLazyQuery>;
 export type AgentQueryResult = Apollo.QueryResult<AgentQuery, AgentQueryVariables>;
+export const DeleteAgentImageDocument = gql`
+    mutation deleteAgentImage($id: ID!) {
+  deleteAgentImage(id: $id) {
+    ...Agent
+  }
+}
+    ${AgentFragmentDoc}`;
+export type DeleteAgentImageMutationFn = Apollo.MutationFunction<DeleteAgentImageMutation, DeleteAgentImageMutationVariables>;
+
+/**
+ * __useDeleteAgentImageMutation__
+ *
+ * To run a mutation, you first call `useDeleteAgentImageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAgentImageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAgentImageMutation, { data, loading, error }] = useDeleteAgentImageMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteAgentImageMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAgentImageMutation, DeleteAgentImageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteAgentImageMutation, DeleteAgentImageMutationVariables>(DeleteAgentImageDocument, options);
+      }
+export type DeleteAgentImageMutationHookResult = ReturnType<typeof useDeleteAgentImageMutation>;
+export type DeleteAgentImageMutationResult = Apollo.MutationResult<DeleteAgentImageMutation>;
+export type DeleteAgentImageMutationOptions = Apollo.BaseMutationOptions<DeleteAgentImageMutation, DeleteAgentImageMutationVariables>;
 export const UpdateAgentDocument = gql`
     mutation UpdateAgent($input: AgentInput!) {
   updateAgent(input: $input) {
@@ -2748,6 +2788,13 @@ export type AgentQueryVariables = Exact<{
 export type AgentQuery = { __typename?: 'Query', agent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type AgentFragment = { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
+
+export type DeleteAgentImageMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteAgentImageMutation = { __typename?: 'Mutation', deleteAgentImage?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type UpdateAgentMutationVariables = Exact<{
   input: AgentInput;

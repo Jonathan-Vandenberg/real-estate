@@ -7,20 +7,21 @@ import Edit from "./svgs/Edit";
 import Plus from "./svgs/Plus";
 import Todo from "./svgs/Todo";
 import OfferInButton from "./OfferInButton";
+import { useAppSelector } from "../redux-hooks/hooks";
 
 export default function AdminListings({
   property,
   image,
-  agentId,
 }: {
   property: Property[];
   image: ImageProduct[];
-  agentId: string;
 }) {
   const [showAddListing, setShowAddListing] = useState(false);
   const [showEditListing, setShowEditListing] = useState(false);
   const [listing, setListing] = useState<Property>();
   const [selectedListing, setSelectedListing] = useState(false);
+
+  const { agentId } = useAppSelector((state) => state.agentId);
 
   const editForm = (listing) => setListing(listing);
 
@@ -59,7 +60,6 @@ export default function AdminListings({
       {showAddListing && (
         <div className="px-2">
           <AddPropertyForm
-            agentId={agentId}
             image={image}
             property={listing}
             add={true}
@@ -191,7 +191,6 @@ export default function AdminListings({
         {listing && showEditListing && (
           <div className="px-2 md:px-0">
             <AddPropertyForm
-              agentId={agentId}
               property={listing}
               image={image}
               add={false}

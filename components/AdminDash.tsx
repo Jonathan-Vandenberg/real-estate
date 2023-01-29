@@ -17,7 +17,6 @@ interface IDash {
   property: Property[];
   image: ImageProduct[];
   agents: Agent[];
-  agentId: string;
   user: any[];
   role: string | null | undefined;
 }
@@ -26,7 +25,6 @@ export default function AdminDash({
   property,
   image,
   agents,
-  agentId,
   user,
   role,
 }: IDash) {
@@ -172,13 +170,10 @@ export default function AdminDash({
           {feelGood && <JokeCard />}
         </div>
       </div>
-      {listings && (
-        <AdminListings property={property} image={image} agentId={agentId} />
-      )}
+      {listings && <AdminListings property={property} image={image} />}
       {showEditUserProfile && (
         <UserSettings
-          agentId={agentId}
-          user={user}
+          agents={agents}
           onCancel={() => {
             setShowEditUserProfile(true),
               setUsers(false),
@@ -197,7 +192,6 @@ export default function AdminDash({
       )}
       {showAddAgent && (
         <AddAgentForm
-          agentId={agentId}
           user={user}
           onClick={() => {
             setShowAddAgent(true),

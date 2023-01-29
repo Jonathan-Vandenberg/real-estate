@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import AdminDash from "../components/AdminDash";
 import prisma from "../lib/prisma";
 import { Agent, ImageProduct, Property } from "../types";
+import { useAppDispatch } from "../redux-hooks/hooks";
+import { setUserId } from "../slices/userIdSlice";
+import { setAgentId } from "../slices/agentIdSlice";
 
 interface IAdmin {
   property: Property[];
@@ -12,20 +15,33 @@ interface IAdmin {
 }
 
 export default function Admin({ property, image, agents, user }: IAdmin) {
-  const [agentId, setAgentId] = useState("");
   const [role, setRole] = useState<string | null | undefined>("");
   const { data: session } = useSession();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     function agent() {
       agents.map((a) => {
-        if (session?.user)
-          if (a.email === session?.user?.email) {
-            setAgentId(a.id), setRole(a.roles);
+        if (session?.user?.email)
+          if (a.email === session.user.email) {
+            dispatch(setAgentId(a.id)), setRole(a.roles);
           }
       });
     }
     agent();
+  }, [session]);
+
+  useEffect(() => {
+    function userId() {
+      user.map((u) => {
+        if (u) {
+          if (u.email === session?.user?.email) {
+            dispatch(setUserId(u.id));
+          }
+        }
+      });
+    }
+    userId();
   }, [session]);
 
   return (
@@ -33,7 +49,6 @@ export default function Admin({ property, image, agents, user }: IAdmin) {
       property={property}
       image={image}
       agents={agents}
-      agentId={agentId}
       user={user}
       role={role}
     />

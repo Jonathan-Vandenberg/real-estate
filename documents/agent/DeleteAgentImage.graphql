@@ -1,0 +1,7 @@
+# import Agent from "./AgentFragment.graphql"
+
+mutation deleteAgentImage($id: ID!) {
+  deleteAgentImage(id: $id) {
+    ...Agent
+  }
+}

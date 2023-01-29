@@ -1,22 +1,33 @@
-import { useDeleteDocumentMutation, useDeleteImageMutation } from "../types";
+import {
+  useDeleteDocumentMutation,
+  useDeleteImageMutation,
+  useUpdateAgentMutation,
+} from "../types";
 import { S3 } from "aws-sdk";
 import Delete from "./svgs/Delete";
 import { useState } from "react";
+import userIdSlice from "../slices/userIdSlice";
+import { useAppSelector } from "../redux-hooks/hooks";
 
 const RemoveFile = ({ url, imageId, removeType, documentId }) => {
   const [deleteSingleImage] = useDeleteImageMutation();
   const [deleteSingleDocument] = useDeleteDocumentMutation();
+  const [updateAgent] = useUpdateAgentMutation();
   const [showConfirm, setShowConfirm] = useState(false);
+
+  const { userId } = useAppSelector((state) => state.userId);
+  const { agentId } = useAppSelector((state) => state.agentId);
 
   const deleteFile = async (
     url: string,
-    removeType: "image" | "document",
+    removeType: "image" | "document" | "profile-image",
     imageId: string,
     documentId: string
   ) => {
     const s3 = new S3({
       accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+      region: "ap-southeast-1",
     });
     // parse the url to extract the image's key from it
     const imageKey = url?.split(
@@ -37,6 +48,18 @@ const RemoveFile = ({ url, imageId, removeType, documentId }) => {
       if (removeType === "document") {
         await deleteSingleDocument({
           variables: { id: documentId },
+        });
+        console.log("Image deleted from MongoDB successfully");
+      }
+      if (removeType === "profile-image") {
+        await updateAgent({
+          variables: {
+            input: {
+              id: agentId,
+              userId: userId,
+              profileImage: "/ppraLogo.png",
+            },
+          },
         });
         console.log("Image deleted from MongoDB successfully");
       }

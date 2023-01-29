@@ -5,11 +5,13 @@ import {
   Document_Category,
   Image_Category,
   useAddDocumentMutation,
+  useUpdateAgentMutation,
 } from "../types";
 import { useAddImageMutation } from "../types";
 import { Button } from "./Button";
 import { v4 as uuidv4 } from "uuid";
 import Plus from "./svgs/Plus";
+import { useAppSelector } from "../redux-hooks/hooks";
 
 interface FileInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +21,7 @@ interface UploadImageProps {
   propertyId: string;
   offerInId: string;
   documentCategory?: Document_Category;
-  uploadType: "image" | "document";
+  uploadType: "image" | "document" | "profile-image";
 }
 
 const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
@@ -43,6 +45,9 @@ const UploadImage: React.FC<UploadImageProps> = ({
   const [files, setFiles] = useState<File[] | null>([]);
   const [prefix, setPrefix] = useState("");
 
+  const { userId } = useAppSelector((state) => state.userId);
+  const { agentId } = useAppSelector((state) => state.agentId);
+
   useEffect(() => {
     function createRandom() {
       const prefix = uuidv4();
@@ -53,6 +58,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
 
   const [addImage] = useAddImageMutation();
   const [addDocument] = useAddDocumentMutation();
+  const [updateAgent] = useUpdateAgentMutation();
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files != null) setFiles(Array.from(event.target.files));
@@ -65,6 +71,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
           // dotenv not working
           accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
           secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+          region: "ap-southeast-1",
         });
 
         const params = {
@@ -109,7 +116,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
                 },
               });
             }
-            if (uploadType === "document")
+            if (uploadType === "document") {
               addDocument({
                 variables: {
                   input: {
@@ -119,6 +126,18 @@ const UploadImage: React.FC<UploadImageProps> = ({
                   },
                 },
               });
+            }
+            if (uploadType === "profile-image") {
+              updateAgent({
+                variables: {
+                  input: {
+                    id: agentId,
+                    userId: userId,
+                    profileImage: `https://landmark-real-eastate.s3.ap-southeast-1.amazonaws.com/${prefix}/${file.name}`,
+                  },
+                },
+              });
+            }
           });
       });
 

@@ -4,19 +4,19 @@ import { Button } from "./Button";
 import { useSession } from "next-auth/react";
 import AddRole from "./AddRole";
 import { AugmentedAIRuntime } from "aws-sdk";
+import { useAppSelector } from "../redux-hooks/hooks";
 
 export default function AddAgentForm({
   user,
   onClick,
-  agentId,
 }: {
   user: any;
   onClick: () => void;
-  agentId: string;
 }) {
   const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const { agentId } = useAppSelector((state) => state.agentId);
 
   const [addAgent, { loading, error }] = useAddAgentMutation();
   const [role, setRole] = useState<Roles>(Roles.Agent);

@@ -1666,7 +1666,7 @@ export const ImageGallery = ({
   edit?: boolean;
   offerIn: OfferIn | undefined | null;
   documentCategory: Document_Category;
-  removeType: "image" | "document";
+  removeType: "image" | "document" | "profile-image";
   userEmail: string;
   recipientEmail: string;
 }) => {

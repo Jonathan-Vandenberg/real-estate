@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import { useClient } from "../lib/client";
 import { Session } from "next-auth";
+import { Provider } from "react-redux";
+import store from "../store/store";
 
 function App({
   Component,
@@ -16,13 +18,15 @@ function App({
   const client = useClient();
   return (
     <SessionProvider session={session}>
-      <ApolloProvider client={client}>
-        <Nav />
-        <div className="pt-navigation-height">
-          <Component {...pageProps} />
-        </div>
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <Nav />
+          <div className="pt-navigation-height">
+            <Component {...pageProps} />
+          </div>
+        </ApolloProvider>
         <Footer />
-      </ApolloProvider>
+      </Provider>
     </SessionProvider>
   );
 }

@@ -436,6 +436,7 @@ const resolvers: Resolvers = {
         },
         data: {
           userId: input!.userId,
+          email: input?.email,
           roles: input?.roles,
           updatedAt: input?.updatedAt,
           profileImage: input?.profileImage,

@@ -34,6 +34,7 @@ type Mutation {
 
   addAgent(input: AgentInput): Agent
   updateAgent(input: AgentInput): Agent
+  deleteAgentImage(id: ID!): Agent
 
   addProperty(input: PropertyInput!): Property
   updateProperty(input: PropertyInput!): Property
