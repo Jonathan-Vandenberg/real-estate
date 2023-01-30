@@ -52,6 +52,10 @@ type Mutation {
   updateOfferIn(input: OfferInInput!): UpdateOfferInResponse
 }
 
+type Subscription {
+  agentUpdated(id: ID!): Agent
+}
+
 type UpdateOfferInResponse {
   offerIn: OfferIn
   elecCompCompany: ElecCompCompany

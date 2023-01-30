@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
   Agent,
-  AgentDocument,
-  Document_Category,
   Image_Category,
-  Roles,
+  useAgentUpdatedSubscription,
   useUpdateAgentMutation,
 } from "../types";
 import { Button } from "./Button";
 import ModalImage from "react-modal-image";
-import AddRole from "./AddRole";
 import { useSession } from "next-auth/react";
-import { ImageGallery } from "./OfferInForm";
 import UploadImage from "./UploadImage";
 import { useAppSelector } from "../redux-hooks/hooks";
-import { setUserId } from "../slices/userIdSlice";
 import RemoveImage from "../components/DeleteImages";
 
 export default function AddAgentForm({
@@ -49,6 +44,21 @@ export default function AddAgentForm({
   }, []);
 
   const [updateAgent, { loading, error }] = useUpdateAgentMutation();
+
+  const {
+    data,
+    loading: loadingSubscription,
+    error: ErrorSubscription,
+  } = useAgentUpdatedSubscription({
+    variables: {
+      id: agentId,
+    },
+  });
+
+  if (data) {
+    const updatedAgent = data.agentUpdated;
+    console.log(updatedAgent);
+  }
 
   const { data: session } = useSession();
 

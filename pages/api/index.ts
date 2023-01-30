@@ -1,21 +1,24 @@
-import { createServer } from "@graphql-yoga/node";
-import { PrismaClient, Status } from "@prisma/client";
+import { createServer, createPubSub, PubSub } from "@graphql-yoga/node";
+import { PrismaClient, Status, Agent } from "@prisma/client";
 import { readFileSync } from "fs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { join } from "path";
 import prisma from "../../lib/prisma";
 import { Resolvers } from "../../types";
 import { DateScalar, TimeScalar, DateTimeScalar } from "graphql-date-scalars";
-import { PubSub } from "graphql-subscriptions";
-
-export const pubsub = new PubSub();
 
 export async function createContext(): Promise<GraphQLContext> {
-  return { prisma };
+  const pubSub = createPubSub<{ agentUpdated: [payload: Agent] }>();
+  return { prisma, pubSub };
 }
 
 export type GraphQLContext = {
   prisma: PrismaClient;
+  pubSub: PubSub<PubSubType>;
+};
+
+export type PubSubType = {
+  agentUpdated: [id: string, agent: Agent];
 };
 
 const typeDefs = readFileSync(join(process.cwd(), "schema.graphql"), {
@@ -431,7 +434,7 @@ const resolvers: Resolvers = {
       });
       return agent;
     },
-    updateAgent: async (_, { input }, { prisma }) => {
+    updateAgent: async (_, { input }, { prisma, pubSub }) => {
       const updatedAgent = await prisma.agent.update({
         where: {
           id: input!.id,
@@ -449,6 +452,9 @@ const resolvers: Resolvers = {
           aboutMe: input?.aboutMe,
         },
       });
+
+      pubSub.publish("agentUpdated", input!.id, updatedAgent);
+
       return updatedAgent;
     },
     deleteImage: async (_, { id }, { prisma }) => {
@@ -689,6 +695,13 @@ const resolvers: Resolvers = {
           });
           return document;
         });
+    },
+  },
+  Subscription: {
+    agentUpdated: {
+      subscribe: (_, { id }, { pubSub }) =>
+        pubSub.subscribe("agentUpdated", id),
+      resolve: (payload) => payload.agent,
     },
   },
 };
