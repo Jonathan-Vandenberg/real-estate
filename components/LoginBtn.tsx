@@ -26,7 +26,7 @@ const AuthBtn = () => {
   }
   return (
     <div className="flex h-8">
-      <div className="flex pr-2 items-center space-x-2">
+      <div className="flex items-center space-x-2">
         <Image
           src={session?.user?.image || placeholderImage}
           alt={session?.user?.name || "Login or Sign Up"}
@@ -35,15 +35,7 @@ const AuthBtn = () => {
           className="rounded-full"
         />
       </div>
-      <div className="flex items-center space-x-2">
-        <Button
-          variant="secondary"
-          onClick={() => signOut()}
-          className="text-sm text-white"
-        >
-          Logout
-        </Button>
-      </div>
+      <div className="flex items-center space-x-2"></div>
     </div>
   );
 };

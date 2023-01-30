@@ -1629,7 +1629,7 @@ export default function OfferInForm({
         />
       </div>
 
-      <div className="w-full mx-auto flex items-center justify-center pt-10">
+      <div className="w-full mx-auto flex items-center justify-center py-10">
         <div className="space-x-3">
           <Button variant="secondary" onClick={onClick} className="text-white">
             Cancel

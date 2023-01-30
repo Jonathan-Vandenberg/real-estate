@@ -8,6 +8,7 @@ import Plus from "./svgs/Plus";
 import Todo from "./svgs/Todo";
 import OfferInButton from "./OfferInButton";
 import { useAppSelector } from "../redux-hooks/hooks";
+import AdminListingsMobile from "./AdminListingsMobile";
 
 export default function AdminListings({
   property,
@@ -26,22 +27,21 @@ export default function AdminListings({
   const editForm = (listing) => setListing(listing);
 
   return (
-    <div className="w-full p-2 mx-auto sm:p-4 bg-white">
+    <div className="w-full p-2 mx-auto bg-white">
       <div
         className={classNames(
-          "flex items-center justify-between px-12 mb-4 w-full",
+          "flex items-center justify-between px-2 w-full",
           showAddListing && "flex-col"
         )}
       >
-        {!showAddListing && !showEditListing && (
-          <h2 className="text-xl md:text-2xl font-light tracking-widest">
+        {!showAddListing && (
+          <h2 className="text-xl md:text-2xl font-light tracking-widest py-[2.4rem]">
             Listings
           </h2>
         )}
 
         {!showAddListing && (
           <div
-            className=""
             onClick={() => {
               setShowAddListing(true), setShowEditListing(false);
             }}
@@ -69,7 +69,15 @@ export default function AdminListings({
         </div>
       )}
 
-      <div className="overflow-x-auto">
+      <div className="md:hidden">
+        <AdminListingsMobile
+          showEditListing={false}
+          property={property}
+          onClick={() => {}}
+        />
+      </div>
+
+      <div className="overflow-x-auto hidden md:block">
         {!showAddListing && !showEditListing && (
           <table className="min-w-full text-xs">
             <colgroup>
@@ -195,7 +203,9 @@ export default function AdminListings({
               image={image}
               add={false}
               edit={true}
-              onCancel={() => setShowEditListing(false)}
+              onCancel={() => {
+                setShowEditListing(false), setShowAddListing(false);
+              }}
             />
           </div>
         )}

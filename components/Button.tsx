@@ -20,7 +20,7 @@ const buttonClasses = cva("rounded-full inline-flex items-center", {
         "transition-[shadow,text-shadow]",
       ],
       secondary: [
-        "text-black bg-white/10 border border-gray",
+        "text-black font-semibold bg-white",
         "hover:bg-white/20",
         "transition-colors ease-in",
       ],

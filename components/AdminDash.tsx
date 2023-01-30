@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import AdminListings from "./AdminListings";
 import User from "./svgs/User";
@@ -12,6 +12,7 @@ import Plus from "./svgs/Plus";
 import AddAgentForm from "./AddStaffForm";
 import { setDefaultResultOrder } from "dns";
 import prisma from "../lib/prisma";
+import Link from "next/link";
 
 interface IDash {
   property: Property[];
@@ -145,17 +146,23 @@ export default function AdminDash({
                 </div>
               </li>
               <li className="rounded-md hover:bg-off-white transition duration-150 w-full ease-in-out">
-                <div className="flex items-center md:p-2 space-x-3 rounded-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    className="w-5 h-5 fill-current dark:text-gray-400"
-                  >
-                    <path d="M440,424V88H352V13.005L88,58.522V424H16v32h86.9L352,490.358V120h56V456h88V424ZM320,453.642,120,426.056V85.478L320,51Z"></path>
-                    <rect width="32" height="64" x="256" y="232"></rect>
-                  </svg>
-                  <span className="hidden md:block cursor-default">Logout</span>
-                </div>
+                <Link href="/">
+                  <a>
+                    <div className="flex items-center md:p-2 space-x-3 rounded-md">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        className="w-5 h-5 fill-current dark:text-gray-400"
+                      >
+                        <path d="M440,424V88H352V13.005L88,58.522V424H16v32h86.9L352,490.358V120h56V456h88V424ZM320,453.642,120,426.056V85.478L320,51Z"></path>
+                        <rect width="32" height="64" x="256" y="232"></rect>
+                      </svg>
+                      <span className="hidden md:block cursor-default">
+                        Logout
+                      </span>
+                    </div>
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>

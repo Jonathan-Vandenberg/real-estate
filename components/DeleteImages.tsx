@@ -57,7 +57,7 @@ const RemoveFile = ({ url, imageId, removeType, documentId }) => {
             input: {
               id: agentId,
               userId: userId,
-              profileImage: "/ppraLogo.png",
+              profileImage: "/profileImagePlaceholder.png",
             },
           },
         });

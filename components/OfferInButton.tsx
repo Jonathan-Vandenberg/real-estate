@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAddOfferInMutation } from "../types";
+import { Button } from "./Button";
 
 export default function OfferInButton({
   propertyId,
@@ -77,8 +78,13 @@ export default function OfferInButton({
       </p>
     );
   return (
-    <button className={className} onClick={() => handleCreateOfferIn()}>
-      {loading ? "Creating Offer-In Workplace" : "Begin Offer-In Procedure"}
-    </button>
+    <Button
+      variant="primary"
+      size="small"
+      className={className}
+      onClick={() => handleCreateOfferIn()}
+    >
+      {loading ? "Creating Offer-In Workspace" : "Offer-In"}
+    </Button>
   );
 }

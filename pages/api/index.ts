@@ -6,6 +6,9 @@ import { join } from "path";
 import prisma from "../../lib/prisma";
 import { Resolvers } from "../../types";
 import { DateScalar, TimeScalar, DateTimeScalar } from "graphql-date-scalars";
+import { PubSub } from "graphql-subscriptions";
+
+export const pubsub = new PubSub();
 
 export async function createContext(): Promise<GraphQLContext> {
   return { prisma };
@@ -79,7 +82,6 @@ const resolvers: Resolvers = {
       return image;
     },
   },
-
   Mutation: {
     addOfferIn: async (_, { input }, { prisma }) => {
       const elecCompCompany = await prisma.elecCompCompany.create({

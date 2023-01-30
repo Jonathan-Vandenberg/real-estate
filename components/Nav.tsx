@@ -114,12 +114,6 @@ function Nav() {
         <div className="ml-auto h-full flex items-center">
           <LoginBtn />
         </div>
-        {/* <div className="ml-auto h-full flex items-center">
-          <Link href="/auth/signin">
-            <p className="text-md">Signin</p>
-          </Link>
-        </div> */}
-
         <button
           className="ml-6 md:hidden"
           onClick={() => setHamburgerMenuIsOpen((open) => !open)}

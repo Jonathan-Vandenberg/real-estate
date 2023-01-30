@@ -1,0 +1,7 @@
+# import Agent from "./AgentFragment.graphql"
+
+subscription onAgentUpdate($id: ID!) {
+  agentUpdated(id: $id) {
+    ...Agent
+  }
+}

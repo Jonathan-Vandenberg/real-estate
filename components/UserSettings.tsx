@@ -76,40 +76,43 @@ export default function AddAgentForm({
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
-        <p className="text-black font-bold">Profile image</p>
+      <div className="flex items-start space-y-1 justify-center flex-col py-4 text-md">
         <div>
           {profileImage && (
             <div className="w-full min-h-[20rem] bg-white rounded-full flex items-center justify-center">
               <div className="relative max-w-[20rem]">
                 <ModalImage
-                  className="rounded-xl object-cover aspect-square"
+                  className="rounded-full object-cover aspect-square"
                   small={profileImage}
                   large={profileImage}
                   hideDownload
                   hideZoom
                 />
-                <div className="absolute bottom-5 left-5">
-                  <div className="flex items-center justify-center space-x-3">
-                    <RemoveImage
-                      url={profileImage}
-                      imageId={""}
-                      removeType={"profile-image"}
-                      documentId={""}
-                    />
+                {profileImage !== "/profileImagePlaceholder.png" && (
+                  <div className="absolute bottom-0 left-0">
+                    <div className="flex items-center justify-center space-x-3">
+                      <RemoveImage
+                        url={profileImage}
+                        imageId={""}
+                        removeType={"profile-image"}
+                        documentId={""}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           )}
-          <div className="z-10">
-            <UploadImage
-              category={Image_Category.Main}
-              propertyId={""}
-              uploadType={"profile-image"}
-              offerInId={""}
-            />
-          </div>
+          {profileImage === "/profileImagePlaceholder.png" && (
+            <div className="z-10">
+              <UploadImage
+                category={Image_Category.Main}
+                propertyId={""}
+                uploadType={"profile-image"}
+                offerInId={""}
+              />
+            </div>
+          )}
         </div>
       </div>
       <form
