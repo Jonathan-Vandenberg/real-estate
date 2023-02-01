@@ -14,7 +14,7 @@ export default function Hero({
 }) {
   return (
     <div className="relative">
-      <Image src={image} alt="header image" />
+      <Image priority={true} src={image} alt="header image" />
       <div className="absolute inset-0 bg-black/20 h-[99.2%]">
         <div className="text-center flex items-center justify-center flex-col h-full">
           <div className="lg:text-7xl md:text-5xl text-2xl text-off-white animate-fade-in font-light">

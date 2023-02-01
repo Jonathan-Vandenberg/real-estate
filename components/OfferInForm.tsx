@@ -1428,7 +1428,9 @@ export default function OfferInForm({
       </div>
 
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Water Cert URL</label>
+        <label className="text-black font-bold">
+          Gas Compliance Certificate URL
+        </label>
         <input
           id="urlGasCompliance"
           value={gasCompCerUrlGasCompliance as string}
