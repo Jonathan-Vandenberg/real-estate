@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { cva, VariantProps } from "class-variance-authority";
-import React, { ButtonHTMLAttributes } from "react";
+import React from "react";
 import classNames from "classnames";
 
 interface ButtonProps extends VariantProps<typeof buttonClasses> {
   children: React.ReactNode;
-  href?: string;
   className?: string;
   onClick?: () => void;
   type?: "button" | "reset" | "submit";
@@ -21,7 +20,7 @@ const buttonClasses = cva("rounded-full inline-flex items-center", {
       ],
       secondary: [
         "text-black font-semibold bg-white",
-        "hover:bg-white/20",
+        "hover:bg-white/20 border",
         "transition-colors ease-in",
       ],
       tertiary: "",
@@ -53,7 +52,6 @@ export const Highlighter = ({
 export const Button = ({
   className,
   children,
-  href,
   variant,
   disabled,
   size,

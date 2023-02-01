@@ -45,18 +45,6 @@ export default function AddAgentForm({
 
   const [updateAgent, { loading, error }] = useUpdateAgentMutation();
 
-  // const {
-  //   data,
-  //   loading: loadingSubscription,
-  //   error: ErrorSubscription,
-  // } = useAgentUpdatedSubscription({
-  //   variables: {
-  //     id: agentId,
-  //   },
-  // });
-
-  // console.log(data);
-
   const { data: session } = useSession();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -96,7 +84,7 @@ export default function AddAgentForm({
                   hideZoom
                 />
                 {profileImage !== "/profileImagePlaceholder.png" && (
-                  <div className="absolute bottom-0 left-0">
+                  <div className="absolute bottom-0 right-0">
                     <div className="flex items-center justify-center space-x-3">
                       <RemoveImage
                         url={profileImage}

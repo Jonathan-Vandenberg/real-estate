@@ -58,55 +58,43 @@ export default function AddAgentForm({
       onSubmit={handleSubmit}
       className="[&_label]:text-md [&_label]:p-3 flex flex-col items-center justify-center space-y-2 [&_input]:text-md my-6"
     >
-      <h2 className="text-2xl tracking-widest font-light mb-3">
+      <h2 className="text-xl md:text-2xl font-light tracking-widest py-[2.4rem] ">
         Add New Staff
       </h2>
-      <div className="text-md space-y-1 text-[rgb(222,70,70)] py-3 px-6 border border-[rgb(224,42,42)]">
-        <p>* To add staff, they have to have already logged in.</p>
-        <p>
-          * The email field in this form must match the email which they logged
-          in with.
-        </p>
-        <p>
-          * If they logged in with the facebook button, it will be the same
-          email connected to their facebook.
-        </p>
-      </div>
-      <div className="grid grid-cols2">
-        <label className="font-bold" htmlFor="phone-number ">
-          Email{" "}
-          <i className="text-gray font-light">
-            (The same email they used to log in)
-          </i>
-        </label>
-        <input
-          name="email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="bg-off-white rounded-lg  p-3"
-          value={email}
-        />
-        <p className="text-md p-3 font-bold mt-4">Role</p>
-        <div className="bg-off-white rounded-lg">
-          <AddRole
-            className="bg-gray"
-            value={undefined}
-            selectedRole={role}
-            onRoleChange={(event) => setRole(event.target.value)}
+      <div className="">
+        <div className="p-3">
+          <label className="-ml-3 font-bold" htmlFor="email">
+            Email{"  "}
+            <i className="text-gray font-light">
+              (Same email they logged in with)
+            </i>
+          </label>
+          <input
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="bg-off-white rounded-lg p-3 w-full mt-2"
+            value={email}
           />
         </div>
+        <p className="text-md p-3 font-bold">Role</p>
+        <AddRole
+          value={undefined}
+          selectedRole={role}
+          onRoleChange={(event) => setRole(event.target.value)}
+        />
       </div>
 
-      <div className="space-x-3 flex items-center justify-center pt-6">
+      <div className="space-x-3 flex items-center justify-center pt-9">
         <Button
           variant="secondary"
-          type="submit"
+          type="button"
           className="text-md text-white "
           onClick={onClick}
         >
           Cancel
         </Button>
         <Button type="submit" className="text-md text-white ">
-          {error ? `${error}` : loading ? "Adding Agent " : "Add Agent"}
+          {loading ? "Adding Staff " : "Add Staff"}
         </Button>
       </div>
     </form>

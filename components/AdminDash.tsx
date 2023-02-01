@@ -34,6 +34,7 @@ export default function AdminDash({
   const [users, setUsers] = useState(false);
   const [showEditUserProfile, setShowEditUserProfile] = useState(false);
   const [showAddAgent, setShowAddAgent] = useState(false);
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
   const [showEditListing, setShowEditListing] = useState(false);
   const { data: session, status } = useSession();
 
@@ -189,25 +190,7 @@ export default function AdminDash({
           }}
         />
       )}
-      {users && (
-        <AdminUsers
-          property={property}
-          image={image}
-          agents={agents}
-          user={user}
-        />
-      )}
-      {showAddAgent && (
-        <AddAgentForm
-          user={user}
-          onClick={() => {
-            setShowAddAgent(true),
-              setShowEditUserProfile(false),
-              setUsers(false),
-              setListings(false);
-          }}
-        />
-      )}
+      {users && <AdminUsers property={property} agents={agents} user={user} />}
     </div>
   );
 }

@@ -35,7 +35,7 @@ export default function AdminListings({
         )}
       >
         {!showAddListing && (
-          <h2 className="text-xl md:text-2xl font-light tracking-widest py-[2.4rem]">
+          <h2 className="ml-5 text-xl md:text-2xl font-light tracking-widest py-[2.4rem]">
             Listings
           </h2>
         )}

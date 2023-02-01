@@ -19,7 +19,6 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   name,
   onChange,
   checked,
-  className,
 }) => (
   <label className="inline-flex items-center">
     <input
@@ -31,7 +30,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
       checked={checked}
     />
     <Switch
-      backGround={classNames(className ? className : "bg-off-white")}
+      backGround="bg-gray"
       switchOn={checked}
       checked={checked}
       radioMode={true}
@@ -57,7 +56,7 @@ const RadioButtonGroup = ({
       {rolesOptionsType.map((option) => (
         <>
           {option.value !== "CEO" && (
-            <div className="px-3" key={option.value}>
+            <div className="px-3 -my-5" key={option.value}>
               <RadioButton
                 className={className}
                 value={option.value}
