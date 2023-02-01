@@ -34,13 +34,13 @@ export default function AdminListings({
           showAddListing && "flex-col"
         )}
       >
-        {!showAddListing && (
+        {!showAddListing && !showEditListing && (
           <h2 className="ml-5 text-xl md:text-2xl font-light tracking-widest py-[2.4rem]">
             Listings
           </h2>
         )}
 
-        {!showAddListing && (
+        {!showAddListing && !showEditListing && (
           <div
             onClick={() => {
               setShowAddListing(true), setShowEditListing(false);
@@ -104,7 +104,7 @@ export default function AdminListings({
                     <th className="p-3">Property</th>
                     <th className="p-3">Price</th>
                     <th className="p-3">Status</th>
-                    <th className="p-3">Offer-In</th>
+                    <th className="p-3"></th>
                   </>
                 )}
               </tr>
@@ -197,7 +197,7 @@ export default function AdminListings({
           </div>
         )}
         {listing && showEditListing && (
-          <div className="px-2 md:px-0">
+          <div className="px-4">
             <AddPropertyForm
               property={listing}
               image={image}

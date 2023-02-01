@@ -200,7 +200,7 @@ export const PricePerSquareMeter = () => {
         </div>
         {answer != 0 && (
           <div className="flex space-x-2">
-            <p className="text-md">Price Per m2:</p>
+            <p className="text-md">Price Per m²:</p>
             <p className="text-lg font-bold">
               R {answer != 0 && formatMoney(+answer.toFixed(2))}
             </p>
