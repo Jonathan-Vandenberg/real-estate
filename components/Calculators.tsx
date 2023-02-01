@@ -120,7 +120,6 @@ export const BondCalculator = () => {
               TotalPriceInYears,
             })
           }
-          href={""}
         >
           Calculate
         </Button>
@@ -210,7 +209,6 @@ export const PricePerSquareMeter = () => {
         <Button
           className="text-md w-auto mx-auto text-white"
           onClick={() => pricePerSquareMeter({ propertyValue, lotSize })}
-          href={""}
         >
           Calculate
         </Button>
