@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { YogaLink } from "@graphql-yoga/apollo-link";
 
 const protocol = `${
   process.env.NODE_ENV === "development" ? "http" : "https"
@@ -17,7 +18,9 @@ export const useClient = () => {
   const client = useMemo(
     () =>
       new ApolloClient({
-        uri: `${origin}/api`,
+        link: new YogaLink({
+          endpoint: `${origin}/api`,
+        }),
         cache: new InMemoryCache(),
       }),
     []

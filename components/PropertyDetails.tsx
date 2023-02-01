@@ -132,7 +132,7 @@ export default function PropertyDetails({
           </div>
         </div>
 
-        <div className="p-4 rounded-xl lg:sticky lg:top-[calc(var(--navigation-height)+0.2rem)] bg-off-white drop-shadow-md">
+        <div className="p-4 rounded-xl lg:sticky lg:top-[calc(var(--navigation-height)+0.2rem)] bg-[rgb(251,251,251)] drop-shadow-md">
           <form className="space-y-4">
             <div>
               <legend className="text-lg font-bold">Listing Status</legend>
@@ -198,13 +198,10 @@ export default function PropertyDetails({
                   >
                     {a.profileImage && (
                       <Image
-                        src={
-                          a.profileImage ||
-                          "/Users/jonathanvandenberg/2023/real-estate/public/ppraLogo.png"
-                        }
+                        src={a.profileImage || "/profileImagePlaceholder.png"}
                         width={50}
                         height={50}
-                        alt={"Profile image"}
+                        alt={"Highway Properties"}
                         className="w-12 h-12 rounded-full"
                       />
                     )}

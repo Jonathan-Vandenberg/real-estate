@@ -54,7 +54,7 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="/admin"
                 className="flex items-center p-2 space-x-3 rounded-md hover:cursor-pointer"
               >
-                <a>
+                <a className="flex items-center p-2 space-x-3 rounded-md ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
@@ -66,7 +66,7 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 </a>
               </Link>
             </li>
-            <li className="rounded-sm hover:bg-off-white">
+            <li className="rounded-md hover:bg-off-white">
               <a
                 rel="noopener noreferrer"
                 href="#ECC"

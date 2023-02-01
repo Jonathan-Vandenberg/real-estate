@@ -453,7 +453,7 @@ const resolvers: Resolvers = {
         },
       });
 
-      pubSub.publish("agentUpdated", input!.id, updatedAgent);
+      // pubSub.publish("agentUpdated", input!.id, updatedAgent);
 
       return updatedAgent;
     },
@@ -697,13 +697,13 @@ const resolvers: Resolvers = {
         });
     },
   },
-  Subscription: {
-    agentUpdated: {
-      subscribe: (_, { id }, { pubSub }) =>
-        pubSub.subscribe("agentUpdated", id),
-      resolve: (payload) => payload.agent,
-    },
-  },
+  // Subscription: {
+  //   agentUpdated: {
+  //     subscribe: (_, { id }, { pubSub }) =>
+  //       pubSub.subscribe("agentUpdated", id),
+  //     resolve: (payload: { agent: Agent }) => payload.agent,
+  //   },
+  // },
 };
 
 const server = createServer<{ req: NextApiRequest; res: NextApiResponse }>({

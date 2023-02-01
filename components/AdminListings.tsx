@@ -27,7 +27,7 @@ export default function AdminListings({
   const editForm = (listing) => setListing(listing);
 
   return (
-    <div className="w-full p-2 mx-auto bg-white">
+    <div className="w-full mx-auto bg-white">
       <div
         className={classNames(
           "flex items-center justify-between px-2 w-full",

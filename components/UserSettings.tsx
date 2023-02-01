@@ -45,20 +45,17 @@ export default function AddAgentForm({
 
   const [updateAgent, { loading, error }] = useUpdateAgentMutation();
 
-  const {
-    data,
-    loading: loadingSubscription,
-    error: ErrorSubscription,
-  } = useAgentUpdatedSubscription({
-    variables: {
-      id: agentId,
-    },
-  });
+  // const {
+  //   data,
+  //   loading: loadingSubscription,
+  //   error: ErrorSubscription,
+  // } = useAgentUpdatedSubscription({
+  //   variables: {
+  //     id: agentId,
+  //   },
+  // });
 
-  if (data) {
-    const updatedAgent = data.agentUpdated;
-    console.log(updatedAgent);
-  }
+  // console.log(data);
 
   const { data: session } = useSession();
 
@@ -85,12 +82,12 @@ export default function AddAgentForm({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full">
-      <div className="flex items-start space-y-1 justify-center flex-col py-4 text-md">
+    <div className="flex flex-col items-center justify-center w-full h-full bg-off-white">
+      <div className="flex items-start space-y-1 justify-center flex-col py-8 text-md ">
         <div>
           {profileImage && (
-            <div className="w-full min-h-[20rem] bg-white rounded-full flex items-center justify-center">
-              <div className="relative max-w-[20rem]">
+            <div className=" rounded-full flex items-center justify-center">
+              <div className="relative max-w-[16rem]">
                 <ModalImage
                   className="rounded-full object-cover aspect-square"
                   small={profileImage}
@@ -114,7 +111,7 @@ export default function AddAgentForm({
             </div>
           )}
           {profileImage === "/profileImagePlaceholder.png" && (
-            <div className="z-10">
+            <div className="">
               <UploadImage
                 category={Image_Category.Main}
                 propertyId={""}
@@ -127,9 +124,9 @@ export default function AddAgentForm({
       </div>
       <form
         onSubmit={handleSubmit}
-        className="[&_label]:text-md bg-white w-full [&_label]:p-3 flex flex-col items-center justify-center space-y-2 md:space-y-6 [&_input]:text-md p-4 md:p-0"
+        className="[&_label]:text-md bg-white w-full [&_label]:p-1 flex flex-col items-center justify-center space-y-2 md:space-y-6 [&_input]:text-md p-4 md:p-0"
       >
-        <h2 className="text-2xl tracking-widest font-light mb-3">
+        <h2 className="text-2xl tracking-widest font-light mb-3 pt-8">
           Edit Profile
         </h2>
 
@@ -189,12 +186,12 @@ export default function AddAgentForm({
             rows={6}
             name="about"
             onChange={(e) => setAboutMe(e.target.value)}
-            className="bg-off-white rounded-lg w-full md:w-auto p-3 text-md"
+            className="bg-off-white rounded-lg w-full md:w-auto p-3 text-md resize-none"
             value={aboutMe}
           />
         </div>
 
-        <div className="space-x-3 flex items-center justify-center pt-6">
+        <div className="space-x-3 flex items-center justify-center pt-6 pb-8">
           <Button
             variant="secondary"
             type="submit"

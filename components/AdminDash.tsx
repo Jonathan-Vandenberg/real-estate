@@ -43,7 +43,7 @@ export default function AdminDash({
         <div className="space-y-3">
           <div className="h-auto">
             <ul className="pb-4 space-y-6 md:space-y-1 text-sm flex flex-col items-center justify-center md:items-start">
-              <li className="rounded-md hover:bg-off-white transition duration-150 w-full ease-in-out">
+              <li className="rounded-md md:hover:bg-off-white transition duration-150 w-full ease-in-out">
                 <div
                   onClick={() => {
                     setUsers(false),
@@ -64,7 +64,7 @@ export default function AdminDash({
                   </span>
                 </div>
               </li>
-              <li className="rounded-md hover:bg-off-white transition duration-150 w-full ease-in-out">
+              <li className="rounded-md md:hover:bg-off-white transition duration-150 w-full ease-in-out">
                 <div className="flex items-center md:p-2 space-x-3 rounded-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +77,7 @@ export default function AdminDash({
                   <span className="hidden md:block cursor-default">Chat</span>
                 </div>
               </li>
-              <li className="rounded-md hover:bg-off-white transition duration-150 w-full ease-in-out">
+              <li className="rounded-md md:hover:bg-off-white transition duration-150 w-full ease-in-out">
                 <div className="flex items-center md:p-2 space-x-3 rounded-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@ export default function AdminDash({
                   </span>
                 </div>
               </li>
-              <li className="rounded-md hover:bg-off-white transition duration-150 w-full ease-in-out">
+              <li className="rounded-md md:hover:bg-off-white transition duration-150 w-full ease-in-out">
                 <div className="flex items-center md:p-2 space-x-3 rounded-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +106,7 @@ export default function AdminDash({
                 </div>
               </li>
               {role === "ADMIN" && (
-                <li className="rounded-md hover:bg-off-white transition duration-150 w-full ease-in-out">
+                <li className="rounded-md md:hover:bg-off-white transition duration-150 w-full ease-in-out">
                   <div
                     className="flex items-center md:p-2 space-x-3 rounded-md "
                     onClick={() => {
@@ -123,7 +123,7 @@ export default function AdminDash({
                   </div>
                 </li>
               )}
-              <li className="rounded-md hover:bg-off-white transition duration-150 w-full ease-in-out">
+              <li className="rounded-md md:hover:bg-off-white transition duration-150 w-full ease-in-out">
                 <div
                   onClick={() => {
                     setShowEditUserProfile(true),
@@ -145,7 +145,7 @@ export default function AdminDash({
                   </span>
                 </div>
               </li>
-              <li className="rounded-md hover:bg-off-white transition duration-150 w-full ease-in-out">
+              <li className="rounded-md md:hover:bg-off-white transition duration-150 w-full ease-in-out">
                 <Link href="/">
                   <a>
                     <div className="flex items-center md:p-2 space-x-3 rounded-md">
