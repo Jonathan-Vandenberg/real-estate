@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Agent,
-  Image_Category,
-  useAgentUpdatedSubscription,
-  useUpdateAgentMutation,
-} from "../types";
+import { Agent, Image_Category, useUpdateAgentMutation } from "../types";
 import { Button } from "./Button";
 import ModalImage from "react-modal-image";
 import { useSession } from "next-auth/react";
