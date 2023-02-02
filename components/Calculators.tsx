@@ -216,3 +216,12 @@ export const PricePerSquareMeter = () => {
     </Container>
   );
 };
+
+export function pricePerSquareMeter(propertyValue: string, lotSize: string) {
+  function formatMoney(num: number): string {
+    return num.toLocaleString("en-US");
+  }
+  let answer =
+    +propertyValue.replace(/[^0-9.]+/g, "") / +lotSize.replace(/[^0-9.]+/g, "");
+  return formatMoney(+answer.toFixed(0));
+}

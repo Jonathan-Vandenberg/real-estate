@@ -24,16 +24,10 @@ export default function BankInspectionProgress({
         <div>
           {!offerIn?.bankInspection?.urgentAssistance && (
             <>
-              {offerIn?.bankInspection?.flag ? (
+              {offerIn?.bankInspection?.flag && (
                 <>
                   {!offerIn?.bankInspection?.completed && (
                     <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2" />
-                  )}
-                </>
-              ) : (
-                <>
-                  {!offerIn?.bankInspection?.completed && (
-                    <span className="w-3 h-3 rounded-full bg-[rgb(6,255,72)] block ml-2" />
                   )}
                 </>
               )}
