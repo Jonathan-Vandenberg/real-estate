@@ -28,6 +28,11 @@ fragment Property on Property {
   lotSize
   propertyCategory
   residentialCategory
+  residentialFeatures {
+    id
+    propertyId
+    residentialFeature
+  }
   images {
     url
     id
