@@ -1,0 +1,5 @@
+fragment ResidentialFeature on ResidentialFeature {
+  id
+  propertyId
+  residentialFeature
+}

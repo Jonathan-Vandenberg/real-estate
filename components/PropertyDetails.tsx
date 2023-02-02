@@ -158,18 +158,18 @@ export default function PropertyDetails({
             <fieldset>
               <legend className="text-lg font-bold">Features</legend>
 
-              <div className="mt-2 flex gap-1">
-                <label htmlFor="material_cotton" className="cursor-pointer">
-                  <span className="block rounded-full border border-[#d7d7d7] px-3 py-1 text-xs bg-white">
-                    Pool
-                  </span>
-                </label>
-
-                <label htmlFor="material_wool" className="cursor-pointer">
-                  <span className="block rounded-full border border-[rgb(215,215,215)] px-3 py-1 text-xs peer-checked:bg-gray-100 bg-white">
-                    Jacuzzi
-                  </span>
-                </label>
+              <div className="mt-2  flex flex-wrap gap-2">
+                {property?.residentialFeatures?.map((feature, i) => (
+                  <label
+                    key={i}
+                    htmlFor="material_cotton"
+                    className="cursor-pointer"
+                  >
+                    <span className="inline-block rounded-full border border-[#d7d7d7] px-3 py-1 text-xs bg-white">
+                      {feature?.residentialFeature}
+                    </span>
+                  </label>
+                ))}
               </div>
             </fieldset>
 
@@ -206,7 +206,7 @@ export default function PropertyDetails({
                       />
                     )}
                     <div>
-                      <h2 className="text-sm font-semibold hidden md:block">
+                      <h2 className="text-sm font-semibold hidden md:block text-center mb-1">
                         {a.firstName} {a.lastName}
                       </h2>
                       <p className="text-sm text-gray">{a.aboutMe}</p>

@@ -158,9 +158,27 @@ model Property {
   residentialCategory     Residential_Category?
   offerIn                 OfferIn?
   images                  ImageProduct[]
+  residentialFeatures     ResidentialFeature[]
+  commercialFeatures      CommercialFeature[]
 
   agent   Agent? @relation(fields: [agentId], references: [id])
   agentId String @db.ObjectId
+}
+
+model ResidentialFeature {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  residentialFeature String?
+
+  propertyId String    @db.ObjectId
+  Property   Property? @relation(fields: [propertyId], references: [id])
+}
+
+model CommercialFeature {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  commercialFeature String?
+
+  propertyId String    @db.ObjectId
+  Property   Property? @relation(fields: [propertyId], references: [id])
 }
 
 model ImageProduct {

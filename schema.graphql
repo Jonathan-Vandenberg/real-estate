@@ -19,8 +19,8 @@ type Query {
   allDocuments: [Document]
   document(id: ID!): Document
 
-  allResidentialFeatures: [ResidentialFeatures]
-  allCommercialFeatures: [CommercialFeatures]
+  allResidentialFeatures: [ResidentialFeature]
+  allCommercialFeatures: [CommercialFeature]
 
   agent(email: String!): Agent
   allAgents: [Agent]
@@ -39,6 +39,9 @@ type Mutation {
   addProperty(input: PropertyInput!): Property
   updateProperty(input: PropertyInput!): Property
 
+  addResidentialFeature(input: ResidentialFeatureInput!): ResidentialFeature
+  addCommercialFeature(input: CommercialFeatureInput!): CommercialFeature
+
   addImage(input: ImageProductInput!): ImageProduct
   deleteImage(id: ID!): ImageProduct
   updateImage(id: ID!, input: ImageProductInput!): ImageProduct
@@ -50,10 +53,6 @@ type Mutation {
   addOfferIn(input: OfferInInput!): OfferIn
 
   updateOfferIn(input: OfferInInput!): UpdateOfferInResponse
-}
-
-type Subscription {
-  agentUpdated(id: ID!): Agent
 }
 
 type UpdateOfferInResponse {
@@ -257,7 +256,8 @@ type Property {
   propertyCategory: Property_Category!
   residentialCategory: Residential_Category
   images: [ImageProduct]
-  residentialFeatures: [ResidentialFeatures]
+  residentialFeatures: [ResidentialFeature]
+  commercialFeatures: [CommercialFeature]
   offerIn: OfferIn
 }
 
@@ -293,24 +293,24 @@ input PropertyInput {
   residentialCategory: Residential_Category
 }
 
-type ResidentialFeatures {
+type ResidentialFeature {
   id: ID!
   propertyId: ID!
   residentialFeature: String
 }
 
-input ResidentialFeaturesInput {
+input ResidentialFeatureInput {
   propertyId: ID!
   residentialFeature: String
 }
 
-type CommercialFeatures {
+type CommercialFeature {
   id: ID!
   propertyId: ID!
   commercialFeature: String
 }
 
-input CommercialFeaturesInput {
+input CommercialFeatureInput {
   propertyId: ID!
   commercialFeature: String
 }

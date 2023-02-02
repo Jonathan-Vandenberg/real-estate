@@ -52,6 +52,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
     where: {
       id: params!.id,
     },
+    include: {
+      residentialFeatures: true,
+    },
   });
   let image = await prisma.imageProduct.findMany();
   let agent = await prisma.agent.findMany();

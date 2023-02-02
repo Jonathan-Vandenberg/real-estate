@@ -1,7 +1,0 @@
-# import Agent from "./AgentFragment.graphql"
-
-subscription AgentUpdated($id: ID!) {
-  agentUpdated(id: $id) {
-    ...Agent
-  }
-}

@@ -69,17 +69,18 @@ export default function AdminListings({
         </div>
       )}
 
-      <div className="md:hidden">
-        <AdminListingsMobile
-          showEditListing={false}
-          property={property}
-          onClick={() => {}}
-        />
-      </div>
+      {!showEditListing && (
+        <div className="md:hidden">
+          <AdminListingsMobile
+            onShowEditListing={() => setShowEditListing(true)}
+            property={property}
+          />
+        </div>
+      )}
 
-      <div className="overflow-x-auto hidden md:block">
+      <div className="overflow-x-auto">
         {!showAddListing && !showEditListing && (
-          <table className="min-w-full text-xs">
+          <table className="min-w-full text-xs hidden md-block">
             <colgroup>
               {!showAddListing && (
                 <>
@@ -119,9 +120,9 @@ export default function AdminListings({
                         <div
                           onClick={() => {
                             editForm(listing),
-                              setShowEditListing(!showEditListing),
+                              setShowEditListing(true),
                               setShowAddListing(false);
-                            setSelectedListing(!selectedListing);
+                            setSelectedListing(false);
                           }}
                         >
                           <Edit className="w-5 h-5" />

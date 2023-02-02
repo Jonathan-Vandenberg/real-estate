@@ -1,0 +1,7 @@
+# import CommercialFeature from './CommercialFeatureFragment.graphql'
+
+mutation AddCommercialFeature($input: CommercialFeatureInput!) {
+  addCommercialFeature(input: $input) {
+    ...CommercialFeature
+  }
+}

@@ -8,6 +8,7 @@ import {
   Property,
   useUpdatePropertyMutation,
   useAddPropertyMutation,
+  useAddResidentialFeatureMutation,
   Document_Category,
 } from "../types";
 import { Button } from "./Button";
@@ -19,6 +20,10 @@ import FeaturesResidential from "./FeaturesResidential";
 import FeaturesCommercial from "./FeaturesCommercial";
 import Switch from "./Switch";
 import { useAppSelector } from "../redux-hooks/hooks";
+import {
+  commercialOptionType,
+  residentialOptionType,
+} from "../lib/property-types";
 
 interface IProps {
   property: Property | undefined | null;
@@ -110,6 +115,35 @@ export default function AddPropertyForm({
 
   const [newId, setNewId] = useState("");
 
+  const [selectedCommercialFeatures, setSelectedCommercialFeatures] = useState<
+    string[]
+  >([]);
+  const [selectedResidentialFeatures, setSelectedResidentialFeatures] =
+    useState<string[]>([]);
+
+  const handleAddCommercialFeatures = (item: string) => {
+    if (selectedCommercialFeatures.includes(item)) {
+      setSelectedCommercialFeatures(
+        selectedCommercialFeatures.filter((i) => i !== item)
+      );
+    } else {
+      setSelectedCommercialFeatures([...selectedCommercialFeatures, item]);
+    }
+  };
+
+  const handleAddResidentialFeatures = (item: string) => {
+    if (selectedResidentialFeatures.includes(item)) {
+      setSelectedResidentialFeatures(
+        selectedResidentialFeatures.filter((i) => i !== item)
+      );
+    } else {
+      setSelectedResidentialFeatures([...selectedResidentialFeatures, item]);
+    }
+  };
+
+  console.log(selectedCommercialFeatures);
+  console.log(selectedResidentialFeatures);
+
   const [
     addProperty,
     { loading: loadingAddProperty, error: errorAddProperty },
@@ -118,6 +152,29 @@ export default function AddPropertyForm({
     updateProperty,
     { loading: loadingUpdateProperty, error: errorUpdateProperty },
   ] = useUpdatePropertyMutation();
+
+  const [
+    addResidentialFeature,
+    { loading: loadingResidentialFeature, error: errorResidentialFeature },
+  ] = useAddResidentialFeatureMutation();
+
+  function handleSendResidentialFeatures() {
+    if (!selectedResidentialFeatures) return;
+
+    const featurePromises = selectedResidentialFeatures.map((feature) => {
+      let features = {
+        variables: {
+          input: {
+            propertyId: add ? newId : property!.id,
+            residentialFeature: feature,
+          },
+          agentId: agentId,
+        },
+      };
+      addResidentialFeature(features);
+    });
+    Promise.all(featurePromises);
+  }
 
   useEffect(() => {
     var mongoObjectId = function () {
@@ -173,6 +230,7 @@ export default function AddPropertyForm({
       agentId: agentId,
     },
   };
+
   const onFinish = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -183,6 +241,7 @@ export default function AddPropertyForm({
       if (edit) {
         updateProperty(propertyDetails);
       }
+      handleSendResidentialFeatures();
       setTimeout(() => {
         setFormSent(!formSent);
       }, 1000);
@@ -384,15 +443,69 @@ export default function AddPropertyForm({
         )}
 
         {/* listing status */}
-        {/* {selectedPropertyCategory === Property_Category.Residential ? (
+        {selectedPropertyCategory === Property_Category.Residential ? (
           <div className="pb-4">
-            <FeaturesResidential />
+            <div>
+              <label
+                className="text-black font-bold text-md"
+                htmlFor="features"
+              >
+                Features
+              </label>
+              <ul className="mt-2 rounded-lg  h-[30rem] overflow-auto w-auto border-2 border-white">
+                {residentialOptionType.map((item, i) => (
+                  <li
+                    key={i}
+                    className="p-3 border-b-2 border-white text-md hover:bg-white cursor-pointer"
+                  >
+                    <div
+                      onClick={() => handleAddResidentialFeatures(item)}
+                      className="flex space-x-3 items-center"
+                    >
+                      <Switch
+                        radioMode={false}
+                        backGround={"bg-off-white"}
+                        switchOn={undefined}
+                      />
+                      <p>{item}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         ) : (
           <div className="py-4">
-            <FeaturesCommercial />
+            <div>
+              <label
+                className="text-black font-bold text-md"
+                htmlFor="features"
+              >
+                Features
+              </label>
+              <ul className="mt-2 rounded-lg  h-[30rem] overflow-auto w-auto border-2 border-white">
+                {commercialOptionType.map((item, i) => (
+                  <li
+                    key={i}
+                    className="p-3 border-b-2 border-white text-md hover:bg-white cursor-pointer"
+                  >
+                    <div
+                      onClick={() => handleAddCommercialFeatures(item)}
+                      className="flex space-x-3 items-center"
+                    >
+                      <Switch
+                        radioMode={false}
+                        backGround={"bg-off-white"}
+                        switchOn={undefined}
+                      />
+                      <p>{item}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        )} */}
+        )}
 
         <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
           <label className="text-black font-bold" htmlFor="bedrooms">

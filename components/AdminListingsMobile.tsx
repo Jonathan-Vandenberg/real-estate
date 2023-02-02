@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
-import { Property, Status } from "../types";
+import { ImageProduct, Property, Status } from "../types";
 import { useAppSelector } from "../redux-hooks/hooks";
 import classNames from "classnames";
-import {
-  convertEnum,
-  convertStatus,
-  propertyOptionsType,
-} from "../lib/property-types";
+import { convertEnum } from "../lib/property-types";
 import OfferInButton from "./OfferInButton";
 import Edit from "./svgs/Edit";
 import { ChevDown } from "./svgs/Arrows";
 import { Button } from "./Button";
 
 interface IProps {
-  showEditListing: boolean;
   property: Property[];
-  onClick: () => void;
+  onShowEditListing: () => void;
 }
 
 export default function AdminListingsMobile({
   property,
-  showEditListing,
-  onClick,
+  onShowEditListing,
 }: IProps) {
   const { agentId } = useAppSelector((state) => state.agentId);
   const [open, setOpen] = useState(false);
@@ -51,7 +45,10 @@ export default function AdminListingsMobile({
                 >
                   <div className="bg-[rgb(247,247,247)]">
                     <div className="flex items-center justify-between px-2 py-4  border-t border-t-off-white bg-[rgb(247,247,247)]">
-                      <div className="flex items-center justify-center space-x-1">
+                      <div
+                        className="flex items-center justify-center space-x-1"
+                        onClick={onShowEditListing}
+                      >
                         <Edit className="w-6 h-6" />
                         <p className="font-semibold">Edit Listing</p>
                       </div>

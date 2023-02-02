@@ -1,0 +1,5 @@
+fragment CommercialFeature on CommercialFeature {
+  id
+  propertyId
+  commercialFeature
+}

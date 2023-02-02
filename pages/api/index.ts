@@ -1,4 +1,4 @@
-import { createServer, createPubSub, PubSub } from "@graphql-yoga/node";
+import { createServer } from "@graphql-yoga/node";
 import { PrismaClient, Status, Agent } from "@prisma/client";
 import { readFileSync } from "fs";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -8,17 +8,11 @@ import { Resolvers } from "../../types";
 import { DateScalar, TimeScalar, DateTimeScalar } from "graphql-date-scalars";
 
 export async function createContext(): Promise<GraphQLContext> {
-  const pubSub = createPubSub<{ agentUpdated: [payload: Agent] }>();
-  return { prisma, pubSub };
+  return { prisma };
 }
 
 export type GraphQLContext = {
   prisma: PrismaClient;
-  pubSub: PubSub<PubSubType>;
-};
-
-export type PubSubType = {
-  agentUpdated: [id: string, agent: Agent];
 };
 
 const typeDefs = readFileSync(join(process.cwd(), "schema.graphql"), {
@@ -434,7 +428,7 @@ const resolvers: Resolvers = {
       });
       return agent;
     },
-    updateAgent: async (_, { input }, { prisma, pubSub }) => {
+    updateAgent: async (_, { input }, { prisma }) => {
       const updatedAgent = await prisma.agent.update({
         where: {
           id: input!.id,
@@ -452,8 +446,6 @@ const resolvers: Resolvers = {
           aboutMe: input?.aboutMe,
         },
       });
-
-      // pubSub.publish("agentUpdated", input!.id, updatedAgent);
 
       return updatedAgent;
     },
@@ -654,6 +646,46 @@ const resolvers: Resolvers = {
       });
       return property;
     },
+    addResidentialFeature: async (_, { input }, { prisma }) => {
+      return prisma.residentialFeature
+        .create({
+          data: {
+            residentialFeature: input?.residentialFeature,
+            propertyId: input!.propertyId,
+          },
+        })
+        .then((residentialFeature) => {
+          prisma.property.update({
+            where: { id: input.propertyId },
+            data: {
+              residentialFeatures: {
+                connect: { id: residentialFeature.id },
+              },
+            },
+          });
+          return residentialFeature;
+        });
+    },
+    addCommercialFeature: async (_, { input }, { prisma }) => {
+      return prisma.commercialFeature
+        .create({
+          data: {
+            commercialFeature: input?.commercialFeature,
+            propertyId: input!.propertyId,
+          },
+        })
+        .then((commercialFeature) => {
+          prisma.property.update({
+            where: { id: input.propertyId },
+            data: {
+              commercialFeatures: {
+                connect: { id: commercialFeature.id },
+              },
+            },
+          });
+          return commercialFeature;
+        });
+    },
     addImage: async (_, { input }, { prisma }) => {
       return prisma.imageProduct
         .create({
@@ -697,13 +729,6 @@ const resolvers: Resolvers = {
         });
     },
   },
-  // Subscription: {
-  //   agentUpdated: {
-  //     subscribe: (_, { id }, { pubSub }) =>
-  //       pubSub.subscribe("agentUpdated", id),
-  //     resolve: (payload: { agent: Agent }) => payload.agent,
-  //   },
-  // },
 };
 
 const server = createServer<{ req: NextApiRequest; res: NextApiResponse }>({

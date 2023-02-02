@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { Agent as AgentModel, Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, ImageProduct as ImageProductModel, OfferIn as OfferInModel, ElecCompCompany as ElecCompCompanyModel, Intermologist as IntermologistModel, GasCompliance as GasComplianceModel, WaterCert as WaterCertModel, OfferAccepted as OfferAcceptedModel, BankInspection as BankInspectionModel, Conveyancer as ConveyancerModel, MortgageOriginator as MortgageOriginatorModel, FicaDocs as FicaDocsModel, AdminMessage as AdminMessageModel, Document as DocumentModel } from '@prisma/client';
+import { Agent as AgentModel, Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, ImageProduct as ImageProductModel, OfferIn as OfferInModel, ElecCompCompany as ElecCompCompanyModel, Intermologist as IntermologistModel, GasCompliance as GasComplianceModel, WaterCert as WaterCertModel, OfferAccepted as OfferAcceptedModel, BankInspection as BankInspectionModel, Conveyancer as ConveyancerModel, MortgageOriginator as MortgageOriginatorModel, FicaDocs as FicaDocsModel, AdminMessage as AdminMessageModel, Document as DocumentModel, ResidentialFeature as ResidentialFeatureModel, CommercialFeature as CommercialFeatureModel } from '@prisma/client';
 import { GraphQLContext } from './pages/api/index';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -214,14 +214,14 @@ export type BlogPostInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
-export type CommercialFeatures = {
-  __typename?: 'CommercialFeatures';
+export type CommercialFeature = {
+  __typename?: 'CommercialFeature';
   commercialFeature?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   propertyId: Scalars['ID'];
 };
 
-export type CommercialFeaturesInput = {
+export type CommercialFeatureInput = {
   commercialFeature?: InputMaybe<Scalars['String']>;
   propertyId: Scalars['ID'];
 };
@@ -449,11 +449,13 @@ export type Mutation = {
   __typename?: 'Mutation';
   addAgent?: Maybe<Agent>;
   addBlogPost?: Maybe<BlogPost>;
+  addCommercialFeature?: Maybe<CommercialFeature>;
   addDocument?: Maybe<Document>;
   addForm?: Maybe<Form>;
   addImage?: Maybe<ImageProduct>;
   addOfferIn?: Maybe<OfferIn>;
   addProperty?: Maybe<Property>;
+  addResidentialFeature?: Maybe<ResidentialFeature>;
   deleteAgentImage?: Maybe<Agent>;
   deleteDocument?: Maybe<Document>;
   deleteImage?: Maybe<ImageProduct>;
@@ -473,6 +475,11 @@ export type MutationAddAgentArgs = {
 
 export type MutationAddBlogPostArgs = {
   input: BlogPostInput;
+};
+
+
+export type MutationAddCommercialFeatureArgs = {
+  input: CommercialFeatureInput;
 };
 
 
@@ -498,6 +505,11 @@ export type MutationAddOfferInArgs = {
 
 export type MutationAddPropertyArgs = {
   input: PropertyInput;
+};
+
+
+export type MutationAddResidentialFeatureArgs = {
+  input: ResidentialFeatureInput;
 };
 
 
@@ -659,6 +671,7 @@ export type Property = {
   basement?: Maybe<Scalars['String']>;
   bathrooms: Scalars['Int'];
   bedrooms: Scalars['Int'];
+  commercialFeatures?: Maybe<Array<Maybe<CommercialFeature>>>;
   cooling?: Maybe<Scalars['String']>;
   distanceToNearestSchool?: Maybe<Scalars['String']>;
   featured?: Maybe<Scalars['Boolean']>;
@@ -678,7 +691,7 @@ export type Property = {
   price: Scalars['String'];
   propertyCategory: Property_Category;
   residentialCategory?: Maybe<Residential_Category>;
-  residentialFeatures?: Maybe<Array<Maybe<ResidentialFeatures>>>;
+  residentialFeatures?: Maybe<Array<Maybe<ResidentialFeature>>>;
   schools?: Maybe<Scalars['String']>;
   shopping?: Maybe<Scalars['String']>;
   status?: Maybe<Status>;
@@ -732,12 +745,12 @@ export type Query = {
   __typename?: 'Query';
   agent?: Maybe<Agent>;
   allAgents?: Maybe<Array<Maybe<Agent>>>;
-  allCommercialFeatures?: Maybe<Array<Maybe<CommercialFeatures>>>;
+  allCommercialFeatures?: Maybe<Array<Maybe<CommercialFeature>>>;
   allDocuments?: Maybe<Array<Maybe<Document>>>;
   allForms?: Maybe<Array<Maybe<Form>>>;
   allImages?: Maybe<Array<Maybe<ImageProduct>>>;
   allProperties?: Maybe<Array<Maybe<Property>>>;
-  allResidentialFeatures?: Maybe<Array<Maybe<ResidentialFeatures>>>;
+  allResidentialFeatures?: Maybe<Array<Maybe<ResidentialFeature>>>;
   blogCard?: Maybe<Array<Maybe<BlogPost>>>;
   blogPost?: Maybe<BlogPost>;
   blogPosts?: Maybe<Array<Maybe<BlogPost>>>;
@@ -777,14 +790,14 @@ export type QueryPropertyArgs = {
   id: Scalars['ID'];
 };
 
-export type ResidentialFeatures = {
-  __typename?: 'ResidentialFeatures';
+export type ResidentialFeature = {
+  __typename?: 'ResidentialFeature';
   id: Scalars['ID'];
   propertyId: Scalars['ID'];
   residentialFeature?: Maybe<Scalars['String']>;
 };
 
-export type ResidentialFeaturesInput = {
+export type ResidentialFeatureInput = {
   propertyId: Scalars['ID'];
   residentialFeature?: InputMaybe<Scalars['String']>;
 };
@@ -812,16 +825,6 @@ export enum Status {
   OfferIn = 'OFFER_IN',
   Sold = 'SOLD'
 }
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  agentUpdated?: Maybe<Agent>;
-};
-
-
-export type SubscriptionAgentUpdatedArgs = {
-  id: Scalars['ID'];
-};
 
 export type UpdateOfferInResponse = {
   __typename?: 'UpdateOfferInResponse';
@@ -938,8 +941,8 @@ export type ResolversTypes = {
   BlogPost: ResolverTypeWrapper<BlogPostModel>;
   BlogPostInput: BlogPostInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  CommercialFeatures: ResolverTypeWrapper<CommercialFeatures>;
-  CommercialFeaturesInput: CommercialFeaturesInput;
+  CommercialFeature: ResolverTypeWrapper<CommercialFeatureModel>;
+  CommercialFeatureInput: CommercialFeatureInput;
   Conveyancer: ResolverTypeWrapper<ConveyancerModel>;
   ConveyancerInput: ConveyancerInput;
   Date: ResolverTypeWrapper<Scalars['Date']>;
@@ -974,13 +977,12 @@ export type ResolversTypes = {
   PropertyInput: PropertyInput;
   Property_Category: Property_Category;
   Query: ResolverTypeWrapper<{}>;
-  ResidentialFeatures: ResolverTypeWrapper<ResidentialFeatures>;
-  ResidentialFeaturesInput: ResidentialFeaturesInput;
+  ResidentialFeature: ResolverTypeWrapper<ResidentialFeatureModel>;
+  ResidentialFeatureInput: ResidentialFeatureInput;
   Residential_Category: Residential_Category;
   Roles: Roles;
   Status: Status;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Subscription: ResolverTypeWrapper<{}>;
   Time: ResolverTypeWrapper<Scalars['Time']>;
   UpdateOfferInResponse: ResolverTypeWrapper<Omit<UpdateOfferInResponse, 'bankInspection' | 'conveyancer' | 'elecCompCompany' | 'ficaDocs' | 'gasCompliance' | 'intermologist' | 'mortgageOriginator' | 'offerAccepted' | 'offerIn' | 'waterCert'> & { bankInspection?: Maybe<ResolversTypes['BankInspection']>, conveyancer?: Maybe<ResolversTypes['Conveyancer']>, elecCompCompany?: Maybe<ResolversTypes['ElecCompCompany']>, ficaDocs?: Maybe<ResolversTypes['FicaDocs']>, gasCompliance?: Maybe<ResolversTypes['GasCompliance']>, intermologist?: Maybe<ResolversTypes['Intermologist']>, mortgageOriginator?: Maybe<ResolversTypes['MortgageOriginator']>, offerAccepted?: Maybe<ResolversTypes['OfferAccepted']>, offerIn?: Maybe<ResolversTypes['OfferIn']>, waterCert?: Maybe<ResolversTypes['WaterCert']> }>;
   WaterCert: ResolverTypeWrapper<WaterCertModel>;
@@ -999,8 +1001,8 @@ export type ResolversParentTypes = {
   BlogPost: BlogPostModel;
   BlogPostInput: BlogPostInput;
   Boolean: Scalars['Boolean'];
-  CommercialFeatures: CommercialFeatures;
-  CommercialFeaturesInput: CommercialFeaturesInput;
+  CommercialFeature: CommercialFeatureModel;
+  CommercialFeatureInput: CommercialFeatureInput;
   Conveyancer: ConveyancerModel;
   ConveyancerInput: ConveyancerInput;
   Date: Scalars['Date'];
@@ -1031,10 +1033,9 @@ export type ResolversParentTypes = {
   Property: PropertyModel;
   PropertyInput: PropertyInput;
   Query: {};
-  ResidentialFeatures: ResidentialFeatures;
-  ResidentialFeaturesInput: ResidentialFeaturesInput;
+  ResidentialFeature: ResidentialFeatureModel;
+  ResidentialFeatureInput: ResidentialFeatureInput;
   String: Scalars['String'];
-  Subscription: {};
   Time: Scalars['Time'];
   UpdateOfferInResponse: Omit<UpdateOfferInResponse, 'bankInspection' | 'conveyancer' | 'elecCompCompany' | 'ficaDocs' | 'gasCompliance' | 'intermologist' | 'mortgageOriginator' | 'offerAccepted' | 'offerIn' | 'waterCert'> & { bankInspection?: Maybe<ResolversParentTypes['BankInspection']>, conveyancer?: Maybe<ResolversParentTypes['Conveyancer']>, elecCompCompany?: Maybe<ResolversParentTypes['ElecCompCompany']>, ficaDocs?: Maybe<ResolversParentTypes['FicaDocs']>, gasCompliance?: Maybe<ResolversParentTypes['GasCompliance']>, intermologist?: Maybe<ResolversParentTypes['Intermologist']>, mortgageOriginator?: Maybe<ResolversParentTypes['MortgageOriginator']>, offerAccepted?: Maybe<ResolversParentTypes['OfferAccepted']>, offerIn?: Maybe<ResolversParentTypes['OfferIn']>, waterCert?: Maybe<ResolversParentTypes['WaterCert']> };
   WaterCert: WaterCertModel;
@@ -1147,7 +1148,7 @@ export type BlogPostResolvers<ContextType = GraphQLContext, ParentType extends R
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type CommercialFeaturesResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['CommercialFeatures'] = ResolversParentTypes['CommercialFeatures']> = {
+export type CommercialFeatureResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['CommercialFeature'] = ResolversParentTypes['CommercialFeature']> = {
   commercialFeature?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   propertyId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -1277,11 +1278,13 @@ export type MortgageOriginatorResolvers<ContextType = GraphQLContext, ParentType
 export type MutationResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAgent?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, Partial<MutationAddAgentArgs>>;
   addBlogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<MutationAddBlogPostArgs, 'input'>>;
+  addCommercialFeature?: Resolver<Maybe<ResolversTypes['CommercialFeature']>, ParentType, ContextType, RequireFields<MutationAddCommercialFeatureArgs, 'input'>>;
   addDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationAddDocumentArgs, 'input'>>;
   addForm?: Resolver<Maybe<ResolversTypes['Form']>, ParentType, ContextType, RequireFields<MutationAddFormArgs, 'input'>>;
   addImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationAddImageArgs, 'input'>>;
   addOfferIn?: Resolver<Maybe<ResolversTypes['OfferIn']>, ParentType, ContextType, RequireFields<MutationAddOfferInArgs, 'input'>>;
   addProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationAddPropertyArgs, 'input'>>;
+  addResidentialFeature?: Resolver<Maybe<ResolversTypes['ResidentialFeature']>, ParentType, ContextType, RequireFields<MutationAddResidentialFeatureArgs, 'input'>>;
   deleteAgentImage?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, RequireFields<MutationDeleteAgentImageArgs, 'id'>>;
   deleteDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationDeleteDocumentArgs, 'id'>>;
   deleteImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
@@ -1349,6 +1352,7 @@ export type PropertyResolvers<ContextType = GraphQLContext, ParentType extends R
   basement?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   bathrooms?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   bedrooms?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  commercialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommercialFeature']>>>, ParentType, ContextType>;
   cooling?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   distanceToNearestSchool?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   featured?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
@@ -1368,7 +1372,7 @@ export type PropertyResolvers<ContextType = GraphQLContext, ParentType extends R
   price?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   propertyCategory?: Resolver<ResolversTypes['Property_Category'], ParentType, ContextType>;
   residentialCategory?: Resolver<Maybe<ResolversTypes['Residential_Category']>, ParentType, ContextType>;
-  residentialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ResidentialFeatures']>>>, ParentType, ContextType>;
+  residentialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ResidentialFeature']>>>, ParentType, ContextType>;
   schools?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   shopping?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Status']>, ParentType, ContextType>;
@@ -1383,12 +1387,12 @@ export type Property_CategoryResolvers = { COMMERCIAL: 'undefined', INDUSTRIAL: 
 export type QueryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   agent?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, RequireFields<QueryAgentArgs, 'email'>>;
   allAgents?: Resolver<Maybe<Array<Maybe<ResolversTypes['Agent']>>>, ParentType, ContextType>;
-  allCommercialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommercialFeatures']>>>, ParentType, ContextType>;
+  allCommercialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommercialFeature']>>>, ParentType, ContextType>;
   allDocuments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Document']>>>, ParentType, ContextType>;
   allForms?: Resolver<Maybe<Array<Maybe<ResolversTypes['Form']>>>, ParentType, ContextType>;
   allImages?: Resolver<Maybe<Array<Maybe<ResolversTypes['ImageProduct']>>>, ParentType, ContextType>;
   allProperties?: Resolver<Maybe<Array<Maybe<ResolversTypes['Property']>>>, ParentType, ContextType>;
-  allResidentialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ResidentialFeatures']>>>, ParentType, ContextType>;
+  allResidentialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ResidentialFeature']>>>, ParentType, ContextType>;
   blogCard?: Resolver<Maybe<Array<Maybe<ResolversTypes['BlogPost']>>>, ParentType, ContextType>;
   blogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<QueryBlogPostArgs, 'id'>>;
   blogPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['BlogPost']>>>, ParentType, ContextType>;
@@ -1398,7 +1402,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   property?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<QueryPropertyArgs, 'id'>>;
 };
 
-export type ResidentialFeaturesResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['ResidentialFeatures'] = ResolversParentTypes['ResidentialFeatures']> = {
+export type ResidentialFeatureResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['ResidentialFeature'] = ResolversParentTypes['ResidentialFeature']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   propertyId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   residentialFeature?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1410,10 +1414,6 @@ export type Residential_CategoryResolvers = { CONDO: 'undefined', DUPLEX: 'undef
 export type RolesResolvers = { ADMIN: 'undefined', AGENT: 'undefined', CEO: 'undefined', MANAGER: 'undefined' };
 
 export type StatusResolvers = { FOR_RENT: 'undefined', FOR_SALE: 'undefined', OFFER_IN: 'undefined', SOLD: 'undefined' };
-
-export type SubscriptionResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  agentUpdated?: SubscriptionResolver<Maybe<ResolversTypes['Agent']>, "agentUpdated", ParentType, ContextType, RequireFields<SubscriptionAgentUpdatedArgs, 'id'>>;
-};
 
 export interface TimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Time'], any> {
   name: 'Time';
@@ -1451,7 +1451,7 @@ export type Resolvers<ContextType = GraphQLContext> = {
   Agent?: AgentResolvers<ContextType>;
   BankInspection?: BankInspectionResolvers<ContextType>;
   BlogPost?: BlogPostResolvers<ContextType>;
-  CommercialFeatures?: CommercialFeaturesResolvers<ContextType>;
+  CommercialFeature?: CommercialFeatureResolvers<ContextType>;
   Conveyancer?: ConveyancerResolvers<ContextType>;
   Date?: GraphQLScalarType;
   DateTime?: GraphQLScalarType;
@@ -1472,11 +1472,10 @@ export type Resolvers<ContextType = GraphQLContext> = {
   Property?: PropertyResolvers<ContextType>;
   Property_Category?: Property_CategoryResolvers;
   Query?: QueryResolvers<ContextType>;
-  ResidentialFeatures?: ResidentialFeaturesResolvers<ContextType>;
+  ResidentialFeature?: ResidentialFeatureResolvers<ContextType>;
   Residential_Category?: Residential_CategoryResolvers;
   Roles?: RolesResolvers;
   Status?: StatusResolvers;
-  Subscription?: SubscriptionResolvers<ContextType>;
   Time?: GraphQLScalarType;
   UpdateOfferInResponse?: UpdateOfferInResponseResolvers<ContextType>;
   WaterCert?: WaterCertResolvers<ContextType>;
@@ -1619,6 +1618,13 @@ export const BlogPostFragmentDoc = gql`
   photoCredit
   editedBy
   mainImage
+}
+    `;
+export const CommercialFeatureFragmentDoc = gql`
+    fragment CommercialFeature on CommercialFeature {
+  id
+  propertyId
+  commercialFeature
 }
     `;
 export const DocumentFragmentDoc = gql`
@@ -1962,6 +1968,13 @@ export const PropertyFragmentDoc = gql`
   }
 }
     `;
+export const ResidentialFeatureFragmentDoc = gql`
+    fragment ResidentialFeature on ResidentialFeature {
+  id
+  propertyId
+  residentialFeature
+}
+    `;
 export const AddFormDocument = gql`
     mutation AddForm($input: FormInput!) {
   addForm(input: $input) {
@@ -2098,36 +2111,6 @@ export function useAgentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Agen
 export type AgentQueryHookResult = ReturnType<typeof useAgentQuery>;
 export type AgentLazyQueryHookResult = ReturnType<typeof useAgentLazyQuery>;
 export type AgentQueryResult = Apollo.QueryResult<AgentQuery, AgentQueryVariables>;
-export const AgentUpdatedDocument = gql`
-    subscription AgentUpdated($id: ID!) {
-  agentUpdated(id: $id) {
-    ...Agent
-  }
-}
-    ${AgentFragmentDoc}`;
-
-/**
- * __useAgentUpdatedSubscription__
- *
- * To run a query within a React component, call `useAgentUpdatedSubscription` and pass it any options that fit your needs.
- * When your component renders, `useAgentUpdatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAgentUpdatedSubscription({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useAgentUpdatedSubscription(baseOptions: Apollo.SubscriptionHookOptions<AgentUpdatedSubscription, AgentUpdatedSubscriptionVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<AgentUpdatedSubscription, AgentUpdatedSubscriptionVariables>(AgentUpdatedDocument, options);
-      }
-export type AgentUpdatedSubscriptionHookResult = ReturnType<typeof useAgentUpdatedSubscription>;
-export type AgentUpdatedSubscriptionResult = Apollo.SubscriptionResult<AgentUpdatedSubscription>;
 export const DeleteAgentImageDocument = gql`
     mutation deleteAgentImage($id: ID!) {
   deleteAgentImage(id: $id) {
@@ -2329,6 +2312,39 @@ export function useUpdateBlogPostMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateBlogPostMutationHookResult = ReturnType<typeof useUpdateBlogPostMutation>;
 export type UpdateBlogPostMutationResult = Apollo.MutationResult<UpdateBlogPostMutation>;
 export type UpdateBlogPostMutationOptions = Apollo.BaseMutationOptions<UpdateBlogPostMutation, UpdateBlogPostMutationVariables>;
+export const AddCommercialFeatureDocument = gql`
+    mutation AddCommercialFeature($input: CommercialFeatureInput!) {
+  addCommercialFeature(input: $input) {
+    ...CommercialFeature
+  }
+}
+    ${CommercialFeatureFragmentDoc}`;
+export type AddCommercialFeatureMutationFn = Apollo.MutationFunction<AddCommercialFeatureMutation, AddCommercialFeatureMutationVariables>;
+
+/**
+ * __useAddCommercialFeatureMutation__
+ *
+ * To run a mutation, you first call `useAddCommercialFeatureMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCommercialFeatureMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCommercialFeatureMutation, { data, loading, error }] = useAddCommercialFeatureMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddCommercialFeatureMutation(baseOptions?: Apollo.MutationHookOptions<AddCommercialFeatureMutation, AddCommercialFeatureMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddCommercialFeatureMutation, AddCommercialFeatureMutationVariables>(AddCommercialFeatureDocument, options);
+      }
+export type AddCommercialFeatureMutationHookResult = ReturnType<typeof useAddCommercialFeatureMutation>;
+export type AddCommercialFeatureMutationResult = Apollo.MutationResult<AddCommercialFeatureMutation>;
+export type AddCommercialFeatureMutationOptions = Apollo.BaseMutationOptions<AddCommercialFeatureMutation, AddCommercialFeatureMutationVariables>;
 export const AddDocumentDocument = gql`
     mutation AddDocument($input: DocumentInput!) {
   addDocument(input: $input) {
@@ -2800,6 +2816,39 @@ export function useUpdatePropertyMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdatePropertyMutationHookResult = ReturnType<typeof useUpdatePropertyMutation>;
 export type UpdatePropertyMutationResult = Apollo.MutationResult<UpdatePropertyMutation>;
 export type UpdatePropertyMutationOptions = Apollo.BaseMutationOptions<UpdatePropertyMutation, UpdatePropertyMutationVariables>;
+export const AddResidentialFeatureDocument = gql`
+    mutation AddResidentialFeature($input: ResidentialFeatureInput!) {
+  addResidentialFeature(input: $input) {
+    ...ResidentialFeature
+  }
+}
+    ${ResidentialFeatureFragmentDoc}`;
+export type AddResidentialFeatureMutationFn = Apollo.MutationFunction<AddResidentialFeatureMutation, AddResidentialFeatureMutationVariables>;
+
+/**
+ * __useAddResidentialFeatureMutation__
+ *
+ * To run a mutation, you first call `useAddResidentialFeatureMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddResidentialFeatureMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addResidentialFeatureMutation, { data, loading, error }] = useAddResidentialFeatureMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddResidentialFeatureMutation(baseOptions?: Apollo.MutationHookOptions<AddResidentialFeatureMutation, AddResidentialFeatureMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddResidentialFeatureMutation, AddResidentialFeatureMutationVariables>(AddResidentialFeatureDocument, options);
+      }
+export type AddResidentialFeatureMutationHookResult = ReturnType<typeof useAddResidentialFeatureMutation>;
+export type AddResidentialFeatureMutationResult = Apollo.MutationResult<AddResidentialFeatureMutation>;
+export type AddResidentialFeatureMutationOptions = Apollo.BaseMutationOptions<AddResidentialFeatureMutation, AddResidentialFeatureMutationVariables>;
 export type AddFormMutationVariables = Exact<{
   input: FormInput;
 }>;
@@ -2835,13 +2884,6 @@ export type AgentQueryVariables = Exact<{
 export type AgentQuery = { __typename?: 'Query', agent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type AgentFragment = { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
-
-export type AgentUpdatedSubscriptionVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type AgentUpdatedSubscription = { __typename?: 'Subscription', agentUpdated?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type DeleteAgentImageMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -2884,6 +2926,15 @@ export type UpdateBlogPostMutationVariables = Exact<{
 
 
 export type UpdateBlogPostMutation = { __typename?: 'Mutation', updateBlogPost?: { __typename?: 'BlogPost', id: string, publishedDate?: string | null, title?: string | null, subtitle1?: string | null, tableContents1?: string | null, tableContents2?: string | null, tableContents3?: string | null, tableContents4?: string | null, p1?: string | null, p2?: string | null, p3?: string | null, subtitle2?: string | null, p4?: string | null, p5?: string | null, l1?: string | null, l2?: string | null, l3?: string | null, l4?: string | null, l5?: string | null, subtitle3?: string | null, p6?: string | null, p7?: string | null, l6?: string | null, l7?: string | null, l8?: string | null, l9?: string | null, l10?: string | null, l11?: string | null, l12?: string | null, l13?: string | null, l14?: string | null, l15?: string | null, p8?: string | null, subtitle4?: string | null, conclusion1?: string | null, conclusion2?: string | null, conclusion3?: string | null, reference1?: string | null, reference2?: string | null, authorName?: string | null, authorAbout?: string | null, authorLink?: string | null, photoCredit?: string | null, editedBy?: string | null, mainImage?: string | null } | null };
+
+export type AddCommercialFeatureMutationVariables = Exact<{
+  input: CommercialFeatureInput;
+}>;
+
+
+export type AddCommercialFeatureMutation = { __typename?: 'Mutation', addCommercialFeature?: { __typename?: 'CommercialFeature', id: string, propertyId: string, commercialFeature?: string | null } | null };
+
+export type CommercialFeatureFragment = { __typename?: 'CommercialFeature', id: string, propertyId: string, commercialFeature?: string | null };
 
 export type AddDocumentMutationVariables = Exact<{
   input: DocumentInput;
@@ -3004,3 +3055,12 @@ export type UpdatePropertyMutationVariables = Exact<{
 
 
 export type UpdatePropertyMutation = { __typename?: 'Mutation', updateProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
+
+export type AddResidentialFeatureMutationVariables = Exact<{
+  input: ResidentialFeatureInput;
+}>;
+
+
+export type AddResidentialFeatureMutation = { __typename?: 'Mutation', addResidentialFeature?: { __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null };
+
+export type ResidentialFeatureFragment = { __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null };

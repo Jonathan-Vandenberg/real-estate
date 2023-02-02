@@ -15,7 +15,11 @@ export default function Features() {
             className="p-3 border-b-2 border-white text-md hover:bg-white cursor-pointer"
           >
             <div className="flex space-x-3 items-center">
-              <Switch radioMode={false} backGround={""} switchOn={undefined} />
+              <Switch
+                radioMode={false}
+                backGround={"bg-off-white"}
+                switchOn={undefined}
+              />
               <p>{item}</p>
             </div>
           </li>
