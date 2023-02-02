@@ -28,7 +28,7 @@ const footerLinks = [
   {
     title: "Information",
     links: [
-      { title: "General Buying/Selling Process", href: "#" },
+      { title: "General Process", href: "#" },
       { title: "Buyers Law", href: "#" },
       { title: "Sellers Law", href: "#" },
     ],
