@@ -22,7 +22,7 @@ const footerLinks = [
     title: "Resources",
     links: [
       { title: "Bond Calculator", href: "/buyers" },
-      { title: "Land Value by Size Calculator", href: "/sellers" },
+      { title: "lot-size Calculator", href: "/sellers" },
     ],
   },
   {
