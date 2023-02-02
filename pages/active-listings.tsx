@@ -11,12 +11,7 @@ interface IProps {
   residentialFeatures: ResidentialFeature[];
 }
 
-export default function ActiveListings({
-  property,
-  image,
-  agent,
-  residentialFeatures,
-}: IProps) {
+export default function ActiveListings({ property, image, agent }: IProps) {
   return (
     <>
       <Head>
@@ -55,11 +50,7 @@ export default function ActiveListings({
 }
 
 export async function getStaticProps() {
-  const property = await prisma.property.findMany({
-    include: {
-      residentialFeatures: true,
-    },
-  });
+  const property = await prisma.property.findMany();
   const image = await prisma.imageProduct.findMany();
   const agent = await prisma.agent.findMany();
 

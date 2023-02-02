@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
 import React from "react";
-import { Image_Category } from "../types";
+import { Image_Category, ResidentialFeature } from "../types";
 import { Property, Agent, ImageProduct } from "../types";
 import Furnished from "./svgs/Furnished";
 import { convertEnum, convertStatus } from "../lib/property-types";
