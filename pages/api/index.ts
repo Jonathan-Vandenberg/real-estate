@@ -647,7 +647,7 @@ const resolvers: Resolvers = {
       return property;
     },
     addResidentialFeature: async (_, { input }, { prisma }) => {
-      return prisma.residentialFeature
+      return await prisma.residentialFeature
         .create({
           data: {
             residentialFeature: input?.residentialFeature,
@@ -667,7 +667,7 @@ const resolvers: Resolvers = {
         });
     },
     addCommercialFeature: async (_, { input }, { prisma }) => {
-      return prisma.commercialFeature
+      return await prisma.commercialFeature
         .create({
           data: {
             commercialFeature: input?.commercialFeature,
@@ -687,7 +687,7 @@ const resolvers: Resolvers = {
         });
     },
     addImage: async (_, { input }, { prisma }) => {
-      return prisma.imageProduct
+      return await prisma.imageProduct
         .create({
           data: {
             url: input?.url,
