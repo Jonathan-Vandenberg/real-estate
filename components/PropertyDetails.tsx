@@ -194,22 +194,26 @@ export default function PropertyDetails({
                 a.id === property.agentId && (
                   <div
                     key={i}
-                    className="flex-col items-center p-2 space-y-2 justify-center hidden md:flex"
+                    className="flex-col items-center p-2 space-y-2 justify-center w-full"
                   >
                     {a.profileImage && (
-                      <Image
-                        src={a.profileImage || "/profileImagePlaceholder.png"}
-                        width={50}
-                        height={50}
-                        alt={"Highway Properties"}
-                        className="w-12 h-12 rounded-full"
-                      />
+                      <div className="w-full flex items-center justify-center">
+                        <Image
+                          src={a.profileImage || "/profileImagePlaceholder.png"}
+                          width={80}
+                          height={80}
+                          alt={"Highway Properties"}
+                          className="w-12 h-12 rounded-full"
+                        />
+                      </div>
                     )}
                     <div>
-                      <h2 className="text-sm font-semibold hidden md:block text-center mb-1">
+                      <h2 className="text-sm font-semibold text-center mb-1">
                         {a.firstName} {a.lastName}
                       </h2>
-                      <p className="text-sm text-gray">{a.aboutMe}</p>
+                      <p className="text-sm text-gray px-12 w-full">
+                        {a.aboutMe}
+                      </p>
                     </div>
                   </div>
                 )
