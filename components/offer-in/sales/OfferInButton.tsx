@@ -71,12 +71,7 @@ export default function OfferInButton({
     });
   };
 
-  if (error)
-    return (
-      <p>
-        Oops... Something went wrong :( Contact Jon at urbangentryjon@gmail.com
-      </p>
-    );
+  if (error) return <p>Oops... Something went wrong :(</p>;
   return (
     <Button
       variant="primary"

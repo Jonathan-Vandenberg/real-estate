@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { Agent, ImageProduct, Property } from "../../types";
@@ -28,9 +27,6 @@ export default function AdminDash({
   const [users, setUsers] = useState(false);
   const [showEditUserProfile, setShowEditUserProfile] = useState(false);
   const [showAddAgent, setShowAddAgent] = useState(false);
-  const [showAddUserForm, setShowAddUserForm] = useState(false);
-  const [showEditListing, setShowEditListing] = useState(false);
-  const { data: session, status } = useSession();
 
   return (
     <div className="flex bg-white-off-white w-full min-h-[calc(100vh_-_var(--navigation-height))]">

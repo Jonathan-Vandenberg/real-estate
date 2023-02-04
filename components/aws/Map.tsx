@@ -12,17 +12,8 @@ const center = {
 };
 
 function MyComponent() {
-  const [apiKey, setApiKey] = useState("");
-
-  useEffect(() => {
-    if (process.env.GOOGLE_MAPS_API_KEY) {
-      let mapApiKey = process.env.GOOGLE_MAPS_API_KEY;
-      setApiKey(mapApiKey);
-    }
-  }, []);
-
   return (
-    <LoadScript googleMapsApiKey={apiKey}>
+    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}

@@ -69,8 +69,8 @@ const UploadImage: React.FC<UploadImageProps> = ({
       const uploadPromises = files.map((file) => {
         const s3 = new S3({
           // dotenv not working
-          accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+          accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
           region: "ap-southeast-1",
         });
 

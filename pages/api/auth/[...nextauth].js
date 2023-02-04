@@ -10,20 +10,20 @@ export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: String(process.env.GOOGLE_CLIENT_ID),
-      clientSecret: String(process.env.GOOGLE_CLIENT_SECRET),
+      clientId: String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID),
+      clientSecret: String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET),
     }),
     FacebookProvider({
-      clientId: String(process.env.FACEBOOK_CLIENT_ID),
-      clientSecret: String(process.env.FACEBOOK_CLIENT_SECRET),
+      clientId: String(process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID),
+      clientSecret: String(process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET),
     }),
     EmailProvider({
       server: {
         host: "smtp.mailtrap.io",
         port: 587,
         auth: {
-          user: process.env.FAKE_EMAIL_USER_NAME,
-          pass: process.env.FAKE_EMAIL_PASSWORD,
+          user: process.env.NEXT_PUBLIC_FAKE_EMAIL_USER_NAME,
+          pass: process.env.NEXT_PUBLIC_FAKE_EMAIL_PASSWORD,
         },
       },
       from: "from@example.com",
