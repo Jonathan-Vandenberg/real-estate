@@ -7,7 +7,7 @@ const footerLinks = [
   {
     title: "Properties",
     links: [
-      { title: "Active-Listings", href: "/active-listings" },
+      { title: "Listings", href: "/active-listings" },
       { title: "Integrations", href: "#" },
     ],
   },
