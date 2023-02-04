@@ -23,27 +23,23 @@ export default function BlogPostMarkup({
 
   return (
     <div>
-      <ul className="border-y-2 border-gray-200 pb-6 pt-2 flex flex-col items-start justify-start space-y-5">
+      <ul className="border-y pb-6 pt-2 flex flex-col items-start justify-start space-y-5">
         {data?.tableContents1 && (
-          <li className="text-xl text-gray-700 flex items-center justify-between space-x-4">
-            <div>
-              <Check className="h-6 w-6" />
-            </div>
+          <li className="text-xl text-[rgb(54,54,54)] flex items-center justify-between space-x-4 mt-3">
+            <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
             <a
               href="#subtitle1"
-              className="underline underline-offset-1 decoration-[2px] decoration-orange"
+              className="underline underline-offset-1 decoration-[3px] decoration-[rgb(202,59,204)]"
             >
               {data?.tableContents1}
             </a>
           </li>
         )}
         {data?.tableContents2 && (
-          <li className="text-xl text-gray-700 flex items-center justify-between space-x-4">
-            <div>
-              <Check className="h-6 w-6" />
-            </div>
+          <li className="text-xl text-[rgb(54,54,54)] flex items-center justify-between space-x-4">
+            <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
             <a
-              className="underline underline-offset-1 decoration-[2px] decoration-orange"
+              className="underline underline-offset-1 decoration-[3px] decoration-[rgb(202,59,204)]"
               href="#subtitle2"
             >
               {data?.tableContents2}
@@ -51,12 +47,10 @@ export default function BlogPostMarkup({
           </li>
         )}
         {data?.tableContents3 && (
-          <li className="text-xl text-gray-700 flex items-center justify-between space-x-4">
-            <div>
-              <Check className="h-6 w-6" />
-            </div>
+          <li className="text-xl text-[rgb(54,54,54)] flex items-center justify-between space-x-4">
+            <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
             <a
-              className="underline underline-offset-1 decoration-[2px] decoration-orange"
+              className="underline underline-offset-1 decoration-[3px] decoration-[rgb(202,59,204)]"
               href="#subtitle3"
             >
               {data?.tableContents3}
@@ -64,13 +58,11 @@ export default function BlogPostMarkup({
           </li>
         )}
         {data?.tableContents4 && (
-          <li className="text-xl text-gray-700 flex items-center justify-between space-x-4">
-            <div>
-              <Check className="h-6 w-6" />
-            </div>
+          <li className="text-xl text-[rgb(54,54,54)] flex items-center justify-between space-x-4">
+            <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
             <a
               href="#subtitle4"
-              className="underline underline-offset-1 decoration-[2px] decoration-orange"
+              className="underline underline-offset-1 decoration-[3px] decoration-[rgb(202,59,204)]"
             >
               {data?.tableContents4}
             </a>
@@ -89,7 +81,7 @@ export default function BlogPostMarkup({
       {data?.subtitle2 && (
         <h2
           id="subtitle2"
-          className="logoFont text-gray-600 text-2xl pb-3 pt-6 scroll-mt-20"
+          className="logoFont text-gray-600 text-2xl pb-3 pt-6 scroll-mt-[8rem]"
         >
           {data?.subtitle2}
         </h2>
@@ -100,7 +92,9 @@ export default function BlogPostMarkup({
         {data?.l1 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <Check className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+              </div>
               <p className="text-gray-600">{data?.l1}</p>
             </div>
           </li>
@@ -108,7 +102,9 @@ export default function BlogPostMarkup({
         {data?.l2 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <Check className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+              </div>
               <p className="text-gray-600">{data?.l2}</p>
             </div>
           </li>
@@ -116,7 +112,9 @@ export default function BlogPostMarkup({
         {data?.l3 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <Check className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+              </div>
               <p className="text-gray-600">{data?.l3}</p>
             </div>
           </li>
@@ -124,7 +122,9 @@ export default function BlogPostMarkup({
         {data?.l4 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <Check className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+              </div>
               <p className="text-gray-600">{data?.l4}</p>
             </div>
           </li>
@@ -132,7 +132,9 @@ export default function BlogPostMarkup({
         {data?.l5 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <Check className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+              </div>
               <p className="text-gray-600">{data?.l5}</p>
             </div>
           </li>
@@ -141,7 +143,7 @@ export default function BlogPostMarkup({
       {data?.subtitle3 && (
         <h2
           id="subtitle3"
-          className="text-2xl logoFont text-gray-600  pb-3 pt-12 scroll-mt-20"
+          className="text-2xl logoFont text-gray-600  pb-3 pt-12 scroll-mt-[8rem]"
         >
           {data?.subtitle3}
         </h2>
@@ -152,8 +154,8 @@ export default function BlogPostMarkup({
         {data?.l6 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l6}</p>
             </div>
@@ -162,8 +164,8 @@ export default function BlogPostMarkup({
         {data?.l7 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l7}</p>
             </div>
@@ -172,8 +174,8 @@ export default function BlogPostMarkup({
         {data?.l8 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l8}</p>
             </div>
@@ -182,8 +184,8 @@ export default function BlogPostMarkup({
         {data?.l9 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l9}</p>
             </div>
@@ -192,8 +194,8 @@ export default function BlogPostMarkup({
         {data?.l10 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l10}</p>
             </div>
@@ -202,8 +204,8 @@ export default function BlogPostMarkup({
         {data?.l11 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l11}</p>
             </div>
@@ -212,8 +214,8 @@ export default function BlogPostMarkup({
         {data?.l12 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l12}</p>
             </div>
@@ -222,8 +224,8 @@ export default function BlogPostMarkup({
         {data?.l13 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l13}</p>
             </div>
@@ -232,8 +234,8 @@ export default function BlogPostMarkup({
         {data?.l14 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l14}</p>
             </div>
@@ -242,8 +244,8 @@ export default function BlogPostMarkup({
         {data?.l15 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
-              <div className="w-2">
-                <ChevRight className="h-6 w-6" />
+              <div className="w-3 h-3">
+                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
               </div>
               <p className="text-gray-600">{data?.l15}</p>
             </div>
@@ -254,7 +256,7 @@ export default function BlogPostMarkup({
       {data?.subtitle4 && (
         <p
           id="subtitle4"
-          className="logoFont text-gray-600 text-2xl pb-3 pt-6 scroll-mt-20"
+          className="logoFont text-gray-600 text-2xl pb-3 pt-6 scroll-mt-[8rem]"
         >
           {data?.subtitle4}
         </p>
@@ -293,24 +295,15 @@ export default function BlogPostMarkup({
               variant="secondary"
               className="flex items-center space-x-1"
             >
-              {!editActivated && (
-                <>
-                  <div className="text-xl cursor-pointer">
-                    <Edit className="w-6 h-6" />
-                  </div>
-                  <p className="text-lg text-red-600 cursor-pointer">Edit</p>
-                </>
-              )}
+              <>
+                <div className="text-xl cursor-pointer">
+                  <Edit className="w-6 h-6" />
+                </div>
+                <p className="text-lg text-red-600 cursor-pointer">Edit</p>
+              </>
             </Button>
           </div>
-          <Button
-            type="button"
-            className="flex items-center space-x-1"
-            onClick={() => handleAdd()}
-          >
-            <div className="text-xl text-white">
-              <Plus className="w-6 h-6" />
-            </div>
+          <Button type="button" onClick={() => handleAdd()}>
             <p className="text-md text-white">Add</p>
           </Button>
         </div>

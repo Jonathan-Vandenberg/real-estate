@@ -230,106 +230,115 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
 
   const titleStyle =
     title?.length !== undefined && title?.length > 40 && title?.length < 50
-      ? "border-2 border-orange p-3 rounded-xl w-full"
+      ? "border-2  border-[rgb(244,114,27)] text-md p-3 rounded-xl w-full"
       : title?.length !== undefined && title?.length > 50 && title?.length < 62
-      ? "border-2 border-green-500 p-3 rounded-xl w-full"
+      ? "border-2 border-[rgb(15,170,59)] p-3 text-md  rounded-xl w-full"
       : title?.length !== undefined && title?.length > 62
-      ? "border-2 border-red-500 p-3 rounded-xl w-full"
-      : "border-2 border-gray-200 p-3 rounded-xl w-full";
+      ? "border-2 border-[rgb(224,23,23)] p-3 text-md  rounded-xl w-full"
+      : "p-3 rounded-xl w-full text-md";
 
   const descriptionStyle =
     subtitle1?.length !== undefined &&
     subtitle1?.length > 140 &&
     subtitle1?.length < 150
-      ? "border-2 border-orange p-3 rounded-xl w-full"
+      ? "border-2 border-[rgb(244,114,27)] text-md  p-3 rounded-xl w-full"
       : subtitle1?.length !== undefined &&
         subtitle1?.length > 150 &&
         subtitle1?.length < 162
-      ? "border-2 border-green-500 p-3 rounded-xl w-full"
+      ? "border-2 border-[rgb(15,170,59)] p-3 text-md  rounded-xl w-full"
       : subtitle1?.length !== undefined && subtitle1?.length > 162
-      ? "border-2 border-red-500 p-3 rounded-xl w-full"
-      : "border-2 border-gray-200 p-3 rounded-xl w-full";
+      ? "border-2 border-[rgb(224,23,23)] p-3 text-md  rounded-xl w-full"
+      : "p-3 rounded-xl w-full text-md";
 
   return (
-    <div className="px-5 max-w-[678px] md:max-w-[900px] mx-auto">
+    <div className="max-w-[678px] md:max-w-[900px] mx-auto">
       <div className="flex items-center justify-center">
-        <p className="text-3xl text-red-600 font-bold text-center underline underline-offset-2">
-          ADMIN
-        </p>
+        {add && (
+          <p className="tracking-widest text-3xl font-light">
+            Create news post
+          </p>
+        )}
+        {edit && (
+          <p className="tracking-widest text-3xl font-light">Editing Post</p>
+        )}
       </div>
       <form onSubmit={onFinish} className="space-y-3 py-6">
         <div className="px-8 flex items-start space-y-3 justify-center flex-col pt-3">
           <input
             id="form"
             value={publishedDate as string}
-            placeholder="Ngày xuất bản"
+            placeholder="Publication Date"
             onChange={(e) => setPublishedDate(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
         <div className="px-8 flex items-start space-y-3 justify-center flex-col">
           <input
             id="authorName"
             value={authorName as string}
-            placeholder="Tên tác giả"
+            placeholder="Author's Name"
             onChange={(e) => setAuthorName(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
         <div className="px-8 flex items-start space-y-3 justify-center flex-col">
           <input
             id="authorAbout"
             value={authorAbout as string}
-            placeholder="Thông tin về các Tác giả"
+            placeholder="About the Author"
             onChange={(e) => setAuthorAbout(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
         <div className="px-8 flex items-start space-y-3 justify-center flex-col">
           <input
             id="authorLink"
             value={authorLink as string}
-            placeholder="Hồ sơ của tác giả / Liên kết trang web"
+            placeholder="Link to Author"
             onChange={(e) => setAuthorLink(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
         <div className="px-8 flex items-start space-y-3 justify-center flex-col">
           <input
             id="editedBy"
             value={editedBy as string}
-            placeholder="Sửa bởi"
+            placeholder="Edited by"
             onChange={(e) => setEditedBy(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
         <div className="px-8 flex items-start space-y-3 justify-center flex-col">
           <input
             id="photoCredit"
             value={photoCredit as string}
-            placeholder="Tín dụng hình ảnh"
+            placeholder="Photo Credit"
             onChange={(e) => setPhotoCredit(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
         <div className="px-8 flex items-start space-y-3 justify-center flex-col pt-10">
-          <label htmlFor="html">Ngoài ra SEO tiêu đề - max 60 char</label>
+          <label htmlFor="html" className="text-md">
+            Type until the border is green (For SEO)
+          </label>
           <input
             id="title"
             value={title as string}
-            placeholder="Tiêu đề"
+            placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
             className={titleStyle}
           />
         </div>
 
         <div className="px-8 flex items-start space-y-3 justify-center flex-col">
-          <label htmlFor="html">Ngoài ra mô tả SEO - max 160 char</label>
+          <label htmlFor="html" className="text-md">
+            Type until the border is green (For SEO)
+          </label>
           <input
             id="subtitle1"
             value={subtitle1 as string}
-            placeholder="Phụ đề 1"
+            placeholder="Subtitle #1"
             onChange={(e) => setSubtitle1(e.target.value)}
             className={descriptionStyle}
           />
@@ -339,9 +348,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="tableContents1"
             value={tableContents1 as string}
-            placeholder="Mục lục 1"
+            placeholder="Table of Contents #1"
             onChange={(e) => setTableContents1(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -349,9 +358,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="tableContents2"
             value={tableContents2 as string}
-            placeholder="Mục lục 2"
+            placeholder="Table of Contents #2"
             onChange={(e) => setTableContents2(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -359,9 +368,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="tableContents3"
             value={tableContents3 as string}
-            placeholder="Mục lục 3"
+            placeholder="Table of Contents #3"
             onChange={(e) => setTableContents3(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -369,9 +378,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="tableContents4"
             value={tableContents4 as string}
-            placeholder="Mục lục 4"
+            placeholder="Table of Contents #4"
             onChange={(e) => setTableContents4(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -380,9 +389,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={p1 as string}
-            placeholder="Đoạn văn 1"
+            placeholder="Paragraph 1"
             onChange={(e) => setP1(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -391,9 +400,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={p2 as string}
-            placeholder="Đoạn văn 2"
+            placeholder="Paragraph 2"
             onChange={(e) => setP2(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -402,9 +411,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={p3 as string}
-            placeholder="Đoạn văn 3"
+            placeholder="Paragraph 3"
             onChange={(e) => setP3(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -412,9 +421,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="subtitle2"
             value={subtitle2 as string}
-            placeholder="Phụ đề 2"
+            placeholder="Subtitle 2"
             onChange={(e) => setSubtitle2(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -423,9 +432,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={p4 as string}
-            placeholder="Đoạn văn 4"
+            placeholder="Paragraph 4"
             onChange={(e) => setP4(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -434,9 +443,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={p5 as string}
-            placeholder="Đoạn văn 5"
+            placeholder="Paragraph 5"
             onChange={(e) => setP5(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -444,9 +453,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l1"
             value={l1 as string}
-            placeholder="Dấu kiểm màu xanh lá cây #1"
+            placeholder="List Item #1"
             onChange={(e) => setL1(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -454,9 +463,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l2"
             value={l2 as string}
-            placeholder="Dấu kiểm màu xanh lá cây #2"
+            placeholder="List Item #2"
             onChange={(e) => setL2(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -464,9 +473,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l3"
             value={l3 as string}
-            placeholder="Dấu kiểm màu xanh lá cây #3"
+            placeholder="List Item #3"
             onChange={(e) => setL3(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -474,9 +483,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l4"
             value={l4 as string}
-            placeholder="Dấu kiểm màu xanh lá cây #4"
+            placeholder="List Item #4"
             onChange={(e) => setL4(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -484,9 +493,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l5"
             value={l5 as string}
-            placeholder="Dấu kiểm màu xanh lá cây #5"
+            placeholder="List Item #5"
             onChange={(e) => setL5(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -494,9 +503,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="subtitle3"
             value={subtitle3 as string}
-            placeholder="Phụ đề 3"
+            placeholder="Subtitle 3"
             onChange={(e) => setSubtitle3(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -505,9 +514,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={p6 as string}
-            placeholder="Đoạn văn 6"
+            placeholder="Paragraph 6"
             onChange={(e) => setP6(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -516,9 +525,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={p7 as string}
-            placeholder="Đoạn văn 7"
+            placeholder="Paragraph 7"
             onChange={(e) => setP7(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -526,9 +535,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l6"
             value={l6 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL6(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -536,9 +545,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l7"
             value={l7 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL7(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -546,9 +555,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l8"
             value={l8 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL8(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -556,9 +565,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l9"
             value={l9 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL9(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -566,9 +575,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l10"
             value={l10 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL10(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -576,9 +585,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l11"
             value={l11 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL11(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -586,9 +595,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l12"
             value={l12 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL12(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -596,9 +605,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l13"
             value={l13 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL13(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -606,9 +615,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l14"
             value={l14 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL14(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -616,9 +625,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="l15"
             value={l15 as string}
-            placeholder="Liệt kê mục"
+            placeholder="List Item"
             onChange={(e) => setL15(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -627,9 +636,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={p8 as string}
-            placeholder="Đoạn văn 8"
+            placeholder="Paragraph 8"
             onChange={(e) => setP8(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -637,9 +646,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="subtitle4"
             value={subtitle4 as string}
-            placeholder="Phụ đề 4"
+            placeholder="Subtitle 4"
             onChange={(e) => setSubtitle4(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -648,9 +657,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={conclusion1 as string}
-            placeholder="Sự kết luận 1"
+            placeholder="Conclusion 1"
             onChange={(e) => setConclusion1(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -659,9 +668,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={conclusion2 as string}
-            placeholder="Sự kết luận 2"
+            placeholder="Conclusion 2"
             onChange={(e) => setConclusion2(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -670,9 +679,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
             rows={4}
             cols={50}
             value={conclusion3 as string}
-            placeholder="Sự kết luận 3"
+            placeholder="Conclusion 3"
             onChange={(e) => setConclusion3(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -680,9 +689,9 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="reference1"
             value={reference1 as string}
-            placeholder="Liên kết tham khảo #1"
+            placeholder="reference link #1 (if any)"
             onChange={(e) => setReference1(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
@@ -690,15 +699,26 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
           <input
             id="reference2"
             value={reference2 as string}
-            placeholder="Liên kết tham khảo #2"
+            placeholder="reference link #2 (if any)"
             onChange={(e) => setReference2(e.target.value)}
-            className="border-2 border-gray-200 p-3 rounded-xl w-full"
+            className="p-3 rounded-xl w-full text-md"
           />
         </div>
 
-        <Button type="submit" className="text-white">
-          <Plus className="w-8 h-8" />
-        </Button>
+        <div className="flex items-center justify-center space-x-3">
+          <Button
+            onClick={handleClose}
+            variant="secondary"
+            type="button"
+            className="text-white"
+          >
+            Cancel
+          </Button>
+
+          <Button type="submit" className="text-white">
+            Save
+          </Button>
+        </div>
       </form>
     </div>
   );

@@ -37,7 +37,7 @@ export default function Blog({ data }: IBlogPost) {
         <meta name="description" content="Dynamic SEO from Nextjs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container className="max-w-[100rem]">
+      <main className="max-w-[100rem] mx-auto">
         <div className="w-full mx-auto">
           <BlogMain data={data} handleEdit={handleEdit} handleAdd={handleAdd} />
           {showForm && (
@@ -50,7 +50,7 @@ export default function Blog({ data }: IBlogPost) {
           )}
           <Form />
         </div>
-      </Container>
+      </main>
     </>
   );
 }
