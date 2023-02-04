@@ -42,7 +42,7 @@ export default function PropertyCard({ property, image, agent }: IProps) {
                                   <Image
                                     layout="fill"
                                     src={img.url}
-                                    alt={img.url}
+                                    alt={"Highway Properties Image"}
                                   />
                                 )}
                               </div>
@@ -196,7 +196,7 @@ export default function PropertyCard({ property, image, agent }: IProps) {
                                           ? a.profileImage
                                           : "/Users/jonathanvandenberg/2023/real-estate/public/ppraLogo.png"
                                       }
-                                      alt=""
+                                      alt="Highway Properties Agent"
                                     />
                                   </div>
                                 </div>

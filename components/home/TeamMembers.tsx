@@ -17,72 +17,59 @@ export default function TeamMembers() {
           <div className="flex flex-col justify-center m-8 text-center">
             <Image
               alt=""
-              width={145}
-              height={145}
+              width={200}
+              height={200}
               className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full"
               src="https://source.unsplash.com/100x100/?portrait?12"
             />
-            <p className="text-xl font-semibold leading-tight">Jimmy</p>
-            <p className="text-lg text-dark-gray font-light">Visual Designer</p>
+            <p className="text-xl font-semibold leading-tight">lorem</p>
+            <p className="text-lg text-dark-gray font-light">lorem lorem</p>
           </div>
           <div className="flex flex-col justify-center m-8 text-center">
             <Image
               alt=""
-              width={145}
-              height={145}
+              width={200}
+              height={200}
               className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full"
               src="https://source.unsplash.com/100x100/?portrait?1"
             />
-            <p className="text-xl font-semibold leading-tight">Nicole</p>
-            <p className="text-lg text-dark-gray font-light">Visual Designer</p>
+            <p className="text-xl font-semibold leading-tight">lorem</p>
+            <p className="text-lg text-dark-gray font-light">lorem lorem</p>
           </div>
           <div className="flex flex-col justify-center m-8 text-center">
             <Image
               alt=""
-              width={145}
-              height={145}
+              width={200}
+              height={200}
               className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full"
               src="https://source.unsplash.com/100x100/?portrait?6"
             />
-            <p className="text-xl font-semibold leading-tight">Nicole lorem</p>
-            <p className="text-lg text-dark-gray font-light">Visual Designer</p>
+            <p className="text-xl font-semibold leading-tight">lorem</p>
+            <p className="text-lg text-dark-gray font-light">lorem lorem</p>
           </div>
           <div className="flex flex-col justify-center m-8 text-center">
             <Image
               alt=""
-              width={145}
-              height={145}
-              className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full"
-              src="https://source.unsplash.com/100x100/?portrait?7"
-            />
-            <p className="text-xl font-semibold leading-tight">Leroy Jenkins</p>
-            <p className="text-lg text-dark-gray font-light">Visual Designer</p>
-          </div>
-          <div className="flex flex-col justify-center m-8 text-center">
-            <Image
-              alt=""
-              width={145}
-              height={145}
+              width={200}
+              height={200}
               className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full"
               src="https://source.unsplash.com/100x100/?portrait?9"
             />
-            <p className="text-xl font-semibold leading-tight">Leroy Jenkins</p>
-            <p className="text-lg text-dark-gray font-light">Visual Designer</p>
+            <p className="text-xl font-semibold leading-tight">lorem</p>
+            <p className="text-lg text-dark-gray font-light">lorem lorem</p>
           </div>
           <div className="flex flex-col justify-center m-8 text-center">
             <Image
               alt=""
-              width={145}
-              height={145}
+              width={200}
+              height={200}
               className="self-center flex-shrink-0 w-24 h-24 mb-4 bg-center bg-cover rounded-full"
-              src="https://source.unsplash.com/100x100/?portrait?4"
+              src="/Nicole_van_den_Berg.jpeg"
             />
             <p className="text-xl font-semibold leading-tight">
-              Nicole v.d.Berg
+              Nicole van den Berg
             </p>
-            <p className="text-lg text-dark-gray font-light">
-              CEO & Lead Sales
-            </p>
+            <p className="text-lg text-dark-gray font-light">Founder & CEO</p>
           </div>
         </div>
       </div>

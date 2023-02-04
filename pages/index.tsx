@@ -33,7 +33,7 @@ const Home: NextPage = () => {
         <meta property="og:image:alt" content="Landmark Logo" />
         <meta property="og:locale" content="en_GB" />
       </Head>
-      <main>
+      <main className="bg-[rgb(249,249,249)]">
         <Hero subHeading="Highway Properties" image={headerImage} logo={true}>
           <p>
             Making a Mark on the <br /> Real Estate Industry
