@@ -34,7 +34,7 @@ export default function Blog({ data }: IBlogPost) {
     <>
       <Head>
         <title>Landmark</title>
-        <meta name="description" content="Dynamic SEO from NextJS" />
+        <meta name="description" content="Dynamic SEO from Nextjs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container className="max-w-[100rem]">

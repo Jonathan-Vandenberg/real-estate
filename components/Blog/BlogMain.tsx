@@ -8,7 +8,7 @@ interface IFormProps {
   handleEdit: () => void;
 }
 
-export default function BlogMain({ data, handleEdit, handleAdd }: IFormProps) {
+function BlogMain({ data, handleEdit, handleAdd }: IFormProps) {
   return (
     <div className="container mx-auto">
       <BlogHeader data={data} />
@@ -22,3 +22,5 @@ export default function BlogMain({ data, handleEdit, handleAdd }: IFormProps) {
     </div>
   );
 }
+
+export default BlogMain;
