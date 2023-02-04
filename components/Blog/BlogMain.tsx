@@ -1,6 +1,6 @@
-import BlogHeader from "./BlogHeader";
-import BlogPostMarkup from "../Markup";
 import { BlogPost } from "../../types";
+import BlogHeader from "./BlogHeader";
+import BlogPostMarkup from "./Markup";
 
 interface IFormProps {
   data: BlogPost | undefined | null;

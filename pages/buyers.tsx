@@ -1,5 +1,8 @@
-import { BondCalculator, PricePerSquareMeter } from "../components/Calculators";
-import { Container } from "../components/Container";
+import {
+  BondCalculator,
+  PricePerSquareMeter,
+} from "../components/util-features/Calculators";
+import { Container } from "../components/global/Container";
 
 export default function buyers() {
   return (

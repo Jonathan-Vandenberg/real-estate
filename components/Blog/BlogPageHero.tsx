@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
-import logo from "../../public/heroImage.jpeg";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import logo from "../../public/heroImage.jpeg";
 import { BlogPost } from "../../types";
 
 interface IHeroProps {

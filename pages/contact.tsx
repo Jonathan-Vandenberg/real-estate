@@ -1,5 +1,5 @@
-import { Form } from "../components/Form";
-import Hero from "../components/Hero";
+import { Form } from "../components/global/Form";
+import Hero from "../components/global/Hero";
 import contactImage from "../public/headerImage.jpeg";
 
 const Contact = () => {

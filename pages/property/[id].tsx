@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
-import PropertyDetails from "../../components/PropertyDetails";
+import PropertyDetails from "../../components/property/PropertyDetails";
 import prisma from "../../lib/prisma";
 import { Agent, ImageProduct, Property } from "../../types";
 

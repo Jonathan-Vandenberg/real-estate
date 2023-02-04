@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { Container } from "../components/Container";
-import PropertyCard from "../components/PropertyCard";
+import { Container } from "../components/global/Container";
+import PropertyCard from "../components/property/PropertyCard";
 import prisma from "../lib/prisma";
 import { ImageProduct, Property, Agent, ResidentialFeature } from "../types";
 

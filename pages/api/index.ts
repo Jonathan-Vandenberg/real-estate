@@ -1,11 +1,11 @@
 import { createServer } from "@graphql-yoga/node";
-import { PrismaClient, Status, Agent } from "@prisma/client";
+import { PrismaClient, Status } from "@prisma/client";
 import { readFileSync } from "fs";
+import { DateScalar, DateTimeScalar, TimeScalar } from "graphql-date-scalars";
 import { NextApiRequest, NextApiResponse } from "next";
 import { join } from "path";
 import prisma from "../../lib/prisma";
 import { Resolvers } from "../../types";
-import { DateScalar, TimeScalar, DateTimeScalar } from "graphql-date-scalars";
 
 export async function createContext(): Promise<GraphQLContext> {
   return { prisma };

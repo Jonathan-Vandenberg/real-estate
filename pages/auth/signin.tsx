@@ -1,7 +1,7 @@
 import { signIn, useSession } from "next-auth/react";
 import Router from "next/router";
 import { useEffect, useState } from "react";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/global/Button";
 
 const Signup = () => {
   const [email, setEmail] = useState("");

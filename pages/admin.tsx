@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import AdminDash from "../components/AdminDash";
+import AdminDash from "../components/admin/AdminDash";
 import prisma from "../lib/prisma";
 import { Agent, ImageProduct, Property } from "../types";
 import { useAppDispatch } from "../redux-hooks/hooks";

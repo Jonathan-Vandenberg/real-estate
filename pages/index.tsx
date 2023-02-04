@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Container } from "../components/Container";
-import Hero from "../components/Hero";
-import HomeContent from "../components/HomeContent";
-import HomeGallery from "../components/HomeGallery";
-import TeamMembers from "../components/TeamMembers";
+import { Container } from "../components/global/Container";
+import Hero from "../components/global/Hero";
+import HomeContent from "../components/home/HomeContent";
+import HomeGallery from "../components/home/HomeGallery";
+import TeamMembers from "../components/home/TeamMembers";
 import headerImage from "../public/headerImage.jpeg";
 
 const Home: NextPage = () => {

@@ -1,6 +1,6 @@
 import Head from "next/head";
-import BlogPageHero from "../components/Blog/BlogPageHero";
-import { Container } from "../components/Container";
+import BlogPageHero from "../components/blog/BlogPageHero";
+import { Container } from "../components/global/Container";
 import prisma from "../lib/prisma";
 import { BlogPost } from "../types";
 
