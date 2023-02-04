@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAllResidentialFeaturesQuery } from "../types";
 
 export default function Switch({
   checked,
@@ -13,6 +14,7 @@ export default function Switch({
   switchOn: boolean | null | undefined;
 }) {
   const [on, setOn] = useState(switchOn);
+
   return (
     <>
       {radioMode && (

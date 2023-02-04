@@ -56,7 +56,11 @@ export default function Admin({ property, image, agents, user }: IAdmin) {
 }
 
 export async function getStaticProps() {
-  const property = await prisma.property.findMany();
+  const property = await prisma.property.findMany({
+    include: {
+      residentialFeatures: true,
+    },
+  });
   const image = await prisma.imageProduct.findMany();
   const agents = await prisma.agent.findMany();
   const user = await prisma.user.findMany();

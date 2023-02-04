@@ -25,6 +25,9 @@ const resolvers: Resolvers = {
   DateTime: DateTimeScalar,
 
   Query: {
+    allResidentialFeatures: (_, __, { prisma }) => {
+      return prisma.residentialFeature.findMany();
+    },
     agent: (_, { email }, { prisma }) => {
       const agent = prisma.agent.findUnique({
         where: {

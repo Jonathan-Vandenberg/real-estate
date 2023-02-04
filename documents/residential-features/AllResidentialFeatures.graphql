@@ -1,0 +1,7 @@
+# import ResidentialFeature from './ResidentialFeatureFragment.graphql'
+
+query AllResidentialFeatures {
+  allResidentialFeatures {
+    ...ResidentialFeature
+  }
+}

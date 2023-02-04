@@ -2854,6 +2854,40 @@ export function useAddResidentialFeatureMutation(baseOptions?: Apollo.MutationHo
 export type AddResidentialFeatureMutationHookResult = ReturnType<typeof useAddResidentialFeatureMutation>;
 export type AddResidentialFeatureMutationResult = Apollo.MutationResult<AddResidentialFeatureMutation>;
 export type AddResidentialFeatureMutationOptions = Apollo.BaseMutationOptions<AddResidentialFeatureMutation, AddResidentialFeatureMutationVariables>;
+export const AllResidentialFeaturesDocument = gql`
+    query AllResidentialFeatures {
+  allResidentialFeatures {
+    ...ResidentialFeature
+  }
+}
+    ${ResidentialFeatureFragmentDoc}`;
+
+/**
+ * __useAllResidentialFeaturesQuery__
+ *
+ * To run a query within a React component, call `useAllResidentialFeaturesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllResidentialFeaturesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllResidentialFeaturesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllResidentialFeaturesQuery(baseOptions?: Apollo.QueryHookOptions<AllResidentialFeaturesQuery, AllResidentialFeaturesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllResidentialFeaturesQuery, AllResidentialFeaturesQueryVariables>(AllResidentialFeaturesDocument, options);
+      }
+export function useAllResidentialFeaturesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllResidentialFeaturesQuery, AllResidentialFeaturesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllResidentialFeaturesQuery, AllResidentialFeaturesQueryVariables>(AllResidentialFeaturesDocument, options);
+        }
+export type AllResidentialFeaturesQueryHookResult = ReturnType<typeof useAllResidentialFeaturesQuery>;
+export type AllResidentialFeaturesLazyQueryHookResult = ReturnType<typeof useAllResidentialFeaturesLazyQuery>;
+export type AllResidentialFeaturesQueryResult = Apollo.QueryResult<AllResidentialFeaturesQuery, AllResidentialFeaturesQueryVariables>;
 export type AddFormMutationVariables = Exact<{
   input: FormInput;
 }>;
@@ -3067,5 +3101,10 @@ export type AddResidentialFeatureMutationVariables = Exact<{
 
 
 export type AddResidentialFeatureMutation = { __typename?: 'Mutation', addResidentialFeature?: { __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null };
+
+export type AllResidentialFeaturesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllResidentialFeaturesQuery = { __typename?: 'Query', allResidentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null };
 
 export type ResidentialFeatureFragment = { __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null };
