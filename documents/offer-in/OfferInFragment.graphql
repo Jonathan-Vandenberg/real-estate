@@ -40,7 +40,6 @@ fragment OfferIn on OfferIn {
     email
     notes
     completed
-    urgentAssistance
     deadline
     flag
     # message {
@@ -62,7 +61,6 @@ fragment OfferIn on OfferIn {
     email
     notes
     completed
-    urgentAssistance
     deadline
     flag
     # message {
@@ -81,7 +79,6 @@ fragment OfferIn on OfferIn {
     offerInId
     notes
     completed
-    urgentAssistance
     deadline
     flag
     # message {
@@ -100,7 +97,6 @@ fragment OfferIn on OfferIn {
     offerInId
     notes
     completed
-    urgentAssistance
     deadline
     flag
     # message {
@@ -121,7 +117,6 @@ fragment OfferIn on OfferIn {
     conditions
     notes
     completed
-    urgentAssistance
     deadline
     flag
     # message {
@@ -140,7 +135,6 @@ fragment OfferIn on OfferIn {
     offerInId
     notes
     completed
-    urgentAssistance
     deadline
     flag
     # message {
@@ -161,7 +155,6 @@ fragment OfferIn on OfferIn {
     phone
     notes
     completed
-    urgentAssistance
     deadline
     flag
     # message {
@@ -182,7 +175,6 @@ fragment OfferIn on OfferIn {
     name
     notes
     completed
-    urgentAssistance
     deadline
     flag
     # message {
@@ -202,7 +194,42 @@ fragment OfferIn on OfferIn {
     address
     notes
     completed
-    urgentAssistance
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  electricFence {
+    id
+    offerInId
+    notes
+    completed
+    deadline
+    flag
+    # message {
+    #   id
+    #   offerInId
+    #   adminId
+    #   title
+    #   message
+    #   read
+    #   urgent
+    #   relatingTo
+    # }
+  }
+  alien {
+    id
+    offerInId
+    notes
+    completed
     deadline
     flag
     # message {

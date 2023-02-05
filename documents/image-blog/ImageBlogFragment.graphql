@@ -1,0 +1,5 @@
+fragment ImageBlog on ImageBlog {
+  id
+  url
+  blogPostId
+}

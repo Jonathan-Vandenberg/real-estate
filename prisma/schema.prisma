@@ -125,6 +125,15 @@ model BlogPost {
   conclusion3    String?
   reference1     String?
   reference2     String?
+  imageBlog      ImageBlog[]
+}
+
+model ImageBlog {
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  url String?
+
+  BlogPost   BlogPost? @relation(fields: [blogPostId], references: [id])
+  blogPostId String?   @db.ObjectId
 }
 
 model Property {
@@ -218,6 +227,10 @@ model AdminMessage {
   mortgageOriginatorId String?             @db.ObjectId
   FicaDocs             FicaDocs?           @relation(fields: [ficaDocsId], references: [id])
   ficaDocsId           String?             @db.ObjectId
+  ElectricFence        ElectricFence?      @relation(fields: [electricFenceId], references: [id])
+  electricFenceId      String?             @db.ObjectId
+  Alien                Alien?              @relation(fields: [alienId], references: [id])
+  alienId              String?             @db.ObjectId
 }
 
 enum Status {
@@ -272,6 +285,8 @@ enum Offer_In_Categories {
   CONVEYANCER
   MORTGAGEORIGINATOR
   FICADOCS
+  ELECTRIC_FENCE
+  ALIEN
 }
 
 enum Document_Category {
@@ -288,6 +303,8 @@ enum Document_Category {
   INTERMOLOGIST
   ELECCOMPCOMPANY
   FICA_DOCUMENTS
+  ELECTRIC_FENCE
+  ALIEN
 }
 
 //???????????????????? OFFER IN //????????????????????
@@ -311,6 +328,8 @@ model OfferIn {
   conveyancer                   Conveyancer?
   mortgageOriginator            MortgageOriginator?
   ficaDocs                      FicaDocs?
+  electricFence                 ElectricFence?
+  alien                         Alien?
   elecCompCompanyId             String              @db.ObjectId
   intermologistId               String              @db.ObjectId
   gasComplianceId               String              @db.ObjectId
@@ -320,6 +339,8 @@ model OfferIn {
   conveyancerId                 String              @db.ObjectId
   mortgageOriginatorId          String              @db.ObjectId
   ficaDocsId                    String              @db.ObjectId
+  electricFenceId               String              @db.ObjectId
+  alienId                       String              @db.ObjectId
   message                       AdminMessage[]
 
   property   Property? @relation(fields: [propertyId], references: [id])
@@ -327,130 +348,145 @@ model OfferIn {
 }
 
 model ElecCompCompany {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  name             String?
-  phone            String?
-  email            String?
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  phone     String?
+  email     String?
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId
 }
 
 model Intermologist {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  name             String?
-  phone            String?
-  email            String?
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  phone     String?
+  email     String?
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId
 }
 
 model GasCompliance {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId
 }
 
 model WaterCert {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId
 }
 
 model OfferAccepted {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  withConditions   Boolean?
-  conditions       String?
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  withConditions Boolean?
+  conditions     String?
+  notes          String?
+  completed      Boolean?
+  deadline       DateTime?
+  flag           Boolean?
+  message        AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId
 }
 
 model BankInspection {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId
 }
 
 model Conveyancer {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  name             String?
-  phone            String?
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  phone     String?
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId
 }
 
 model MortgageOriginator {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  phone            String?
-  name             String?
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  phone     String?
+  name      String?
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId
 }
 
 model FicaDocs {
-  id               String         @id @default(auto()) @map("_id") @db.ObjectId
-  address          String?
-  notes            String?
-  completed        Boolean?
-  urgentAssistance Boolean?
-  deadline         DateTime?
-  flag             Boolean?
-  message          AdminMessage[]
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  address   String?
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model ElectricFence {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
+
+  offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String   @unique @db.ObjectId
+}
+
+model Alien {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  notes     String?
+  completed Boolean?
+  deadline  DateTime?
+  flag      Boolean?
+  message   AdminMessage[]
 
   offerIn   OfferIn? @relation(fields: [offerInId], references: [id])
   offerInId String   @unique @db.ObjectId

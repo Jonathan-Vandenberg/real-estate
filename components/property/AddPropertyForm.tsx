@@ -321,7 +321,8 @@ export default function AddPropertyForm({
                   category={Image_Category.Main}
                   propertyId={add ? newId : property!.id}
                   uploadType={"image"}
-                  offerInId={""}
+                  offerInId=""
+                  blogPostId=""
                 />
               </div>
             )}
@@ -377,6 +378,7 @@ export default function AddPropertyForm({
                 propertyId={add ? newId : property!.id}
                 uploadType={"image"}
                 offerInId={""}
+                blogPostId=""
                 documentCategory={Document_Category.Cop}
               />
             </div>

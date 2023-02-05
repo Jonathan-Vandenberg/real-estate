@@ -4,7 +4,6 @@ fragment FicaDocs on FicaDocs {
   address
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }

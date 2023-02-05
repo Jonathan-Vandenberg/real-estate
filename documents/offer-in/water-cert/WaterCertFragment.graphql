@@ -3,7 +3,6 @@ fragment WaterCert on WaterCert {
   offerInId
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }

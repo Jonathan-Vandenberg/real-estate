@@ -5,12 +5,14 @@ import {
   useDeleteDocumentMutation,
   useDeleteImageMutation,
   useUpdateAgentMutation,
+  useDeleteImageBlogMutation,
 } from "../../types";
 import Delete from "../svgs/Delete";
 
-const RemoveFile = ({ url, imageId, removeType, documentId }) => {
+const RemoveFile = ({ url, imageId, removeType, documentId, blogPostId }) => {
   const [deleteSingleImage] = useDeleteImageMutation();
   const [deleteSingleDocument] = useDeleteDocumentMutation();
+  const [deleteSingleImageBlog] = useDeleteImageBlogMutation();
   const [updateAgent] = useUpdateAgentMutation();
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -19,8 +21,9 @@ const RemoveFile = ({ url, imageId, removeType, documentId }) => {
 
   const deleteFile = async (
     url: string,
-    removeType: "image" | "document" | "profile-image",
+    removeType: "image" | "document" | "profile-image" | "image-blog",
     imageId: string,
+    blogPostId: string,
     documentId: string
   ) => {
     const s3 = new S3({
@@ -42,6 +45,10 @@ const RemoveFile = ({ url, imageId, removeType, documentId }) => {
       // call the deleteImage mutation to remove the image's name from the MongoDB database
       if (removeType === "image") {
         await deleteSingleImage({ variables: { id: imageId } });
+        console.log("Image deleted from MongoDB successfully");
+      }
+      if (removeType === "image-blog") {
+        await deleteSingleImageBlog({ variables: { id: blogPostId } });
         console.log("Image deleted from MongoDB successfully");
       }
       if (removeType === "document") {
@@ -77,7 +84,7 @@ const RemoveFile = ({ url, imageId, removeType, documentId }) => {
         <div className="space-x-4 flex items-center justify-between space">
           <div
             onClick={() => {
-              deleteFile(url, removeType, imageId, documentId),
+              deleteFile(url, removeType, imageId, documentId, blogPostId),
                 setShowConfirm(false);
             }}
             className="w-auto bg-white/30 text-sm hover:cursor-pointer rounded-full p-2"

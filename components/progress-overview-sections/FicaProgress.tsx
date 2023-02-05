@@ -4,34 +4,24 @@ import { OfferIn } from "../../types";
 
 export default function FicaProgress({ offerIn }: { offerIn: OfferIn }) {
   return (
-    <div
-      className={classNames(
-        offerIn?.ficaDocs?.urgentAssistance &&
-          "border-2 border-[rgb(255,10,10)]"
-      )}
-    >
+    <div>
       <div
         className={classNames(
           "flex items-center justify-start ",
-          offerIn.ficaDocs?.completed ? "bg-[#fbd3fa]" : "bg-[#2313d1]",
-          offerIn?.ficaDocs?.urgentAssistance && "bg-[rgb(255,6,6)]"
+          offerIn.ficaDocs?.completed ? "bg-[#fbd3fa]" : "bg-[#2313d1]"
         )}
       >
         <div>
-          {!offerIn?.ficaDocs?.urgentAssistance && (
+          {offerIn?.ficaDocs?.flag ? (
             <>
-              {offerIn?.ficaDocs?.flag ? (
-                <>
-                  {!offerIn?.ficaDocs?.completed && (
-                    <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2" />
-                  )}
-                </>
-              ) : (
-                <>
-                  {!offerIn?.ficaDocs?.completed && (
-                    <span className="w-3 h-3 rounded-full bg-[rgb(6,255,72)] block ml-2" />
-                  )}
-                </>
+              {!offerIn?.ficaDocs?.completed && (
+                <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2" />
+              )}
+            </>
+          ) : (
+            <>
+              {!offerIn?.ficaDocs?.completed && (
+                <span className="w-3 h-3 rounded-full bg-[rgb(6,255,72)] block ml-2" />
               )}
             </>
           )}
@@ -46,18 +36,13 @@ export default function FicaProgress({ offerIn }: { offerIn: OfferIn }) {
           FICA {offerIn?.ficaDocs?.completed && "- Completed"}
         </p>
       </div>
-      <div className="border border-off-white ">
-        <div
-          className={classNames(
-            "py-1 font-semibold pl-2 bg-[rgb(211,241,250)]",
-            offerIn?.ficaDocs?.urgentAssistance && "bg-[rgb(255,168,168)]"
-          )}
-        >
-          Address
-        </div>
-        <div className="pl-2 py-1 bg-white">{offerIn?.ficaDocs?.address}</div>
-        {offerIn?.ficaDocs?.flag ||
-          (offerIn?.ficaDocs?.urgentAssistance && (
+      {!offerIn?.ficaDocs?.completed && (
+        <div className="border border-off-white ">
+          <div className="py-1 font-semibold pl-2 bg-[rgb(211,241,250)]">
+            Address
+          </div>
+          <div className="pl-2 py-1 bg-white">{offerIn?.ficaDocs?.address}</div>
+          {offerIn?.ficaDocs?.flag && (
             <div className="border border-[rgb(255,22,22)]">
               <div className="py-1 font-semibold pl-2 bg-[rgb(255,168,168)]">
                 Flag
@@ -66,8 +51,9 @@ export default function FicaProgress({ offerIn }: { offerIn: OfferIn }) {
                 {offerIn?.ficaDocs?.notes}
               </div>
             </div>
-          ))}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

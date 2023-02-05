@@ -16,6 +16,7 @@ import WaterIcon from "../../components/svgs/WaterIcon";
 import prisma from "../../lib/prisma";
 import { Document, OfferIn } from "../../types";
 import Link from "next/link";
+import ElectricFenceIcon from "../../components/svgs/ElectricFenceIcon";
 
 interface IOfferIn {
   offerIn: OfferIn;
@@ -117,7 +118,7 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
               >
                 <BankInspectionIcon />
                 <span className="hidden md:block whitespace-nowrap">
-                  Bank Inspection
+                  Bank Valuation
                 </span>
               </a>
             </li>
@@ -161,6 +162,26 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
               >
                 <IntermologistIcon />
                 <span className="hidden md:block">Intermologist</span>
+              </a>
+            </li>
+            <li className="rounded-lg hover:bg-off-white w-full">
+              <a
+                rel="noopener noreferrer"
+                href="#Intermologist"
+                className="flex items-center p-2 space-x-3 rounded-md "
+              >
+                <ElectricFenceIcon />
+                <span className="hidden md:block">Electric Fence</span>
+              </a>
+            </li>
+            <li className="rounded-lg hover:bg-off-white w-full">
+              <a
+                rel="noopener noreferrer"
+                href="#Intermologist"
+                className="flex items-center p-2 space-x-3 rounded-md "
+              >
+                <IntermologistIcon />
+                <span className="hidden md:block">Alien Species</span>
               </a>
             </li>
           </ul>
@@ -220,6 +241,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       gasCompliance: true,
       intermologist: true,
       elecCompCompany: true,
+      electricFence: true,
+      alien: true,
     },
   });
 

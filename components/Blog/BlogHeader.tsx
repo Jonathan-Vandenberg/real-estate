@@ -1,63 +1,72 @@
 import Image from "next/image";
 import image from "../../public/heroImage.jpeg";
-import { BlogPost } from "../../types";
+import { BlogPost, ImageBlog } from "../../types";
 
 interface IHeroProps {
-  data: BlogPost | undefined | null;
+  blogPost: BlogPost | undefined | null;
+  imageBlog: ImageBlog[];
 }
 
-const BlogHeader = ({ data }: IHeroProps) => {
-  const styles = data?.mainImage ? "pb-2 block" : "h-60 w-60";
+const BlogHeader = ({ blogPost, imageBlog }: IHeroProps) => {
+  const styles = blogPost?.mainImage ? "pb-2 block" : "h-60 w-60";
   return (
     <div className="bg-off-white md:pt-4">
       <div className="container px-5 lg:px-0 mx-auto">
-        {data?.title && (
+        {blogPost?.title && (
           <h1 className="logoFont text-3xl pt-6 text-gray-700 font-semibold md:text-5xl">
-            {data?.title}
+            {blogPost?.title}
           </h1>
         )}
-        {data?.subtitle1 && (
-          <h2 className="py-2 text-2xl">{data?.subtitle1}</h2>
+        {blogPost?.subtitle1 && (
+          <h2 className="py-2 text-2xl">{blogPost?.subtitle1}</h2>
         )}
         <div className="flex flex-col items-start justify-center md:flex-row md:justify-between pt-3">
           <div>
             <div className="flex items-center justify-start space-x-3 pb-3">
               <div className="flex items-start flex-col justify-start">
-                {data?.authorName && (
+                {blogPost?.authorName && (
                   <>
                     <p className="text-dark-gray text-md">
-                      By {data?.authorName}
+                      By {blogPost?.authorName}
                     </p>
                   </>
                 )}
-                {data?.publishedDate && (
+                {blogPost?.publishedDate && (
                   <p className="text-xs text-gray">
-                    Published {data?.publishedDate}
+                    Published {blogPost?.publishedDate}
                   </p>
                 )}
               </div>
             </div>
           </div>
-          {data?.editedBy && (
+          {blogPost?.editedBy && (
             <div className="flex items-center justify-start space-x-1">
               <p className="text-sm text-gray-500">Edited by</p>
-              <p className="text-sm">{data?.editedBy}</p>
+              <p className="text-sm">{blogPost?.editedBy}</p>
             </div>
           )}
         </div>
         <div className="pb-2 block">
           <div className="flex items-center justify-center">
             <div className={styles}>
-              <Image
-                src={image}
-                alt="IT image"
-                className="rounded-lg"
-                priority
-              />
+              {blogPost?.imageBlog &&
+                blogPost?.imageBlog.map((image) => (
+                  <div key={image && image.url}>
+                    {image?.url && (
+                      <img
+                        src={image.url}
+                        alt="Highway Properties Hero Image"
+                        className="rounded-lg"
+                      />
+                    )}
+                  </div>
+                ))}
             </div>
           </div>
-          {data?.photoCredit && (
-            <p className="text-xs pb-2">Image Credit: {data?.photoCredit}</p>
+          {blogPost?.photoCredit && (
+            <p className="text-xs pb-2">
+              Image Credit: {blogPost?.photoCredit}
+            </p>
           )}
         </div>
       </div>

@@ -1,8 +1,10 @@
 import moment from "moment";
 import { OfferIn } from "../../../types";
+import AlienProgress from "../../progress-overview-sections/AlienProgress";
 import BankInspectionProgress from "../../progress-overview-sections/BankInspectionProgress";
 import ConveyancerProgress from "../../progress-overview-sections/ConveyancerProgress";
 import EccProgress from "../../progress-overview-sections/EccProgress";
+import ElectricFenceProgress from "../../progress-overview-sections/ElectricFenceProgress";
 import EntomologistProgress from "../../progress-overview-sections/EntomologistProgress";
 import FicaProgress from "../../progress-overview-sections/FicaProgress";
 import GasComplianceProgress from "../../progress-overview-sections/GasComplianceProgress";
@@ -94,6 +96,8 @@ export default function OfferInDetails({
         <WaterCertificateProgress offerIn={offerIn} />
         <GasComplianceProgress offerIn={offerIn} />
         <EntomologistProgress offerIn={offerIn} />
+        <ElectricFenceProgress offerIn={offerIn} />
+        <AlienProgress offerIn={offerIn} />
       </div>
     </section>
   );

@@ -86,6 +86,7 @@ export default function AddAgentForm({
                         imageId={""}
                         removeType={"profile-image"}
                         documentId={""}
+                        blogPostId=""
                       />
                     </div>
                   </div>
@@ -100,6 +101,7 @@ export default function AddAgentForm({
                 propertyId={""}
                 uploadType={"profile-image"}
                 offerInId={""}
+                blogPostId=""
               />
             </div>
           )}

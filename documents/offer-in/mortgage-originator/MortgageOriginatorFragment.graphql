@@ -5,7 +5,6 @@ fragment MortgageOriginator on MortgageOriginator {
   name
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }

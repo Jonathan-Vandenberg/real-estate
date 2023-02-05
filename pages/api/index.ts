@@ -156,6 +156,22 @@ const resolvers: Resolvers = {
         },
       });
 
+      const electricFence = await prisma.electricFence.create({
+        data: {
+          id: input!.electricFenceId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
+      const alien = await prisma.alien.create({
+        data: {
+          id: input!.alienId,
+          offerInId: input!.id,
+          deadline: new Date(),
+        },
+      });
+
       const offerIn = await prisma.offerIn.create({
         data: {
           id: input!.id,
@@ -176,6 +192,8 @@ const resolvers: Resolvers = {
           conveyancerId: input?.conveyancerId,
           mortgageOriginatorId: input?.mortgageOriginatorId,
           ficaDocsId: input?.ficaDocsId,
+          electricFenceId: input?.electricFenceId,
+          alienId: input?.alienId,
           elecCompCompany: {
             connect: {
               id: elecCompCompany.id,
@@ -221,6 +239,16 @@ const resolvers: Resolvers = {
               id: ficaDocs.id,
             },
           },
+          electricFence: {
+            connect: {
+              id: electricFence.id,
+            },
+          },
+          alien: {
+            connect: {
+              id: alien.id,
+            },
+          },
         },
       });
 
@@ -258,6 +286,8 @@ const resolvers: Resolvers = {
           conveyancerId: input!.conveyancerId,
           mortgageOriginatorId: input!.mortgageOriginatorId,
           ficaDocsId: input!.ficaDocsId,
+          electricFenceId: input!.electricFenceId,
+          alienId: input!.alienId,
         },
       });
 
@@ -272,7 +302,6 @@ const resolvers: Resolvers = {
           email: input?.elecCompCompany?.email,
           notes: input?.elecCompCompany?.notes,
           completed: input?.elecCompCompany?.completed,
-          urgentAssistance: input?.elecCompCompany?.urgentAssistance,
           deadline: input?.elecCompCompany?.deadline,
           flag: input?.elecCompCompany?.flag,
         },
@@ -289,7 +318,6 @@ const resolvers: Resolvers = {
           email: input?.intermologist?.email,
           notes: input?.intermologist?.notes,
           completed: input?.intermologist?.completed,
-          urgentAssistance: input?.intermologist?.urgentAssistance,
           deadline: input?.intermologist?.deadline,
           flag: input?.intermologist?.flag,
         },
@@ -303,7 +331,6 @@ const resolvers: Resolvers = {
           offerInId: input!.id,
           notes: input?.gasCompliance?.notes,
           completed: input?.gasCompliance?.completed,
-          urgentAssistance: input?.gasCompliance?.urgentAssistance,
           deadline: input?.gasCompliance?.deadline,
           flag: input?.gasCompliance?.flag,
         },
@@ -317,7 +344,6 @@ const resolvers: Resolvers = {
           offerInId: input?.id,
           notes: input?.waterCert?.notes,
           completed: input?.waterCert?.completed,
-          urgentAssistance: input?.waterCert?.urgentAssistance,
           deadline: input?.waterCert?.deadline,
           flag: input?.waterCert?.flag,
         },
@@ -333,7 +359,6 @@ const resolvers: Resolvers = {
           conditions: input?.offerAccepted?.conditions,
           notes: input?.offerAccepted?.notes,
           completed: input?.offerAccepted?.completed,
-          urgentAssistance: input?.offerAccepted?.urgentAssistance,
           deadline: input?.offerAccepted?.deadline,
           flag: input?.offerAccepted?.flag,
         },
@@ -347,7 +372,6 @@ const resolvers: Resolvers = {
           offerInId: input?.id,
           notes: input?.bankInspection?.notes,
           completed: input?.bankInspection?.completed,
-          urgentAssistance: input?.bankInspection?.urgentAssistance,
           deadline: input?.bankInspection?.deadline,
           flag: input?.bankInspection?.flag,
         },
@@ -363,7 +387,6 @@ const resolvers: Resolvers = {
           phone: input?.conveyancer?.phone,
           notes: input?.conveyancer?.notes,
           completed: input?.conveyancer?.completed,
-          urgentAssistance: input?.conveyancer?.urgentAssistance,
           deadline: input?.conveyancer?.deadline,
           flag: input?.conveyancer?.flag,
         },
@@ -379,7 +402,6 @@ const resolvers: Resolvers = {
           name: input?.mortgageOriginator?.name,
           notes: input?.mortgageOriginator?.notes,
           completed: input?.mortgageOriginator?.completed,
-          urgentAssistance: input?.mortgageOriginator?.urgentAssistance,
           deadline: input?.mortgageOriginator?.deadline,
           flag: input?.mortgageOriginator?.flag,
         },
@@ -394,9 +416,34 @@ const resolvers: Resolvers = {
           address: input?.ficaDocs?.address,
           notes: input?.ficaDocs?.notes,
           completed: input?.ficaDocs?.completed,
-          urgentAssistance: input?.ficaDocs?.urgentAssistance,
           deadline: input?.ficaDocs?.deadline,
           flag: input?.ficaDocs?.flag,
+        },
+      });
+
+      const electricFence = await prisma.electricFence.update({
+        where: {
+          id: input!.electricFenceId,
+        },
+        data: {
+          offerInId: input?.id,
+          notes: input?.electricFence?.notes,
+          completed: input?.electricFence?.completed,
+          deadline: input?.electricFence?.deadline,
+          flag: input?.electricFence?.flag,
+        },
+      });
+
+      const alien = await prisma.alien.update({
+        where: {
+          id: input!.alienId,
+        },
+        data: {
+          offerInId: input?.id,
+          notes: input?.alien?.notes,
+          completed: input?.alien?.completed,
+          deadline: input?.alien?.deadline,
+          flag: input?.alien?.flag,
         },
       });
 
@@ -411,6 +458,8 @@ const resolvers: Resolvers = {
         conveyancer,
         mortgageOriginator,
         ficaDocs,
+        electricFence,
+        alien,
       };
     },
     addAgent: async (_, { input }, { prisma }) => {
@@ -466,6 +515,21 @@ const resolvers: Resolvers = {
           },
         });
       return image;
+    },
+    deleteImageBlog: async (_, { id }, { prisma }) => {
+      const imageBlog = await prisma.imageBlog.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (imageBlog)
+        await prisma.imageBlog.delete({
+          where: {
+            id,
+          },
+        });
+      return imageBlog;
     },
     deleteDocument: async (_, { id }, { prisma }) => {
       const document = await prisma.document.findUnique({
@@ -708,6 +772,26 @@ const resolvers: Resolvers = {
             },
           });
           return image;
+        });
+    },
+    addImageBlog: async (_, { input }, { prisma }) => {
+      return prisma.imageBlog
+        .create({
+          data: {
+            url: input?.url,
+            blogPostId: input!.blogPostId,
+          },
+        })
+        .then((imageBlog) => {
+          prisma.blogPost.update({
+            where: { id: input.blogPostId },
+            data: {
+              imageBlog: {
+                connect: { id: imageBlog.id },
+              },
+            },
+          });
+          return imageBlog;
         });
     },
     addDocument: async (_, { input }, { prisma }) => {

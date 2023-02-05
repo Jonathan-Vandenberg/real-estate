@@ -8,13 +8,13 @@ import Edit from "../svgs/Edit";
 import Plus from "../svgs/Plus";
 
 interface IProps {
-  data: BlogPost | undefined | null;
+  blogPost: BlogPost | undefined | null;
   handleAdd: () => void;
   handleEdit: () => void;
 }
 
 export default function BlogPostMarkup({
-  data,
+  blogPost,
   handleAdd,
   handleEdit,
 }: IProps) {
@@ -24,256 +24,264 @@ export default function BlogPostMarkup({
   return (
     <div>
       <ul className="border-y pb-6 pt-2 flex flex-col items-start justify-start space-y-5">
-        {data?.tableContents1 && (
+        {blogPost?.tableContents1 && (
           <li className="text-xl text-[rgb(54,54,54)] flex items-center justify-between space-x-4 mt-3">
-            <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
-            <a
-              href="#subtitle1"
-              className="underline underline-offset-1 decoration-[3px] decoration-[rgb(202,59,204)]"
-            >
-              {data?.tableContents1}
+            <div className="h-3 w-3 bg-black rounded-full"></div>
+            <a href="#subtitle1" className=" text-[rgb(202,59,204)]">
+              {blogPost?.tableContents1}
             </a>
           </li>
         )}
-        {data?.tableContents2 && (
+        {blogPost?.tableContents2 && (
           <li className="text-xl text-[rgb(54,54,54)] flex items-center justify-between space-x-4">
-            <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
-            <a
-              className="underline underline-offset-1 decoration-[3px] decoration-[rgb(202,59,204)]"
-              href="#subtitle2"
-            >
-              {data?.tableContents2}
+            <div className="h-3 w-3 bg-black rounded-full"></div>
+            <a className="text-[rgb(202,59,204)]" href="#subtitle2">
+              {blogPost?.tableContents2}
             </a>
           </li>
         )}
-        {data?.tableContents3 && (
+        {blogPost?.tableContents3 && (
           <li className="text-xl text-[rgb(54,54,54)] flex items-center justify-between space-x-4">
-            <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
-            <a
-              className="underline underline-offset-1 decoration-[3px] decoration-[rgb(202,59,204)]"
-              href="#subtitle3"
-            >
-              {data?.tableContents3}
+            <div className="h-3 w-3 bg-black rounded-full"></div>
+            <a className="text-[rgb(202,59,204)]" href="#subtitle3">
+              {blogPost?.tableContents3}
             </a>
           </li>
         )}
-        {data?.tableContents4 && (
+        {blogPost?.tableContents4 && (
           <li className="text-xl text-[rgb(54,54,54)] flex items-center justify-between space-x-4">
-            <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
-            <a
-              href="#subtitle4"
-              className="underline underline-offset-1 decoration-[3px] decoration-[rgb(202,59,204)]"
-            >
-              {data?.tableContents4}
+            <div className="h-3 w-3 bg-black rounded-full"></div>
+            <a href="#subtitle4" className="text-[rgb(202,59,204)]">
+              {blogPost?.tableContents4}
             </a>
           </li>
         )}
       </ul>
 
       <div className="flex-col space-y-8 py-6">
-        {data?.p1 && <p className="text-gray-600 text-xl">{data?.p1}</p>}
-        {data?.p2 && <p className="text-gray-600 text-xl">{data?.p2}</p>}
-        {data?.p3 && <p className="text-gray-600 text-xl">{data?.p3}</p>}
+        {blogPost?.p1 && (
+          <p className="text-gray-600 text-xl">{blogPost?.p1}</p>
+        )}
+        {blogPost?.p2 && (
+          <p className="text-gray-600 text-xl">{blogPost?.p2}</p>
+        )}
+        {blogPost?.p3 && (
+          <p className="text-gray-600 text-xl">{blogPost?.p3}</p>
+        )}
       </div>
 
-      {data?.subtitle1 && <div className="py-6">Email Button</div>}
+      {blogPost?.subtitle1 && <div className="py-6">Email Button</div>}
 
-      {data?.subtitle2 && (
+      {blogPost?.subtitle2 && (
         <h2
           id="subtitle2"
           className="logoFont text-gray-600 text-2xl pb-3 pt-6 scroll-mt-[8rem]"
         >
-          {data?.subtitle2}
+          {blogPost?.subtitle2}
         </h2>
       )}
-      {data?.p4 && <p className="text-gray-600 py-4 text-xl">{data?.p4}</p>}
-      {data?.p5 && <p className="text-gray-600 py-4 text-xl">{data?.p5}</p>}
+      {blogPost?.p4 && (
+        <p className="text-gray-600 py-4 text-xl">{blogPost?.p4}</p>
+      )}
+      {blogPost?.p5 && (
+        <p className="text-gray-600 py-4 text-xl">{blogPost?.p5}</p>
+      )}
       <ul>
-        {data?.l1 && (
+        {blogPost?.l1 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l1}</p>
+              <p className="text-gray-600">{blogPost?.l1}</p>
             </div>
           </li>
         )}
-        {data?.l2 && (
+        {blogPost?.l2 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l2}</p>
+              <p className="text-gray-600">{blogPost?.l2}</p>
             </div>
           </li>
         )}
-        {data?.l3 && (
+        {blogPost?.l3 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l3}</p>
+              <p className="text-gray-600">{blogPost?.l3}</p>
             </div>
           </li>
         )}
-        {data?.l4 && (
+        {blogPost?.l4 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l4}</p>
+              <p className="text-gray-600">{blogPost?.l4}</p>
             </div>
           </li>
         )}
-        {data?.l5 && (
+        {blogPost?.l5 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l5}</p>
+              <p className="text-gray-600">{blogPost?.l5}</p>
             </div>
           </li>
         )}
       </ul>
-      {data?.subtitle3 && (
+      {blogPost?.subtitle3 && (
         <h2
           id="subtitle3"
           className="text-2xl logoFont text-gray-600  pb-3 pt-12 scroll-mt-[8rem]"
         >
-          {data?.subtitle3}
+          {blogPost?.subtitle3}
         </h2>
       )}
-      {data?.p6 && <p className="text-gray-600 py-4 text-xl">{data?.p6}</p>}
-      {data?.p7 && <p className="text-gray-600 py-4 text-xl">{data?.p7}</p>}
+      {blogPost?.p6 && (
+        <p className="text-gray-600 py-4 text-xl">{blogPost?.p6}</p>
+      )}
+      {blogPost?.p7 && (
+        <p className="text-gray-600 py-4 text-xl">{blogPost?.p7}</p>
+      )}
       <ul>
-        {data?.l6 && (
+        {blogPost?.l6 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l6}</p>
+              <p className="text-gray-600">{blogPost?.l6}</p>
             </div>
           </li>
         )}
-        {data?.l7 && (
+        {blogPost?.l7 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l7}</p>
+              <p className="text-gray-600">{blogPost?.l7}</p>
             </div>
           </li>
         )}
-        {data?.l8 && (
+        {blogPost?.l8 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l8}</p>
+              <p className="text-gray-600">{blogPost?.l8}</p>
             </div>
           </li>
         )}
-        {data?.l9 && (
+        {blogPost?.l9 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l9}</p>
+              <p className="text-gray-600">{blogPost?.l9}</p>
             </div>
           </li>
         )}
-        {data?.l10 && (
+        {blogPost?.l10 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l10}</p>
+              <p className="text-gray-600">{blogPost?.l10}</p>
             </div>
           </li>
         )}
-        {data?.l11 && (
+        {blogPost?.l11 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l11}</p>
+              <p className="text-gray-600">{blogPost?.l11}</p>
             </div>
           </li>
         )}
-        {data?.l12 && (
+        {blogPost?.l12 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l12}</p>
+              <p className="text-gray-600">{blogPost?.l12}</p>
             </div>
           </li>
         )}
-        {data?.l13 && (
+        {blogPost?.l13 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l13}</p>
+              <p className="text-gray-600">{blogPost?.l13}</p>
             </div>
           </li>
         )}
-        {data?.l14 && (
+        {blogPost?.l14 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l14}</p>
+              <p className="text-gray-600">{blogPost?.l14}</p>
             </div>
           </li>
         )}
-        {data?.l15 && (
+        {blogPost?.l15 && (
           <li className="py-4 text-xl">
             <div className="flex items-center justify-s space-x-5">
               <div className="w-3 h-3">
-                <div className="h-3 w-3 bg-[rgb(202,59,204)] rounded-full"></div>
+                <div className="h-3 w-3 bg-black rounded-full"></div>
               </div>
-              <p className="text-gray-600">{data?.l15}</p>
+              <p className="text-gray-600">{blogPost?.l15}</p>
             </div>
           </li>
         )}
       </ul>
-      {data?.p8 && <p className="text-gray-600 py-4 text-xl">{data?.p8}</p>}
-      {data?.subtitle4 && (
+      {blogPost?.p8 && (
+        <p className="text-gray-600 py-4 text-xl">{blogPost?.p8}</p>
+      )}
+      {blogPost?.subtitle4 && (
         <p
           id="subtitle4"
           className="logoFont text-gray-600 text-2xl pb-3 pt-6 scroll-mt-[8rem]"
         >
-          {data?.subtitle4}
+          {blogPost?.subtitle4}
         </p>
       )}
 
-      {data?.conclusion1 && (
-        <p className="text-gray-600 py-4 text-xl">{data?.conclusion1}</p>
+      {blogPost?.conclusion1 && (
+        <p className="text-gray-600 py-4 text-xl">{blogPost?.conclusion1}</p>
       )}
-      {data?.conclusion2 && (
-        <p className="text-gray-600 py-4 text-xl">{data?.conclusion2}</p>
+      {blogPost?.conclusion2 && (
+        <p className="text-gray-600 py-4 text-xl">{blogPost?.conclusion2}</p>
       )}
-      <p className="text-gray-600 py-4 text-xl">{data?.conclusion3}</p>
-      {data?.reference1 && (
-        <p className="text-gray-500 py-1 text">Reference: {data?.reference1}</p>
+      <p className="text-gray-600 py-4 text-xl">{blogPost?.conclusion3}</p>
+      {blogPost?.reference1 && (
+        <p className="text-gray-500 py-1 text">
+          Reference: {blogPost?.reference1}
+        </p>
       )}
-      {data?.reference2 && (
-        <p className="text-gray-500 py-1 text">Reference: {data?.reference2}</p>
+      {blogPost?.reference2 && (
+        <p className="text-gray-500 py-1 text">
+          Reference: {blogPost?.reference2}
+        </p>
       )}
       {session?.user?.email ===
         ("urbangentryjon@gmail.com" ||

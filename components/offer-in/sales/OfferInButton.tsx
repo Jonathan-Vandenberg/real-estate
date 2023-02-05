@@ -20,6 +20,8 @@ export default function OfferInButton({
   const [conveyancerId, setConveyancerId] = useState("");
   const [mortgageOriginatorId, setMortgageOriginatorId] = useState("");
   const [ficaDocsId, setFicaDocsId] = useState("");
+  const [electricFenceId, setElectricFenceId] = useState("");
+  const [alienId, setAlienId] = useState("");
 
   useEffect(() => {
     var mongoObjectId = function () {
@@ -43,6 +45,8 @@ export default function OfferInButton({
     setConveyancerId(mongoObjectId());
     setMortgageOriginatorId(mongoObjectId());
     setFicaDocsId(mongoObjectId());
+    setElectricFenceId(mongoObjectId());
+    setAlienId(mongoObjectId());
   }, []);
 
   useEffect(() => {
@@ -66,6 +70,8 @@ export default function OfferInButton({
           conveyancerId: conveyancerId,
           mortgageOriginatorId: mortgageOriginatorId,
           ficaDocsId: ficaDocsId,
+          electricFenceId: electricFenceId,
+          alienId: alienId,
         },
       },
     });

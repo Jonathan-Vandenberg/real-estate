@@ -39,8 +39,6 @@ export const ImageGallery = ({
   documentId: string;
   removeType: "image" | "document";
 }) => {
-  const { data: session } = useSession();
-
   return (
     <section className="pb-6">
       <div className="grid grid-cols-2 gap-2 w-full mx-auto md:grid-cols-4">
@@ -63,6 +61,7 @@ export const ImageGallery = ({
                       imageId={img.id}
                       removeType={removeType}
                       documentId={documentId}
+                      blogPostId=""
                     />
                   </div>
                 )}

@@ -1,0 +1,7 @@
+# import ImageBlog from "./ImageBlogFragment.graphql"
+
+mutation deleteImageBlog($id: ID!) {
+  deleteImageBlog(id: $id) {
+    ...ImageBlog
+  }
+}

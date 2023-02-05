@@ -110,6 +110,14 @@ export default function OfferInForm({
 
         const deadlineFicaDocs = moment(offerIn?.ficaDocs?.deadline).toDate();
         setDeadlineFicaDocs(deadlineFicaDocs);
+
+        const deadlineElectricFence = moment(
+          offerIn?.electricFence?.deadline
+        ).toDate();
+        setDeadlineElectricFence(deadlineElectricFence);
+
+        const deadlineAlien = moment(offerIn?.alien?.deadline).toDate();
+        setDeadlineAlien(deadlineAlien);
       } catch (error) {
         console.log(error);
       }
@@ -136,6 +144,8 @@ export default function OfferInForm({
       setConveyancerId(offerIn!.conveyancerId);
       setMortgageOriginatorId(offerIn!.mortgageOriginatorId);
       setFicaDocsId(offerIn!.ficaDocsId);
+      setElectricFenceId(offerIn!.electricFenceId);
+      setAlienId(offerIn!.alienId);
     }
     setIds();
   }, []);
@@ -161,6 +171,10 @@ export default function OfferInForm({
     offerIn!.mortgageOriginatorId
   );
   const [ficaDocsId, setFicaDocsId] = useState(offerIn!.ficaDocsId);
+  const [electricFenceId, setElectricFenceId] = useState(
+    offerIn!.electricFenceId
+  );
+  const [alienId, setAlienId] = useState(offerIn!.alienId);
 
   //~~~~~~~~~~~~~~~~~~~~~~~~ General ~~~~~~~~~~~~~~~~~~~~~~~~//
   const [amount, setAmount] = useState(offerIn?.amount || "");
@@ -194,8 +208,6 @@ export default function OfferInForm({
   const [completedElecCompCompany, setCompletedElecCompCompany] = useState(
     offerIn?.elecCompCompany?.completed || false
   );
-  const [urgentAssistanceElecCompCompany, setUrgentAssistanceElecCompCompany] =
-    useState(offerIn?.elecCompCompany?.urgentAssistance || false);
   const [deadlineElecCompCompany, setDeadlineElecCompCompany] =
     useState<Date | null>(null);
 
@@ -218,8 +230,6 @@ export default function OfferInForm({
   const [completedIntermologist, setCompletedIntermologist] = useState(
     offerIn?.intermologist?.completed || false
   );
-  const [urgentAssistanceIntermologist, setUrgentAssistanceIntermologist] =
-    useState(offerIn?.intermologist?.urgentAssistance || false);
   const [deadlineIntermologist, setDeadlineIntermologist] =
     useState<Date | null>(null);
 
@@ -233,8 +243,6 @@ export default function OfferInForm({
   const [completedGasCompliance, setCompletedGasCompliance] = useState(
     offerIn?.gasCompliance?.completed || false
   );
-  const [urgentAssistanceGasCompliance, setUrgentAssistanceGasCompliance] =
-    useState(offerIn?.gasCompliance?.urgentAssistance || false);
   const [deadlineGasCompliance, setDeadlineGasCompliance] =
     useState<Date | null>(null);
   const [flagGasCompliance, setFlagGasCompliance] = useState(
@@ -248,10 +256,6 @@ export default function OfferInForm({
   const [completedWaterCert, setCompletedWaterCert] = useState(
     offerIn?.waterCert?.completed || false
   );
-  const [urgentAssistanceWaterCert, setUrgentAssistanceWaterCert] = useState(
-    offerIn?.waterCert?.urgentAssistance || false
-  );
-
   const [deadlineWaterCert, setDeadlineWaterCert] = useState<Date | null>(null);
 
   const [flagWaterCert, setFlagWaterCert] = useState(
@@ -273,8 +277,6 @@ export default function OfferInForm({
   const [completedOfferAccepted, setCompletedOfferAccepted] = useState(
     offerIn?.offerAccepted?.completed || false
   );
-  const [urgentAssistanceOfferAccepted, setUrgentAssistanceOfferAccepted] =
-    useState(offerIn?.offerAccepted?.urgentAssistance || false);
   const [deadlineOfferAccepted, setDeadlineOfferAccepted] =
     useState<Date | null>(null);
   const [flagOfferAccepted, setFlagOfferAccepted] = useState(
@@ -291,9 +293,6 @@ export default function OfferInForm({
   const [completedBankInspection, setCompletedBankInspection] = useState(
     offerIn?.bankInspection?.completed || false
   );
-  const [urgentAssistanceBankInspection, setUrgentAssistanceBankInspection] =
-    useState(offerIn?.bankInspection?.urgentAssistance || false);
-
   const [deadlineBankInspection, setDeadlineBankInspection] =
     useState<Date | null>(null);
   const [flagBankInspection, setFlagBankInspection] = useState(
@@ -303,7 +302,7 @@ export default function OfferInForm({
   //   offerIn?.bankInspection?.message
   // );
 
-  //~~~~~~~~~~~~~~~~~~~~~~~~ BankInspection ~~~~~~~~~~~~~~~~~~~~~~~~//
+  //~~~~~~~~~~~~~~~~~~~~~~~~ Conveyancer ~~~~~~~~~~~~~~~~~~~~~~~~//
   const [nameConveyancer, setNameConveyancer] = useState(
     offerIn?.conveyancer?.name || ""
   );
@@ -316,9 +315,6 @@ export default function OfferInForm({
   const [completedConveyancer, setCompletedConveyancer] = useState(
     offerIn?.conveyancer?.completed || false
   );
-  const [urgentAssistanceConveyancer, setUrgentAssistanceConveyancer] =
-    useState(offerIn?.conveyancer?.urgentAssistance || false);
-
   const [deadlineConveyancer, setDeadlineConveyancer] = useState<Date | null>(
     null
   );
@@ -341,11 +337,6 @@ export default function OfferInForm({
   );
   const [completedMortgageOriginator, setCompletedMortgageOriginator] =
     useState(offerIn?.mortgageOriginator?.completed || false);
-  const [
-    urgentAssistanceMortgageOriginator,
-    setUrgentAssistanceMortgageOriginator,
-  ] = useState(offerIn?.mortgageOriginator?.urgentAssistance || false);
-
   const [deadlineMortgageOriginator, setDeadlineMortgageOriginator] =
     useState<Date | null>(null);
   const [flagMortgageOriginator, setFlagMortgageOriginator] = useState(
@@ -366,15 +357,39 @@ export default function OfferInForm({
   const [completedFicaDocs, setCompletedFicaDocs] = useState(
     offerIn?.ficaDocs?.completed || false
   );
-  const [urgentAssistanceFicaDocs, setUrgentAssistanceFicaDocs] = useState(
-    offerIn?.ficaDocs?.urgentAssistance || false
-  );
   const [deadlineFicaDocs, setDeadlineFicaDocs] = useState<Date | null>(null);
   const [flagFicaDocs, setFlagFicaDocs] = useState<boolean | undefined | null>(
     offerIn?.ficaDocs?.flag || false
   );
   // const [messageFicaDocs, setMessageFicaDocs] = useState(
   //   offerIn?.ficaDocs?.message
+  // );
+
+  //~~~~~~~~~~~~~~~~~~~~~~~~ Electric Fence ~~~~~~~~~~~~~~~~~~~~~~~~//
+  const [notesElectricFence, setNotesElectricFence] = useState(
+    offerIn?.electricFence?.notes || ""
+  );
+  const [completedElectricFence, setCompletedElectricFence] = useState(
+    offerIn?.electricFence?.completed || false
+  );
+  const [deadlineElectricFence, setDeadlineElectricFence] =
+    useState<Date | null>(null);
+  const [flagElectricFence, setFlagElectricFence] = useState(
+    offerIn?.electricFence?.flag || false
+  );
+  // const [messageConveyancer, setMessageConveyancer] = useState(
+  //   offerIn?.conveyancer?.message
+  // );
+
+  //~~~~~~~~~~~~~~~~~~~~~~~~ Alien ~~~~~~~~~~~~~~~~~~~~~~~~//
+  const [notesAlien, setNotesAlien] = useState(offerIn?.alien?.notes || "");
+  const [completedAlien, setCompletedAlien] = useState(
+    offerIn?.alien?.completed || false
+  );
+  const [deadlineAlien, setDeadlineAlien] = useState<Date | null>(null);
+  const [flagAlien, setFlagAlien] = useState(offerIn?.alien?.flag || false);
+  // const [messageConveyancer, setMessageConveyancer] = useState(
+  //   offerIn?.conveyancer?.message
   // );
 
   let offerInDetails = {
@@ -398,6 +413,8 @@ export default function OfferInForm({
         conveyancerId: conveyancerId,
         mortgageOriginatorId: mortgageOriginatorId,
         ficaDocsId: ficaDocsId,
+        electricFenceId: electricFenceId,
+        alienId: alienId,
         elecCompCompany: {
           offerInId: offerIn!.id,
           name: nameElecCompCompany,
@@ -405,7 +422,6 @@ export default function OfferInForm({
           email: emailElecCompCompany,
           notes: notesElecCompCompany,
           completed: completedElecCompCompany,
-          urgentAssistance: urgentAssistanceElecCompCompany,
           deadline: deadlineElecCompCompany,
           flag: flagElecCompCompany,
         },
@@ -416,7 +432,6 @@ export default function OfferInForm({
           email: emailIntermologist,
           notes: notesIntermologist,
           completed: completedIntermologist,
-          urgentAssistance: urgentAssistanceIntermologist,
           deadline: deadlineIntermologist,
           flag: flagIntermologist,
         },
@@ -425,7 +440,6 @@ export default function OfferInForm({
           gasCompCerUrl: gasCompCerUrlGasCompliance,
           notes: notesGasCompliance,
           completed: completedGasCompliance,
-          urgentAssistance: urgentAssistanceGasCompliance,
           deadline: deadlineGasCompliance,
           flag: flagGasCompliance,
         },
@@ -433,7 +447,6 @@ export default function OfferInForm({
           offerInId: offerIn!.id,
           notes: notesWaterCert,
           completed: completedWaterCert,
-          urgentAssistance: urgentAssistanceWaterCert,
           deadline: deadlineWaterCert,
           flag: flagWaterCert,
         },
@@ -443,7 +456,6 @@ export default function OfferInForm({
           conditions: conditionsOfferAccepted,
           notes: notesOfferAccepted,
           completed: completedOfferAccepted,
-          urgentAssistance: urgentAssistanceOfferAccepted,
           deadline: deadlineOfferAccepted,
           flag: flagOfferAccepted,
         },
@@ -451,7 +463,6 @@ export default function OfferInForm({
           offerInId: offerIn!.id,
           notes: notesBankInspection,
           completed: completedBankInspection,
-          urgentAssistance: urgentAssistanceBankInspection,
           deadline: deadlineBankInspection,
           flag: flagBankInspection,
         },
@@ -461,7 +472,6 @@ export default function OfferInForm({
           phone: phoneConveyancer,
           notes: notesConveyancer,
           completed: completedConveyancer,
-          urgentAssistance: urgentAssistanceConveyancer,
           deadline: deadlineConveyancer,
           flag: flagConveyancer,
         },
@@ -471,7 +481,6 @@ export default function OfferInForm({
           name: nameMortgageOriginator,
           notes: notesMortgageOriginator,
           completed: completedMortgageOriginator,
-          urgentAssistance: urgentAssistanceMortgageOriginator,
           deadline: deadlineMortgageOriginator,
           flag: flagMortgageOriginator,
         },
@@ -480,9 +489,22 @@ export default function OfferInForm({
           address: addressFicaDocs,
           notes: notesFicaDocs,
           completed: completedFicaDocs,
-          urgentAssistance: urgentAssistanceFicaDocs,
           deadline: deadlineFicaDocs,
           flag: flagFicaDocs,
+        },
+        electricFence: {
+          offerInId: offerIn!.id,
+          notes: notesElectricFence,
+          completed: completedElectricFence,
+          deadline: deadlineElectricFence,
+          flag: flagElectricFence,
+        },
+        alien: {
+          offerInId: offerIn!.id,
+          notes: notesAlien,
+          completed: completedAlien,
+          deadline: deadlineAlien,
+          flag: flagAlien,
         },
       },
     },
@@ -519,25 +541,6 @@ export default function OfferInForm({
       >
         Offer In
       </h2>
-
-      <label className="justify-end  text-md pb-4 flex flex-row-reverse items-center pt-12">
-        <input
-          id="flag"
-          type="checkbox"
-          checked={flag as boolean}
-          placeholder="flag"
-          onChange={(e) => setFlag(e.target.checked)}
-          className="hidden"
-        />
-        <label className="ml-4  text-md font-bold">Flag</label>
-        <Switch
-          switchOn={flag}
-          backGround="bg-gray"
-          checked={flag as boolean}
-          radioMode={false}
-        />
-      </label>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
         <label className="text-black font-bold">Bank Name</label>
         <input
@@ -548,7 +551,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Amount</label>
         <input
@@ -559,7 +561,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-6 text-md">
         <label className="text-black font-bold">Date Of Bond Application</label>
         <Calender
@@ -567,7 +568,6 @@ export default function OfferInForm({
           selected={dateOfBondApplication || null}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
         <label className="text-black font-bold">Date Of Transfer</label>
         <Calender
@@ -575,7 +575,6 @@ export default function OfferInForm({
           selected={dot || null}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">
           Date of Bond Approval In Principal
@@ -587,7 +586,6 @@ export default function OfferInForm({
           selected={dateOfBondApprovalInPrincipal || null}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Date of Bond Approved</label>
         <Calender
@@ -595,7 +593,6 @@ export default function OfferInForm({
           selected={dateOfBondApproved || null}
         />
       </div>
-
       <ContainerTitle>
         <h2
           id="ECC"
@@ -604,7 +601,6 @@ export default function OfferInForm({
           Electrical Compliance Company
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -616,7 +612,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className=" text-black font-bold">Name</label>
         <input
@@ -627,7 +622,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Phone</label>
         <input
@@ -638,7 +632,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Email</label>
         <input
@@ -649,7 +642,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Notes</label>
         <input
@@ -696,26 +688,6 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceElecCompCompany"
-            type="checkbox"
-            checked={urgentAssistanceElecCompCompany as boolean}
-            placeholder="urgent assistance ElecCompCompany"
-            onChange={(e) =>
-              setUrgentAssistanceElecCompCompany(e.target.checked)
-            }
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">Urgent Assistance</label>
-          <Switch
-            switchOn={urgentAssistanceElecCompCompany}
-            backGround="bg-gray"
-            checked={urgentAssistanceElecCompCompany as boolean}
-            radioMode={false}
-          />
-        </label>
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Deadline</label>
@@ -724,7 +696,6 @@ export default function OfferInForm({
           selected={deadlineElecCompCompany || null}
         />
       </div>
-
       <ContainerTitle>
         <h2
           id="FICA"
@@ -733,7 +704,6 @@ export default function OfferInForm({
           FICA
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -745,7 +715,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">address</label>
         <input
@@ -756,7 +725,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">notes</label>
         <input
@@ -767,7 +735,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex flex-col items-start justify-center pt-6">
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input
@@ -804,25 +771,6 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceFicaDocs"
-            type="checkbox"
-            checked={urgentAssistanceFicaDocs as boolean}
-            placeholder="urgent assistance"
-            onChange={(e) => setUrgentAssistanceFicaDocs(e.target.checked)}
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">urgentAssistance</label>
-          <Switch
-            switchOn={urgentAssistanceFicaDocs}
-            backGround="bg-gray"
-            checked={urgentAssistanceFicaDocs as boolean}
-            radioMode={false}
-          />
-        </label>
-
         <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
           <label className="text-black font-bold">Deadline</label>
           <Calender
@@ -831,7 +779,6 @@ export default function OfferInForm({
           />
         </div>
       </div>
-
       <ContainerTitle>
         <h2
           id="Mortgage"
@@ -840,7 +787,6 @@ export default function OfferInForm({
           Mortgage Originator
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -852,7 +798,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Name</label>
         <input
@@ -863,7 +808,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Phone</label>
         <input
@@ -874,7 +818,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Notes</label>
         <input
@@ -885,7 +828,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Deadline</label>
         <Calender
@@ -895,7 +837,6 @@ export default function OfferInForm({
           selected={deadlineMortgageOriginator || null}
         />
       </div>
-
       <div className="flex flex-col items-start justify-center pt-6">
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input
@@ -932,28 +873,7 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceMortgageOriginator"
-            type="checkbox"
-            checked={urgentAssistanceMortgageOriginator as boolean}
-            placeholder="urgent assistance"
-            onChange={(e) =>
-              setUrgentAssistanceMortgageOriginator(e.target.checked)
-            }
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">Urgent Assistance</label>
-          <Switch
-            switchOn={urgentAssistanceMortgageOriginator}
-            backGround="bg-gray"
-            checked={urgentAssistanceMortgageOriginator as boolean}
-            radioMode={false}
-          />
-        </label>
       </div>
-
       <ContainerTitle>
         <h2
           id="Conveyancer"
@@ -962,7 +882,6 @@ export default function OfferInForm({
           Conveyancer
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -974,7 +893,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Name</label>
         <input
@@ -985,7 +903,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Phone</label>
         <input
@@ -996,7 +913,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Notes</label>
         <input
@@ -1007,7 +923,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Deadline</label>
         <Calender
@@ -1015,7 +930,6 @@ export default function OfferInForm({
           selected={deadlineConveyancer || null}
         />
       </div>
-
       <div className="flex flex-col items-start justify-center pt-6">
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input
@@ -1052,26 +966,7 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceConveyancer"
-            type="checkbox"
-            checked={urgentAssistanceConveyancer as boolean}
-            placeholder="urgent assistance"
-            onChange={(e) => setUrgentAssistanceConveyancer(e.target.checked)}
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">Urgent Assistance</label>
-          <Switch
-            switchOn={urgentAssistanceConveyancer}
-            backGround="bg-gray"
-            checked={urgentAssistanceConveyancer as boolean}
-            radioMode={false}
-          />
-        </label>
       </div>
-
       <ContainerTitle>
         <h2
           id="BankInspection"
@@ -1080,7 +975,6 @@ export default function OfferInForm({
           Bank Inspection
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -1092,11 +986,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
-      <p className="text-black font-bold text-md text-center">
-        Add Bank Inspection Docs
-      </p>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Notes</label>
         <input
@@ -1107,7 +996,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Deadline</label>
         <Calender
@@ -1115,7 +1003,6 @@ export default function OfferInForm({
           selected={deadlineBankInspection || null}
         />
       </div>
-
       <div className="flex flex-col items-start justify-center pt-6">
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input
@@ -1152,28 +1039,7 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceBankInspection"
-            type="checkbox"
-            checked={urgentAssistanceBankInspection as boolean}
-            placeholder="urgent assistance"
-            onChange={(e) =>
-              setUrgentAssistanceBankInspection(e.target.checked)
-            }
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">Urgent Assistance</label>
-          <Switch
-            switchOn={urgentAssistanceBankInspection}
-            backGround="bg-gray"
-            checked={urgentAssistanceBankInspection as boolean}
-            radioMode={false}
-          />
-        </label>
       </div>
-
       <ContainerTitle>
         <h2
           id="OfferAccepted"
@@ -1182,7 +1048,6 @@ export default function OfferInForm({
           Offer Accepted
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -1194,7 +1059,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
       <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
         <input
           id="withConditionsOfferAccepted"
@@ -1212,7 +1076,6 @@ export default function OfferInForm({
           radioMode={false}
         />
       </label>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Conditions</label>
         <input
@@ -1223,7 +1086,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Notes</label>
         <input
@@ -1234,7 +1096,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Deadline</label>
         <Calender
@@ -1242,7 +1103,6 @@ export default function OfferInForm({
           selected={deadlineOfferAccepted || null}
         />
       </div>
-
       <div className="flex flex-col items-start justify-center pt-6">
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input
@@ -1279,26 +1139,7 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceOfferAccepted"
-            type="checkbox"
-            checked={urgentAssistanceOfferAccepted as boolean}
-            placeholder="urgent assistance"
-            onChange={(e) => setUrgentAssistanceOfferAccepted(e.target.checked)}
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">Urgent Assistance</label>
-          <Switch
-            switchOn={urgentAssistanceOfferAccepted}
-            backGround="bg-gray"
-            checked={urgentAssistanceOfferAccepted as boolean}
-            radioMode={false}
-          />
-        </label>
       </div>
-
       <ContainerTitle>
         <h2
           id="Water"
@@ -1307,7 +1148,6 @@ export default function OfferInForm({
           Water Certificate
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -1319,7 +1159,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Notes</label>
         <input
@@ -1330,7 +1169,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Deadline</label>
         <Calender
@@ -1338,7 +1176,6 @@ export default function OfferInForm({
           selected={deadlineWaterCert || null}
         />
       </div>
-
       <div className="flex flex-col items-start justify-center pt-6">
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input
@@ -1375,26 +1212,7 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceWaterCert"
-            type="checkbox"
-            checked={urgentAssistanceWaterCert as boolean}
-            placeholder="urgent assistance"
-            onChange={(e) => setUrgentAssistanceWaterCert(e.target.checked)}
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">Urgent Assistance</label>
-          <Switch
-            switchOn={urgentAssistanceWaterCert}
-            backGround="bg-gray"
-            checked={urgentAssistanceWaterCert as boolean}
-            radioMode={false}
-          />
-        </label>
       </div>
-
       <ContainerTitle>
         <h2
           id="Gas"
@@ -1403,7 +1221,6 @@ export default function OfferInForm({
           Gas Compliance
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -1415,7 +1232,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Notes</label>
         <input
@@ -1426,7 +1242,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">
           Gas Compliance Certificate URL
@@ -1439,7 +1254,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Deadline</label>
         <Calender
@@ -1447,7 +1261,6 @@ export default function OfferInForm({
           selected={deadlineGasCompliance || null}
         />
       </div>
-
       <div className="flex flex-col items-start justify-center pt-6">
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input
@@ -1484,26 +1297,7 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceGasCompliance"
-            type="checkbox"
-            checked={urgentAssistanceGasCompliance as boolean}
-            placeholder="urgent assistance"
-            onChange={(e) => setUrgentAssistanceGasCompliance(e.target.checked)}
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">Urgent Assistance</label>
-          <Switch
-            switchOn={urgentAssistanceGasCompliance}
-            backGround="bg-gray"
-            checked={urgentAssistanceGasCompliance as boolean}
-            radioMode={false}
-          />
-        </label>
       </div>
-
       <ContainerTitle>
         <h2
           id="Intermologist"
@@ -1512,7 +1306,6 @@ export default function OfferInForm({
           Entomologist
         </h2>
       </ContainerTitle>
-
       <div className="pt-6">
         <ImageGallery
           recipientEmail={recipientEmail}
@@ -1524,7 +1317,6 @@ export default function OfferInForm({
           edit={true}
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Name</label>
         <input
@@ -1535,7 +1327,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Phone</label>
         <input
@@ -1546,7 +1337,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Email</label>
         <input
@@ -1557,7 +1347,6 @@ export default function OfferInForm({
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
-
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
         <label className="text-black font-bold">Notes</label>
         <input
@@ -1604,24 +1393,6 @@ export default function OfferInForm({
             radioMode={false}
           />
         </label>
-
-        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
-          <input
-            id="urgentAssistanceIntermologist"
-            type="checkbox"
-            checked={urgentAssistanceIntermologist as boolean}
-            placeholder="urgent assistance"
-            onChange={(e) => setUrgentAssistanceIntermologist(e.target.checked)}
-            className="hidden"
-          />
-          <label className="ml-4 text-md font-bold">urgentAssistance</label>
-          <Switch
-            switchOn={urgentAssistanceIntermologist}
-            backGround="bg-gray"
-            checked={urgentAssistanceIntermologist as boolean}
-            radioMode={false}
-          />
-        </label>
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
         <label className="text-black font-bold">Deadline</label>
@@ -1630,7 +1401,153 @@ export default function OfferInForm({
           selected={deadlineIntermologist || null}
         />
       </div>
+      <ContainerTitle>
+        <h2
+          id="ElectricFence"
+          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+        >
+          Electric Fence Certificate
+        </h2>
+      </ContainerTitle>
+      <div className="pt-6">
+        <ImageGallery
+          recipientEmail={recipientEmail}
+          userEmail={userEmail}
+          removeType="document"
+          documents={documents}
+          offerIn={offerIn}
+          documentCategory={Document_Category.ElectricFence}
+          edit={true}
+        />
+      </div>
+      <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
+        <label className="text-black font-bold">Notes</label>
+        <input
+          id="notesElectricFence"
+          value={notesElectricFence as string}
+          placeholder="Notes"
+          onChange={(e) => setNotesElectricFence(e.target.value)}
+          className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
+        />
+      </div>
+      <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
+        <label className="text-black font-bold">Deadline</label>
+        <Calender
+          onChange={(date: Date) => setDeadlineElectricFence(new Date(date))}
+          selected={deadlineElectricFence || null}
+        />
+      </div>
+      <div className="flex flex-col items-start justify-center pt-6">
+        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
+          <input
+            id="flagElectricFence"
+            type="checkbox"
+            checked={flagElectricFence as boolean}
+            placeholder="Flag"
+            onChange={(e) => setFlagElectricFence(e.target.checked)}
+            className="hidden"
+          />
+          <label className="ml-4 text-md font-bold">Flag</label>
+          <Switch
+            switchOn={flagElectricFence}
+            backGround="bg-gray"
+            checked={flagElectricFence as boolean}
+            radioMode={false}
+          />
+        </label>
 
+        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
+          <input
+            id="completedElectricFence"
+            type="checkbox"
+            checked={completedElectricFence as boolean}
+            placeholder="Completed"
+            onChange={(e) => setCompletedElectricFence(e.target.checked)}
+            className="hidden"
+          />
+          <label className="ml-4 text-md font-bold">Completed</label>
+          <Switch
+            switchOn={completedElectricFence}
+            backGround="bg-gray"
+            checked={completedElectricFence as boolean}
+            radioMode={false}
+          />
+        </label>
+      </div>
+      <ContainerTitle>
+        <h2
+          id="AlienSpecies"
+          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+        >
+          Alien Species Certificate
+        </h2>
+      </ContainerTitle>
+      <div className="pt-6">
+        <ImageGallery
+          recipientEmail={recipientEmail}
+          userEmail={userEmail}
+          removeType="document"
+          documents={documents}
+          offerIn={offerIn}
+          documentCategory={Document_Category.Alien}
+          edit={true}
+        />
+      </div>
+      <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
+        <label className="text-black font-bold">Notes</label>
+        <input
+          id="notesAlien"
+          value={notesAlien as string}
+          placeholder="Notes"
+          onChange={(e) => setNotesAlien(e.target.value)}
+          className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
+        />
+      </div>
+      <div className="flex items-start space-y-1 justify-center flex-col pt-5 text-md">
+        <label className="text-black font-bold">Deadline</label>
+        <Calender
+          onChange={(date: Date) => setDeadlineAlien(new Date(date))}
+          selected={deadlineAlien || null}
+        />
+      </div>
+      <div className="flex flex-col items-start justify-center pt-6">
+        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
+          <input
+            id="flagAlien"
+            type="checkbox"
+            checked={flagAlien as boolean}
+            placeholder="Flag"
+            onChange={(e) => setFlagAlien(e.target.checked)}
+            className="hidden"
+          />
+          <label className="ml-4 text-md font-bold">Flag</label>
+          <Switch
+            switchOn={flagAlien}
+            backGround="bg-gray"
+            checked={flagAlien as boolean}
+            radioMode={false}
+          />
+        </label>
+
+        <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
+          <input
+            id="completedAlien"
+            type="checkbox"
+            checked={completedAlien as boolean}
+            placeholder="Completed"
+            onChange={(e) => setCompletedAlien(e.target.checked)}
+            className="hidden"
+          />
+          <label className="ml-4 text-md font-bold">Completed</label>
+          <Switch
+            switchOn={completedAlien}
+            backGround="bg-gray"
+            checked={completedAlien as boolean}
+            radioMode={false}
+          />
+        </label>
+      </div>
+      v
       <div className="w-full mx-auto flex items-center justify-center py-10">
         <div className="space-x-3">
           <Button variant="secondary" onClick={onClick} className="text-white">
@@ -1695,6 +1612,7 @@ export const ImageGallery = ({
                         imageId={doc.id}
                         removeType={removeType}
                         documentId={doc.id}
+                        blogPostId={""}
                       />
                       <EmailSender
                         bucketName={"landmark-real-eastate"}
@@ -1714,6 +1632,7 @@ export const ImageGallery = ({
           <UploadImage
             propertyId={""}
             uploadType={"document"}
+            blogPostId=""
             offerInId={offerIn!.id}
             documentCategory={documentCategory}
           />

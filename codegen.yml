@@ -18,6 +18,7 @@ generates:
         Form: "@prisma/client#Form"
         Property: "@prisma/client#Property"
         BlogPost: "@prisma/client#BlogPost"
+        ImageBlog: "@prisma/client#ImageBlog"
         ImageProduct: "@prisma/client#ImageProduct"
         OfferIn: "@prisma/client#OfferIn"
         ElecCompCompany: "@prisma/client#ElecCompCompany"
@@ -29,6 +30,8 @@ generates:
         Conveyancer: "@prisma/client#Conveyancer"
         MortgageOriginator: "@prisma/client#MortgageOriginator"
         FicaDocs: "@prisma/client#FicaDocs"
+        ElectricFence: "@prisma/client#ElectricFence"
+        Alien: "@prisma/client#Alien"
         AdminMessage: "@prisma/client#AdminMessage"
         Document: "@prisma/client#Document"
         ResidentialFeature: "@prisma/client#ResidentialFeature"
@@ -92,6 +95,8 @@ generates:
             CONVEYANCER: "CONVEYANCER"
             MORTGAGEORIGINATOR: "MORTGAGEORIGINATOR"
             FICADOCS: "FICADOCS"
+            ELECTRIC_FENCE: "ELECTRIC_FENCE"
+            ALIEN: "ALIEN"
         Document_Category:
           enumName: Document_Category
           values:
@@ -108,6 +113,8 @@ generates:
             INTERMOLOGIST: "INTERMOLOGIST"
             ELECCOMPCOMPANY: "ELECCOMPCOMPANY"
             FICA_DOCUMENTS: "FICA_DOCUMENTS"
+            ELECTRIC_FENCE: "ELECTRIC_FENCE"
+            ALIEN: "ALIEN"
     plugins:
       - "typescript"
       - "typescript-resolvers"

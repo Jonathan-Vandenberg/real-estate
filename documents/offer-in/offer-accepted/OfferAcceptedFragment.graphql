@@ -5,7 +5,6 @@ fragment OfferAccepted on OfferAccepted {
   conditions
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }

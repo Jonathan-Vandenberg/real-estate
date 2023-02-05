@@ -6,7 +6,6 @@ fragment ElecCompCompany on ElecCompCompany {
   email
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }

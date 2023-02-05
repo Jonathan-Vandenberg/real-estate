@@ -1,4 +1,4 @@
-fragment GasCompliance on GasCompliance {
+fragment Alien on Alien {
   id
   offerInId
   notes

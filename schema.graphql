@@ -16,6 +16,9 @@ type Query {
   allImages: [ImageProduct]
   image(id: ID!): ImageProduct
 
+  allImageBlogs: [ImageBlog]
+  imageBlog(id: ID!): ImageBlog
+
   allDocuments: [Document]
   document(id: ID!): Document
 
@@ -50,6 +53,10 @@ type Mutation {
   deleteDocument(id: ID!): Document
   updateDocument(id: ID!, input: DocumentInput!): Document
 
+  addImageBlog(input: ImageBlogInput!): ImageBlog
+  deleteImageBlog(id: ID!): ImageBlog
+  updateImageBlog(id: ID!, input: ImageBlogInput!): ImageBlog
+
   addOfferIn(input: OfferInInput!): OfferIn
 
   updateOfferIn(input: OfferInInput!): UpdateOfferInResponse
@@ -66,6 +73,8 @@ type UpdateOfferInResponse {
   waterCert: WaterCert
   gasCompliance: GasCompliance
   intermologist: Intermologist
+  electricFence: ElectricFence
+  alien: Alien
 }
 
 type Account {
@@ -175,6 +184,7 @@ type BlogPost {
   photoCredit: String
   mainImage: String
   publishedDate: String
+  imageBlog: [ImageBlog]
 }
 
 input BlogPostInput {
@@ -328,6 +338,17 @@ input ImageProductInput {
   imageCategory: Image_Category
 }
 
+type ImageBlog {
+  id: ID!
+  blogPostId: ID!
+  url: String
+}
+
+input ImageBlogInput {
+  blogPostId: ID!
+  url: String
+}
+
 enum Roles {
   CEO
   ADMIN
@@ -377,6 +398,8 @@ enum Offer_In_Categories {
   CONVEYANCER
   MORTGAGEORIGINATOR
   FICADOCS
+  ELECTRIC_FENCE
+  ALIEN
 }
 
 enum Document_Category {
@@ -393,6 +416,8 @@ enum Document_Category {
   INTERMOLOGIST
   ELECCOMPCOMPANY
   FICA_DOCUMENTS
+  ELECTRIC_FENCE
+  ALIEN
 }
 
 type OfferIn {
@@ -407,6 +432,8 @@ type OfferIn {
   conveyancerId: ID!
   mortgageOriginatorId: ID!
   ficaDocsId: ID!
+  electricFenceId: ID!
+  alienId: ID!
   amount: String
   dot: DateTime
   dateOfBondApplication: DateTime
@@ -423,6 +450,8 @@ type OfferIn {
   conveyancer: Conveyancer
   mortgageOriginator: MortgageOriginator
   ficaDocs: FicaDocs
+  electricFence: ElectricFence
+  alien: Alien
   flag: Boolean
   message: [AdminMessage]
 }
@@ -439,6 +468,8 @@ input OfferInInput {
   conveyancerId: ID!
   mortgageOriginatorId: ID!
   ficaDocsId: ID!
+  electricFenceId: ID!
+  alienId: ID!
   amount: String
   dot: DateTime
   documents: DocumentInput
@@ -455,6 +486,8 @@ input OfferInInput {
   conveyancer: ConveyancerInput
   mortgageOriginator: MortgageOriginatorInput
   ficaDocs: FicaDocsInput
+  electricFence: ElectricFenceInput
+  alien: AlienInput
   flag: Boolean
   message: [AdminMessageInput]
 }
@@ -467,7 +500,6 @@ type ElecCompCompany {
   email: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -480,7 +512,6 @@ input ElecCompCompanyInput {
   email: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]
@@ -494,7 +525,6 @@ type Intermologist {
   email: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -507,7 +537,6 @@ input IntermologistInput {
   email: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]
@@ -519,7 +548,6 @@ type GasCompliance {
   gasCompCerUrl: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -530,7 +558,6 @@ input GasComplianceInput {
   gasCompCerUrl: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]
@@ -541,7 +568,6 @@ type WaterCert {
   offerInId: ID!
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -551,7 +577,6 @@ input WaterCertInput {
   offerInId: ID!
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]
@@ -564,7 +589,6 @@ type OfferAccepted {
   conditions: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -576,7 +600,6 @@ input OfferAcceptedInput {
   conditions: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]
@@ -587,7 +610,6 @@ type BankInspection {
   offerInId: ID!
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -597,7 +619,6 @@ input BankInspectionInput {
   offerInId: ID!
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]
@@ -610,7 +631,6 @@ type Conveyancer {
   phone: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -622,7 +642,6 @@ input ConveyancerInput {
   phone: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]
@@ -635,7 +654,6 @@ type MortgageOriginator {
   name: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -647,7 +665,6 @@ input MortgageOriginatorInput {
   name: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]
@@ -659,7 +676,6 @@ type FicaDocs {
   address: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessage]
@@ -670,7 +686,44 @@ input FicaDocsInput {
   address: String
   notes: String
   completed: Boolean
-  urgentAssistance: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type ElectricFence {
+  id: ID!
+  offerInId: ID!
+  notes: String
+  completed: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input ElectricFenceInput {
+  offerInId: ID!
+  notes: String
+  completed: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessageInput]
+}
+
+type Alien {
+  id: ID!
+  offerInId: ID!
+  notes: String
+  completed: Boolean
+  deadline: DateTime
+  flag: Boolean
+  message: [AdminMessage]
+}
+
+input AlienInput {
+  offerInId: ID!
+  notes: String
+  completed: Boolean
   deadline: DateTime
   flag: Boolean
   message: [AdminMessageInput]

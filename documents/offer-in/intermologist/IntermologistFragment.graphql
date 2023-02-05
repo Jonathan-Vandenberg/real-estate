@@ -6,7 +6,6 @@ fragment Intermologist on Intermologist {
   email
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }

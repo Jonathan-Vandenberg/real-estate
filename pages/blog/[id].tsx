@@ -4,16 +4,16 @@ import { useState } from "react";
 import BlogMain from "../../components/blog/BlogMain";
 import MainForm from "../../components/blog/BlogForm";
 import { Form } from "../../components/global/Form";
-import { BlogPost } from "../../types";
+import { BlogPost, ImageBlog } from "../../types";
 import prisma from "../../lib/prisma";
 import Head from "next/head";
-import { Container } from "../../components/global/Container";
 
 interface IBlogPost {
-  data: BlogPost;
+  blogPost: BlogPost;
+  imageBlog: ImageBlog[];
 }
 
-export default function Blog({ data }: IBlogPost) {
+export default function Blog({ blogPost, imageBlog }: IBlogPost) {
   const [showForm, setShowForm] = useState(false);
   const [edit, setEdit] = useState(false);
   const [add, setAdd] = useState(false);
@@ -39,10 +39,15 @@ export default function Blog({ data }: IBlogPost) {
       </Head>
       <main className="max-w-[100rem] mx-auto">
         <div className="w-full mx-auto">
-          <BlogMain data={data} handleEdit={handleEdit} handleAdd={handleAdd} />
+          <BlogMain
+            imageBlog={imageBlog}
+            blogPost={blogPost}
+            handleEdit={handleEdit}
+            handleAdd={handleAdd}
+          />
           {showForm && (
             <MainForm
-              details={data}
+              blogPost={blogPost}
               add={add}
               edit={edit}
               handleClose={() => setShowForm(false)}
@@ -72,17 +77,27 @@ interface IParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as IParams;
 
-  let data = await prisma.blogPost.findUnique({
+  let blogPost = await prisma.blogPost.findUnique({
     where: {
       id: params!.id,
     },
+    include: {
+      imageBlog: true,
+    },
   });
 
-  data = JSON.parse(JSON.stringify(data));
+  let imageBlog = await prisma.imageBlog.findMany({
+    where: {
+      blogPostId: params!.id,
+    },
+  });
+
+  blogPost = JSON.parse(JSON.stringify(blogPost));
 
   return {
     props: {
-      data,
+      blogPost,
+      imageBlog,
       revalidate: 60,
     },
   };

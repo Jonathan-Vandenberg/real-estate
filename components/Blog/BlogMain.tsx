@@ -1,22 +1,28 @@
-import { BlogPost } from "../../types";
+import { BlogPost, ImageBlog } from "../../types";
 import BlogHeader from "./BlogHeader";
 import BlogPostMarkup from "./Markup";
 
 interface IFormProps {
-  data: BlogPost | undefined | null;
+  blogPost: BlogPost | undefined | null;
+  imageBlog: ImageBlog[];
   handleAdd: () => void;
   handleEdit: () => void;
 }
 
-export default function BlogMain({ data, handleEdit, handleAdd }: IFormProps) {
+export default function BlogMain({
+  blogPost,
+  imageBlog,
+  handleEdit,
+  handleAdd,
+}: IFormProps) {
   return (
     <div className="container mx-auto max-w-[100rem]">
       <div className="md:px-5">
-        <BlogHeader data={data} />
+        <BlogHeader blogPost={blogPost} imageBlog={imageBlog} />
       </div>
       <div className="px-5 mx-auto">
         <BlogPostMarkup
-          data={data}
+          blogPost={blogPost}
           handleEdit={handleEdit}
           handleAdd={handleAdd}
         />

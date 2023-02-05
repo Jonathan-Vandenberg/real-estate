@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { Agent as AgentModel, Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, ImageProduct as ImageProductModel, OfferIn as OfferInModel, ElecCompCompany as ElecCompCompanyModel, Intermologist as IntermologistModel, GasCompliance as GasComplianceModel, WaterCert as WaterCertModel, OfferAccepted as OfferAcceptedModel, BankInspection as BankInspectionModel, Conveyancer as ConveyancerModel, MortgageOriginator as MortgageOriginatorModel, FicaDocs as FicaDocsModel, AdminMessage as AdminMessageModel, Document as DocumentModel, ResidentialFeature as ResidentialFeatureModel, CommercialFeature as CommercialFeatureModel } from '@prisma/client';
+import { Agent as AgentModel, Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, ImageBlog as ImageBlogModel, ImageProduct as ImageProductModel, OfferIn as OfferInModel, ElecCompCompany as ElecCompCompanyModel, Intermologist as IntermologistModel, GasCompliance as GasComplianceModel, WaterCert as WaterCertModel, OfferAccepted as OfferAcceptedModel, BankInspection as BankInspectionModel, Conveyancer as ConveyancerModel, MortgageOriginator as MortgageOriginatorModel, FicaDocs as FicaDocsModel, ElectricFence as ElectricFenceModel, Alien as AlienModel, AdminMessage as AdminMessageModel, Document as DocumentModel, ResidentialFeature as ResidentialFeatureModel, CommercialFeature as CommercialFeatureModel } from '@prisma/client';
 import { GraphQLContext } from './pages/api/index';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -95,6 +95,26 @@ export type AgentInput = {
   userId: Scalars['ID'];
 };
 
+export type Alien = {
+  __typename?: 'Alien';
+  completed?: Maybe<Scalars['Boolean']>;
+  deadline?: Maybe<Scalars['DateTime']>;
+  flag?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  message?: Maybe<Array<Maybe<AdminMessage>>>;
+  notes?: Maybe<Scalars['String']>;
+  offerInId: Scalars['ID'];
+};
+
+export type AlienInput = {
+  completed?: InputMaybe<Scalars['Boolean']>;
+  deadline?: InputMaybe<Scalars['DateTime']>;
+  flag?: InputMaybe<Scalars['Boolean']>;
+  message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
+  notes?: InputMaybe<Scalars['String']>;
+  offerInId: Scalars['ID'];
+};
+
 export type BankInspection = {
   __typename?: 'BankInspection';
   completed?: Maybe<Scalars['Boolean']>;
@@ -104,7 +124,6 @@ export type BankInspection = {
   message?: Maybe<Array<Maybe<AdminMessage>>>;
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
 };
 
 export type BankInspectionInput = {
@@ -114,7 +133,6 @@ export type BankInspectionInput = {
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type BlogPost = {
@@ -127,6 +145,7 @@ export type BlogPost = {
   conclusion3?: Maybe<Scalars['String']>;
   editedBy?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  imageBlog?: Maybe<Array<Maybe<ImageBlog>>>;
   l1?: Maybe<Scalars['String']>;
   l2?: Maybe<Scalars['String']>;
   l3?: Maybe<Scalars['String']>;
@@ -237,7 +256,6 @@ export type Conveyancer = {
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
   phone?: Maybe<Scalars['String']>;
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
 };
 
 export type ConveyancerInput = {
@@ -249,7 +267,6 @@ export type ConveyancerInput = {
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
   phone?: InputMaybe<Scalars['String']>;
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Document = {
@@ -267,11 +284,13 @@ export type DocumentInput = {
 };
 
 export enum Document_Category {
+  Alien = 'ALIEN',
   BankInspection = 'BANK_INSPECTION',
   ComCert = 'COM_CERT',
   Conveyancer = 'CONVEYANCER',
   Cop = 'COP',
   Eleccompcompany = 'ELECCOMPCOMPANY',
+  ElectricFence = 'ELECTRIC_FENCE',
   FicaDocuments = 'FICA_DOCUMENTS',
   GasComCert = 'GAS_COM_CERT',
   Intermologist = 'INTERMOLOGIST',
@@ -294,7 +313,6 @@ export type ElecCompCompany = {
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
   phone?: Maybe<Scalars['String']>;
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
 };
 
 export type ElecCompCompanyInput = {
@@ -307,7 +325,26 @@ export type ElecCompCompanyInput = {
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
   phone?: InputMaybe<Scalars['String']>;
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type ElectricFence = {
+  __typename?: 'ElectricFence';
+  completed?: Maybe<Scalars['Boolean']>;
+  deadline?: Maybe<Scalars['DateTime']>;
+  flag?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  message?: Maybe<Array<Maybe<AdminMessage>>>;
+  notes?: Maybe<Scalars['String']>;
+  offerInId: Scalars['ID'];
+};
+
+export type ElectricFenceInput = {
+  completed?: InputMaybe<Scalars['Boolean']>;
+  deadline?: InputMaybe<Scalars['DateTime']>;
+  flag?: InputMaybe<Scalars['Boolean']>;
+  message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
+  notes?: InputMaybe<Scalars['String']>;
+  offerInId: Scalars['ID'];
 };
 
 export type FicaDocs = {
@@ -320,7 +357,6 @@ export type FicaDocs = {
   message?: Maybe<Array<Maybe<AdminMessage>>>;
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
 };
 
 export type FicaDocsInput = {
@@ -331,7 +367,6 @@ export type FicaDocsInput = {
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Form = {
@@ -358,7 +393,6 @@ export type GasCompliance = {
   message?: Maybe<Array<Maybe<AdminMessage>>>;
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
 };
 
 export type GasComplianceInput = {
@@ -369,7 +403,18 @@ export type GasComplianceInput = {
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type ImageBlog = {
+  __typename?: 'ImageBlog';
+  blogPostId: Scalars['ID'];
+  id: Scalars['ID'];
+  url?: Maybe<Scalars['String']>;
+};
+
+export type ImageBlogInput = {
+  blogPostId: Scalars['ID'];
+  url?: InputMaybe<Scalars['String']>;
 };
 
 export type ImageProduct = {
@@ -403,7 +448,6 @@ export type Intermologist = {
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
   phone?: Maybe<Scalars['String']>;
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
 };
 
 export type IntermologistInput = {
@@ -416,7 +460,6 @@ export type IntermologistInput = {
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
   phone?: InputMaybe<Scalars['String']>;
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type MortgageOriginator = {
@@ -430,7 +473,6 @@ export type MortgageOriginator = {
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
   phone?: Maybe<Scalars['String']>;
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
 };
 
 export type MortgageOriginatorInput = {
@@ -442,7 +484,6 @@ export type MortgageOriginatorInput = {
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
   phone?: InputMaybe<Scalars['String']>;
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type Mutation = {
@@ -453,16 +494,19 @@ export type Mutation = {
   addDocument?: Maybe<Document>;
   addForm?: Maybe<Form>;
   addImage?: Maybe<ImageProduct>;
+  addImageBlog?: Maybe<ImageBlog>;
   addOfferIn?: Maybe<OfferIn>;
   addProperty?: Maybe<Property>;
   addResidentialFeature?: Maybe<ResidentialFeature>;
   deleteAgentImage?: Maybe<Agent>;
   deleteDocument?: Maybe<Document>;
   deleteImage?: Maybe<ImageProduct>;
+  deleteImageBlog?: Maybe<ImageBlog>;
   updateAgent?: Maybe<Agent>;
   updateBlogPost?: Maybe<BlogPost>;
   updateDocument?: Maybe<Document>;
   updateImage?: Maybe<ImageProduct>;
+  updateImageBlog?: Maybe<ImageBlog>;
   updateOfferIn?: Maybe<UpdateOfferInResponse>;
   updateProperty?: Maybe<Property>;
 };
@@ -498,6 +542,11 @@ export type MutationAddImageArgs = {
 };
 
 
+export type MutationAddImageBlogArgs = {
+  input: ImageBlogInput;
+};
+
+
 export type MutationAddOfferInArgs = {
   input: OfferInInput;
 };
@@ -528,6 +577,11 @@ export type MutationDeleteImageArgs = {
 };
 
 
+export type MutationDeleteImageBlogArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateAgentArgs = {
   input?: InputMaybe<AgentInput>;
 };
@@ -550,6 +604,12 @@ export type MutationUpdateImageArgs = {
 };
 
 
+export type MutationUpdateImageBlogArgs = {
+  id: Scalars['ID'];
+  input: ImageBlogInput;
+};
+
+
 export type MutationUpdateOfferInArgs = {
   input: OfferInInput;
 };
@@ -569,7 +629,6 @@ export type OfferAccepted = {
   message?: Maybe<Array<Maybe<AdminMessage>>>;
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
   withConditions?: Maybe<Scalars['Boolean']>;
 };
 
@@ -581,12 +640,13 @@ export type OfferAcceptedInput = {
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
   withConditions?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type OfferIn = {
   __typename?: 'OfferIn';
+  alien?: Maybe<Alien>;
+  alienId: Scalars['ID'];
   amount?: Maybe<Scalars['String']>;
   bankInspection?: Maybe<BankInspection>;
   bankInspectionId: Scalars['ID'];
@@ -600,6 +660,8 @@ export type OfferIn = {
   dot?: Maybe<Scalars['DateTime']>;
   elecCompCompany?: Maybe<ElecCompCompany>;
   elecCompCompanyId: Scalars['ID'];
+  electricFence?: Maybe<ElectricFence>;
+  electricFenceId: Scalars['ID'];
   ficaDocs?: Maybe<FicaDocs>;
   ficaDocsId: Scalars['ID'];
   flag?: Maybe<Scalars['Boolean']>;
@@ -619,6 +681,8 @@ export type OfferIn = {
 };
 
 export type OfferInInput = {
+  alien?: InputMaybe<AlienInput>;
+  alienId: Scalars['ID'];
   amount?: InputMaybe<Scalars['String']>;
   bankInspection?: InputMaybe<BankInspectionInput>;
   bankInspectionId: Scalars['ID'];
@@ -632,6 +696,8 @@ export type OfferInInput = {
   dot?: InputMaybe<Scalars['DateTime']>;
   elecCompCompany?: InputMaybe<ElecCompCompanyInput>;
   elecCompCompanyId: Scalars['ID'];
+  electricFence?: InputMaybe<ElectricFenceInput>;
+  electricFenceId: Scalars['ID'];
   ficaDocs?: InputMaybe<FicaDocsInput>;
   ficaDocsId: Scalars['ID'];
   flag?: InputMaybe<Scalars['Boolean']>;
@@ -651,9 +717,11 @@ export type OfferInInput = {
 };
 
 export enum Offer_In_Categories {
+  Alien = 'ALIEN',
   Bankinspection = 'BANKINSPECTION',
   Conveyancer = 'CONVEYANCER',
   Eleccompcompany = 'ELECCOMPCOMPANY',
+  ElectricFence = 'ELECTRIC_FENCE',
   Ficadocs = 'FICADOCS',
   Gascompliance = 'GASCOMPLIANCE',
   General = 'GENERAL',
@@ -748,6 +816,7 @@ export type Query = {
   allCommercialFeatures?: Maybe<Array<Maybe<CommercialFeature>>>;
   allDocuments?: Maybe<Array<Maybe<Document>>>;
   allForms?: Maybe<Array<Maybe<Form>>>;
+  allImageBlogs?: Maybe<Array<Maybe<ImageBlog>>>;
   allImages?: Maybe<Array<Maybe<ImageProduct>>>;
   allProperties?: Maybe<Array<Maybe<Property>>>;
   allResidentialFeatures?: Maybe<Array<Maybe<ResidentialFeature>>>;
@@ -757,6 +826,7 @@ export type Query = {
   document?: Maybe<Document>;
   form?: Maybe<Form>;
   image?: Maybe<ImageProduct>;
+  imageBlog?: Maybe<ImageBlog>;
   property?: Maybe<Property>;
 };
 
@@ -782,6 +852,11 @@ export type QueryFormArgs = {
 
 
 export type QueryImageArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryImageBlogArgs = {
   id: Scalars['ID'];
 };
 
@@ -828,9 +903,11 @@ export enum Status {
 
 export type UpdateOfferInResponse = {
   __typename?: 'UpdateOfferInResponse';
+  alien?: Maybe<Alien>;
   bankInspection?: Maybe<BankInspection>;
   conveyancer?: Maybe<Conveyancer>;
   elecCompCompany?: Maybe<ElecCompCompany>;
+  electricFence?: Maybe<ElectricFence>;
   ficaDocs?: Maybe<FicaDocs>;
   gasCompliance?: Maybe<GasCompliance>;
   intermologist?: Maybe<Intermologist>;
@@ -849,7 +926,6 @@ export type WaterCert = {
   message?: Maybe<Array<Maybe<AdminMessage>>>;
   notes?: Maybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: Maybe<Scalars['Boolean']>;
 };
 
 export type WaterCertInput = {
@@ -859,7 +935,6 @@ export type WaterCertInput = {
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
-  urgentAssistance?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -936,6 +1011,8 @@ export type ResolversTypes = {
   AdminMessageInput: AdminMessageInput;
   Agent: ResolverTypeWrapper<AgentModel>;
   AgentInput: AgentInput;
+  Alien: ResolverTypeWrapper<AlienModel>;
+  AlienInput: AlienInput;
   BankInspection: ResolverTypeWrapper<BankInspectionModel>;
   BankInspectionInput: BankInspectionInput;
   BlogPost: ResolverTypeWrapper<BlogPostModel>;
@@ -952,6 +1029,8 @@ export type ResolversTypes = {
   Document_Category: Document_Category;
   ElecCompCompany: ResolverTypeWrapper<ElecCompCompanyModel>;
   ElecCompCompanyInput: ElecCompCompanyInput;
+  ElectricFence: ResolverTypeWrapper<ElectricFenceModel>;
+  ElectricFenceInput: ElectricFenceInput;
   FicaDocs: ResolverTypeWrapper<FicaDocsModel>;
   FicaDocsInput: FicaDocsInput;
   Form: ResolverTypeWrapper<FormModel>;
@@ -959,6 +1038,8 @@ export type ResolversTypes = {
   GasCompliance: ResolverTypeWrapper<GasComplianceModel>;
   GasComplianceInput: GasComplianceInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  ImageBlog: ResolverTypeWrapper<ImageBlogModel>;
+  ImageBlogInput: ImageBlogInput;
   ImageProduct: ResolverTypeWrapper<ImageProductModel>;
   ImageProductInput: ImageProductInput;
   Image_Category: Image_Category;
@@ -984,7 +1065,7 @@ export type ResolversTypes = {
   Status: Status;
   String: ResolverTypeWrapper<Scalars['String']>;
   Time: ResolverTypeWrapper<Scalars['Time']>;
-  UpdateOfferInResponse: ResolverTypeWrapper<Omit<UpdateOfferInResponse, 'bankInspection' | 'conveyancer' | 'elecCompCompany' | 'ficaDocs' | 'gasCompliance' | 'intermologist' | 'mortgageOriginator' | 'offerAccepted' | 'offerIn' | 'waterCert'> & { bankInspection?: Maybe<ResolversTypes['BankInspection']>, conveyancer?: Maybe<ResolversTypes['Conveyancer']>, elecCompCompany?: Maybe<ResolversTypes['ElecCompCompany']>, ficaDocs?: Maybe<ResolversTypes['FicaDocs']>, gasCompliance?: Maybe<ResolversTypes['GasCompliance']>, intermologist?: Maybe<ResolversTypes['Intermologist']>, mortgageOriginator?: Maybe<ResolversTypes['MortgageOriginator']>, offerAccepted?: Maybe<ResolversTypes['OfferAccepted']>, offerIn?: Maybe<ResolversTypes['OfferIn']>, waterCert?: Maybe<ResolversTypes['WaterCert']> }>;
+  UpdateOfferInResponse: ResolverTypeWrapper<Omit<UpdateOfferInResponse, 'alien' | 'bankInspection' | 'conveyancer' | 'elecCompCompany' | 'electricFence' | 'ficaDocs' | 'gasCompliance' | 'intermologist' | 'mortgageOriginator' | 'offerAccepted' | 'offerIn' | 'waterCert'> & { alien?: Maybe<ResolversTypes['Alien']>, bankInspection?: Maybe<ResolversTypes['BankInspection']>, conveyancer?: Maybe<ResolversTypes['Conveyancer']>, elecCompCompany?: Maybe<ResolversTypes['ElecCompCompany']>, electricFence?: Maybe<ResolversTypes['ElectricFence']>, ficaDocs?: Maybe<ResolversTypes['FicaDocs']>, gasCompliance?: Maybe<ResolversTypes['GasCompliance']>, intermologist?: Maybe<ResolversTypes['Intermologist']>, mortgageOriginator?: Maybe<ResolversTypes['MortgageOriginator']>, offerAccepted?: Maybe<ResolversTypes['OfferAccepted']>, offerIn?: Maybe<ResolversTypes['OfferIn']>, waterCert?: Maybe<ResolversTypes['WaterCert']> }>;
   WaterCert: ResolverTypeWrapper<WaterCertModel>;
   WaterCertInput: WaterCertInput;
 };
@@ -996,6 +1077,8 @@ export type ResolversParentTypes = {
   AdminMessageInput: AdminMessageInput;
   Agent: AgentModel;
   AgentInput: AgentInput;
+  Alien: AlienModel;
+  AlienInput: AlienInput;
   BankInspection: BankInspectionModel;
   BankInspectionInput: BankInspectionInput;
   BlogPost: BlogPostModel;
@@ -1011,6 +1094,8 @@ export type ResolversParentTypes = {
   DocumentInput: DocumentInput;
   ElecCompCompany: ElecCompCompanyModel;
   ElecCompCompanyInput: ElecCompCompanyInput;
+  ElectricFence: ElectricFenceModel;
+  ElectricFenceInput: ElectricFenceInput;
   FicaDocs: FicaDocsModel;
   FicaDocsInput: FicaDocsInput;
   Form: FormModel;
@@ -1018,6 +1103,8 @@ export type ResolversParentTypes = {
   GasCompliance: GasComplianceModel;
   GasComplianceInput: GasComplianceInput;
   ID: Scalars['ID'];
+  ImageBlog: ImageBlogModel;
+  ImageBlogInput: ImageBlogInput;
   ImageProduct: ImageProductModel;
   ImageProductInput: ImageProductInput;
   Int: Scalars['Int'];
@@ -1037,7 +1124,7 @@ export type ResolversParentTypes = {
   ResidentialFeatureInput: ResidentialFeatureInput;
   String: Scalars['String'];
   Time: Scalars['Time'];
-  UpdateOfferInResponse: Omit<UpdateOfferInResponse, 'bankInspection' | 'conveyancer' | 'elecCompCompany' | 'ficaDocs' | 'gasCompliance' | 'intermologist' | 'mortgageOriginator' | 'offerAccepted' | 'offerIn' | 'waterCert'> & { bankInspection?: Maybe<ResolversParentTypes['BankInspection']>, conveyancer?: Maybe<ResolversParentTypes['Conveyancer']>, elecCompCompany?: Maybe<ResolversParentTypes['ElecCompCompany']>, ficaDocs?: Maybe<ResolversParentTypes['FicaDocs']>, gasCompliance?: Maybe<ResolversParentTypes['GasCompliance']>, intermologist?: Maybe<ResolversParentTypes['Intermologist']>, mortgageOriginator?: Maybe<ResolversParentTypes['MortgageOriginator']>, offerAccepted?: Maybe<ResolversParentTypes['OfferAccepted']>, offerIn?: Maybe<ResolversParentTypes['OfferIn']>, waterCert?: Maybe<ResolversParentTypes['WaterCert']> };
+  UpdateOfferInResponse: Omit<UpdateOfferInResponse, 'alien' | 'bankInspection' | 'conveyancer' | 'elecCompCompany' | 'electricFence' | 'ficaDocs' | 'gasCompliance' | 'intermologist' | 'mortgageOriginator' | 'offerAccepted' | 'offerIn' | 'waterCert'> & { alien?: Maybe<ResolversParentTypes['Alien']>, bankInspection?: Maybe<ResolversParentTypes['BankInspection']>, conveyancer?: Maybe<ResolversParentTypes['Conveyancer']>, elecCompCompany?: Maybe<ResolversParentTypes['ElecCompCompany']>, electricFence?: Maybe<ResolversParentTypes['ElectricFence']>, ficaDocs?: Maybe<ResolversParentTypes['FicaDocs']>, gasCompliance?: Maybe<ResolversParentTypes['GasCompliance']>, intermologist?: Maybe<ResolversParentTypes['Intermologist']>, mortgageOriginator?: Maybe<ResolversParentTypes['MortgageOriginator']>, offerAccepted?: Maybe<ResolversParentTypes['OfferAccepted']>, offerIn?: Maybe<ResolversParentTypes['OfferIn']>, waterCert?: Maybe<ResolversParentTypes['WaterCert']> };
   WaterCert: WaterCertModel;
   WaterCertInput: WaterCertInput;
 };
@@ -1087,6 +1174,17 @@ export type AgentResolvers<ContextType = GraphQLContext, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type AlienResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Alien'] = ResolversParentTypes['Alien']> = {
+  completed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  deadline?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  flag?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  message?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdminMessage']>>>, ParentType, ContextType>;
+  notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type BankInspectionResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['BankInspection'] = ResolversParentTypes['BankInspection']> = {
   completed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   deadline?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
@@ -1095,7 +1193,6 @@ export type BankInspectionResolvers<ContextType = GraphQLContext, ParentType ext
   message?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdminMessage']>>>, ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1108,6 +1205,7 @@ export type BlogPostResolvers<ContextType = GraphQLContext, ParentType extends R
   conclusion3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   editedBy?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  imageBlog?: Resolver<Maybe<Array<Maybe<ResolversTypes['ImageBlog']>>>, ParentType, ContextType>;
   l1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   l2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   l3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1165,7 +1263,6 @@ export type ConveyancerResolvers<ContextType = GraphQLContext, ParentType extend
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1185,7 +1282,7 @@ export type DocumentResolvers<ContextType = GraphQLContext, ParentType extends R
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Document_CategoryResolvers = { BANK_INSPECTION: 'undefined', COM_CERT: 'undefined', CONVEYANCER: 'undefined', COP: 'undefined', ELECCOMPCOMPANY: 'undefined', FICA_DOCUMENTS: 'undefined', GAS_COM_CERT: 'undefined', INTERMOLOGIST: 'undefined', MARRIAGE_LICENSE: 'undefined', MORTGAGE: 'undefined', OFFER_ACCEPTED: 'undefined', TAX_CERT: 'undefined', WATER_CERT: 'undefined' };
+export type Document_CategoryResolvers = { ALIEN: 'undefined', BANK_INSPECTION: 'undefined', COM_CERT: 'undefined', CONVEYANCER: 'undefined', COP: 'undefined', ELECCOMPCOMPANY: 'undefined', ELECTRIC_FENCE: 'undefined', FICA_DOCUMENTS: 'undefined', GAS_COM_CERT: 'undefined', INTERMOLOGIST: 'undefined', MARRIAGE_LICENSE: 'undefined', MORTGAGE: 'undefined', OFFER_ACCEPTED: 'undefined', TAX_CERT: 'undefined', WATER_CERT: 'undefined' };
 
 export type ElecCompCompanyResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['ElecCompCompany'] = ResolversParentTypes['ElecCompCompany']> = {
   completed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
@@ -1198,7 +1295,17 @@ export type ElecCompCompanyResolvers<ContextType = GraphQLContext, ParentType ex
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ElectricFenceResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['ElectricFence'] = ResolversParentTypes['ElectricFence']> = {
+  completed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  deadline?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  flag?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  message?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdminMessage']>>>, ParentType, ContextType>;
+  notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1211,7 +1318,6 @@ export type FicaDocsResolvers<ContextType = GraphQLContext, ParentType extends R
   message?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdminMessage']>>>, ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1232,7 +1338,13 @@ export type GasComplianceResolvers<ContextType = GraphQLContext, ParentType exte
   message?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdminMessage']>>>, ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ImageBlogResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['ImageBlog'] = ResolversParentTypes['ImageBlog']> = {
+  blogPostId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1257,7 +1369,6 @@ export type IntermologistResolvers<ContextType = GraphQLContext, ParentType exte
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1271,7 +1382,6 @@ export type MortgageOriginatorResolvers<ContextType = GraphQLContext, ParentType
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   phone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1282,16 +1392,19 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   addDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationAddDocumentArgs, 'input'>>;
   addForm?: Resolver<Maybe<ResolversTypes['Form']>, ParentType, ContextType, RequireFields<MutationAddFormArgs, 'input'>>;
   addImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationAddImageArgs, 'input'>>;
+  addImageBlog?: Resolver<Maybe<ResolversTypes['ImageBlog']>, ParentType, ContextType, RequireFields<MutationAddImageBlogArgs, 'input'>>;
   addOfferIn?: Resolver<Maybe<ResolversTypes['OfferIn']>, ParentType, ContextType, RequireFields<MutationAddOfferInArgs, 'input'>>;
   addProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationAddPropertyArgs, 'input'>>;
   addResidentialFeature?: Resolver<Maybe<ResolversTypes['ResidentialFeature']>, ParentType, ContextType, RequireFields<MutationAddResidentialFeatureArgs, 'input'>>;
   deleteAgentImage?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, RequireFields<MutationDeleteAgentImageArgs, 'id'>>;
   deleteDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationDeleteDocumentArgs, 'id'>>;
   deleteImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
+  deleteImageBlog?: Resolver<Maybe<ResolversTypes['ImageBlog']>, ParentType, ContextType, RequireFields<MutationDeleteImageBlogArgs, 'id'>>;
   updateAgent?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, Partial<MutationUpdateAgentArgs>>;
   updateBlogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<MutationUpdateBlogPostArgs, 'input'>>;
   updateDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationUpdateDocumentArgs, 'id' | 'input'>>;
   updateImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationUpdateImageArgs, 'id' | 'input'>>;
+  updateImageBlog?: Resolver<Maybe<ResolversTypes['ImageBlog']>, ParentType, ContextType, RequireFields<MutationUpdateImageBlogArgs, 'id' | 'input'>>;
   updateOfferIn?: Resolver<Maybe<ResolversTypes['UpdateOfferInResponse']>, ParentType, ContextType, RequireFields<MutationUpdateOfferInArgs, 'input'>>;
   updateProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationUpdatePropertyArgs, 'input'>>;
 };
@@ -1305,12 +1418,13 @@ export type OfferAcceptedResolvers<ContextType = GraphQLContext, ParentType exte
   message?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdminMessage']>>>, ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   withConditions?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type OfferInResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['OfferIn'] = ResolversParentTypes['OfferIn']> = {
+  alien?: Resolver<Maybe<ResolversTypes['Alien']>, ParentType, ContextType>;
+  alienId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   amount?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   bankInspection?: Resolver<Maybe<ResolversTypes['BankInspection']>, ParentType, ContextType>;
   bankInspectionId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -1324,6 +1438,8 @@ export type OfferInResolvers<ContextType = GraphQLContext, ParentType extends Re
   dot?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   elecCompCompany?: Resolver<Maybe<ResolversTypes['ElecCompCompany']>, ParentType, ContextType>;
   elecCompCompanyId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  electricFence?: Resolver<Maybe<ResolversTypes['ElectricFence']>, ParentType, ContextType>;
+  electricFenceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   ficaDocs?: Resolver<Maybe<ResolversTypes['FicaDocs']>, ParentType, ContextType>;
   ficaDocsId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   flag?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
@@ -1343,7 +1459,7 @@ export type OfferInResolvers<ContextType = GraphQLContext, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Offer_In_CategoriesResolvers = { BANKINSPECTION: 'undefined', CONVEYANCER: 'undefined', ELECCOMPCOMPANY: 'undefined', FICADOCS: 'undefined', GASCOMPLIANCE: 'undefined', GENERAL: 'undefined', INTERMOLOGIST: 'undefined', MORTGAGEORIGINATOR: 'undefined', OFFERACCEPTED: 'undefined', WATERCERT: 'undefined' };
+export type Offer_In_CategoriesResolvers = { ALIEN: 'undefined', BANKINSPECTION: 'undefined', CONVEYANCER: 'undefined', ELECCOMPCOMPANY: 'undefined', ELECTRIC_FENCE: 'undefined', FICADOCS: 'undefined', GASCOMPLIANCE: 'undefined', GENERAL: 'undefined', INTERMOLOGIST: 'undefined', MORTGAGEORIGINATOR: 'undefined', OFFERACCEPTED: 'undefined', WATERCERT: 'undefined' };
 
 export type PropertyResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Property'] = ResolversParentTypes['Property']> = {
   address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1390,6 +1506,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   allCommercialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommercialFeature']>>>, ParentType, ContextType>;
   allDocuments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Document']>>>, ParentType, ContextType>;
   allForms?: Resolver<Maybe<Array<Maybe<ResolversTypes['Form']>>>, ParentType, ContextType>;
+  allImageBlogs?: Resolver<Maybe<Array<Maybe<ResolversTypes['ImageBlog']>>>, ParentType, ContextType>;
   allImages?: Resolver<Maybe<Array<Maybe<ResolversTypes['ImageProduct']>>>, ParentType, ContextType>;
   allProperties?: Resolver<Maybe<Array<Maybe<ResolversTypes['Property']>>>, ParentType, ContextType>;
   allResidentialFeatures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ResidentialFeature']>>>, ParentType, ContextType>;
@@ -1399,6 +1516,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   document?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<QueryDocumentArgs, 'id'>>;
   form?: Resolver<Maybe<ResolversTypes['Form']>, ParentType, ContextType, RequireFields<QueryFormArgs, 'id'>>;
   image?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<QueryImageArgs, 'id'>>;
+  imageBlog?: Resolver<Maybe<ResolversTypes['ImageBlog']>, ParentType, ContextType, RequireFields<QueryImageBlogArgs, 'id'>>;
   property?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<QueryPropertyArgs, 'id'>>;
 };
 
@@ -1420,9 +1538,11 @@ export interface TimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type UpdateOfferInResponseResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['UpdateOfferInResponse'] = ResolversParentTypes['UpdateOfferInResponse']> = {
+  alien?: Resolver<Maybe<ResolversTypes['Alien']>, ParentType, ContextType>;
   bankInspection?: Resolver<Maybe<ResolversTypes['BankInspection']>, ParentType, ContextType>;
   conveyancer?: Resolver<Maybe<ResolversTypes['Conveyancer']>, ParentType, ContextType>;
   elecCompCompany?: Resolver<Maybe<ResolversTypes['ElecCompCompany']>, ParentType, ContextType>;
+  electricFence?: Resolver<Maybe<ResolversTypes['ElectricFence']>, ParentType, ContextType>;
   ficaDocs?: Resolver<Maybe<ResolversTypes['FicaDocs']>, ParentType, ContextType>;
   gasCompliance?: Resolver<Maybe<ResolversTypes['GasCompliance']>, ParentType, ContextType>;
   intermologist?: Resolver<Maybe<ResolversTypes['Intermologist']>, ParentType, ContextType>;
@@ -1441,7 +1561,6 @@ export type WaterCertResolvers<ContextType = GraphQLContext, ParentType extends 
   message?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdminMessage']>>>, ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  urgentAssistance?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1449,6 +1568,7 @@ export type Resolvers<ContextType = GraphQLContext> = {
   Account?: AccountResolvers<ContextType>;
   AdminMessage?: AdminMessageResolvers<ContextType>;
   Agent?: AgentResolvers<ContextType>;
+  Alien?: AlienResolvers<ContextType>;
   BankInspection?: BankInspectionResolvers<ContextType>;
   BlogPost?: BlogPostResolvers<ContextType>;
   CommercialFeature?: CommercialFeatureResolvers<ContextType>;
@@ -1458,9 +1578,11 @@ export type Resolvers<ContextType = GraphQLContext> = {
   Document?: DocumentResolvers<ContextType>;
   Document_Category?: Document_CategoryResolvers;
   ElecCompCompany?: ElecCompCompanyResolvers<ContextType>;
+  ElectricFence?: ElectricFenceResolvers<ContextType>;
   FicaDocs?: FicaDocsResolvers<ContextType>;
   Form?: FormResolvers<ContextType>;
   GasCompliance?: GasComplianceResolvers<ContextType>;
+  ImageBlog?: ImageBlogResolvers<ContextType>;
   ImageProduct?: ImageProductResolvers<ContextType>;
   Image_Category?: Image_CategoryResolvers;
   Intermologist?: IntermologistResolvers<ContextType>;
@@ -1635,6 +1757,13 @@ export const DocumentFragmentDoc = gql`
   documentCategory
 }
     `;
+export const ImageBlogFragmentDoc = gql`
+    fragment ImageBlog on ImageBlog {
+  id
+  url
+  blogPostId
+}
+    `;
 export const ImageProductFragmentDoc = gql`
     fragment ImageProduct on ImageProduct {
   id
@@ -1686,7 +1815,6 @@ export const OfferInFragmentDoc = gql`
     email
     notes
     completed
-    urgentAssistance
     deadline
     flag
   }
@@ -1698,7 +1826,6 @@ export const OfferInFragmentDoc = gql`
     email
     notes
     completed
-    urgentAssistance
     deadline
     flag
   }
@@ -1707,7 +1834,6 @@ export const OfferInFragmentDoc = gql`
     offerInId
     notes
     completed
-    urgentAssistance
     deadline
     flag
   }
@@ -1716,7 +1842,6 @@ export const OfferInFragmentDoc = gql`
     offerInId
     notes
     completed
-    urgentAssistance
     deadline
     flag
   }
@@ -1727,7 +1852,6 @@ export const OfferInFragmentDoc = gql`
     conditions
     notes
     completed
-    urgentAssistance
     deadline
     flag
   }
@@ -1736,7 +1860,6 @@ export const OfferInFragmentDoc = gql`
     offerInId
     notes
     completed
-    urgentAssistance
     deadline
     flag
   }
@@ -1747,7 +1870,6 @@ export const OfferInFragmentDoc = gql`
     phone
     notes
     completed
-    urgentAssistance
     deadline
     flag
   }
@@ -1758,7 +1880,6 @@ export const OfferInFragmentDoc = gql`
     name
     notes
     completed
-    urgentAssistance
     deadline
     flag
   }
@@ -1768,7 +1889,22 @@ export const OfferInFragmentDoc = gql`
     address
     notes
     completed
-    urgentAssistance
+    deadline
+    flag
+  }
+  electricFence {
+    id
+    offerInId
+    notes
+    completed
+    deadline
+    flag
+  }
+  alien {
+    id
+    offerInId
+    notes
+    completed
     deadline
     flag
   }
@@ -1783,7 +1919,6 @@ export const ElecCompCompanyFragmentDoc = gql`
   email
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }
@@ -1797,7 +1932,6 @@ export const IntermologistFragmentDoc = gql`
   email
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }
@@ -1808,7 +1942,6 @@ export const GasComplianceFragmentDoc = gql`
   offerInId
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }
@@ -1819,7 +1952,6 @@ export const WaterCertFragmentDoc = gql`
   offerInId
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }
@@ -1832,7 +1964,6 @@ export const OfferAcceptedFragmentDoc = gql`
   conditions
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }
@@ -1843,7 +1974,6 @@ export const BankInspectionFragmentDoc = gql`
   offerInId
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }
@@ -1856,7 +1986,6 @@ export const ConveyancerFragmentDoc = gql`
   phone
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }
@@ -1869,7 +1998,6 @@ export const MortgageOriginatorFragmentDoc = gql`
   name
   notes
   completed
-  urgentAssistance
   deadline
   flag
 }
@@ -1881,7 +2009,26 @@ export const FicaDocsFragmentDoc = gql`
   address
   notes
   completed
-  urgentAssistance
+  deadline
+  flag
+}
+    `;
+export const ElectricFenceFragmentDoc = gql`
+    fragment ElectricFence on ElectricFence {
+  id
+  offerInId
+  notes
+  completed
+  deadline
+  flag
+}
+    `;
+export const AlienFragmentDoc = gql`
+    fragment Alien on Alien {
+  id
+  offerInId
+  notes
+  completed
   deadline
   flag
 }
@@ -1918,6 +2065,12 @@ export const UpdateOfferInResponseFragmentDoc = gql`
   ficaDocs {
     ...FicaDocs
   }
+  electricFence {
+    ...ElectricFence
+  }
+  alien {
+    ...Alien
+  }
 }
     ${OfferInFragmentDoc}
 ${ElecCompCompanyFragmentDoc}
@@ -1928,7 +2081,9 @@ ${OfferAcceptedFragmentDoc}
 ${BankInspectionFragmentDoc}
 ${ConveyancerFragmentDoc}
 ${MortgageOriginatorFragmentDoc}
-${FicaDocsFragmentDoc}`;
+${FicaDocsFragmentDoc}
+${ElectricFenceFragmentDoc}
+${AlienFragmentDoc}`;
 export const PropertyFragmentDoc = gql`
     fragment Property on Property {
   id
@@ -2485,6 +2640,141 @@ export function useDocumentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<D
 export type DocumentQueryHookResult = ReturnType<typeof useDocumentQuery>;
 export type DocumentLazyQueryHookResult = ReturnType<typeof useDocumentLazyQuery>;
 export type DocumentQueryResult = Apollo.QueryResult<DocumentQuery, DocumentQueryVariables>;
+export const AddImageBlogDocument = gql`
+    mutation AddImageBlog($input: ImageBlogInput!) {
+  addImageBlog(input: $input) {
+    ...ImageBlog
+  }
+}
+    ${ImageBlogFragmentDoc}`;
+export type AddImageBlogMutationFn = Apollo.MutationFunction<AddImageBlogMutation, AddImageBlogMutationVariables>;
+
+/**
+ * __useAddImageBlogMutation__
+ *
+ * To run a mutation, you first call `useAddImageBlogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddImageBlogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addImageBlogMutation, { data, loading, error }] = useAddImageBlogMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddImageBlogMutation(baseOptions?: Apollo.MutationHookOptions<AddImageBlogMutation, AddImageBlogMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddImageBlogMutation, AddImageBlogMutationVariables>(AddImageBlogDocument, options);
+      }
+export type AddImageBlogMutationHookResult = ReturnType<typeof useAddImageBlogMutation>;
+export type AddImageBlogMutationResult = Apollo.MutationResult<AddImageBlogMutation>;
+export type AddImageBlogMutationOptions = Apollo.BaseMutationOptions<AddImageBlogMutation, AddImageBlogMutationVariables>;
+export const AllImageBlogsDocument = gql`
+    query AllImageBlogs {
+  allImageBlogs {
+    ...ImageBlog
+  }
+}
+    ${ImageBlogFragmentDoc}`;
+
+/**
+ * __useAllImageBlogsQuery__
+ *
+ * To run a query within a React component, call `useAllImageBlogsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllImageBlogsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllImageBlogsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllImageBlogsQuery(baseOptions?: Apollo.QueryHookOptions<AllImageBlogsQuery, AllImageBlogsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllImageBlogsQuery, AllImageBlogsQueryVariables>(AllImageBlogsDocument, options);
+      }
+export function useAllImageBlogsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllImageBlogsQuery, AllImageBlogsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllImageBlogsQuery, AllImageBlogsQueryVariables>(AllImageBlogsDocument, options);
+        }
+export type AllImageBlogsQueryHookResult = ReturnType<typeof useAllImageBlogsQuery>;
+export type AllImageBlogsLazyQueryHookResult = ReturnType<typeof useAllImageBlogsLazyQuery>;
+export type AllImageBlogsQueryResult = Apollo.QueryResult<AllImageBlogsQuery, AllImageBlogsQueryVariables>;
+export const DeleteImageBlogDocument = gql`
+    mutation deleteImageBlog($id: ID!) {
+  deleteImageBlog(id: $id) {
+    ...ImageBlog
+  }
+}
+    ${ImageBlogFragmentDoc}`;
+export type DeleteImageBlogMutationFn = Apollo.MutationFunction<DeleteImageBlogMutation, DeleteImageBlogMutationVariables>;
+
+/**
+ * __useDeleteImageBlogMutation__
+ *
+ * To run a mutation, you first call `useDeleteImageBlogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteImageBlogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteImageBlogMutation, { data, loading, error }] = useDeleteImageBlogMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteImageBlogMutation(baseOptions?: Apollo.MutationHookOptions<DeleteImageBlogMutation, DeleteImageBlogMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteImageBlogMutation, DeleteImageBlogMutationVariables>(DeleteImageBlogDocument, options);
+      }
+export type DeleteImageBlogMutationHookResult = ReturnType<typeof useDeleteImageBlogMutation>;
+export type DeleteImageBlogMutationResult = Apollo.MutationResult<DeleteImageBlogMutation>;
+export type DeleteImageBlogMutationOptions = Apollo.BaseMutationOptions<DeleteImageBlogMutation, DeleteImageBlogMutationVariables>;
+export const ImageBlogDocument = gql`
+    query ImageBlog($id: ID!) {
+  imageBlog(id: $id) {
+    ...ImageBlog
+  }
+}
+    ${ImageBlogFragmentDoc}`;
+
+/**
+ * __useImageBlogQuery__
+ *
+ * To run a query within a React component, call `useImageBlogQuery` and pass it any options that fit your needs.
+ * When your component renders, `useImageBlogQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useImageBlogQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useImageBlogQuery(baseOptions: Apollo.QueryHookOptions<ImageBlogQuery, ImageBlogQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ImageBlogQuery, ImageBlogQueryVariables>(ImageBlogDocument, options);
+      }
+export function useImageBlogLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ImageBlogQuery, ImageBlogQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ImageBlogQuery, ImageBlogQueryVariables>(ImageBlogDocument, options);
+        }
+export type ImageBlogQueryHookResult = ReturnType<typeof useImageBlogQuery>;
+export type ImageBlogLazyQueryHookResult = ReturnType<typeof useImageBlogLazyQuery>;
+export type ImageBlogQueryResult = Apollo.QueryResult<ImageBlogQuery, ImageBlogQueryVariables>;
 export const AddImageDocument = gql`
     mutation AddImage($input: ImageProductInput!) {
   addImage(input: $input) {
@@ -3003,6 +3293,34 @@ export type DocumentQuery = { __typename?: 'Query', document?: { __typename?: 'D
 
 export type DocumentFragment = { __typename?: 'Document', id: string, url?: string | null, offerInId: string, documentCategory?: Document_Category | null };
 
+export type AddImageBlogMutationVariables = Exact<{
+  input: ImageBlogInput;
+}>;
+
+
+export type AddImageBlogMutation = { __typename?: 'Mutation', addImageBlog?: { __typename?: 'ImageBlog', id: string, url?: string | null, blogPostId: string } | null };
+
+export type AllImageBlogsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllImageBlogsQuery = { __typename?: 'Query', allImageBlogs?: Array<{ __typename?: 'ImageBlog', id: string, url?: string | null, blogPostId: string } | null> | null };
+
+export type DeleteImageBlogMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteImageBlogMutation = { __typename?: 'Mutation', deleteImageBlog?: { __typename?: 'ImageBlog', id: string, url?: string | null, blogPostId: string } | null };
+
+export type ImageBlogQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ImageBlogQuery = { __typename?: 'Query', imageBlog?: { __typename?: 'ImageBlog', id: string, url?: string | null, blogPostId: string } | null };
+
+export type ImageBlogFragment = { __typename?: 'ImageBlog', id: string, url?: string | null, blogPostId: string };
+
 export type AddImageMutationVariables = Exact<{
   input: ImageProductInput;
 }>;
@@ -3036,36 +3354,40 @@ export type AddOfferInMutationVariables = Exact<{
 }>;
 
 
-export type AddOfferInMutation = { __typename?: 'Mutation', addOfferIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null };
+export type AddOfferInMutation = { __typename?: 'Mutation', addOfferIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null };
 
-export type OfferInFragment = { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+export type OfferInFragment = { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
 export type UpdateOfferInMutationVariables = Exact<{
   input: OfferInInput;
 }>;
 
 
-export type UpdateOfferInMutation = { __typename?: 'Mutation', updateOfferIn?: { __typename?: 'UpdateOfferInResponse', offerIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null };
+export type UpdateOfferInMutation = { __typename?: 'Mutation', updateOfferIn?: { __typename?: 'UpdateOfferInResponse', offerIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null };
 
-export type UpdateOfferInResponseFragment = { __typename?: 'UpdateOfferInResponse', offerIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+export type UpdateOfferInResponseFragment = { __typename?: 'UpdateOfferInResponse', offerIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
-export type BankInspectionFragment = { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type AlienFragment = { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
-export type ConveyancerFragment = { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type BankInspectionFragment = { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
-export type ElecCompCompanyFragment = { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type ConveyancerFragment = { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
-export type FicaDocsFragment = { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type ElecCompCompanyFragment = { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
-export type GasComplianceFragment = { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type ElectricFenceFragment = { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
-export type IntermologistFragment = { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type FicaDocsFragment = { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
-export type MortgageOriginatorFragment = { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type GasComplianceFragment = { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
-export type OfferAcceptedFragment = { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type IntermologistFragment = { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
-export type WaterCertFragment = { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, urgentAssistance?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+export type MortgageOriginatorFragment = { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+
+export type OfferAcceptedFragment = { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+
+export type WaterCertFragment = { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
 export type AddPropertyMutationVariables = Exact<{
   input: PropertyInput;

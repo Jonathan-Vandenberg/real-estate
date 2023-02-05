@@ -7,6 +7,8 @@
 # import Conveyancer from "./conveyancer/ConveyancerFragment.graphql"
 # import MortgageOriginator from "./mortgage-originator/MortgageOriginatorFragment.graphql"
 # import FicaDocs from "./fica-docs/FicaDocsFragment.graphql"
+# import ElectricFence from "./electric-fence/ElectricFenceFragment.graphql"
+# import Alien from "./alien/AlienFragment.graphql"
 # import OfferIn from "./OfferInFragment.graphql"
 
 fragment UpdateOfferInResponse on UpdateOfferInResponse {
@@ -39,5 +41,11 @@ fragment UpdateOfferInResponse on UpdateOfferInResponse {
   }
   ficaDocs {
     ...FicaDocs
+  }
+  electricFence {
+    ...ElectricFence
+  }
+  alien {
+    ...Alien
   }
 }

@@ -1,0 +1,7 @@
+# import ImageBlog from './ImageBlogFragment.graphql'
+
+mutation AddImageBlog($input: ImageBlogInput!) {
+  addImageBlog(input: $input) {
+    ...ImageBlog
+  }
+}

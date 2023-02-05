@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "codegen": "graphql-codegen --config codegen.yml",
-    "push": "dotenv -e .env.local -- npx prisma db push"
+    "push": "dotenv -e .env.local -- npx prisma db push",
+    "studio": "dotenv -e .env.local -- npx prisma studio"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",

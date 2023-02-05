@@ -1,68 +1,87 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BlogPost,
+  Document_Category,
+  Image_Category,
   useAddBlogPostMutation,
   useUpdateBlogPostMutation,
 } from "../../types";
 import { Button } from "../global/Button";
 import Plus from "../svgs/Plus";
+import { ImageGallery } from "../property/PropertyDetails";
+import UploadImage from "../aws/UploadImage";
 
 interface IProps {
-  details: BlogPost | undefined | null;
+  blogPost: BlogPost | undefined | null;
   add: boolean;
   edit: boolean;
   handleClose: () => void;
 }
 
-const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
+const AddBlogPost = ({ blogPost, add, edit, handleClose }: IProps) => {
   const [formSent, setFormSent] = useState(false);
 
-  const Dtitle = add ? "" : details?.title;
-  const Dsubtitle1 = add ? "" : details?.subtitle1;
-  const Dsubtitle2 = add ? "" : details?.subtitle2;
-  const Dsubtitle3 = add ? "" : details?.subtitle3;
-  const Dsubtitle4 = add ? "" : details?.subtitle4;
-  const DtableContents1 = add ? "" : details?.tableContents1;
-  const DtableContents2 = add ? "" : details?.tableContents2;
-  const DtableContents3 = add ? "" : details?.tableContents3;
-  const DtableContents4 = add ? "" : details?.tableContents4;
-  const Dp1 = add ? "" : details?.p1;
-  const Dp2 = add ? "" : details?.p2;
-  const Dp3 = add ? "" : details?.p3;
-  const Dp4 = add ? "" : details?.p4;
-  const Dp5 = add ? "" : details?.p5;
-  const Dp6 = add ? "" : details?.p6;
-  const Dp7 = add ? "" : details?.p7;
-  const Dp8 = add ? "" : details?.p8;
-  const Dl1 = add ? "" : details?.l1;
-  const Dl2 = add ? "" : details?.l2;
-  const Dl3 = add ? "" : details?.l3;
-  const Dl4 = add ? "" : details?.l4;
-  const Dl5 = add ? "" : details?.l5;
-  const Dl6 = add ? "" : details?.l6;
-  const Dl7 = add ? "" : details?.l7;
-  const Dl8 = add ? "" : details?.l8;
-  const Dl9 = add ? "" : details?.l9;
-  const Dl10 = add ? "" : details?.l10;
-  const Dl11 = add ? "" : details?.l11;
-  const Dl12 = add ? "" : details?.l12;
-  const Dl13 = add ? "" : details?.l13;
-  const Dl14 = add ? "" : details?.l14;
-  const Dl15 = add ? "" : details?.l15;
-  const Dconclusion1 = add ? "" : details?.conclusion1;
-  const Dconclusion2 = add ? "" : details?.conclusion2;
-  const Dconclusion3 = add ? "" : details?.conclusion3;
-  const Dreference1 = add ? "" : details?.reference1;
-  const Dreference2 = add ? "" : details?.reference2;
-  const DauthorName = add ? "" : details?.authorName;
-  const DauthorAbout = add ? "" : details?.authorAbout;
-  const DauthorLink = add ? "" : details?.authorLink;
-  const DeditedBy = add ? "" : details?.editedBy;
-  const DpublishedDate = add ? "" : details?.publishedDate;
-  const DmainImage = add ? "" : details?.mainImage;
-  const DphotoCredit = add ? "" : details?.photoCredit;
+  useEffect(() => {
+    var mongoObjectId = function () {
+      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16);
+      return (
+        timestamp +
+        "xxxxxxxxxxxxxxxx"
+          .replace(/[x]/g, function () {
+            return ((Math.random() * 16) | 0).toString(16);
+          })
+          .toLowerCase()
+      );
+    };
+    setNewId(mongoObjectId());
+  }, []);
 
-  const id = details!.id;
+  const Dtitle = add ? "" : blogPost?.title;
+  const Dsubtitle1 = add ? "" : blogPost?.subtitle1;
+  const Dsubtitle2 = add ? "" : blogPost?.subtitle2;
+  const Dsubtitle3 = add ? "" : blogPost?.subtitle3;
+  const Dsubtitle4 = add ? "" : blogPost?.subtitle4;
+  const DtableContents1 = add ? "" : blogPost?.tableContents1;
+  const DtableContents2 = add ? "" : blogPost?.tableContents2;
+  const DtableContents3 = add ? "" : blogPost?.tableContents3;
+  const DtableContents4 = add ? "" : blogPost?.tableContents4;
+  const Dp1 = add ? "" : blogPost?.p1;
+  const Dp2 = add ? "" : blogPost?.p2;
+  const Dp3 = add ? "" : blogPost?.p3;
+  const Dp4 = add ? "" : blogPost?.p4;
+  const Dp5 = add ? "" : blogPost?.p5;
+  const Dp6 = add ? "" : blogPost?.p6;
+  const Dp7 = add ? "" : blogPost?.p7;
+  const Dp8 = add ? "" : blogPost?.p8;
+  const Dl1 = add ? "" : blogPost?.l1;
+  const Dl2 = add ? "" : blogPost?.l2;
+  const Dl3 = add ? "" : blogPost?.l3;
+  const Dl4 = add ? "" : blogPost?.l4;
+  const Dl5 = add ? "" : blogPost?.l5;
+  const Dl6 = add ? "" : blogPost?.l6;
+  const Dl7 = add ? "" : blogPost?.l7;
+  const Dl8 = add ? "" : blogPost?.l8;
+  const Dl9 = add ? "" : blogPost?.l9;
+  const Dl10 = add ? "" : blogPost?.l10;
+  const Dl11 = add ? "" : blogPost?.l11;
+  const Dl12 = add ? "" : blogPost?.l12;
+  const Dl13 = add ? "" : blogPost?.l13;
+  const Dl14 = add ? "" : blogPost?.l14;
+  const Dl15 = add ? "" : blogPost?.l15;
+  const Dconclusion1 = add ? "" : blogPost?.conclusion1;
+  const Dconclusion2 = add ? "" : blogPost?.conclusion2;
+  const Dconclusion3 = add ? "" : blogPost?.conclusion3;
+  const Dreference1 = add ? "" : blogPost?.reference1;
+  const Dreference2 = add ? "" : blogPost?.reference2;
+  const DauthorName = add ? "" : blogPost?.authorName;
+  const DauthorAbout = add ? "" : blogPost?.authorAbout;
+  const DauthorLink = add ? "" : blogPost?.authorLink;
+  const DeditedBy = add ? "" : blogPost?.editedBy;
+  const DpublishedDate = add ? "" : blogPost?.publishedDate;
+  const DmainImage = add ? "" : blogPost?.mainImage;
+  const DphotoCredit = add ? "" : blogPost?.photoCredit;
+
+  const [newId, setNewId] = useState("");
   const [title, setTitle] = useState(Dtitle);
   const [subtitle1, setSubtitle1] = useState(Dsubtitle1);
   const [subtitle2, setSubtitle2] = useState(Dsubtitle2);
@@ -114,7 +133,7 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
   let form = {
     variables: {
       input: {
-        id: id,
+        id: add ? newId : blogPost!.id,
         editedBy: editedBy,
         mainImage: mainImage,
         photoCredit: photoCredit,
@@ -263,6 +282,19 @@ const AddBlogPost = ({ details, add, edit, handleClose }: IProps) => {
         )}
       </div>
       <form onSubmit={onFinish} className="space-y-3 py-6">
+        <p className="text-black font-bold text-md">Hero Image (Only One)</p>
+        {edit && (
+          <div className="w-full min-h-[20rem] bg-[rgb(240,240,240)] flex items-center justify-center text-md">
+            <UploadImage
+              category={Image_Category.Property}
+              propertyId={""}
+              uploadType={"image-blog"}
+              offerInId={""}
+              blogPostId={add ? newId : blogPost!.id}
+              documentCategory={Document_Category.Cop}
+            />
+          </div>
+        )}
         <div className="px-8 flex items-start space-y-3 justify-center flex-col pt-3">
           <input
             id="form"

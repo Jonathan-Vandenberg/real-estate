@@ -1,0 +1,7 @@
+# import ImageBlog from "./ImageBlogFragment.graphql"
+
+query ImageBlog($id: ID!) {
+  imageBlog(id: $id) {
+    ...ImageBlog
+  }
+}

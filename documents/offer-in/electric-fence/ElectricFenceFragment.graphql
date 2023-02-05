@@ -1,4 +1,4 @@
-fragment GasCompliance on GasCompliance {
+fragment ElectricFence on ElectricFence {
   id
   offerInId
   notes

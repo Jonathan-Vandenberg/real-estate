@@ -7,6 +7,7 @@ import {
   Document_Category,
   Image_Category,
   useAddDocumentMutation,
+  useAddImageBlogMutation,
   useAddImageMutation,
   useUpdateAgentMutation,
 } from "../../types";
@@ -20,8 +21,9 @@ interface UploadImageProps {
   category?: Image_Category;
   propertyId: string;
   offerInId: string;
+  blogPostId: string;
   documentCategory?: Document_Category;
-  uploadType: "image" | "document" | "profile-image";
+  uploadType: "image" | "document" | "profile-image" | "image-blog";
 }
 
 const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
@@ -38,6 +40,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
   category,
   propertyId,
   offerInId,
+  blogPostId,
   documentCategory,
   uploadType,
 }) => {
@@ -59,6 +62,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
   const [addImage] = useAddImageMutation();
   const [addDocument] = useAddDocumentMutation();
   const [updateAgent] = useUpdateAgentMutation();
+  const [addImageBlog] = useAddImageBlogMutation();
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files != null) setFiles(Array.from(event.target.files));
@@ -134,6 +138,17 @@ const UploadImage: React.FC<UploadImageProps> = ({
                     id: agentId,
                     userId: userId,
                     profileImage: `https://landmark-real-eastate.s3.ap-southeast-1.amazonaws.com/${prefix}/${file.name}`,
+                  },
+                },
+              });
+            }
+
+            if (uploadType === "image-blog") {
+              addImageBlog({
+                variables: {
+                  input: {
+                    blogPostId: blogPostId,
+                    url: `https://landmark-real-eastate.s3.ap-southeast-1.amazonaws.com/${prefix}/${file.name}`,
                   },
                 },
               });
