@@ -6,10 +6,7 @@ import { Container } from "./Container";
 const footerLinks = [
   {
     title: "Properties",
-    links: [
-      { title: "Listings", href: "/active-listings" },
-      { title: "Integrations", href: "#" },
-    ],
+    links: [{ title: "Listings", href: "/active-listings" }],
   },
   {
     title: "Company",
