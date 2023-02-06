@@ -180,7 +180,7 @@ export default function AdminListings({
             </table>
           )}
           {showEditListing && (
-            <div className="flex-col flex items-center justify-center space-x-2 py-8">
+            <div className="flex-col flex items-center justify-center space-x-2 py-8 border-b-2 border-b-off-white">
               <h2 className="text-3xl md:text-5xl font-extralight leading-tight md:pb-3">
                 Editing
               </h2>
@@ -207,7 +207,7 @@ export default function AdminListings({
           <div className="md:hidden">
             <AdminListingsMobile
               onShowEditListing={() => {
-                setShowEditListing(true), editForm(listing);
+                editForm(listing), setShowAddListing(false);
               }}
               property={property}
               image={image}

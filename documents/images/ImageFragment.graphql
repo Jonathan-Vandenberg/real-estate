@@ -1,0 +1,6 @@
+fragment ImageProduct on ImageProduct {
+  id
+  url
+  propertyId
+  imageCategory
+}
