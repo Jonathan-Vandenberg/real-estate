@@ -6,10 +6,8 @@ import {
   useAddBlogPostMutation,
   useUpdateBlogPostMutation,
 } from "../../types";
-import { Button } from "../global/Button";
-import Plus from "../svgs/Plus";
-import { ImageGallery } from "../property/PropertyDetails";
 import UploadImage from "../aws/UploadImage";
+import { Button } from "../global/Button";
 
 interface IProps {
   blogPost: BlogPost | undefined | null;

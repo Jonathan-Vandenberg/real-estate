@@ -1,5 +1,3 @@
-import Image from "next/image";
-import image from "../../public/heroImage.jpeg";
 import { BlogPost, ImageBlog } from "../../types";
 
 interface IHeroProps {

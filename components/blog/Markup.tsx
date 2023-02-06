@@ -1,11 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import Check from "../svgs/Check";
 import type { BlogPost } from "../../types";
 import { Button } from "../global/Button";
-import { ChevRight } from "../svgs/Arrows";
 import Edit from "../svgs/Edit";
-import Plus from "../svgs/Plus";
 
 interface IProps {
   blogPost: BlogPost | undefined | null;

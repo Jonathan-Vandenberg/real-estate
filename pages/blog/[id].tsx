@@ -1,12 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
-import MainForm from "../../components/Blog/BlogForm";
+import MainForm from "../../components/blog/BlogForm";
 import { Form } from "../../components/global/Form";
 import { BlogPost, ImageBlog } from "../../types";
 import prisma from "../../lib/prisma";
 import Head from "next/head";
-import BlogMain from "../../components/Blog/BlogMain";
+import BlogMain from "../../components/blog/BlogMain";
 
 interface IBlogPost {
   blogPost: BlogPost;
