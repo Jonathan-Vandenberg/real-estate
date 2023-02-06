@@ -1,7 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
-
 import MainForm from "../../components/blog/BlogForm";
 import { Form } from "../../components/global/Form";
 import { BlogPost, ImageBlog } from "../../types";
