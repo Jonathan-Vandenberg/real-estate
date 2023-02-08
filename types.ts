@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { Agent as AgentModel, Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, ImageBlog as ImageBlogModel, ImageProduct as ImageProductModel, OfferIn as OfferInModel, ElecCompCompany as ElecCompCompanyModel, Intermologist as IntermologistModel, GasCompliance as GasComplianceModel, WaterCert as WaterCertModel, OfferAccepted as OfferAcceptedModel, BankInspection as BankInspectionModel, Conveyancer as ConveyancerModel, MortgageOriginator as MortgageOriginatorModel, FicaDocs as FicaDocsModel, ElectricFence as ElectricFenceModel, Alien as AlienModel, AdminMessage as AdminMessageModel, Document as DocumentModel, ResidentialFeature as ResidentialFeatureModel, CommercialFeature as CommercialFeatureModel } from '@prisma/client';
+import { Agent as AgentModel, Form as FormModel, Property as PropertyModel, BlogPost as BlogPostModel, ImageBlog as ImageBlogModel, ImageProduct as ImageProductModel, OfferIn as OfferInModel, ElecCompCompany as ElecCompCompanyModel, Intermologist as IntermologistModel, GasCompliance as GasComplianceModel, WaterCert as WaterCertModel, OfferAccepted as OfferAcceptedModel, BankInspection as BankInspectionModel, Conveyancer as ConveyancerModel, MortgageOriginator as MortgageOriginatorModel, FicaDocs as FicaDocsModel, ElectricFence as ElectricFenceModel, Alien as AlienModel, AdminMessage as AdminMessageModel, Document as DocumentModel, ResidentialFeature as ResidentialFeatureModel, CommercialFeature as CommercialFeatureModel, Todo as TodoModel } from '@prisma/client';
 import { GraphQLContext } from './pages/api/index';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -498,10 +498,12 @@ export type Mutation = {
   addOfferIn?: Maybe<OfferIn>;
   addProperty?: Maybe<Property>;
   addResidentialFeature?: Maybe<ResidentialFeature>;
+  addTodo?: Maybe<Todo>;
   deleteAgentImage?: Maybe<Agent>;
   deleteDocument?: Maybe<Document>;
   deleteImage?: Maybe<ImageProduct>;
   deleteImageBlog?: Maybe<ImageBlog>;
+  deleteTodo?: Maybe<Todo>;
   updateAgent?: Maybe<Agent>;
   updateBlogPost?: Maybe<BlogPost>;
   updateDocument?: Maybe<Document>;
@@ -509,6 +511,7 @@ export type Mutation = {
   updateImageBlog?: Maybe<ImageBlog>;
   updateOfferIn?: Maybe<UpdateOfferInResponse>;
   updateProperty?: Maybe<Property>;
+  updateTodo?: Maybe<Todo>;
 };
 
 
@@ -562,6 +565,11 @@ export type MutationAddResidentialFeatureArgs = {
 };
 
 
+export type MutationAddTodoArgs = {
+  input: TodoInput;
+};
+
+
 export type MutationDeleteAgentImageArgs = {
   id: Scalars['ID'];
 };
@@ -578,6 +586,11 @@ export type MutationDeleteImageArgs = {
 
 
 export type MutationDeleteImageBlogArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteTodoArgs = {
   id: Scalars['ID'];
 };
 
@@ -617,6 +630,12 @@ export type MutationUpdateOfferInArgs = {
 
 export type MutationUpdatePropertyArgs = {
   input: PropertyInput;
+};
+
+
+export type MutationUpdateTodoArgs = {
+  id: Scalars['ID'];
+  input: TodoInput;
 };
 
 export type OfferAccepted = {
@@ -676,6 +695,7 @@ export type OfferIn = {
   offerAccepted?: Maybe<OfferAccepted>;
   offerAcceptedId: Scalars['ID'];
   propertyId: Scalars['ID'];
+  todos?: Maybe<Array<Maybe<Todo>>>;
   waterCert?: Maybe<WaterCert>;
   waterCertId: Scalars['ID'];
 };
@@ -765,7 +785,7 @@ export type Property = {
   status?: Maybe<Status>;
   surroundingSuburbs?: Maybe<Scalars['String']>;
   title: Scalars['String'];
-  yearBuilt: Scalars['String'];
+  yearBuilt?: Maybe<Scalars['String']>;
 };
 
 export type PropertyInput = {
@@ -797,7 +817,7 @@ export type PropertyInput = {
   status?: InputMaybe<Status>;
   surroundingSuburbs?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
-  yearBuilt: Scalars['String'];
+  yearBuilt?: InputMaybe<Scalars['String']>;
 };
 
 export enum Property_Category {
@@ -900,6 +920,24 @@ export enum Status {
   OfferIn = 'OFFER_IN',
   Sold = 'SOLD'
 }
+
+export type Todo = {
+  __typename?: 'Todo';
+  completed?: Maybe<Scalars['Boolean']>;
+  deadline?: Maybe<Scalars['DateTime']>;
+  id: Scalars['ID'];
+  offerInCategory?: Maybe<Offer_In_Categories>;
+  offerInId: Scalars['ID'];
+  task?: Maybe<Scalars['String']>;
+};
+
+export type TodoInput = {
+  completed?: InputMaybe<Scalars['Boolean']>;
+  deadline?: InputMaybe<Scalars['DateTime']>;
+  offerInCategory?: InputMaybe<Offer_In_Categories>;
+  offerInId: Scalars['ID'];
+  task?: InputMaybe<Scalars['String']>;
+};
 
 export type UpdateOfferInResponse = {
   __typename?: 'UpdateOfferInResponse';
@@ -1065,6 +1103,8 @@ export type ResolversTypes = {
   Status: Status;
   String: ResolverTypeWrapper<Scalars['String']>;
   Time: ResolverTypeWrapper<Scalars['Time']>;
+  Todo: ResolverTypeWrapper<TodoModel>;
+  TodoInput: TodoInput;
   UpdateOfferInResponse: ResolverTypeWrapper<Omit<UpdateOfferInResponse, 'alien' | 'bankInspection' | 'conveyancer' | 'elecCompCompany' | 'electricFence' | 'ficaDocs' | 'gasCompliance' | 'intermologist' | 'mortgageOriginator' | 'offerAccepted' | 'offerIn' | 'waterCert'> & { alien?: Maybe<ResolversTypes['Alien']>, bankInspection?: Maybe<ResolversTypes['BankInspection']>, conveyancer?: Maybe<ResolversTypes['Conveyancer']>, elecCompCompany?: Maybe<ResolversTypes['ElecCompCompany']>, electricFence?: Maybe<ResolversTypes['ElectricFence']>, ficaDocs?: Maybe<ResolversTypes['FicaDocs']>, gasCompliance?: Maybe<ResolversTypes['GasCompliance']>, intermologist?: Maybe<ResolversTypes['Intermologist']>, mortgageOriginator?: Maybe<ResolversTypes['MortgageOriginator']>, offerAccepted?: Maybe<ResolversTypes['OfferAccepted']>, offerIn?: Maybe<ResolversTypes['OfferIn']>, waterCert?: Maybe<ResolversTypes['WaterCert']> }>;
   WaterCert: ResolverTypeWrapper<WaterCertModel>;
   WaterCertInput: WaterCertInput;
@@ -1124,6 +1164,8 @@ export type ResolversParentTypes = {
   ResidentialFeatureInput: ResidentialFeatureInput;
   String: Scalars['String'];
   Time: Scalars['Time'];
+  Todo: TodoModel;
+  TodoInput: TodoInput;
   UpdateOfferInResponse: Omit<UpdateOfferInResponse, 'alien' | 'bankInspection' | 'conveyancer' | 'elecCompCompany' | 'electricFence' | 'ficaDocs' | 'gasCompliance' | 'intermologist' | 'mortgageOriginator' | 'offerAccepted' | 'offerIn' | 'waterCert'> & { alien?: Maybe<ResolversParentTypes['Alien']>, bankInspection?: Maybe<ResolversParentTypes['BankInspection']>, conveyancer?: Maybe<ResolversParentTypes['Conveyancer']>, elecCompCompany?: Maybe<ResolversParentTypes['ElecCompCompany']>, electricFence?: Maybe<ResolversParentTypes['ElectricFence']>, ficaDocs?: Maybe<ResolversParentTypes['FicaDocs']>, gasCompliance?: Maybe<ResolversParentTypes['GasCompliance']>, intermologist?: Maybe<ResolversParentTypes['Intermologist']>, mortgageOriginator?: Maybe<ResolversParentTypes['MortgageOriginator']>, offerAccepted?: Maybe<ResolversParentTypes['OfferAccepted']>, offerIn?: Maybe<ResolversParentTypes['OfferIn']>, waterCert?: Maybe<ResolversParentTypes['WaterCert']> };
   WaterCert: WaterCertModel;
   WaterCertInput: WaterCertInput;
@@ -1396,10 +1438,12 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   addOfferIn?: Resolver<Maybe<ResolversTypes['OfferIn']>, ParentType, ContextType, RequireFields<MutationAddOfferInArgs, 'input'>>;
   addProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationAddPropertyArgs, 'input'>>;
   addResidentialFeature?: Resolver<Maybe<ResolversTypes['ResidentialFeature']>, ParentType, ContextType, RequireFields<MutationAddResidentialFeatureArgs, 'input'>>;
+  addTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'input'>>;
   deleteAgentImage?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, RequireFields<MutationDeleteAgentImageArgs, 'id'>>;
   deleteDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationDeleteDocumentArgs, 'id'>>;
   deleteImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
   deleteImageBlog?: Resolver<Maybe<ResolversTypes['ImageBlog']>, ParentType, ContextType, RequireFields<MutationDeleteImageBlogArgs, 'id'>>;
+  deleteTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationDeleteTodoArgs, 'id'>>;
   updateAgent?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, Partial<MutationUpdateAgentArgs>>;
   updateBlogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<MutationUpdateBlogPostArgs, 'input'>>;
   updateDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationUpdateDocumentArgs, 'id' | 'input'>>;
@@ -1407,6 +1451,7 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   updateImageBlog?: Resolver<Maybe<ResolversTypes['ImageBlog']>, ParentType, ContextType, RequireFields<MutationUpdateImageBlogArgs, 'id' | 'input'>>;
   updateOfferIn?: Resolver<Maybe<ResolversTypes['UpdateOfferInResponse']>, ParentType, ContextType, RequireFields<MutationUpdateOfferInArgs, 'input'>>;
   updateProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationUpdatePropertyArgs, 'input'>>;
+  updateTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationUpdateTodoArgs, 'id' | 'input'>>;
 };
 
 export type OfferAcceptedResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['OfferAccepted'] = ResolversParentTypes['OfferAccepted']> = {
@@ -1454,6 +1499,7 @@ export type OfferInResolvers<ContextType = GraphQLContext, ParentType extends Re
   offerAccepted?: Resolver<Maybe<ResolversTypes['OfferAccepted']>, ParentType, ContextType>;
   offerAcceptedId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   propertyId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  todos?: Resolver<Maybe<Array<Maybe<ResolversTypes['Todo']>>>, ParentType, ContextType>;
   waterCert?: Resolver<Maybe<ResolversTypes['WaterCert']>, ParentType, ContextType>;
   waterCertId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1494,7 +1540,7 @@ export type PropertyResolvers<ContextType = GraphQLContext, ParentType extends R
   status?: Resolver<Maybe<ResolversTypes['Status']>, ParentType, ContextType>;
   surroundingSuburbs?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  yearBuilt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  yearBuilt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1536,6 +1582,16 @@ export type StatusResolvers = { FOR_RENT: 'undefined', FOR_SALE: 'undefined', OF
 export interface TimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Time'], any> {
   name: 'Time';
 }
+
+export type TodoResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
+  completed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  deadline?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  offerInCategory?: Resolver<Maybe<ResolversTypes['Offer_In_Categories']>, ParentType, ContextType>;
+  offerInId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  task?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
 
 export type UpdateOfferInResponseResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['UpdateOfferInResponse'] = ResolversParentTypes['UpdateOfferInResponse']> = {
   alien?: Resolver<Maybe<ResolversTypes['Alien']>, ParentType, ContextType>;
@@ -1599,6 +1655,7 @@ export type Resolvers<ContextType = GraphQLContext> = {
   Roles?: RolesResolvers;
   Status?: StatusResolvers;
   Time?: GraphQLScalarType;
+  Todo?: TodoResolvers<ContextType>;
   UpdateOfferInResponse?: UpdateOfferInResponseResolvers<ContextType>;
   WaterCert?: WaterCertResolvers<ContextType>;
 };
@@ -1796,6 +1853,14 @@ export const OfferInFragmentDoc = gql`
     offerInId
     documentCategory
     url
+  }
+  todos {
+    id
+    offerInId
+    offerInCategory
+    task
+    completed
+    deadline
   }
   message {
     id
@@ -2133,6 +2198,16 @@ export const ResidentialFeatureFragmentDoc = gql`
   id
   propertyId
   residentialFeature
+}
+    `;
+export const TodoFragmentDoc = gql`
+    fragment Todo on Todo {
+  id
+  offerInId
+  offerInCategory
+  task
+  completed
+  deadline
 }
     `;
 export const AddFormDocument = gql`
@@ -3178,6 +3253,106 @@ export function useAllResidentialFeaturesLazyQuery(baseOptions?: Apollo.LazyQuer
 export type AllResidentialFeaturesQueryHookResult = ReturnType<typeof useAllResidentialFeaturesQuery>;
 export type AllResidentialFeaturesLazyQueryHookResult = ReturnType<typeof useAllResidentialFeaturesLazyQuery>;
 export type AllResidentialFeaturesQueryResult = Apollo.QueryResult<AllResidentialFeaturesQuery, AllResidentialFeaturesQueryVariables>;
+export const AddTodoDocument = gql`
+    mutation AddTodo($input: TodoInput!) {
+  addTodo(input: $input) {
+    ...Todo
+  }
+}
+    ${TodoFragmentDoc}`;
+export type AddTodoMutationFn = Apollo.MutationFunction<AddTodoMutation, AddTodoMutationVariables>;
+
+/**
+ * __useAddTodoMutation__
+ *
+ * To run a mutation, you first call `useAddTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addTodoMutation, { data, loading, error }] = useAddTodoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddTodoMutation(baseOptions?: Apollo.MutationHookOptions<AddTodoMutation, AddTodoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddTodoMutation, AddTodoMutationVariables>(AddTodoDocument, options);
+      }
+export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>;
+export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>;
+export type AddTodoMutationOptions = Apollo.BaseMutationOptions<AddTodoMutation, AddTodoMutationVariables>;
+export const DeleteTodoDocument = gql`
+    mutation DeleteTodo($id: ID!) {
+  deleteTodo(id: $id) {
+    ...Todo
+  }
+}
+    ${TodoFragmentDoc}`;
+export type DeleteTodoMutationFn = Apollo.MutationFunction<DeleteTodoMutation, DeleteTodoMutationVariables>;
+
+/**
+ * __useDeleteTodoMutation__
+ *
+ * To run a mutation, you first call `useDeleteTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTodoMutation, { data, loading, error }] = useDeleteTodoMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteTodoMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTodoMutation, DeleteTodoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteTodoMutation, DeleteTodoMutationVariables>(DeleteTodoDocument, options);
+      }
+export type DeleteTodoMutationHookResult = ReturnType<typeof useDeleteTodoMutation>;
+export type DeleteTodoMutationResult = Apollo.MutationResult<DeleteTodoMutation>;
+export type DeleteTodoMutationOptions = Apollo.BaseMutationOptions<DeleteTodoMutation, DeleteTodoMutationVariables>;
+export const UpdateTodoDocument = gql`
+    mutation UpdateTodo($id: ID!, $input: TodoInput!) {
+  updateTodo(id: $id, input: $input) {
+    ...Todo
+  }
+}
+    ${TodoFragmentDoc}`;
+export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, UpdateTodoMutationVariables>;
+
+/**
+ * __useUpdateTodoMutation__
+ *
+ * To run a mutation, you first call `useUpdateTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTodoMutation, { data, loading, error }] = useUpdateTodoMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTodoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTodoMutation, UpdateTodoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, options);
+      }
+export type UpdateTodoMutationHookResult = ReturnType<typeof useUpdateTodoMutation>;
+export type UpdateTodoMutationResult = Apollo.MutationResult<UpdateTodoMutation>;
+export type UpdateTodoMutationOptions = Apollo.BaseMutationOptions<UpdateTodoMutation, UpdateTodoMutationVariables>;
 export type AddFormMutationVariables = Exact<{
   input: FormInput;
 }>;
@@ -3203,30 +3378,30 @@ export type AddAgentMutationVariables = Exact<{
 }>;
 
 
-export type AddAgentMutation = { __typename?: 'Mutation', addAgent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
+export type AddAgentMutation = { __typename?: 'Mutation', addAgent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type AgentQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type AgentQuery = { __typename?: 'Query', agent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
+export type AgentQuery = { __typename?: 'Query', agent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
-export type AgentFragment = { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
+export type AgentFragment = { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
 
 export type DeleteAgentImageMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type DeleteAgentImageMutation = { __typename?: 'Mutation', deleteAgentImage?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
+export type DeleteAgentImageMutation = { __typename?: 'Mutation', deleteAgentImage?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type UpdateAgentMutationVariables = Exact<{
   input: AgentInput;
 }>;
 
 
-export type UpdateAgentMutation = { __typename?: 'Mutation', updateAgent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
+export type UpdateAgentMutation = { __typename?: 'Mutation', updateAgent?: { __typename?: 'Agent', id: string, userId: string, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
 export type AddBlogPostMutationVariables = Exact<{
   input: BlogPostInput;
@@ -3354,18 +3529,18 @@ export type AddOfferInMutationVariables = Exact<{
 }>;
 
 
-export type AddOfferInMutation = { __typename?: 'Mutation', addOfferIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null };
+export type AddOfferInMutation = { __typename?: 'Mutation', addOfferIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, todos?: Array<{ __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null };
 
-export type OfferInFragment = { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+export type OfferInFragment = { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, todos?: Array<{ __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
 export type UpdateOfferInMutationVariables = Exact<{
   input: OfferInInput;
 }>;
 
 
-export type UpdateOfferInMutation = { __typename?: 'Mutation', updateOfferIn?: { __typename?: 'UpdateOfferInResponse', offerIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null };
+export type UpdateOfferInMutation = { __typename?: 'Mutation', updateOfferIn?: { __typename?: 'UpdateOfferInResponse', offerIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, todos?: Array<{ __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null };
 
-export type UpdateOfferInResponseFragment = { __typename?: 'UpdateOfferInResponse', offerIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+export type UpdateOfferInResponseFragment = { __typename?: 'UpdateOfferInResponse', offerIn?: { __typename?: 'OfferIn', id: string, propertyId: string, elecCompCompanyId: string, intermologistId: string, gasComplianceId: string, waterCertId: string, offerAcceptedId: string, bankInspectionId: string, conveyancerId: string, mortgageOriginatorId: string, ficaDocsId: string, amount?: string | null, dot?: Date | null, dateOfBondApplication?: Date | null, dateOfBondApprovalInPrincipal?: Date | null, dateOfBondApproved?: Date | null, bankName?: string | null, flag?: boolean | null, documents?: Array<{ __typename?: 'Document', offerInId: string, documentCategory?: Document_Category | null, url?: string | null } | null> | null, todos?: Array<{ __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null> | null, message?: Array<{ __typename?: 'AdminMessage', id: string, offerInId: string, adminId?: string | null, title?: string | null, message?: string | null, read?: boolean | null, urgent?: boolean | null, relatingTo?: Offer_In_Categories | null } | null> | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null } | null, elecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, intermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, gasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, waterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, offerAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, bankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, conveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, mortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, ficaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, electricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null, alien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
 export type AlienFragment = { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
@@ -3394,28 +3569,28 @@ export type AddPropertyMutationVariables = Exact<{
 }>;
 
 
-export type AddPropertyMutation = { __typename?: 'Mutation', addProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
+export type AddPropertyMutation = { __typename?: 'Mutation', addProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
 
 export type AllPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllPropertiesQuery = { __typename?: 'Query', allProperties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
+export type AllPropertiesQuery = { __typename?: 'Query', allProperties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null };
 
 export type PropertyQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type PropertyQuery = { __typename?: 'Query', property?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
+export type PropertyQuery = { __typename?: 'Query', property?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
 
-export type PropertyFragment = { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null };
+export type PropertyFragment = { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null };
 
 export type UpdatePropertyMutationVariables = Exact<{
   input: PropertyInput;
 }>;
 
 
-export type UpdatePropertyMutation = { __typename?: 'Mutation', updateProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt: string, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
+export type UpdatePropertyMutation = { __typename?: 'Mutation', updateProperty?: { __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, residentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null };
 
 export type AddResidentialFeatureMutationVariables = Exact<{
   input: ResidentialFeatureInput;
@@ -3430,3 +3605,27 @@ export type AllResidentialFeaturesQueryVariables = Exact<{ [key: string]: never;
 export type AllResidentialFeaturesQuery = { __typename?: 'Query', allResidentialFeatures?: Array<{ __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null } | null> | null };
 
 export type ResidentialFeatureFragment = { __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null };
+
+export type AddTodoMutationVariables = Exact<{
+  input: TodoInput;
+}>;
+
+
+export type AddTodoMutation = { __typename?: 'Mutation', addTodo?: { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null };
+
+export type DeleteTodoMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo?: { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null };
+
+export type TodoFragment = { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null };
+
+export type UpdateTodoMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: TodoInput;
+}>;
+
+
+export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null };

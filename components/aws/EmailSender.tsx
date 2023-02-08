@@ -73,7 +73,7 @@ const EmailSender: React.FC<Props> = ({
         <p>Loading...</p>
       ) : (
         <div onClick={handleSendEmail} className="text-md text-white">
-          <Email className="w-10 h-10 bg-white/30 p-2 rounded-full text-black" />
+          <Email className="w-10 h-10 bg-white/90 p-2 rounded-full text-black" />
         </div>
       )}
       {error && <p>{error.message}</p>}

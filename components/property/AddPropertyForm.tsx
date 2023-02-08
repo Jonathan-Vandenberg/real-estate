@@ -41,7 +41,7 @@ export default function AddPropertyForm({
   const editTitle = add ? "" : property!.title;
   const editOverview = add ? "" : property!.overview;
   const editAddress = add ? "" : property!.address;
-  const editPrice = add ? "" : property!.price;
+  const editPrice = add ? "" : formatMoney(+property!.price);
   const editYearBuilt = add ? "" : property!.yearBuilt;
   const editHeating = add ? "" : property?.heating;
   const editCooling = add ? "" : property?.cooling;
@@ -144,15 +144,17 @@ export default function AddPropertyForm({
         title: title,
         overview: overview,
         address: address,
-        price: price,
+        price: price.replace(/[^0-9.]+/g, ""),
         yearBuilt: yearBuilt,
         heating: heating,
         cooling: cooling,
         parking: parking,
-        lotSize: lotSize,
+        lotSize: lotSize.replace(/[^0-9.]+/g, ""),
         otherInteriorFeatures: otherInteriorFeatures,
         schools: schools,
-        distanceToNearestSchool: distanceToNearestSchool,
+        distanceToNearestSchool:
+          distanceToNearestSchool &&
+          distanceToNearestSchool.replace(/[^0-9.]+/g, ""),
         shopping: shopping,
         nightlife: nightlife,
         forKids: forKids,
@@ -235,6 +237,10 @@ export default function AddPropertyForm({
     }
   });
 
+  function formatMoney(num: number): string {
+    return `R ${num.toLocaleString("en-US").replace(/,/g, ", ")}`;
+  }
+
   return (
     <>
       <form onSubmit={onFinish} className="space-y-1 py-4 w-full mx-auto">
@@ -298,9 +304,7 @@ export default function AddPropertyForm({
 
         {edit && (
           <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
-            <label className="text-black font-bold">
-              Main Image (One Image)
-            </label>
+            <label className="text-black font-bold">Hero Image</label>
             {mainImage ? (
               <div className="pt-6">
                 <ImageGallery
@@ -418,7 +422,7 @@ export default function AddPropertyForm({
         </div>
 
         <div className=" flex items-start space-y-1 justify-center flex-col pt-4 text-md">
-          <label className="text-black font-bold">Lot Size</label>
+          <label className="text-black font-bold">Lot Size in m²</label>
           <input
             id="lotSize"
             value={lotSize as string}
@@ -433,7 +437,7 @@ export default function AddPropertyForm({
           <input
             required
             id="price"
-            value={price as string}
+            value={price}
             placeholder="R 1, 250, 000"
             onChange={(e) => setPrice(e.target.value)}
             className="p-3 rounded-xl w-full bg-off-white"
@@ -634,7 +638,11 @@ export default function AddPropertyForm({
             id="distanceToNearestSchool"
             value={distanceToNearestSchool as string}
             placeholder="10"
-            onChange={(e) => setDistanceToNearestSchool(e.target.value)}
+            onChange={(e) =>
+              setDistanceToNearestSchool(
+                e.target.value.replace(/[^0-9.]+/g, "")
+              )
+            }
             className="p-3 rounded-xl w-full bg-off-white"
           />
         </div>

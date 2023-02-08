@@ -77,7 +77,7 @@ const RemoveFile = ({ url, imageId, removeType, documentId, blogPostId }) => {
     <div>
       <div onClick={() => setShowConfirm(true)}>
         {!showConfirm && (
-          <Delete className="w-10 h-10 bg-white/30 p-2 rounded-full" />
+          <Delete className="w-10 h-10 bg-white/90 p-2 rounded-full" />
         )}
       </div>
       {showConfirm && (
@@ -87,12 +87,12 @@ const RemoveFile = ({ url, imageId, removeType, documentId, blogPostId }) => {
               deleteFile(url, removeType, imageId, documentId, blogPostId),
                 setShowConfirm(false);
             }}
-            className="w-auto bg-white/30 text-sm hover:cursor-pointer rounded-full p-2"
+            className="w-auto bg-white/90 text-sm hover:cursor-pointer rounded-full p-2"
           >
             Delete
           </div>
           <div
-            className="w-auto bg-white/30 text-sm hover:cursor-pointer rounded-full p-2"
+            className="w-auto bg-white/90 text-sm hover:cursor-pointer rounded-full p-2"
             onClick={() => setShowConfirm(false)}
           >
             Cancel

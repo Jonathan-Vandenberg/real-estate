@@ -36,6 +36,7 @@ generates:
         Document: "@prisma/client#Document"
         ResidentialFeature: "@prisma/client#ResidentialFeature"
         CommercialFeature: "@prisma/client#CommercialFeature"
+        Todo: "@prisma/client#Todo"
         # User: "@prisma/client#User"
         # Session: "@prisma/client#Session"
         # Account: "@prisma/client#Account"

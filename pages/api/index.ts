@@ -5,7 +5,7 @@ import { DateScalar, DateTimeScalar, TimeScalar } from "graphql-date-scalars";
 import { NextApiRequest, NextApiResponse } from "next";
 import { join } from "path";
 import prisma from "../../lib/prisma";
-import { Resolvers } from "../../types";
+import { Offer_In_Categories, Resolvers } from "../../types";
 
 export async function createContext(): Promise<GraphQLContext> {
   return { prisma };
@@ -752,6 +752,52 @@ const resolvers: Resolvers = {
           });
           return commercialFeature;
         });
+    },
+    addTodo: async (_, { input }, { prisma }) => {
+      return prisma.todo
+        .create({
+          data: {
+            task: "",
+            completed: false,
+            offerInCategory: input?.offerInCategory,
+            deadline: new Date(),
+            offerInId: input!.offerInId,
+          },
+        })
+        .then((todo) => {
+          prisma.offerIn.update({
+            where: { id: input.offerInId },
+            data: {
+              todos: {
+                connect: { id: todo.id },
+              },
+            },
+          });
+          return todo;
+        });
+    },
+    updateTodo: async (_, { id, input }, { prisma }) => {
+      const updatedTodo = await prisma.todo.update({
+        where: {
+          id: id,
+        },
+        data: {
+          task: input?.task,
+          offerInCategory: input?.offerInCategory,
+          deadline: input?.deadline,
+          offerInId: input!.offerInId,
+          completed: input?.completed,
+        },
+      });
+      return updatedTodo;
+    },
+    deleteTodo: async (_, { id }, { prisma }) => {
+      const deletedTodo = await prisma.todo.delete({
+        where: {
+          id: id,
+        },
+      });
+      return deletedTodo;
     },
     addImage: async (_, { input }, { prisma }) => {
       return prisma.imageProduct

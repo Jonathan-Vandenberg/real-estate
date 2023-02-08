@@ -145,7 +145,7 @@ model Property {
   overview                String
   address                 String
   price                   String
-  yearBuilt               String
+  yearBuilt               String?
   heating                 String?
   cooling                 String?
   parking                 Int
@@ -231,6 +231,17 @@ model AdminMessage {
   electricFenceId      String?             @db.ObjectId
   Alien                Alien?              @relation(fields: [alienId], references: [id])
   alienId              String?             @db.ObjectId
+}
+
+model Todo {
+  id              String               @id @default(auto()) @map("_id") @db.ObjectId
+  task            String?
+  completed       Boolean?
+  deadline        DateTime?
+  offerInCategory Offer_In_Categories?
+
+  OfferIn   OfferIn? @relation(fields: [offerInId], references: [id])
+  offerInId String?  @db.ObjectId
 }
 
 enum Status {
@@ -319,6 +330,7 @@ model OfferIn {
   bankName                      String?
   flag                          Boolean?
   documents                     Document[]
+  todos                         Todo[]
   elecCompCompany               ElecCompCompany?
   intermologist                 Intermologist?
   gasCompliance                 GasCompliance?

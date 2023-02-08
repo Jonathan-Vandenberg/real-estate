@@ -49,6 +49,10 @@ type Mutation {
   deleteImage(id: ID!): ImageProduct
   updateImage(id: ID!, input: ImageProductInput!): ImageProduct
 
+  addTodo(input: TodoInput!): Todo
+  deleteTodo(id: ID!): Todo
+  updateTodo(id: ID!, input: TodoInput!): Todo
+
   addDocument(input: DocumentInput!): Document
   deleteDocument(id: ID!): Document
   updateDocument(id: ID!, input: DocumentInput!): Document
@@ -245,7 +249,7 @@ type Property {
   overview: String!
   address: String!
   price: String!
-  yearBuilt: String!
+  yearBuilt: String
   heating: String
   cooling: String
   parking: Int!
@@ -281,7 +285,7 @@ input PropertyInput {
   overview: String!
   address: String!
   price: String!
-  yearBuilt: String!
+  yearBuilt: String
   heating: String
   cooling: String
   parking: Int!
@@ -441,6 +445,7 @@ type OfferIn {
   dateOfBondApproved: DateTime
   bankName: String
   documents: [Document]
+  todos: [Todo]
   elecCompCompany: ElecCompCompany
   intermologist: Intermologist
   gasCompliance: GasCompliance
@@ -761,4 +766,21 @@ input AdminMessageInput {
   read: Boolean
   urgent: Boolean
   relatingTo: Offer_In_Categories
+}
+
+type Todo {
+  id: ID!
+  offerInId: ID!
+  offerInCategory: Offer_In_Categories
+  task: String
+  completed: Boolean
+  deadline: DateTime
+}
+
+input TodoInput {
+  offerInId: ID!
+  offerInCategory: Offer_In_Categories
+  task: String
+  completed: Boolean
+  deadline: DateTime
 }

@@ -7,6 +7,9 @@ import {
   Document,
   Document_Category,
   OfferIn,
+  Offer_In_Categories,
+  Todo,
+  useAddTodoMutation,
   useAddOfferInMutation,
   useUpdateOfferInMutation,
 } from "../../../types";
@@ -17,6 +20,8 @@ import { Button } from "../../global/Button";
 import Calender from "../../global/Calender";
 import ContainerTitle from "../../global/ContainerTitle";
 import Switch from "../../global/Switch";
+import Todos from "../../todo/Todos";
+import Plus from "../../svgs/Plus";
 
 interface IProps {
   offerIn: OfferIn | undefined | null;
@@ -131,6 +136,8 @@ export default function OfferInForm({
     updateOfferIn,
     { loading: loadingUpdateOfferIn, error: errorUpdateProperty },
   ] = useUpdateOfferInMutation();
+  const [addTodo, { loading: loadingAddTodo, error: errorAddTodo }] =
+    useAddTodoMutation();
 
   //~~~~~~~~~~~~~~~~~~~~~~~~ IDs ~~~~~~~~~~~~~~~~~~~~~~~~//
   useEffect(() => {
@@ -530,14 +537,25 @@ export default function OfferInForm({
     }, 1000);
   };
 
+  const handleAddTodo = (offerInCategory: Offer_In_Categories) => {
+    addTodo({
+      variables: {
+        input: {
+          offerInCategory: offerInCategory,
+          offerInId: offerIn!.id,
+        },
+      },
+    });
+  };
+
   return (
     <form
       onSubmit={onFinish}
-      className="md:space-y-1 py-4 w-full mx-auto bg-white px-6"
+      className="md:space-y-1 py-4 w-full mx-auto bg-white md:px-6 px-3"
     >
       <h2
         id="general"
-        className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+        className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
       >
         Offer In
       </h2>
@@ -596,12 +614,35 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="ECC"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Electrical Compliance Company
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Eleccompcompany)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Eleccompcompany && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Eleccompcompany}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -643,7 +684,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesElecCompCompany"
           value={notesElecCompCompany as string}
@@ -699,12 +745,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="FICA"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           FICA
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -726,7 +773,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesFicaDocs"
           value={notesFicaDocs as string}
@@ -782,12 +834,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Mortgage"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Mortgage Originator
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -819,7 +872,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesMortgageOriginator"
           value={notesMortgageOriginator as string}
@@ -877,12 +935,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Conveyancer"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Conveyancer
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -914,7 +973,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesConveyancer"
           value={notesConveyancer as string}
@@ -970,12 +1034,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="BankInspection"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Bank Inspection
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -987,7 +1052,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesBankInspection"
           value={notesBankInspection as string}
@@ -1043,12 +1113,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="OfferAccepted"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Offer Accepted
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -1087,7 +1158,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesOfferAccepted"
           value={notesOfferAccepted as string}
@@ -1143,12 +1219,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Water"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Water Certificate
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -1160,7 +1237,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesWaterCert"
           value={notesWaterCert as string}
@@ -1216,12 +1298,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Gas"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Gas Compliance
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -1233,7 +1316,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesGasCompliance"
           value={notesGasCompliance as string}
@@ -1301,12 +1389,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="Intermologist"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Entomologist
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -1348,7 +1437,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesIntermologist"
           value={notesIntermologist as string}
@@ -1404,12 +1498,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="ElectricFence"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Electric Fence Certificate
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -1421,7 +1516,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesElectricFence"
           value={notesElectricFence as string}
@@ -1477,12 +1577,13 @@ export default function OfferInForm({
       <ContainerTitle>
         <h2
           id="AlienSpecies"
-          className="scroll-mt-[8rem] text-lg md:text-3xl font-light text-center border-y-4 border-off-white py-4 md:py-12"
+          className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Alien Species Certificate
         </h2>
       </ContainerTitle>
       <div className="pt-6">
+        <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
           recipientEmail={recipientEmail}
           userEmail={userEmail}
@@ -1494,7 +1595,12 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">Notes</label>
+        <label className="flex items-center justify-center space-x-2 text-black font-bold">
+          <p className="whitespace-nowrap">Flag Note</p>
+          <p className="text-xs text-gray font-light">
+            (Click &quot;Flag&quot; Button to notify Management)
+          </p>
+        </label>
         <input
           id="notesAlien"
           value={notesAlien as string}
@@ -1547,7 +1653,6 @@ export default function OfferInForm({
           />
         </label>
       </div>
-      v
       <div className="w-full mx-auto flex items-center justify-center py-10">
         <div className="space-x-3">
           <Button variant="secondary" onClick={onClick} className="text-white">

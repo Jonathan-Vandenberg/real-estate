@@ -22,6 +22,14 @@ fragment OfferIn on OfferIn {
     documentCategory
     url
   }
+  todos {
+    id
+    offerInId
+    offerInCategory
+    task
+    completed
+    deadline
+  }
   message {
     id
     offerInId
