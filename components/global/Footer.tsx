@@ -11,7 +11,7 @@ const footerLinks = [
   {
     title: "Company",
     links: [
-      { title: "About Us", href: "/about" },
+      { title: "About Highway Properties", href: "/about" },
       { title: "News", href: "/blog" },
     ],
   },
