@@ -35,7 +35,7 @@ function Nav() {
           <div className="flex items-center text-md space-x-2 hover:cursor-pointer">
             <p className="md:hidden text-lg tracking-tighter font-light">HP</p>
             <p className="hidden md:block text-lg tracking-widest font-light">
-              Highway Properties
+              HomeProp
             </p>
           </div>
         </Link>

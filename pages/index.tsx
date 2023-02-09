@@ -14,7 +14,7 @@ const Home: NextPage = () => {
         <title>Landmark Properties</title>
         <meta
           name="description"
-          content="Landmark Properties | Making a Mark on the Real Estate Industry 160char"
+          content="HomeProp | Making a Mark on the Real Estate Industry 160char"
         />
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       <main className="bg-[rgb(249,249,249)]">
         <Hero subHeading="Highway Properties" image={headerImage} logo={true}>
           <p>
-            Making a Mark on the <br /> Real Estate Industry
+            Making a Home from a <br /> Property
           </p>
         </Hero>
 
