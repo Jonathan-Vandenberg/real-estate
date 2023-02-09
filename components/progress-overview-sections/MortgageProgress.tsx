@@ -17,7 +17,7 @@ export default function MortgageProgress({ offerIn }: { offerIn: OfferIn }) {
           {offerIn?.mortgageOriginator?.flag ? (
             <>
               {!offerIn?.mortgageOriginator?.completed && (
-                <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2" />
+                <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2 animate-blink" />
               )}
             </>
           ) : (

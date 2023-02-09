@@ -14,7 +14,7 @@ import MortgageIcon from "../../components/svgs/MortgageIcon";
 import OfferAcceptedIcon from "../../components/svgs/OfferAcceptedIcon";
 import WaterIcon from "../../components/svgs/WaterIcon";
 import prisma from "../../lib/prisma";
-import { Document, OfferIn } from "../../types";
+import { Document, OfferIn, Offer_In_Categories } from "../../types";
 import Link from "next/link";
 import ElectricFenceIcon from "../../components/svgs/ElectricFenceIcon";
 
@@ -39,6 +39,92 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
       window.removeEventListener("orientationchange", handleOrientationChange);
     };
   }, []);
+
+  let eccHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.Eleccompcompany
+    );
+  });
+  let eccHasFlag = offerIn?.elecCompCompany?.flag;
+
+  let ficaHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed && todo?.offerInCategory === Offer_In_Categories.Ficadocs
+    );
+  });
+  let ficaHasFlag = offerIn?.ficaDocs?.flag;
+
+  let mortgageHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.Mortgageoriginator
+    );
+  });
+  let mortgageHasFlag = offerIn?.mortgageOriginator?.flag;
+
+  let conveyancerHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.Conveyancer
+    );
+  });
+  let conveyancerHasFlag = offerIn?.conveyancer?.flag;
+
+  let bankValHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.Bankinspection
+    );
+  });
+  let bankValHasFlag = offerIn?.bankInspection?.flag;
+
+  let offerAcceptedHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.Offeraccepted
+    );
+  });
+  let offerAcceptedHasFlag = offerIn?.offerAccepted?.flag;
+
+  let waterHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.Watercert
+    );
+  });
+  let waterHasFlag = offerIn?.waterCert?.flag;
+
+  let gasHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.Gascompliance
+    );
+  });
+  let gasHasFlag = offerIn?.gasCompliance?.flag;
+
+  let entomologistHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.Intermologist
+    );
+  });
+  let entomologistHasFlag = offerIn?.intermologist?.flag;
+
+  let electricFenceHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed &&
+      todo?.offerInCategory === Offer_In_Categories.ElectricFence
+    );
+  });
+  let electricFenceHasFlag = offerIn?.electricFence?.flag;
+
+  let alienHasTodo = offerIn?.todos?.some(function (todo) {
+    return (
+      !todo?.completed && todo?.offerInCategory === Offer_In_Categories.Alien
+    );
+  });
+  let alienHasFlag = offerIn?.alien?.flag;
 
   return (
     <div className="flex">
@@ -73,7 +159,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#ECC"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <ECCIcon className="w-6 h-6" />
+                <div className="relative">
+                  <ECCIcon className="w-6 h-6" />
+                  {eccHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {eccHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
+                </div>
                 <span className="hidden md:block">ECC</span>
               </a>
             </li>
@@ -83,8 +177,14 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#FICA"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <div className="ml-[2px]">
+                <div className="ml-[2px] relative">
                   <FicaIcon />
+                  {ficaHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 -left-[2px]"></div>
+                  )}
+                  {ficaHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 -right-[2px]"></div>
+                  )}
                 </div>
                 <span className="hidden md:block pl-[1px]">FICA</span>
               </a>
@@ -95,7 +195,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#Mortgage"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <MortgageIcon />
+                <div className="relative">
+                  <MortgageIcon />
+                  {mortgageHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {mortgageHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 -right-[1px]"></div>
+                  )}
+                </div>
                 <span className="hidden md:block">Mortgage</span>
               </a>
             </li>
@@ -104,8 +212,14 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 className="flex items-center p-2 space-x-3 rounded-md hover:cursor-pointer"
                 href="#Conveyancer"
               >
-                <div className="-ml-[5px]">
+                <div className="-ml-[5px] relative">
                   <ConveyancerIcon />
+                  {conveyancerHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-[5px]"></div>
+                  )}
+                  {conveyancerHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
                 </div>
                 <span className="hidden md:block">Conveyancer</span>
               </a>
@@ -116,7 +230,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#BankInspection"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <BankInspectionIcon />
+                <div className="relative">
+                  <BankInspectionIcon />
+                  {bankValHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {bankValHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
+                </div>
                 <span className="hidden md:block whitespace-nowrap">
                   Bank Valuation
                 </span>
@@ -128,7 +250,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#OfferAccepted"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <OfferAcceptedIcon />
+                <div className="relative">
+                  <OfferAcceptedIcon />
+                  {offerAcceptedHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {offerAcceptedHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
+                </div>
                 <span className="hidden md:block whitespace-nowrap">
                   Offer Accepted
                 </span>
@@ -140,7 +270,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#Water"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <WaterIcon />
+                <div className="relative">
+                  <WaterIcon />
+                  {waterHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {waterHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
+                </div>
                 <span className="hidden md:block">Water</span>
               </a>
             </li>
@@ -150,7 +288,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#Gas"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <GasIcon />
+                <div className="relative">
+                  <GasIcon />
+                  {gasHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {gasHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
+                </div>
                 <span className="hidden md:block">Gas</span>
               </a>
             </li>
@@ -160,7 +306,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#Intermologist"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <IntermologistIcon />
+                <div className="relative">
+                  <IntermologistIcon />
+                  {entomologistHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {entomologistHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
+                </div>
                 <span className="hidden md:block">Intermologist</span>
               </a>
             </li>
@@ -170,7 +324,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#Intermologist"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <ElectricFenceIcon />
+                <div className="relative">
+                  <ElectricFenceIcon />
+                  {electricFenceHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {electricFenceHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
+                </div>
                 <span className="hidden md:block">Electric Fence</span>
               </a>
             </li>
@@ -180,7 +342,15 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
                 href="#Intermologist"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
-                <IntermologistIcon />
+                <div className="relative">
+                  <IntermologistIcon />
+                  {alienHasTodo && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
+                  )}
+                  {alienHasFlag && (
+                    <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(222,0,0)] animate-blink absolute top-0 right-0"></div>
+                  )}
+                </div>
                 <span className="hidden md:block">Alien Species</span>
               </a>
             </li>

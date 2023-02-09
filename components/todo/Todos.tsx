@@ -59,7 +59,7 @@ export default function Todos({ todo, offerInCategory }: IProps) {
   if (error) return <p>Oops, something went wrong...</p>;
 
   return (
-    <div className="rounded-xl p-2 md:p-5 bg-[rgb(247,247,247)] drop-shadow-md">
+    <div className="rounded-xl p-2 md:p-5 bg-[rgb(251,230,255)] drop-shadow-md">
       <div>
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input

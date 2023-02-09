@@ -15,7 +15,7 @@ export default function FicaProgress({ offerIn }: { offerIn: OfferIn }) {
           {offerIn?.ficaDocs?.flag ? (
             <>
               {!offerIn?.ficaDocs?.completed && (
-                <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2" />
+                <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2  animate-blink" />
               )}
             </>
           ) : (

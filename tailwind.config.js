@@ -131,6 +131,17 @@ module.exports = {
           fill: "rgb(255, 255, 255)",
         },
       },
+      blink: {
+        "0%": {
+          opacity: 1,
+        },
+        "50%": {
+          opacity: 0,
+        },
+        "100%": {
+          opacity: 1,
+        },
+      },
     },
     animation: {
       "fade-in": "fade-in 1000ms var(--animation-delay, 0ms) ease forwards", // "forwards" stops at the end of the animation state
@@ -141,7 +152,8 @@ module.exports = {
         "glow-lines-horizontal var(--animation-duration) ease-in forwards",
       "glow-lines-vertical":
         "glow-lines-vertical var(--animation-duration) ease-in forwards",
-      zap: "zap 2250ms calc(var(--index) * 20ms) ease-in infinite",
+      zap: "zap 1250ms 20ms ease-in-out infinite",
+      blink: "blink 1s ease-in-out infinite",
     },
   },
   plugins: [

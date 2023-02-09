@@ -19,7 +19,7 @@ export default function OfferAcceptedProgress({
           {offerIn?.offerAccepted?.flag ? (
             <>
               {!offerIn?.offerAccepted?.completed && (
-                <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2" />
+                <span className="w-3 h-3 rounded-full bg-[rgb(253,5,5)] block ml-2 animate-blink" />
               )}
             </>
           ) : (

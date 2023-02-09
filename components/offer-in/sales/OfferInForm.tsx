@@ -750,6 +750,28 @@ export default function OfferInForm({
           FICA
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Ficadocs)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Ficadocs && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Ficadocs}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -839,6 +861,29 @@ export default function OfferInForm({
           Mortgage Originator
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Mortgageoriginator)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory ===
+                Offer_In_Categories.Mortgageoriginator && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Mortgageoriginator}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -940,6 +985,28 @@ export default function OfferInForm({
           Conveyancer
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Conveyancer)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Conveyancer && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Conveyancer}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -1039,6 +1106,28 @@ export default function OfferInForm({
           Bank Inspection
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Bankinspection)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Bankinspection && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Bankinspection}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -1118,6 +1207,28 @@ export default function OfferInForm({
           Offer Accepted
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Offeraccepted)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Offeraccepted && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Offeraccepted}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -1224,6 +1335,28 @@ export default function OfferInForm({
           Water Certificate
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Watercert)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Watercert && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Watercert}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -1303,6 +1436,28 @@ export default function OfferInForm({
           Gas Compliance
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Gascompliance)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Gascompliance && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Gascompliance}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -1331,9 +1486,6 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">
-          Gas Compliance Certificate URL
-        </label>
         <input
           id="urlGasCompliance"
           value={gasCompCerUrlGasCompliance as string}
@@ -1394,6 +1546,28 @@ export default function OfferInForm({
           Entomologist
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Intermologist)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Intermologist && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Intermologist}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -1503,6 +1677,28 @@ export default function OfferInForm({
           Electric Fence Certificate
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.ElectricFence)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.ElectricFence && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.ElectricFence}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
@@ -1582,6 +1778,28 @@ export default function OfferInForm({
           Alien Species Certificate
         </h2>
       </ContainerTitle>
+      <ul className="space-y-4">
+        <div
+          onClick={() => handleAddTodo(Offer_In_Categories.Alien)}
+          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
+        >
+          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        </div>
+        {offerIn?.todos
+          ?.map(
+            (todo, i) =>
+              todo?.offerInCategory === Offer_In_Categories.Alien && (
+                <li className="md:p-5" key={i}>
+                  <Todos
+                    todo={todo}
+                    offerInCategory={Offer_In_Categories.Alien}
+                  />
+                </li>
+              )
+          )
+          .slice(0)
+          .reverse()}
+      </ul>
       <div className="pt-6">
         <p className="text-md font-bold pb-1">Documents</p>
         <ImageGallery
