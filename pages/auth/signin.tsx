@@ -60,7 +60,7 @@ const Signup = () => {
             className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md dark:border-gray-400 focus:ring-violet-400"
             onClick={() =>
               signIn("facebook", {
-                callbackUrl: "http://localhost:3000/auth/signin",
+                callbackUrl: "https://www.homeprop.co.za/auth/signin",
               })
             }
           >

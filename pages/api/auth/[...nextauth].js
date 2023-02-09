@@ -49,10 +49,10 @@ export default NextAuth({
       },
     },
   ],
-  // secret: process.env.NEXTAUTH_SECRET,
-  // pages: {
-  //   signIn: "/auth/signin",
-  // },
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/auth/signin",
+  },
   callbacks: {
     signIn: async (user, account, profile) => {
       return {
