@@ -9,9 +9,10 @@ export default function TeamMembers() {
           Our team
         </h1>
         <p className="max-w-2xl text-center text-lg text-dark-gray font-light">
-          At a assumenda quas cum earum ut itaque commodi saepe rem aspernatur
-          quam natus quis nihil quod, hic explicabo doloribus magnam neque,
-          exercitationem eius sunt!
+          Dedicated to understanding your unique needs and providing the support
+          and guidance you need to achieve success in the real estate market.
+          With our personalized approach, we&apos;re committed to helping you
+          succeed every step of the way
         </p>
         <div className="flex flex-row flex-wrap-reverse justify-center">
           <div className="flex flex-col justify-center m-8 text-center">

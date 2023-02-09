@@ -16,7 +16,7 @@ const Home: NextPage = () => {
           name="description"
           content="HomeProp | Making a Mark on the Real Estate Industry 160char"
         />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/Nicole_van_den_Berg.jpeg" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:type" content="website" />
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
         <meta property="og:image:type" content="image/png" />
         <meta
           property="og:image"
-          content="https://www.uptogo.org/fullLogo.png”"
+          content="https://www.homeprop.co.za/Nicole_van_den_Berg.jpeg"
         />
         <meta property="og:image:width" content="600" />
         <meta property="og:image:height" content="600" />
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       <main className="bg-[rgb(249,249,249)]">
         <Hero subHeading="HomeProp" image={headerImage} logo={true}>
           <p>
-            Helping you find your <br />
+            Helping you Find your <br />
             Heaven on Earth.
           </p>
         </Hero>
