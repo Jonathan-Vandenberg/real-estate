@@ -34,9 +34,10 @@ const Home: NextPage = () => {
         <meta property="og:locale" content="en_GB" />
       </Head>
       <main className="bg-[rgb(249,249,249)]">
-        <Hero subHeading="Highway Properties" image={headerImage} logo={true}>
+        <Hero subHeading="HomeProp" image={headerImage} logo={true}>
           <p>
-            Making a Home from a <br /> Property
+            Helping you find your <br />
+            Heaven on Earth.
           </p>
         </Hero>
 
