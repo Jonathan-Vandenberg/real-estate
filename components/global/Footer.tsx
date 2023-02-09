@@ -16,10 +16,10 @@ const footerLinks = [
     ],
   },
   {
-    title: "Resources",
+    title: "Calculators",
     links: [
-      { title: "Bond Calculator", href: "/buyers" },
-      { title: "Price/m² Calculator", href: "/sellers" },
+      { title: "Bond", href: "/buyers" },
+      { title: "Price/m²", href: "/sellers" },
     ],
   },
   {
