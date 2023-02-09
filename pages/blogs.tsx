@@ -1,4 +1,4 @@
-import BlogPageHero from "../components/blog/BlogPageHero";
+import BlogPageHero from "../components/blogger/BlogPageHero";
 import { BlogPost } from "../types";
 import prisma from "../lib/prisma";
 import Head from "next/head";

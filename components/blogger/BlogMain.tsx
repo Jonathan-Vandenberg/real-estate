@@ -1,5 +1,5 @@
 import { BlogPost, ImageBlog } from "../../types";
-import BlogHeader from "./BlogHeader";
+import BlogHeader from "./BlogH";
 import BlogPostMarkup from "./Markup";
 
 interface IFormProps {
