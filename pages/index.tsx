@@ -36,8 +36,8 @@ const Home: NextPage = () => {
       <main className="bg-[rgb(249,249,249)]">
         <Hero subHeading="HomeProp" image={headerImage} logo={true}>
           <p>
-            Helping you Find your <br />
-            Heaven on Earth.
+            Helping You Find Your <br />
+            Heaven on Earth
           </p>
         </Hero>
 

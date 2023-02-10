@@ -130,7 +130,7 @@ export default function PropertyDetails({
           </div>
         </div>
 
-        <div className="p-4 rounded-xl lg:sticky lg:top-[calc(var(--navigation-height)+0.2rem)] bg-[rgb(251,251,251)] drop-shadow-md">
+        <div className="p-4 rounded-xl lg:sticky lg:top-[calc(var(--navigation-height)+0.2rem)] bg-[rgb(255,255,255)] drop-shadow-lg">
           <form className="space-y-4">
             <div>
               <legend className="text-lg font-bold">Listing Status</legend>
@@ -171,7 +171,7 @@ export default function PropertyDetails({
               </div>
             </fieldset>
 
-            <div className="rounded border border-[rgb(215,215,215)] p-4 bg-white">
+            <div className="rounded-lg p-4 bg-[rgb(243,243,243)]">
               <div className="text-sm">
                 <div className="flex flex-col space-y-2">
                   <p>
@@ -181,7 +181,7 @@ export default function PropertyDetails({
                     <strong>Bathrooms:</strong> {property?.bathrooms}
                   </p>
                   <p>
-                    <strong>Lot size:</strong> {property?.lotSize}
+                    <strong>Lot size:</strong> {`${property?.lotSize}m²`}
                   </p>
                 </div>
               </div>
@@ -195,13 +195,12 @@ export default function PropertyDetails({
                     className="flex-col items-center p-2 space-y-2 justify-center w-full"
                   >
                     {a.profileImage && (
-                      <div className="w-full flex items-center justify-center">
+                      <div className="flex items-center justify-center relative w-12 h-12 mx-auto">
                         <Image
                           src={a.profileImage}
-                          width={80}
-                          height={80}
+                          layout="fill"
                           alt={"HomeProp Agent"}
-                          className="w-12 h-12 rounded-full"
+                          className="w-12 h-12 rounded-full object-cover"
                         />
                       </div>
                     )}
@@ -301,17 +300,17 @@ export default function PropertyDetails({
                 <strong>Schools:</strong> {property?.schools}
               </li>
               <li>
-                <strong>Distance to nearest school:</strong>{" "}
-                {property?.distanceToNearestSchool}
+                <strong>Nearest School:</strong>{" "}
+                {`${property?.distanceToNearestSchool}km`}
               </li>
               <li>
-                <strong>NightLifeIcon:</strong> {property?.nightlife}
+                <strong>NightLife:</strong> {property?.nightlife}
               </li>
               <li>
-                <strong>ShoppingIcon:</strong> {property?.shopping}
+                <strong>Shopping:</strong> {property?.shopping}
               </li>
               <li>
-                <strong>Childertainment:</strong> {property?.forKids}
+                <strong>Kids Entertainment:</strong> {property?.forKids}
               </li>
             </ul>
           </div>
