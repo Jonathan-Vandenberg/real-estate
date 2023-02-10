@@ -69,7 +69,7 @@ export default function AdminListings({
         </div>
       )}
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto bg-off-white">
         <div className="hidden md:block">
           {!showAddListing && !showEditListing && (
             <table className="min-w-full text-xs">
@@ -190,7 +190,7 @@ export default function AdminListings({
             </div>
           )}
           {listing && showEditListing && (
-            <div className="px-4">
+            <div className="px-4  max-w-[100rem] w-full mx-auto bg-white rounded-lg drop-shadow-lg mb-3">
               <AddPropertyForm
                 property={listing}
                 image={image}

@@ -17,6 +17,7 @@ import {
 import RemoveImage from "../aws/DeleteImages";
 import Map from "../aws/Map";
 import { Button } from "../global/Button";
+import { formatMoney } from "../../lib/format-money";
 
 export const ImageGallery = ({
   image,
@@ -196,10 +197,10 @@ export default function PropertyDetails({
                     {a.profileImage && (
                       <div className="w-full flex items-center justify-center">
                         <Image
-                          src={a.profileImage || "/profileImagePlaceholder.png"}
+                          src={a.profileImage}
                           width={80}
                           height={80}
-                          alt={"Highway Properties"}
+                          alt={"HomeProp Agent"}
                           className="w-12 h-12 rounded-full"
                         />
                       </div>
@@ -217,7 +218,9 @@ export default function PropertyDetails({
             )}
 
             <div className="flex justify-center">
-              <p className="text-xl font-bold">{property?.price}</p>
+              <p className="text-xl font-bold">
+                {formatMoney(+property?.price)}
+              </p>
             </div>
 
             <div className="flex justify-center">

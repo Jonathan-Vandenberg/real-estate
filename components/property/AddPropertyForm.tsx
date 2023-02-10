@@ -17,6 +17,7 @@ import Switch from "../global/Switch";
 import { ImageGallery } from "../property/PropertyDetails";
 import RadioButtonGroup from "./RadioPropertyType";
 import RadioStatus from "./RadioStatus";
+import { formatMoney } from "../../lib/format-money";
 
 interface IProps {
   property: Property | undefined | null;
@@ -237,13 +238,9 @@ export default function AddPropertyForm({
     }
   });
 
-  function formatMoney(num: number): string {
-    return `R ${num.toLocaleString("en-US").replace(/,/g, ", ")}`;
-  }
-
   return (
     <>
-      <form onSubmit={onFinish} className="space-y-1 py-4 w-full mx-auto">
+      <form onSubmit={onFinish} className="space-y-1 py-4 w-full mx-auto ">
         <div className="pt-4 text-md">
           <p className="text-black font-bold">Property type</p>
           <RadioButtonGroup
@@ -306,7 +303,7 @@ export default function AddPropertyForm({
           <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md">
             <label className="text-black font-bold">Hero Image</label>
             {mainImage ? (
-              <div className="pt-6">
+              <div>
                 <ImageGallery
                   add={add}
                   edit={edit}

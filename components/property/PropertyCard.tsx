@@ -5,6 +5,7 @@ import { Agent, ImageProduct, Image_Category, Property } from "../../types";
 import Furnished from "../svgs/Furnished";
 import { pricePerSquareMeter } from "../util-features/Calculators";
 import SkeletonPropertyCard from "./SkeletonPropertyCard";
+import { formatMoney } from "../../lib/format-money";
 
 interface IProps {
   property: Property[];
@@ -42,7 +43,7 @@ export default function PropertyCard({ property, image, agent }: IProps) {
                                   <Image
                                     layout="fill"
                                     src={img.url}
-                                    alt={"Highway Properties Image"}
+                                    alt={"HomePro Image"}
                                   />
                                 )}
                               </div>
@@ -209,9 +210,8 @@ export default function PropertyCard({ property, image, agent }: IProps) {
                           )
                       )}
                       <div className="flex flex-col justify-center items-end">
-                        <p>Asking Price</p>
                         <p className="inline-block text-lg font-semibold text-primary whitespace-nowrap leading-tight rounded-xl">
-                          {listing!.price}
+                          {formatMoney(+listing!.price)}
                         </p>
                       </div>
                     </div>

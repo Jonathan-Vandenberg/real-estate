@@ -30,7 +30,7 @@ export default function AdminDash({
 
   return (
     <div className="flex bg-white-off-white w-full min-h-[calc(100vh_-_var(--navigation-height))]">
-      <div className="flex flex-col min-h-[calc(100vh_-_var(--navigation-height))] p-3 w-[5rem]  md:w-[20rem] bg-white sticky top-navigation-height border-r-off-white border-r">
+      <div className="flex flex-col max-h-[calc(100vh_-_var(--navigation-height))] p-3 w-[5rem]  md:w-[20rem] bg-white sticky top-navigation-height border-r-off-white border-r">
         <div className="space-y-3">
           <div className="h-auto">
             <ul className="pb-4 space-y-6 md:space-y-1 text-sm flex flex-col items-center justify-center md:items-start">
@@ -157,15 +157,6 @@ export default function AdminDash({
               </li>
             </ul>
           </div>
-        </div>
-        <div className=" flex-col items-start justify-end h-full space-y-1 text-sm shadow-[rgb(230,63,213)] text-[rgb(230,63,213)]  hidden md:flex">
-          <p
-            onClick={() => setFeelGood(!feelGood)}
-            className=" rounded-full border border-2-[rgb(230,63,213)] px-2 mb-1"
-          >
-            FeelGoodCorner
-          </p>
-          {feelGood && <JokeCard />}
         </div>
       </div>
       {listings && <AdminListings property={property} image={image} />}
