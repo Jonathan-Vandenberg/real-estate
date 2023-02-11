@@ -564,7 +564,6 @@ export default function OfferInForm({
         <input
           id="bankName"
           value={bankName as string}
-          placeholder="Absa"
           onChange={(e) => setBankName(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -574,7 +573,6 @@ export default function OfferInForm({
         <input
           id="amount"
           value={amount as string}
-          placeholder=""
           onChange={(e) => setAmount(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -658,7 +656,6 @@ export default function OfferInForm({
         <input
           id="nameElecCompCompany"
           value={nameElecCompCompany as string}
-          placeholder="elecCompCompany Name"
           onChange={(e) => setNameElecCompCompany(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -668,7 +665,6 @@ export default function OfferInForm({
         <input
           id="phoneElecCompCompany"
           value={phoneElecCompCompany as string}
-          placeholder=""
           onChange={(e) => setPhoneElecCompCompany(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -678,7 +674,6 @@ export default function OfferInForm({
         <input
           id="emailElecCompCompany"
           value={emailElecCompCompany as string}
-          placeholder="emailElecCompCompany"
           onChange={(e) => setEmailElecCompCompany(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -693,7 +688,6 @@ export default function OfferInForm({
         <input
           id="notesElecCompCompany"
           value={notesElecCompCompany as string}
-          placeholder=""
           onChange={(e) => setNotesElecCompCompany(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -704,7 +698,6 @@ export default function OfferInForm({
             id="flagElecCompCompany"
             type="checkbox"
             checked={flagElecCompCompany as boolean}
-            placeholder=""
             onChange={(e) => setFlagElecCompCompany(e.target.checked)}
             className="hidden"
           />
@@ -722,7 +715,6 @@ export default function OfferInForm({
             id="completedElecCompCompany"
             type="checkbox"
             checked={completedElecCompCompany as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedElecCompCompany(e.target.checked)}
             className="hidden"
           />
@@ -785,11 +777,10 @@ export default function OfferInForm({
         />
       </div>
       <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <label className="text-black font-bold">address</label>
+        <label className="text-black font-bold">Address</label>
         <input
           id="addressFicaDocs"
           value={addressFicaDocs as string}
-          placeholder="Address"
           onChange={(e) => setAddressFicaDocs(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -804,7 +795,6 @@ export default function OfferInForm({
         <input
           id="notesFicaDocs"
           value={notesFicaDocs as string}
-          placeholder="Notes"
           onChange={(e) => setNotesFicaDocs(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -815,7 +805,6 @@ export default function OfferInForm({
             id="flagFicaDocs"
             type="checkbox"
             checked={flagFicaDocs as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagFicaDocs(e.target.checked)}
             className="hidden"
           />
@@ -833,7 +822,6 @@ export default function OfferInForm({
             id="completedFicaDocs"
             type="checkbox"
             checked={completedFicaDocs as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedFicaDocs(e.target.checked)}
             className="hidden"
           />
@@ -901,7 +889,6 @@ export default function OfferInForm({
         <input
           id="nameMortgageOriginator"
           value={nameMortgageOriginator as string}
-          placeholder="Name"
           onChange={(e) => setNameMortgageOriginator(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -911,7 +898,6 @@ export default function OfferInForm({
         <input
           id="phoneMortgageOriginator"
           value={phoneMortgageOriginator as string}
-          placeholder="Phone"
           onChange={(e) => setPhoneMortgageOriginator(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -926,7 +912,6 @@ export default function OfferInForm({
         <input
           id="notesMortgageOriginator"
           value={notesMortgageOriginator as string}
-          placeholder="Notes"
           onChange={(e) => setNotesMortgageOriginator(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -946,7 +931,6 @@ export default function OfferInForm({
             id="flagMortgageOriginator"
             type="checkbox"
             checked={flagMortgageOriginator as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagMortgageOriginator(e.target.checked)}
             className="hidden"
           />
@@ -964,7 +948,6 @@ export default function OfferInForm({
             id="completedMortgageOriginator"
             type="checkbox"
             checked={completedMortgageOriginator as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedMortgageOriginator(e.target.checked)}
             className="hidden"
           />
@@ -1024,7 +1007,6 @@ export default function OfferInForm({
         <input
           id="nameConveyancer"
           value={nameConveyancer as string}
-          placeholder="Name"
           onChange={(e) => setNameConveyancer(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1034,7 +1016,6 @@ export default function OfferInForm({
         <input
           id="phoneConveyancer"
           value={phoneConveyancer as string}
-          placeholder="Phone"
           onChange={(e) => setPhoneConveyancer(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1049,7 +1030,6 @@ export default function OfferInForm({
         <input
           id="notesConveyancer"
           value={notesConveyancer as string}
-          placeholder="Notes"
           onChange={(e) => setNotesConveyancer(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1067,7 +1047,6 @@ export default function OfferInForm({
             id="flagConveyancer"
             type="checkbox"
             checked={flagConveyancer as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagConveyancer(e.target.checked)}
             className="hidden"
           />
@@ -1085,7 +1064,6 @@ export default function OfferInForm({
             id="completedConveyancer"
             type="checkbox"
             checked={completedConveyancer as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedConveyancer(e.target.checked)}
             className="hidden"
           />
@@ -1150,7 +1128,6 @@ export default function OfferInForm({
         <input
           id="notesBankInspection"
           value={notesBankInspection as string}
-          placeholder="Notes"
           onChange={(e) => setNotesBankInspection(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1168,7 +1145,6 @@ export default function OfferInForm({
             id="flagBankInspection"
             type="checkbox"
             checked={flagBankInspection as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagBankInspection(e.target.checked)}
             className="hidden"
           />
@@ -1186,7 +1162,6 @@ export default function OfferInForm({
             id="completedBankInspection"
             type="checkbox"
             checked={completedBankInspection as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedBankInspection(e.target.checked)}
             className="hidden"
           />
@@ -1246,7 +1221,6 @@ export default function OfferInForm({
           id="withConditionsOfferAccepted"
           type="checkbox"
           checked={withConditionsOfferAccepted as boolean}
-          placeholder="Flag"
           onChange={(e) => setWithConditionsOfferAccepted(e.target.checked)}
           className="hidden"
         />
@@ -1263,7 +1237,6 @@ export default function OfferInForm({
         <input
           id="conditionsOfferAccepted"
           value={conditionsOfferAccepted as string}
-          placeholder="Notes"
           onChange={(e) => setConditionsOfferAccepted(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1278,7 +1251,6 @@ export default function OfferInForm({
         <input
           id="notesOfferAccepted"
           value={notesOfferAccepted as string}
-          placeholder="URL"
           onChange={(e) => setNotesOfferAccepted(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1296,7 +1268,6 @@ export default function OfferInForm({
             id="flagOfferAccepted"
             type="checkbox"
             checked={flagOfferAccepted as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagOfferAccepted(e.target.checked)}
             className="hidden"
           />
@@ -1314,7 +1285,6 @@ export default function OfferInForm({
             id="completedOfferAccepted"
             type="checkbox"
             checked={completedOfferAccepted as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedOfferAccepted(e.target.checked)}
             className="hidden"
           />
@@ -1379,7 +1349,6 @@ export default function OfferInForm({
         <input
           id="notesWaterCert"
           value={notesWaterCert as string}
-          placeholder="Notes"
           onChange={(e) => setNotesWaterCert(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1397,7 +1366,6 @@ export default function OfferInForm({
             id="flagWaterCert"
             type="checkbox"
             checked={flagWaterCert as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagWaterCert(e.target.checked)}
             className="hidden"
           />
@@ -1415,7 +1383,6 @@ export default function OfferInForm({
             id="completedWaterCert"
             type="checkbox"
             checked={completedWaterCert as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedWaterCert(e.target.checked)}
             className="hidden"
           />
@@ -1480,7 +1447,6 @@ export default function OfferInForm({
         <input
           id="notesGasCompliance"
           value={notesGasCompliance as string}
-          placeholder="Notes"
           onChange={(e) => setNotesGasCompliance(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1489,7 +1455,6 @@ export default function OfferInForm({
         <input
           id="urlGasCompliance"
           value={gasCompCerUrlGasCompliance as string}
-          placeholder="Notes"
           onChange={(e) => setGasCompCerUrlGasCompliance(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1507,7 +1472,6 @@ export default function OfferInForm({
             id="flagGasCompliance"
             type="checkbox"
             checked={flagGasCompliance as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagGasCompliance(e.target.checked)}
             className="hidden"
           />
@@ -1525,7 +1489,6 @@ export default function OfferInForm({
             id="completedGasCompliance"
             type="checkbox"
             checked={completedGasCompliance as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedGasCompliance(e.target.checked)}
             className="hidden"
           />
@@ -1585,7 +1548,6 @@ export default function OfferInForm({
         <input
           id="nameIntermologist"
           value={nameIntermologist as string}
-          placeholder="Intermologist Name"
           onChange={(e) => setNameIntermologist(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1595,7 +1557,6 @@ export default function OfferInForm({
         <input
           id="phoneIntermologist"
           value={phoneIntermologist as string}
-          placeholder=""
           onChange={(e) => setPhoneIntermologist(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1605,7 +1566,6 @@ export default function OfferInForm({
         <input
           id="emailIntermologist"
           value={emailIntermologist as string}
-          placeholder="emailIntermologist"
           onChange={(e) => setEmailIntermologist(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1620,7 +1580,6 @@ export default function OfferInForm({
         <input
           id="notesIntermologist"
           value={notesIntermologist as string}
-          placeholder=""
           onChange={(e) => setNotesIntermologist(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1631,7 +1590,6 @@ export default function OfferInForm({
             id="flagIntermologist"
             type="checkbox"
             checked={flagIntermologist as boolean}
-            placeholder=""
             onChange={(e) => setFlagIntermologist(e.target.checked)}
             className="hidden"
           />
@@ -1649,7 +1607,6 @@ export default function OfferInForm({
             id="completedIntermologist"
             type="checkbox"
             checked={completedIntermologist as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedIntermologist(e.target.checked)}
             className="hidden"
           />
@@ -1721,7 +1678,6 @@ export default function OfferInForm({
         <input
           id="notesElectricFence"
           value={notesElectricFence as string}
-          placeholder="Notes"
           onChange={(e) => setNotesElectricFence(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1739,7 +1695,6 @@ export default function OfferInForm({
             id="flagElectricFence"
             type="checkbox"
             checked={flagElectricFence as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagElectricFence(e.target.checked)}
             className="hidden"
           />
@@ -1757,7 +1712,6 @@ export default function OfferInForm({
             id="completedElectricFence"
             type="checkbox"
             checked={completedElectricFence as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedElectricFence(e.target.checked)}
             className="hidden"
           />
@@ -1772,7 +1726,7 @@ export default function OfferInForm({
       </div>
       <ContainerTitle>
         <h2
-          id="AlienSpecies"
+          id="Alien"
           className="scroll-mt-[8rem] text-3xl md:text-3xl font-bold tracking-widest text-center border-y-4 border-off-white py-4 md:py-12"
         >
           Alien Species Certificate
@@ -1822,7 +1776,6 @@ export default function OfferInForm({
         <input
           id="notesAlien"
           value={notesAlien as string}
-          placeholder="Notes"
           onChange={(e) => setNotesAlien(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
@@ -1840,7 +1793,6 @@ export default function OfferInForm({
             id="flagAlien"
             type="checkbox"
             checked={flagAlien as boolean}
-            placeholder="Flag"
             onChange={(e) => setFlagAlien(e.target.checked)}
             className="hidden"
           />
@@ -1858,7 +1810,6 @@ export default function OfferInForm({
             id="completedAlien"
             type="checkbox"
             checked={completedAlien as boolean}
-            placeholder="Completed"
             onChange={(e) => setCompletedAlien(e.target.checked)}
             className="hidden"
           />

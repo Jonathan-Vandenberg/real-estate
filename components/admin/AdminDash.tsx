@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Agent, ImageProduct, Property } from "../../types";
+import { Agent, ImageProduct, OfferIn, Property } from "../../types";
 import JokeCard from "../global/JokeCard";
 import User from "../svgs/User";
 import AdminListings from "./AdminListings";

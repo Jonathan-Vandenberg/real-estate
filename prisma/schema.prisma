@@ -33,6 +33,7 @@ model Agent {
   phoneNumber  String?
   aboutMe      String?
   profileImage String?
+  flag         Boolean?
   properties   Property[]
   roles        ROLES?
 }

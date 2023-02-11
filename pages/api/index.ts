@@ -447,6 +447,109 @@ const resolvers: Resolvers = {
         },
       });
 
+      if (
+        elecCompCompany.flag ||
+        intermologist.flag ||
+        gasCompliance.flag ||
+        waterCert.flag ||
+        offerAccepted.flag ||
+        bankInspection.flag ||
+        conveyancer.flag ||
+        mortgageOriginator.flag ||
+        ficaDocs.flag ||
+        electricFence.flag ||
+        alien.flag
+      ) {
+        await prisma.offerIn.update({
+          where: {
+            propertyId: offerIn.propertyId,
+          },
+          data: {
+            flag: true,
+          },
+        });
+
+        const property = await prisma.property.findUnique({
+          where: {
+            id: input!.propertyId,
+          },
+          include: {
+            agent: {
+              include: {
+                properties: true,
+              },
+            },
+          },
+        });
+
+        if (property) {
+          const agent = await prisma.agent.findUnique({
+            where: {
+              id: property.agentId,
+            },
+            include: {
+              properties: {
+                include: {
+                  offerIn: true,
+                },
+              },
+            },
+          });
+
+          if (agent?.properties.some((prop) => prop.offerIn?.flag)) {
+            await prisma.agent.update({
+              where: {
+                id: agent.id,
+              },
+              data: {
+                flag: true,
+              },
+            });
+          }
+        }
+      } else {
+        await prisma.offerIn.update({
+          where: {
+            propertyId: offerIn.propertyId,
+          },
+          data: {
+            flag: false,
+          },
+        });
+
+        const property = await prisma.property.findUnique({
+          where: {
+            id: input!.propertyId,
+          },
+        });
+
+        if (property) {
+          const agent = await prisma.agent.findUnique({
+            where: {
+              id: property.agentId,
+            },
+            include: {
+              properties: {
+                include: {
+                  offerIn: true,
+                },
+              },
+            },
+          });
+
+          if (agent?.properties.some((prop) => !prop.offerIn?.flag)) {
+            await prisma.agent.update({
+              where: {
+                id: agent.id,
+              },
+              data: {
+                flag: false,
+              },
+            });
+          }
+        }
+      }
+
       return {
         offerIn,
         elecCompCompany,
@@ -468,6 +571,7 @@ const resolvers: Resolvers = {
           userId: input!.userId,
           firstName: input?.firstName,
           lastName: input?.lastName,
+          flag: input?.flag,
           email: input?.email,
           password: input?.password,
           createdAt: input!.createdAt,
@@ -490,6 +594,7 @@ const resolvers: Resolvers = {
           email: input?.email,
           roles: input?.roles,
           updatedAt: input?.updatedAt,
+          flag: input?.flag,
           profileImage: input?.profileImage,
           firstName: input?.firstName,
           lastName: input?.lastName,

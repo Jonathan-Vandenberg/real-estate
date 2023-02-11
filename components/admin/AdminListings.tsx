@@ -9,6 +9,7 @@ import Todo from "../svgs/Todo";
 import OfferInButton from "../offer-in/sales/OfferInButton";
 import { useAppSelector } from "../../redux-hooks/hooks";
 import AdminListingsMobile from "../admin/AdminListingsMobile";
+import { formatMoney } from "../../lib/format-money";
 
 export default function AdminListings({
   property,
@@ -132,7 +133,9 @@ export default function AdminListings({
                           <p>{convertEnum(listing.propertyCategory)}</p>
                         </td>
                         <td className="p-3">
-                          <p className="whitespace-nowrap">{listing.price}</p>
+                          <p className="whitespace-nowrap">{`${formatMoney(
+                            +listing.price
+                          )}`}</p>
                         </td>
                         <td className="p-3">
                           <span

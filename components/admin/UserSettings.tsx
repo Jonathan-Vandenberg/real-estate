@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Agent, Image_Category, useUpdateAgentMutation } from "../../types";
+import {
+  Agent,
+  Image_Category,
+  useUpdateAgentMutation,
+  useUpdatedAgentSubscription,
+} from "../../types";
 import { Button } from "../global/Button";
 import ModalImage from "react-modal-image";
 import { useSession } from "next-auth/react";
 import UploadImage from "../aws/UploadImage";
 import { useAppSelector } from "../../redux-hooks/hooks";
 import RemoveImage from "../aws/DeleteImages";
+import { useSubscription } from "@apollo/client";
 
 export default function AddAgentForm({
   onCancel,
@@ -39,6 +45,14 @@ export default function AddAgentForm({
   }, []);
 
   const [updateAgent, { loading, error }] = useUpdateAgentMutation();
+
+  const {
+    data,
+    loading: loadingSub,
+    error: errorSub,
+  } = useUpdatedAgentSubscription();
+
+  console.log(`Agent Updated: ${data}`);
 
   const { data: session } = useSession();
 

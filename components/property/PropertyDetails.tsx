@@ -12,6 +12,7 @@ import {
   ImageProduct,
   Image_Category,
   Property,
+  Property_Category,
   Status,
 } from "../../types";
 import RemoveImage from "../aws/DeleteImages";
@@ -243,13 +244,15 @@ export default function PropertyDetails({
                 {property?.otherPropertyFeatures}
               </li>
               <li>
-                <strong>Category:</strong>{" "}
+                <strong>Property Type:</strong>{" "}
                 {convertEnum(property?.propertyCategory)}
               </li>
-              <li>
-                <strong>Residential Category</strong>:{" "}
-                {convertResidentialTypes(property?.residentialCategory)}
-              </li>
+              {property?.propertyCategory === Property_Category.Residential && (
+                <li>
+                  <strong>Property Description</strong>:{" "}
+                  {convertResidentialTypes(property?.residentialCategory)}
+                </li>
+              )}
               <li>
                 <strong>Parking: </strong>
                 {property?.parking}

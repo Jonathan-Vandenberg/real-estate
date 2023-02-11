@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Agent, Property } from "../../types";
+import { Agent, OfferIn, Property } from "../../types";
 import AddAgentForm from "./AddStaffForm";
 import AdminUsersDesktop from "./AdminUsersDesktop";
 import AdminUsersMobile from "./AdminUsersMobile";

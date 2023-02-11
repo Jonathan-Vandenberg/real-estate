@@ -10,6 +10,29 @@ interface IProps {
 }
 
 export default function AdminUsersDesktop({ property, agents }: IProps) {
+  function hasFlag(prop: Property) {
+    let hasFlag: boolean;
+
+    if (
+      prop?.offerIn?.ficaDocs?.flag ||
+      prop?.offerIn?.elecCompCompany?.flag ||
+      prop?.offerIn?.intermologist?.flag ||
+      prop?.offerIn?.gasCompliance?.flag ||
+      prop?.offerIn?.waterCert?.flag ||
+      prop?.offerIn?.offerAccepted?.flag ||
+      prop?.offerIn?.bankInspection?.flag ||
+      prop?.offerIn?.conveyancer?.flag ||
+      prop?.offerIn?.mortgageOriginator?.flag ||
+      prop?.offerIn?.electricFence?.flag ||
+      prop?.offerIn?.alien?.flag
+    ) {
+      hasFlag = true;
+    } else {
+      hasFlag = false;
+    }
+    return hasFlag;
+  }
+
   return (
     <div className="hidden md:block w-full mx-auto bg-white">
       <div className="overflow-x-auto">

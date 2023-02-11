@@ -3,6 +3,7 @@
 fragment Agent on Agent {
   id
   userId
+  flag
   roles
   firstName
   lastName

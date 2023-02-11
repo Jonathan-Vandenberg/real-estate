@@ -17,6 +17,7 @@ import prisma from "../../lib/prisma";
 import { Document, OfferIn, Offer_In_Categories } from "../../types";
 import Link from "next/link";
 import ElectricFenceIcon from "../../components/svgs/ElectricFenceIcon";
+import AlienSpeciesIcon from "../../components/svgs/AlienSpeciesIcon";
 
 interface IOfferIn {
   offerIn: OfferIn;
@@ -321,7 +322,7 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
             <li className="rounded-lg hover:bg-off-white w-full">
               <a
                 rel="noopener noreferrer"
-                href="#Intermologist"
+                href="#ElectricFence"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
                 <div className="relative">
@@ -339,11 +340,11 @@ export default function Blog({ offerIn, documents }: IOfferIn) {
             <li className="rounded-lg hover:bg-off-white w-full">
               <a
                 rel="noopener noreferrer"
-                href="#Intermologist"
+                href="#Alien"
                 className="flex items-center p-2 space-x-3 rounded-md "
               >
                 <div className="relative">
-                  <IntermologistIcon />
+                  <AlienSpeciesIcon className="w-6 h-6" />
                   {alienHasTodo && (
                     <div className="w-[0.6rem] h-[0.6rem] rounded-full bg-[rgb(255,142,66)] absolute top-0 left-0"></div>
                   )}
