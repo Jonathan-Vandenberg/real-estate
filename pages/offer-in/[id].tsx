@@ -424,7 +424,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       documents,
       offerIn: datyfiedOfferIn,
-      revalidate: 60,
     },
+    revalidate: 10,
   };
 };

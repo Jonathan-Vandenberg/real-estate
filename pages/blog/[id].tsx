@@ -98,7 +98,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       blogPost,
       imageBlog,
-      revalidate: 60,
     },
+    revalidate: 10,
   };
 };

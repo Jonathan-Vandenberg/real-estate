@@ -60,5 +60,6 @@ export async function getStaticProps() {
       image,
       agent,
     },
+    revalidate: 10,
   };
 }
