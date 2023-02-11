@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import ApolloLinkTimeout from "apollo-link-timeout";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const protocol = `${
   process.env.NODE_ENV === "development" ? "http" : "https"
@@ -14,19 +13,11 @@ const host =
 
 export const origin = `${protocol}${host}`;
 
-const timeoutLink = new ApolloLinkTimeout(60000); // 60 second timeout
-
-const httpLink = new HttpLink({
-  uri: `${origin}/api`,
-});
-
-const timeoutHttpLink = timeoutLink.concat(httpLink);
-
 export const useClient = () => {
   const client = useMemo(
     () =>
       new ApolloClient({
-        link: timeoutHttpLink,
+        uri: `${origin}/api`,
         cache: new InMemoryCache(),
       }),
     []
