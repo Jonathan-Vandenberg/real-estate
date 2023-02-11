@@ -469,44 +469,44 @@ const resolvers: Resolvers = {
           },
         });
 
-        const property = await prisma.property.findUnique({
-          where: {
-            id: input!.propertyId,
-          },
-          include: {
-            agent: {
-              include: {
-                properties: true,
-              },
-            },
-          },
-        });
+        // const property = await prisma.property.findUnique({
+        //   where: {
+        //     id: input!.propertyId,
+        //   },
+        //   include: {
+        //     agent: {
+        //       include: {
+        //         properties: true,
+        //       },
+        //     },
+        //   },
+        // });
 
-        if (property) {
-          const agent = await prisma.agent.findUnique({
-            where: {
-              id: property.agentId,
-            },
-            include: {
-              properties: {
-                include: {
-                  offerIn: true,
-                },
-              },
-            },
-          });
+        // if (property) {
+        //   const agent = await prisma.agent.findUnique({
+        //     where: {
+        //       id: property.agentId,
+        //     },
+        //     include: {
+        //       properties: {
+        //         include: {
+        //           offerIn: true,
+        //         },
+        //       },
+        //     },
+        //   });
 
-          if (agent?.properties.some((prop) => prop.offerIn?.flag)) {
-            await prisma.agent.update({
-              where: {
-                id: agent.id,
-              },
-              data: {
-                flag: true,
-              },
-            });
-          }
-        }
+        //   if (agent?.properties.some((prop) => prop.offerIn?.flag)) {
+        //     await prisma.agent.update({
+        //       where: {
+        //         id: agent.id,
+        //       },
+        //       data: {
+        //         flag: true,
+        //       },
+        //     });
+        //   }
+        // }
       } else {
         await prisma.offerIn.update({
           where: {
@@ -517,37 +517,37 @@ const resolvers: Resolvers = {
           },
         });
 
-        const property = await prisma.property.findUnique({
-          where: {
-            id: input!.propertyId,
-          },
-        });
+        // const property = await prisma.property.findUnique({
+        //   where: {
+        //     id: input!.propertyId,
+        //   },
+        // });
 
-        if (property) {
-          const agent = await prisma.agent.findUnique({
-            where: {
-              id: property.agentId,
-            },
-            include: {
-              properties: {
-                include: {
-                  offerIn: true,
-                },
-              },
-            },
-          });
+        // if (property) {
+        //   const agent = await prisma.agent.findUnique({
+        //     where: {
+        //       id: property.agentId,
+        //     },
+        //     include: {
+        //       properties: {
+        //         include: {
+        //           offerIn: true,
+        //         },
+        //       },
+        //     },
+        //   });
 
-          if (agent?.properties.some((prop) => !prop.offerIn?.flag)) {
-            await prisma.agent.update({
-              where: {
-                id: agent.id,
-              },
-              data: {
-                flag: false,
-              },
-            });
-          }
-        }
+        //   if (agent?.properties.some((prop) => !prop.offerIn?.flag)) {
+        //     await prisma.agent.update({
+        //       where: {
+        //         id: agent.id,
+        //       },
+        //       data: {
+        //         flag: false,
+        //       },
+        //     });
+        //   }
+        // }
       }
 
       return {
