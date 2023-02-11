@@ -14,7 +14,7 @@ const host =
 
 export const origin = `${protocol}${host}`;
 
-const timeoutLink = new ApolloLinkTimeout(60000); // 10 second timeout
+const timeoutLink = new ApolloLinkTimeout(60000); // 60 second timeout
 
 const httpLink = new HttpLink({
   uri: `${origin}/api`,

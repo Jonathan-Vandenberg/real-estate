@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       image,
       property,
       agent,
-      revalidate: 60,
     },
+    revalidate: 10,
   };
 };
