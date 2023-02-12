@@ -302,16 +302,16 @@ const resolvers: Resolvers = {
               flag: input?.bankInspection?.flag,
             },
           },
-          conveyancer: {
-            update: {
-              name: input?.conveyancer?.name,
-              phone: input?.conveyancer?.phone,
-              notes: input?.conveyancer?.notes,
-              completed: input?.conveyancer?.completed,
-              deadline: input?.conveyancer?.deadline,
-              flag: input?.conveyancer?.flag,
-            },
-          },
+          // conveyancer: {
+          //   update: {
+          //     name: input?.conveyancer?.name,
+          //     phone: input?.conveyancer?.phone,
+          //     notes: input?.conveyancer?.notes,
+          //     completed: input?.conveyancer?.completed,
+          //     deadline: input?.conveyancer?.deadline,
+          //     flag: input?.conveyancer?.flag,
+          //   },
+          // },
           // mortgageOriginator: {
           //   update: {
           //     phone: input?.mortgageOriginator?.phone,
@@ -355,7 +355,7 @@ const resolvers: Resolvers = {
           waterCert: true,
           offerAccepted: true,
           bankInspection: true,
-          conveyancer: true,
+          // conveyancer: true,
           // mortgageOriginator: true,
           // ficaDocs: true,
           // electricFence: true,
