@@ -348,6 +348,19 @@ const resolvers: Resolvers = {
             },
           },
         },
+        include: {
+          elecCompCompany: true,
+          intermologist: true,
+          gasCompliance: true,
+          waterCert: true,
+          offerAccepted: true,
+          bankInspection: true,
+          conveyancer: true,
+          mortgageOriginator: true,
+          ficaDocs: true,
+          electricFence: true,
+          alien: true,
+        },
       });
 
       // if (
