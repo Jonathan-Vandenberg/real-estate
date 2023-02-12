@@ -879,9 +879,6 @@ const server = createServer<{ req: NextApiRequest; res: NextApiResponse }>({
     resolvers,
   },
   context: createContext(),
-  cors: {
-    maxAge: 600,
-  },
 });
 
 export default server;
