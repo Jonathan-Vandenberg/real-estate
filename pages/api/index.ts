@@ -276,14 +276,14 @@ const resolvers: Resolvers = {
               flag: input?.gasCompliance?.flag,
             },
           },
-          // waterCert: {
-          //   update: {
-          //     notes: input?.waterCert?.notes,
-          //     completed: input?.waterCert?.completed,
-          //     deadline: input?.waterCert?.deadline,
-          //     flag: input?.waterCert?.flag,
-          //   },
-          // },
+          waterCert: {
+            update: {
+              notes: input?.waterCert?.notes,
+              completed: input?.waterCert?.completed,
+              deadline: input?.waterCert?.deadline,
+              flag: input?.waterCert?.flag,
+            },
+          },
           // offerAccepted: {
           //   update: {
           //     withConditions: input?.offerAccepted?.withConditions,
@@ -352,7 +352,7 @@ const resolvers: Resolvers = {
           elecCompCompany: true,
           intermologist: true,
           gasCompliance: true,
-          // waterCert: true,
+          waterCert: true,
           // offerAccepted: true,
           // bankInspection: true,
           // conveyancer: true,
