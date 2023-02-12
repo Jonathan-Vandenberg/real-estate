@@ -12,6 +12,7 @@ import MortgageProgress from "../../progress-overview-sections/MortgageProgress"
 import OfferAcceptedProgress from "../../progress-overview-sections/OfferAcceptedProgress";
 import WaterCertificateProgress from "../../progress-overview-sections/WaterCertificateProgress";
 import Edit from "../../svgs/Edit";
+import { formatMoney } from "../../../lib/format-money";
 
 export default function OfferInDetails({
   offerIn,
@@ -48,7 +49,11 @@ export default function OfferInDetails({
           <div className="bg-[rgb(211,241,250)] py-1 font-semibold pl-2">
             Amount
           </div>
-          <div className="pl-2 py-1 bg-white">{offerIn?.amount}</div>
+          {offerIn?.amount && (
+            <div className="pl-2 py-1 bg-white">
+              {formatMoney(+offerIn?.amount)}
+            </div>
+          )}
         </div>
 
         <div className="border border-off-white">

@@ -63,7 +63,7 @@ type Mutation {
 
   addOfferIn(input: OfferInInput!): OfferIn
 
-  updateOfferIn(input: OfferInInput!): UpdateOfferInResponse
+  updateOfferIn(input: OfferInInput!): OfferIn
 }
 
 type Subscription {

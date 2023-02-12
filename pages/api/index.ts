@@ -84,94 +84,6 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     addOfferIn: async (_, { input }, { prisma }) => {
-      const elecCompCompany = await prisma.elecCompCompany.create({
-        data: {
-          id: input!.elecCompCompanyId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const intermologist = await prisma.intermologist.create({
-        data: {
-          id: input!.intermologistId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const gasCompliance = await prisma.gasCompliance.create({
-        data: {
-          id: input!.gasComplianceId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const waterCert = await prisma.waterCert.create({
-        data: {
-          id: input!.waterCertId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const offerAccepted = await prisma.offerAccepted.create({
-        data: {
-          id: input!.offerAcceptedId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const bankInspection = await prisma.bankInspection.create({
-        data: {
-          id: input!.bankInspectionId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const conveyancer = await prisma.conveyancer.create({
-        data: {
-          id: input!.conveyancerId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const mortgageOriginator = await prisma.mortgageOriginator.create({
-        data: {
-          id: input!.mortgageOriginatorId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const ficaDocs = await prisma.ficaDocs.create({
-        data: {
-          id: input!.ficaDocsId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const electricFence = await prisma.electricFence.create({
-        data: {
-          id: input!.electricFenceId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
-      const alien = await prisma.alien.create({
-        data: {
-          id: input!.alienId,
-          offerInId: input!.id,
-          deadline: new Date(),
-        },
-      });
-
       const offerIn = await prisma.offerIn.create({
         data: {
           id: input!.id,
@@ -195,58 +107,115 @@ const resolvers: Resolvers = {
           electricFenceId: input?.electricFenceId,
           alienId: input?.alienId,
           elecCompCompany: {
-            connect: {
-              id: elecCompCompany.id,
+            create: {
+              id: input?.elecCompCompanyId,
+              flag: input?.elecCompCompany?.flag,
+              name: input?.elecCompCompany?.name,
+              phone: input?.elecCompCompany?.phone,
+              email: input?.elecCompCompany?.email,
+              notes: input?.elecCompCompany?.notes,
+              completed: input?.elecCompCompany?.completed,
+              deadline: new Date(),
             },
           },
           intermologist: {
-            connect: {
-              id: intermologist.id,
+            create: {
+              id: input?.intermologistId,
+              name: input?.intermologist?.name,
+              phone: input?.intermologist?.phone,
+              email: input?.intermologist?.email,
+              notes: input?.intermologist?.notes,
+              completed: input?.intermologist?.completed,
+              deadline: new Date(),
+              flag: input?.intermologist?.flag,
             },
           },
           gasCompliance: {
-            connect: {
-              id: gasCompliance.id,
+            create: {
+              id: input?.gasComplianceId,
+              notes: input?.gasCompliance?.notes,
+              completed: input?.gasCompliance?.completed,
+              deadline: new Date(),
+              flag: input?.gasCompliance?.flag,
             },
           },
           waterCert: {
-            connect: {
-              id: waterCert.id,
+            create: {
+              id: input?.waterCertId,
+              notes: input?.waterCert?.notes,
+              completed: input?.waterCert?.completed,
+              deadline: new Date(),
+              flag: input?.waterCert?.flag,
             },
           },
           offerAccepted: {
-            connect: {
-              id: offerAccepted.id,
+            create: {
+              id: input?.offerAcceptedId,
+              withConditions: input?.offerAccepted?.withConditions,
+              conditions: input?.offerAccepted?.conditions,
+              notes: input?.offerAccepted?.notes,
+              completed: input?.offerAccepted?.completed,
+              deadline: new Date(),
+              flag: input?.offerAccepted?.flag,
             },
           },
           bankInspection: {
-            connect: {
-              id: bankInspection.id,
+            create: {
+              id: input?.bankInspectionId,
+              notes: input?.bankInspection?.notes,
+              completed: input?.bankInspection?.completed,
+              deadline: new Date(),
+              flag: input?.bankInspection?.flag,
             },
           },
           conveyancer: {
-            connect: {
-              id: conveyancer.id,
+            create: {
+              id: input?.conveyancerId,
+              name: input?.conveyancer?.name,
+              phone: input?.conveyancer?.phone,
+              notes: input?.conveyancer?.notes,
+              completed: input?.conveyancer?.completed,
+              deadline: new Date(),
+              flag: input?.conveyancer?.flag,
             },
           },
           mortgageOriginator: {
-            connect: {
-              id: mortgageOriginator.id,
+            create: {
+              id: input?.mortgageOriginatorId,
+              phone: input?.mortgageOriginator?.phone,
+              name: input?.mortgageOriginator?.name,
+              notes: input?.mortgageOriginator?.notes,
+              completed: input?.mortgageOriginator?.completed,
+              deadline: new Date(),
+              flag: input?.mortgageOriginator?.flag,
             },
           },
           ficaDocs: {
-            connect: {
-              id: ficaDocs.id,
+            create: {
+              id: input?.ficaDocsId,
+              address: input?.ficaDocs?.address,
+              notes: input?.ficaDocs?.notes,
+              completed: input?.ficaDocs?.completed,
+              deadline: new Date(),
+              flag: input?.ficaDocs?.flag,
             },
           },
           electricFence: {
-            connect: {
-              id: electricFence.id,
+            create: {
+              id: input?.electricFenceId,
+              notes: input?.electricFence?.notes,
+              completed: input?.electricFence?.completed,
+              deadline: new Date(),
+              flag: input?.electricFence?.flag,
             },
           },
           alien: {
-            connect: {
-              id: alien.id,
+            create: {
+              id: input?.alienId,
+              notes: input?.alien?.notes,
+              completed: input?.alien?.completed,
+              deadline: new Date(),
+              flag: input?.alien?.flag,
             },
           },
         },
@@ -277,173 +246,107 @@ const resolvers: Resolvers = {
           dateOfBondApprovalInPrincipal: input?.dateOfBondApprovalInPrincipal,
           dateOfBondApproved: input?.dateOfBondApproved,
           bankName: input?.bankName,
-          elecCompCompanyId: input!.elecCompCompanyId,
-          intermologistId: input!.intermologistId,
-          gasComplianceId: input!.gasComplianceId,
-          waterCertId: input!.waterCertId,
-          offerAcceptedId: input!.offerAcceptedId,
-          bankInspectionId: input!.bankInspectionId,
-          conveyancerId: input!.conveyancerId,
-          mortgageOriginatorId: input!.mortgageOriginatorId,
-          ficaDocsId: input!.ficaDocsId,
-          electricFenceId: input!.electricFenceId,
-          alienId: input!.alienId,
-        },
-      });
-
-      const elecCompCompany = await prisma.elecCompCompany.update({
-        where: {
-          id: input!.elecCompCompanyId,
-        },
-        data: {
-          offerInId: input!.id,
-          name: input?.elecCompCompany?.name,
-          phone: input?.elecCompCompany?.phone,
-          email: input?.elecCompCompany?.email,
-          notes: input?.elecCompCompany?.notes,
-          completed: input?.elecCompCompany?.completed,
-          deadline: input?.elecCompCompany?.deadline,
-          flag: input?.elecCompCompany?.flag,
-        },
-      });
-
-      const intermologist = await prisma.intermologist.update({
-        where: {
-          id: input!.intermologistId,
-        },
-        data: {
-          offerInId: input!.id,
-          name: input?.intermologist?.name,
-          phone: input?.intermologist?.phone,
-          email: input?.intermologist?.email,
-          notes: input?.intermologist?.notes,
-          completed: input?.intermologist?.completed,
-          deadline: input?.intermologist?.deadline,
-          flag: input?.intermologist?.flag,
-        },
-      });
-
-      const gasCompliance = await prisma.gasCompliance.update({
-        where: {
-          id: input!.gasComplianceId,
-        },
-        data: {
-          offerInId: input!.id,
-          notes: input?.gasCompliance?.notes,
-          completed: input?.gasCompliance?.completed,
-          deadline: input?.gasCompliance?.deadline,
-          flag: input?.gasCompliance?.flag,
-        },
-      });
-
-      const waterCert = await prisma.waterCert.update({
-        where: {
-          id: input?.waterCertId,
-        },
-        data: {
-          offerInId: input?.id,
-          notes: input?.waterCert?.notes,
-          completed: input?.waterCert?.completed,
-          deadline: input?.waterCert?.deadline,
-          flag: input?.waterCert?.flag,
-        },
-      });
-
-      const offerAccepted = await prisma.offerAccepted.update({
-        where: {
-          id: input!.offerAcceptedId,
-        },
-        data: {
-          offerInId: input?.id,
-          withConditions: input?.offerAccepted?.withConditions,
-          conditions: input?.offerAccepted?.conditions,
-          notes: input?.offerAccepted?.notes,
-          completed: input?.offerAccepted?.completed,
-          deadline: input?.offerAccepted?.deadline,
-          flag: input?.offerAccepted?.flag,
-        },
-      });
-
-      const bankInspection = await prisma.bankInspection.update({
-        where: {
-          id: input!.bankInspectionId,
-        },
-        data: {
-          offerInId: input?.id,
-          notes: input?.bankInspection?.notes,
-          completed: input?.bankInspection?.completed,
-          deadline: input?.bankInspection?.deadline,
-          flag: input?.bankInspection?.flag,
-        },
-      });
-
-      const conveyancer = await prisma.conveyancer.update({
-        where: {
-          id: input!.conveyancerId,
-        },
-        data: {
-          offerInId: input?.id,
-          name: input?.conveyancer?.name,
-          phone: input?.conveyancer?.phone,
-          notes: input?.conveyancer?.notes,
-          completed: input?.conveyancer?.completed,
-          deadline: input?.conveyancer?.deadline,
-          flag: input?.conveyancer?.flag,
-        },
-      });
-
-      const mortgageOriginator = await prisma.mortgageOriginator.update({
-        where: {
-          id: input!.mortgageOriginatorId,
-        },
-        data: {
-          offerInId: input?.id,
-          phone: input?.mortgageOriginator?.phone,
-          name: input?.mortgageOriginator?.name,
-          notes: input?.mortgageOriginator?.notes,
-          completed: input?.mortgageOriginator?.completed,
-          deadline: input?.mortgageOriginator?.deadline,
-          flag: input?.mortgageOriginator?.flag,
-        },
-      });
-
-      const ficaDocs = await prisma.ficaDocs.update({
-        where: {
-          id: input!.ficaDocsId,
-        },
-        data: {
-          offerInId: input?.id,
-          address: input?.ficaDocs?.address,
-          notes: input?.ficaDocs?.notes,
-          completed: input?.ficaDocs?.completed,
-          deadline: input?.ficaDocs?.deadline,
-          flag: input?.ficaDocs?.flag,
-        },
-      });
-
-      const electricFence = await prisma.electricFence.update({
-        where: {
-          id: input!.electricFenceId,
-        },
-        data: {
-          offerInId: input?.id,
-          notes: input?.electricFence?.notes,
-          completed: input?.electricFence?.completed,
-          deadline: input?.electricFence?.deadline,
-          flag: input?.electricFence?.flag,
-        },
-      });
-
-      const alien = await prisma.alien.update({
-        where: {
-          id: input!.alienId,
-        },
-        data: {
-          offerInId: input?.id,
-          notes: input?.alien?.notes,
-          completed: input?.alien?.completed,
-          deadline: input?.alien?.deadline,
-          flag: input?.alien?.flag,
+          elecCompCompany: {
+            update: {
+              flag: input?.elecCompCompany?.flag,
+              name: input?.elecCompCompany?.name,
+              phone: input?.elecCompCompany?.phone,
+              email: input?.elecCompCompany?.email,
+              notes: input?.elecCompCompany?.notes,
+              completed: input?.elecCompCompany?.completed,
+              deadline: input?.elecCompCompany?.deadline,
+            },
+          },
+          intermologist: {
+            update: {
+              name: input?.intermologist?.name,
+              phone: input?.intermologist?.phone,
+              email: input?.intermologist?.email,
+              notes: input?.intermologist?.notes,
+              completed: input?.intermologist?.completed,
+              deadline: input?.intermologist?.deadline,
+              flag: input?.intermologist?.flag,
+            },
+          },
+          gasCompliance: {
+            update: {
+              notes: input?.gasCompliance?.notes,
+              completed: input?.gasCompliance?.completed,
+              deadline: input?.gasCompliance?.deadline,
+              flag: input?.gasCompliance?.flag,
+            },
+          },
+          waterCert: {
+            update: {
+              notes: input?.waterCert?.notes,
+              completed: input?.waterCert?.completed,
+              deadline: input?.waterCert?.deadline,
+              flag: input?.waterCert?.flag,
+            },
+          },
+          offerAccepted: {
+            update: {
+              withConditions: input?.offerAccepted?.withConditions,
+              conditions: input?.offerAccepted?.conditions,
+              notes: input?.offerAccepted?.notes,
+              completed: input?.offerAccepted?.completed,
+              deadline: input?.offerAccepted?.deadline,
+              flag: input?.offerAccepted?.flag,
+            },
+          },
+          bankInspection: {
+            update: {
+              notes: input?.bankInspection?.notes,
+              completed: input?.bankInspection?.completed,
+              deadline: input?.bankInspection?.deadline,
+              flag: input?.bankInspection?.flag,
+            },
+          },
+          conveyancer: {
+            update: {
+              name: input?.conveyancer?.name,
+              phone: input?.conveyancer?.phone,
+              notes: input?.conveyancer?.notes,
+              completed: input?.conveyancer?.completed,
+              deadline: input?.conveyancer?.deadline,
+              flag: input?.conveyancer?.flag,
+            },
+          },
+          mortgageOriginator: {
+            update: {
+              phone: input?.mortgageOriginator?.phone,
+              name: input?.mortgageOriginator?.name,
+              notes: input?.mortgageOriginator?.notes,
+              completed: input?.mortgageOriginator?.completed,
+              deadline: input?.mortgageOriginator?.deadline,
+              flag: input?.mortgageOriginator?.flag,
+            },
+          },
+          ficaDocs: {
+            update: {
+              address: input?.ficaDocs?.address,
+              notes: input?.ficaDocs?.notes,
+              completed: input?.ficaDocs?.completed,
+              deadline: input?.ficaDocs?.deadline,
+              flag: input?.ficaDocs?.flag,
+            },
+          },
+          electricFence: {
+            update: {
+              notes: input?.electricFence?.notes,
+              completed: input?.electricFence?.completed,
+              deadline: input?.electricFence?.deadline,
+              flag: input?.electricFence?.flag,
+            },
+          },
+          alien: {
+            update: {
+              notes: input?.alien?.notes,
+              completed: input?.alien?.completed,
+              deadline: input?.alien?.deadline,
+              flag: input?.alien?.flag,
+            },
+          },
         },
       });
 
@@ -550,20 +453,7 @@ const resolvers: Resolvers = {
       // }
       // }
 
-      return {
-        offerIn,
-        elecCompCompany,
-        intermologist,
-        gasCompliance,
-        waterCert,
-        offerAccepted,
-        bankInspection,
-        conveyancer,
-        mortgageOriginator,
-        ficaDocs,
-        electricFence,
-        alien,
-      };
+      return offerIn;
     },
     addAgent: async (_, { input }, { prisma }) => {
       const agent = await prisma.agent.create({

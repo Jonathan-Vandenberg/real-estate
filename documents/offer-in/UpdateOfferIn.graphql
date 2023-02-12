@@ -1,7 +1,7 @@
-# import UpdateOfferInResponse from './UpdateOfferInResponseFragment.graphql'
+# import OfferIn from './OfferInFragment.graphql'
 
 mutation UpdateOfferIn($input: OfferInInput!) {
   updateOfferIn(input: $input) {
-    ...UpdateOfferInResponse
+    ...OfferIn
   }
 }
