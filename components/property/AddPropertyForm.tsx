@@ -312,7 +312,6 @@ export default function AddPropertyForm({
                   image={image}
                   property={property}
                   category={Image_Category.Main}
-                  documentId={""}
                   removeType={"image"}
                 />
               </div>
@@ -365,7 +364,6 @@ export default function AddPropertyForm({
                 image={image}
                 property={property}
                 category={Image_Category.Property}
-                documentId={""}
                 removeType={"image"}
               />
             </div>

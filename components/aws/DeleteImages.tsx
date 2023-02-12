@@ -9,9 +9,12 @@ import {
 } from "../../types";
 import Delete from "../svgs/Delete";
 
-const RemoveFile = ({ url, imageId, removeType, documentId, blogPostId }) => {
+const RemoveFile = ({ url, imageId, removeType, blogPostId }) => {
   const [deleteSingleImage] = useDeleteImageMutation();
-  const [deleteSingleDocument] = useDeleteDocumentMutation();
+  const [
+    deleteSingleDocument,
+    { loading: loadingDeleteDocument, error: errorDeleteDocument },
+  ] = useDeleteDocumentMutation();
   const [deleteSingleImageBlog] = useDeleteImageBlogMutation();
   const [updateAgent] = useUpdateAgentMutation();
   const [showConfirm, setShowConfirm] = useState(false);
@@ -23,14 +26,14 @@ const RemoveFile = ({ url, imageId, removeType, documentId, blogPostId }) => {
     url: string,
     removeType: "image" | "document" | "profile-image" | "image-blog",
     imageId: string,
-    blogPostId: string,
-    documentId: string
+    blogPostId: string
   ) => {
     const s3 = new S3({
       accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
       region: "ap-southeast-1",
     });
+
     // parse the url to extract the image's key from it
     const imageKey = url?.split(
       `https://landmark-real-eastate.s3.ap-southeast-1.amazonaws.com/`
@@ -42,7 +45,7 @@ const RemoveFile = ({ url, imageId, removeType, documentId, blogPostId }) => {
         .promise();
       console.log("Image deleted from S3 successfully");
 
-      // call the deleteImage mutation to remove the image's name from the MongoDB database
+      // call the delete mutation to remove the document from the MongoDB database by ID
       if (removeType === "image") {
         await deleteSingleImage({ variables: { id: imageId } });
         console.log("Image deleted from MongoDB successfully");
@@ -53,7 +56,7 @@ const RemoveFile = ({ url, imageId, removeType, documentId, blogPostId }) => {
       }
       if (removeType === "document") {
         await deleteSingleDocument({
-          variables: { id: documentId },
+          variables: { id: imageId },
         });
         console.log("Image deleted from MongoDB successfully");
       }
@@ -84,7 +87,7 @@ const RemoveFile = ({ url, imageId, removeType, documentId, blogPostId }) => {
         <div className="space-x-4 flex items-center justify-between space">
           <div
             onClick={() => {
-              deleteFile(url, removeType, imageId, documentId, blogPostId),
+              deleteFile(url, removeType, imageId, blogPostId),
                 setShowConfirm(false);
             }}
             className="w-auto bg-white/90 text-sm hover:cursor-pointer rounded-full p-2"

@@ -29,7 +29,6 @@ export const ImageGallery = ({
   property,
   category,
   removeType,
-  documentId,
 }: {
   image: ImageProduct[] | undefined | null;
   showNoImage: boolean;
@@ -38,7 +37,6 @@ export const ImageGallery = ({
   edit: boolean;
   property: Property | undefined | null;
   category: Image_Category;
-  documentId: string;
   removeType: "image" | "document";
 }) => {
   return (
@@ -62,7 +60,6 @@ export const ImageGallery = ({
                       url={img.url}
                       imageId={img.id}
                       removeType={removeType}
-                      documentId={documentId}
                       blogPostId=""
                     />
                   </div>
@@ -125,7 +122,6 @@ export default function PropertyDetails({
               newId={newId}
               add={add}
               category={Image_Category.Property}
-              documentId={""}
               removeType={"image"}
             />
           </div>

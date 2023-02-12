@@ -99,7 +99,6 @@ export default function AddAgentForm({
                         url={profileImage}
                         imageId={""}
                         removeType={"profile-image"}
-                        documentId={""}
                         blogPostId=""
                       />
                     </div>

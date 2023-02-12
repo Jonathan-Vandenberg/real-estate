@@ -132,10 +132,14 @@ export default function OfferInForm({
 
   const [addOfferIn, { loading: loadingAddOfferIn, error: errorAddProperty }] =
     useAddOfferInMutation();
+
   const [
     updateOfferIn,
-    { loading: loadingUpdateOfferIn, error: errorUpdateProperty },
+    { loading: loadingUpdateOfferIn, error: errorUpdateOfferIn },
   ] = useUpdateOfferInMutation();
+
+  if (errorUpdateOfferIn) console.log(errorUpdateOfferIn);
+
   const [addTodo, { loading: loadingAddTodo, error: errorAddTodo }] =
     useAddTodoMutation();
 
@@ -1859,7 +1863,7 @@ export const ImageGallery = ({
   edit?: boolean;
   offerIn: OfferIn | undefined | null;
   documentCategory: Document_Category;
-  removeType: "image" | "document" | "profile-image";
+  removeType: "image" | "document" | "profile-image" | "image-blog";
   userEmail: string;
   recipientEmail: string;
 }) => {
@@ -1885,7 +1889,6 @@ export const ImageGallery = ({
                         url={doc.url}
                         imageId={doc.id}
                         removeType={removeType}
-                        documentId={doc.id}
                         blogPostId={""}
                       />
                       <EmailSender
