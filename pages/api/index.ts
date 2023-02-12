@@ -284,16 +284,16 @@ const resolvers: Resolvers = {
               flag: input?.waterCert?.flag,
             },
           },
-          // offerAccepted: {
-          //   update: {
-          //     withConditions: input?.offerAccepted?.withConditions,
-          //     conditions: input?.offerAccepted?.conditions,
-          //     notes: input?.offerAccepted?.notes,
-          //     completed: input?.offerAccepted?.completed,
-          //     deadline: input?.offerAccepted?.deadline,
-          //     flag: input?.offerAccepted?.flag,
-          //   },
-          // },
+          offerAccepted: {
+            update: {
+              withConditions: input?.offerAccepted?.withConditions,
+              conditions: input?.offerAccepted?.conditions,
+              notes: input?.offerAccepted?.notes,
+              completed: input?.offerAccepted?.completed,
+              deadline: input?.offerAccepted?.deadline,
+              flag: input?.offerAccepted?.flag,
+            },
+          },
           // bankInspection: {
           //   update: {
           //     notes: input?.bankInspection?.notes,
@@ -353,7 +353,7 @@ const resolvers: Resolvers = {
           intermologist: true,
           gasCompliance: true,
           waterCert: true,
-          // offerAccepted: true,
+          offerAccepted: true,
           // bankInspection: true,
           // conveyancer: true,
           // mortgageOriginator: true,
