@@ -268,14 +268,14 @@ const resolvers: Resolvers = {
               flag: input?.intermologist?.flag,
             },
           },
-          // gasCompliance: {
-          //   update: {
-          //     notes: input?.gasCompliance?.notes,
-          //     completed: input?.gasCompliance?.completed,
-          //     deadline: input?.gasCompliance?.deadline,
-          //     flag: input?.gasCompliance?.flag,
-          //   },
-          // },
+          gasCompliance: {
+            update: {
+              notes: input?.gasCompliance?.notes,
+              completed: input?.gasCompliance?.completed,
+              deadline: input?.gasCompliance?.deadline,
+              flag: input?.gasCompliance?.flag,
+            },
+          },
           // waterCert: {
           //   update: {
           //     notes: input?.waterCert?.notes,
@@ -351,7 +351,7 @@ const resolvers: Resolvers = {
         include: {
           elecCompCompany: true,
           intermologist: true,
-          // gasCompliance: true,
+          gasCompliance: true,
           // waterCert: true,
           // offerAccepted: true,
           // bankInspection: true,
