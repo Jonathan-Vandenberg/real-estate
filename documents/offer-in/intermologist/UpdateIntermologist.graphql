@@ -1,0 +1,7 @@
+# import Intermologist from './IntermologistFragment.graphql'
+
+mutation UpdateIntermologist($input: IntermologistInput!) {
+  updateIntermologist(input: $input) {
+    ...Intermologist
+  }
+}

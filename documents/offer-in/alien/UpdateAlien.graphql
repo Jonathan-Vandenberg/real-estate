@@ -1,0 +1,7 @@
+# import Alien from './AlienFragment.graphql'
+
+mutation UpdateAlien($input: AlienInput!) {
+  updateAlien(input: $input) {
+    ...Alien
+  }
+}

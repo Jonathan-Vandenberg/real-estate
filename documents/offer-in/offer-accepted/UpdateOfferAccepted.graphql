@@ -1,0 +1,7 @@
+# import OfferAccepted from './OfferAcceptedFragment.graphql'
+
+mutation UpdateOfferAccepted($input: OfferAcceptedInput!) {
+  updateOfferAccepted(input: $input) {
+    ...OfferAccepted
+  }
+}

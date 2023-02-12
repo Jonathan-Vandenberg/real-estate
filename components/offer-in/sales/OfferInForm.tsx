@@ -12,6 +12,17 @@ import {
   useAddTodoMutation,
   useAddOfferInMutation,
   useUpdateOfferInMutation,
+  useUpdateAlienMutation,
+  useUpdateBankInspectionMutation,
+  useUpdateConveyancerMutation,
+  useUpdateElecCompCompanyMutation,
+  useUpdateElectricFenceMutation,
+  useUpdateFicaDocsMutation,
+  useUpdateGasComplianceMutation,
+  useUpdateIntermologistMutation,
+  useUpdateMortgageOriginatorMutation,
+  useUpdateOfferAcceptedMutation,
+  useUpdateWaterCertMutation,
 } from "../../../types";
 import RemoveImage from "../../aws/DeleteImages";
 import EmailSender from "../../aws/EmailSender";
@@ -137,6 +148,18 @@ export default function OfferInForm({
     updateOfferIn,
     { loading: loadingUpdateOfferIn, error: errorUpdateOfferIn },
   ] = useUpdateOfferInMutation();
+
+  const [updateElecCompCompany] = useUpdateElecCompCompanyMutation();
+  const [updateIntermologist] = useUpdateIntermologistMutation();
+  const [updateGasCompliance] = useUpdateGasComplianceMutation();
+  const [updateWaterCert] = useUpdateWaterCertMutation();
+  const [updateOfferAccepted] = useUpdateOfferAcceptedMutation();
+  const [updateBankInspection] = useUpdateBankInspectionMutation();
+  const [updateConveyancer] = useUpdateConveyancerMutation();
+  const [updateMortgageOriginator] = useUpdateMortgageOriginatorMutation();
+  const [updateFicaDocs] = useUpdateFicaDocsMutation();
+  const [updateElectricFence] = useUpdateElectricFenceMutation();
+  const [updateAlien] = useUpdateAlienMutation();
 
   if (errorUpdateOfferIn) console.log(errorUpdateOfferIn);
 
@@ -403,7 +426,34 @@ export default function OfferInForm({
   //   offerIn?.conveyancer?.message
   // );
 
-  let offerInDetails = {
+  let offerInDetailsUpdate = {
+    variables: {
+      input: {
+        id: offerIn!.id,
+        propertyId: propertyId,
+        amount: amount,
+        dot: dot,
+        dateOfBondApplication: dateOfBondApplication,
+        dateOfBondApprovalInPrincipal: dateOfBondApprovalInPrincipal,
+        dateOfBondApproved: dateOfBondApproved,
+        bankName: bankName,
+        flag: flag,
+        elecCompCompanyId: elecCompCompanyId,
+        intermologistId: intermologistId,
+        gasComplianceId: gasComplianceId,
+        waterCertId: waterCertId,
+        offerAcceptedId: offerAcceptedId,
+        bankInspectionId: bankInspectionId,
+        conveyancerId: conveyancerId,
+        mortgageOriginatorId: mortgageOriginatorId,
+        ficaDocsId: ficaDocsId,
+        electricFenceId: electricFenceId,
+        alienId: alienId,
+      },
+    },
+  };
+
+  let offerInDetailsAdd = {
     variables: {
       input: {
         id: offerIn!.id,
@@ -428,6 +478,7 @@ export default function OfferInForm({
         alienId: alienId,
         elecCompCompany: {
           offerInId: offerIn!.id,
+          id: elecCompCompanyId,
           name: nameElecCompCompany,
           phone: phoneElecCompCompany,
           email: emailElecCompCompany,
@@ -438,6 +489,7 @@ export default function OfferInForm({
         },
         intermologist: {
           offerInId: offerIn!.id,
+          id: intermologistId,
           name: nameIntermologist,
           phone: phoneIntermologist,
           email: emailIntermologist,
@@ -448,6 +500,7 @@ export default function OfferInForm({
         },
         gasCompliance: {
           offerInId: offerIn!.id,
+          id: gasComplianceId,
           gasCompCerUrl: gasCompCerUrlGasCompliance,
           notes: notesGasCompliance,
           completed: completedGasCompliance,
@@ -456,6 +509,7 @@ export default function OfferInForm({
         },
         waterCert: {
           offerInId: offerIn!.id,
+          id: waterCertId,
           notes: notesWaterCert,
           completed: completedWaterCert,
           deadline: deadlineWaterCert,
@@ -463,6 +517,7 @@ export default function OfferInForm({
         },
         offerAccepted: {
           offerInId: offerIn!.id,
+          id: offerAcceptedId,
           withConditions: withConditionsOfferAccepted,
           conditions: conditionsOfferAccepted,
           notes: notesOfferAccepted,
@@ -472,6 +527,7 @@ export default function OfferInForm({
         },
         bankInspection: {
           offerInId: offerIn!.id,
+          id: bankInspectionId,
           notes: notesBankInspection,
           completed: completedBankInspection,
           deadline: deadlineBankInspection,
@@ -479,6 +535,7 @@ export default function OfferInForm({
         },
         conveyancer: {
           offerInId: offerIn!.id,
+          id: conveyancerId,
           name: nameConveyancer,
           phone: phoneConveyancer,
           notes: notesConveyancer,
@@ -488,6 +545,7 @@ export default function OfferInForm({
         },
         mortgageOriginator: {
           offerInId: offerIn!.id,
+          id: mortgageOriginatorId,
           phone: phoneMortgageOriginator,
           name: nameMortgageOriginator,
           notes: notesMortgageOriginator,
@@ -497,6 +555,7 @@ export default function OfferInForm({
         },
         ficaDocs: {
           offerInId: offerIn!.id,
+          id: ficaDocsId,
           address: addressFicaDocs,
           notes: notesFicaDocs,
           completed: completedFicaDocs,
@@ -505,6 +564,7 @@ export default function OfferInForm({
         },
         electricFence: {
           offerInId: offerIn!.id,
+          id: electricFenceId,
           notes: notesElectricFence,
           completed: completedElectricFence,
           deadline: deadlineElectricFence,
@@ -512,6 +572,7 @@ export default function OfferInForm({
         },
         alien: {
           offerInId: offerIn!.id,
+          id: alienId,
           notes: notesAlien,
           completed: completedAlien,
           deadline: deadlineAlien,
@@ -520,16 +581,186 @@ export default function OfferInForm({
       },
     },
   };
+
+  let elecCompCompanyDetails = {
+    variables: {
+      input: {
+        id: elecCompCompanyId,
+        offerInId: offerIn!.id,
+        name: nameElecCompCompany,
+        phone: phoneElecCompCompany,
+        email: emailElecCompCompany,
+        notes: notesElecCompCompany,
+        completed: completedElecCompCompany,
+        deadline: deadlineElecCompCompany,
+        flag: flagElecCompCompany,
+      },
+    },
+  };
+
+  let intermologistDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: intermologistId,
+        name: nameIntermologist,
+        phone: phoneIntermologist,
+        email: emailIntermologist,
+        notes: notesIntermologist,
+        completed: completedIntermologist,
+        deadline: deadlineIntermologist,
+        flag: flagIntermologist,
+      },
+    },
+  };
+
+  let gasComplianceDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: gasComplianceId,
+        gasCompCerUrl: gasCompCerUrlGasCompliance,
+        notes: notesGasCompliance,
+        completed: completedGasCompliance,
+        deadline: deadlineGasCompliance,
+        flag: flagGasCompliance,
+      },
+    },
+  };
+
+  let waterCertDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: waterCertId,
+        notes: notesWaterCert,
+        completed: completedWaterCert,
+        deadline: deadlineWaterCert,
+        flag: flagWaterCert,
+      },
+    },
+  };
+
+  let offerAcceptedDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: offerAcceptedId,
+        withConditions: withConditionsOfferAccepted,
+        conditions: conditionsOfferAccepted,
+        notes: notesOfferAccepted,
+        completed: completedOfferAccepted,
+        deadline: deadlineOfferAccepted,
+        flag: flagOfferAccepted,
+      },
+    },
+  };
+
+  let bankInspectionDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: bankInspectionId,
+        notes: notesBankInspection,
+        completed: completedBankInspection,
+        deadline: deadlineBankInspection,
+        flag: flagBankInspection,
+      },
+    },
+  };
+
+  let conveyancerDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: conveyancerId,
+        name: nameConveyancer,
+        phone: phoneConveyancer,
+        notes: notesConveyancer,
+        completed: completedConveyancer,
+        deadline: deadlineConveyancer,
+        flag: flagConveyancer,
+      },
+    },
+  };
+
+  let mortgageOriginatorDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: mortgageOriginatorId,
+        phone: phoneMortgageOriginator,
+        name: nameMortgageOriginator,
+        notes: notesMortgageOriginator,
+        completed: completedMortgageOriginator,
+        deadline: deadlineMortgageOriginator,
+        flag: flagMortgageOriginator,
+      },
+    },
+  };
+
+  let ficaDocsDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: ficaDocsId,
+        address: addressFicaDocs,
+        notes: notesFicaDocs,
+        completed: completedFicaDocs,
+        deadline: deadlineFicaDocs,
+        flag: flagFicaDocs,
+      },
+    },
+  };
+
+  let electricFenceDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: electricFenceId,
+        notes: notesElectricFence,
+        completed: completedElectricFence,
+        deadline: deadlineElectricFence,
+        flag: flagElectricFence,
+      },
+    },
+  };
+
+  let alienDetails = {
+    variables: {
+      input: {
+        offerInId: offerIn!.id,
+        id: alienId,
+        notes: notesAlien,
+        completed: completedAlien,
+        deadline: deadlineAlien,
+        flag: flagAlien,
+      },
+    },
+  };
+
   const onFinish = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     function sendForm() {
       if (add) {
-        addOfferIn(offerInDetails);
+        addOfferIn(offerInDetailsAdd);
       }
       if (edit) {
-        updateOfferIn(offerInDetails);
+        updateOfferIn(offerInDetailsUpdate);
+        updateElecCompCompany(elecCompCompanyDetails);
+        updateIntermologist(intermologistDetails);
+        updateGasCompliance(gasComplianceDetails);
+        updateWaterCert(waterCertDetails);
+        updateOfferAccepted(offerAcceptedDetails);
+        updateBankInspection(bankInspectionDetails);
+        updateConveyancer(conveyancerDetails);
+        updateMortgageOriginator(mortgageOriginatorDetails);
+        updateFicaDocs(ficaDocsDetails);
+        updateElectricFence(electricFenceDetails);
+        updateAlien(alienDetails);
       }
+
       setTimeout(() => {
         setFormSent(!formSent);
       }, 1000);

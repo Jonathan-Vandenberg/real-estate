@@ -64,6 +64,18 @@ type Mutation {
   addOfferIn(input: OfferInInput!): OfferIn
 
   updateOfferIn(input: OfferInInput!): OfferIn
+
+  updateElecCompCompany(input: ElecCompCompanyInput!): ElecCompCompany
+  updateFicaDocs(input: FicaDocsInput!): FicaDocs
+  updateMortgageOriginator(input: MortgageOriginatorInput!): MortgageOriginator
+  updateConveyancer(input: ConveyancerInput!): Conveyancer
+  updateBankInspection(input: BankInspectionInput!): BankInspection
+  updateOfferAccepted(input: OfferAcceptedInput!): OfferAccepted
+  updateWaterCert(input: WaterCertInput!): WaterCert
+  updateGasCompliance(input: GasComplianceInput!): GasCompliance
+  updateIntermologist(input: IntermologistInput!): Intermologist
+  updateElectricFence(input: ElectricFenceInput!): ElectricFence
+  updateAlien(input: AlienInput!): Alien
 }
 
 type Subscription {
@@ -517,6 +529,7 @@ type ElecCompCompany {
 }
 
 input ElecCompCompanyInput {
+  id: ID!
   offerInId: ID!
   name: String
   phone: String
@@ -542,6 +555,7 @@ type Intermologist {
 }
 
 input IntermologistInput {
+  id: ID!
   offerInId: ID!
   name: String
   phone: String
@@ -565,6 +579,7 @@ type GasCompliance {
 }
 
 input GasComplianceInput {
+  id: ID!
   offerInId: ID!
   gasCompCerUrl: String
   notes: String
@@ -585,6 +600,7 @@ type WaterCert {
 }
 
 input WaterCertInput {
+  id: ID!
   offerInId: ID!
   notes: String
   completed: Boolean
@@ -606,6 +622,7 @@ type OfferAccepted {
 }
 
 input OfferAcceptedInput {
+  id: ID!
   offerInId: ID!
   withConditions: Boolean
   conditions: String
@@ -627,6 +644,7 @@ type BankInspection {
 }
 
 input BankInspectionInput {
+  id: ID!
   offerInId: ID!
   notes: String
   completed: Boolean
@@ -648,6 +666,7 @@ type Conveyancer {
 }
 
 input ConveyancerInput {
+  id: ID!
   offerInId: ID!
   name: String
   phone: String
@@ -671,6 +690,7 @@ type MortgageOriginator {
 }
 
 input MortgageOriginatorInput {
+  id: ID!
   offerInId: ID!
   phone: String
   name: String
@@ -693,6 +713,7 @@ type FicaDocs {
 }
 
 input FicaDocsInput {
+  id: ID!
   offerInId: ID!
   address: String
   notes: String
@@ -713,6 +734,7 @@ type ElectricFence {
 }
 
 input ElectricFenceInput {
+  id: ID!
   offerInId: ID!
   notes: String
   completed: Boolean
@@ -732,6 +754,7 @@ type Alien {
 }
 
 input AlienInput {
+  id: ID!
   offerInId: ID!
   notes: String
   completed: Boolean

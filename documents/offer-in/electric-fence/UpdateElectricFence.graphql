@@ -1,0 +1,7 @@
+# import ElectricFence from './ElectricFenceFragment.graphql'
+
+mutation UpdateElectricFence($input: ElectricFenceInput!) {
+  updateElectricFence(input: $input) {
+    ...ElectricFence
+  }
+}

@@ -1,0 +1,7 @@
+# import ElecCompCompany from './ElecCompCompanyFragment.graphql'
+
+mutation UpdateElecCompCompany($input: ElecCompCompanyInput!) {
+  updateElecCompCompany(input: $input) {
+    ...ElecCompCompany
+  }
+}

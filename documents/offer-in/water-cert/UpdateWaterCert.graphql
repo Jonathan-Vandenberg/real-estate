@@ -1,0 +1,7 @@
+# import WaterCert from './WaterCertFragment.graphql'
+
+mutation UpdateWaterCert($input: WaterCertInput!) {
+  updateWaterCert(input: $input) {
+    ...WaterCert
+  }
+}

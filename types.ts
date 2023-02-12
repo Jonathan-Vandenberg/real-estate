@@ -112,6 +112,7 @@ export type AlienInput = {
   completed?: InputMaybe<Scalars['Boolean']>;
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
@@ -132,6 +133,7 @@ export type BankInspectionInput = {
   completed?: InputMaybe<Scalars['Boolean']>;
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
@@ -264,6 +266,7 @@ export type ConveyancerInput = {
   completed?: InputMaybe<Scalars['Boolean']>;
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   name?: InputMaybe<Scalars['String']>;
   notes?: InputMaybe<Scalars['String']>;
@@ -322,6 +325,7 @@ export type ElecCompCompanyInput = {
   deadline?: InputMaybe<Scalars['DateTime']>;
   email?: InputMaybe<Scalars['String']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   name?: InputMaybe<Scalars['String']>;
   notes?: InputMaybe<Scalars['String']>;
@@ -344,6 +348,7 @@ export type ElectricFenceInput = {
   completed?: InputMaybe<Scalars['Boolean']>;
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
@@ -366,6 +371,7 @@ export type FicaDocsInput = {
   completed?: InputMaybe<Scalars['Boolean']>;
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
@@ -402,6 +408,7 @@ export type GasComplianceInput = {
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
   gasCompCerUrl?: InputMaybe<Scalars['String']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
@@ -457,6 +464,7 @@ export type IntermologistInput = {
   deadline?: InputMaybe<Scalars['DateTime']>;
   email?: InputMaybe<Scalars['String']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   name?: InputMaybe<Scalars['String']>;
   notes?: InputMaybe<Scalars['String']>;
@@ -481,6 +489,7 @@ export type MortgageOriginatorInput = {
   completed?: InputMaybe<Scalars['Boolean']>;
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   name?: InputMaybe<Scalars['String']>;
   notes?: InputMaybe<Scalars['String']>;
@@ -507,13 +516,24 @@ export type Mutation = {
   deleteImageBlog?: Maybe<ImageBlog>;
   deleteTodo?: Maybe<Todo>;
   updateAgent?: Maybe<Agent>;
+  updateAlien?: Maybe<Alien>;
+  updateBankInspection?: Maybe<BankInspection>;
   updateBlogPost?: Maybe<BlogPost>;
+  updateConveyancer?: Maybe<Conveyancer>;
   updateDocument?: Maybe<Document>;
+  updateElecCompCompany?: Maybe<ElecCompCompany>;
+  updateElectricFence?: Maybe<ElectricFence>;
+  updateFicaDocs?: Maybe<FicaDocs>;
+  updateGasCompliance?: Maybe<GasCompliance>;
   updateImage?: Maybe<ImageProduct>;
   updateImageBlog?: Maybe<ImageBlog>;
+  updateIntermologist?: Maybe<Intermologist>;
+  updateMortgageOriginator?: Maybe<MortgageOriginator>;
+  updateOfferAccepted?: Maybe<OfferAccepted>;
   updateOfferIn?: Maybe<OfferIn>;
   updateProperty?: Maybe<Property>;
   updateTodo?: Maybe<Todo>;
+  updateWaterCert?: Maybe<WaterCert>;
 };
 
 
@@ -602,14 +622,49 @@ export type MutationUpdateAgentArgs = {
 };
 
 
+export type MutationUpdateAlienArgs = {
+  input: AlienInput;
+};
+
+
+export type MutationUpdateBankInspectionArgs = {
+  input: BankInspectionInput;
+};
+
+
 export type MutationUpdateBlogPostArgs = {
   input: BlogPostInput;
+};
+
+
+export type MutationUpdateConveyancerArgs = {
+  input: ConveyancerInput;
 };
 
 
 export type MutationUpdateDocumentArgs = {
   id: Scalars['ID'];
   input: DocumentInput;
+};
+
+
+export type MutationUpdateElecCompCompanyArgs = {
+  input: ElecCompCompanyInput;
+};
+
+
+export type MutationUpdateElectricFenceArgs = {
+  input: ElectricFenceInput;
+};
+
+
+export type MutationUpdateFicaDocsArgs = {
+  input: FicaDocsInput;
+};
+
+
+export type MutationUpdateGasComplianceArgs = {
+  input: GasComplianceInput;
 };
 
 
@@ -622,6 +677,21 @@ export type MutationUpdateImageArgs = {
 export type MutationUpdateImageBlogArgs = {
   id: Scalars['ID'];
   input: ImageBlogInput;
+};
+
+
+export type MutationUpdateIntermologistArgs = {
+  input: IntermologistInput;
+};
+
+
+export type MutationUpdateMortgageOriginatorArgs = {
+  input: MortgageOriginatorInput;
+};
+
+
+export type MutationUpdateOfferAcceptedArgs = {
+  input: OfferAcceptedInput;
 };
 
 
@@ -638,6 +708,11 @@ export type MutationUpdatePropertyArgs = {
 export type MutationUpdateTodoArgs = {
   id: Scalars['ID'];
   input: TodoInput;
+};
+
+
+export type MutationUpdateWaterCertArgs = {
+  input: WaterCertInput;
 };
 
 export type OfferAccepted = {
@@ -658,6 +733,7 @@ export type OfferAcceptedInput = {
   conditions?: InputMaybe<Scalars['String']>;
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
@@ -977,6 +1053,7 @@ export type WaterCertInput = {
   completed?: InputMaybe<Scalars['Boolean']>;
   deadline?: InputMaybe<Scalars['DateTime']>;
   flag?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
   message?: InputMaybe<Array<InputMaybe<AdminMessageInput>>>;
   notes?: InputMaybe<Scalars['String']>;
   offerInId: Scalars['ID'];
@@ -1455,13 +1532,24 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   deleteImageBlog?: Resolver<Maybe<ResolversTypes['ImageBlog']>, ParentType, ContextType, RequireFields<MutationDeleteImageBlogArgs, 'id'>>;
   deleteTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationDeleteTodoArgs, 'id'>>;
   updateAgent?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, Partial<MutationUpdateAgentArgs>>;
+  updateAlien?: Resolver<Maybe<ResolversTypes['Alien']>, ParentType, ContextType, RequireFields<MutationUpdateAlienArgs, 'input'>>;
+  updateBankInspection?: Resolver<Maybe<ResolversTypes['BankInspection']>, ParentType, ContextType, RequireFields<MutationUpdateBankInspectionArgs, 'input'>>;
   updateBlogPost?: Resolver<Maybe<ResolversTypes['BlogPost']>, ParentType, ContextType, RequireFields<MutationUpdateBlogPostArgs, 'input'>>;
+  updateConveyancer?: Resolver<Maybe<ResolversTypes['Conveyancer']>, ParentType, ContextType, RequireFields<MutationUpdateConveyancerArgs, 'input'>>;
   updateDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationUpdateDocumentArgs, 'id' | 'input'>>;
+  updateElecCompCompany?: Resolver<Maybe<ResolversTypes['ElecCompCompany']>, ParentType, ContextType, RequireFields<MutationUpdateElecCompCompanyArgs, 'input'>>;
+  updateElectricFence?: Resolver<Maybe<ResolversTypes['ElectricFence']>, ParentType, ContextType, RequireFields<MutationUpdateElectricFenceArgs, 'input'>>;
+  updateFicaDocs?: Resolver<Maybe<ResolversTypes['FicaDocs']>, ParentType, ContextType, RequireFields<MutationUpdateFicaDocsArgs, 'input'>>;
+  updateGasCompliance?: Resolver<Maybe<ResolversTypes['GasCompliance']>, ParentType, ContextType, RequireFields<MutationUpdateGasComplianceArgs, 'input'>>;
   updateImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationUpdateImageArgs, 'id' | 'input'>>;
   updateImageBlog?: Resolver<Maybe<ResolversTypes['ImageBlog']>, ParentType, ContextType, RequireFields<MutationUpdateImageBlogArgs, 'id' | 'input'>>;
+  updateIntermologist?: Resolver<Maybe<ResolversTypes['Intermologist']>, ParentType, ContextType, RequireFields<MutationUpdateIntermologistArgs, 'input'>>;
+  updateMortgageOriginator?: Resolver<Maybe<ResolversTypes['MortgageOriginator']>, ParentType, ContextType, RequireFields<MutationUpdateMortgageOriginatorArgs, 'input'>>;
+  updateOfferAccepted?: Resolver<Maybe<ResolversTypes['OfferAccepted']>, ParentType, ContextType, RequireFields<MutationUpdateOfferAcceptedArgs, 'input'>>;
   updateOfferIn?: Resolver<Maybe<ResolversTypes['OfferIn']>, ParentType, ContextType, RequireFields<MutationUpdateOfferInArgs, 'input'>>;
   updateProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationUpdatePropertyArgs, 'input'>>;
   updateTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationUpdateTodoArgs, 'id' | 'input'>>;
+  updateWaterCert?: Resolver<Maybe<ResolversTypes['WaterCert']>, ParentType, ContextType, RequireFields<MutationUpdateWaterCertArgs, 'input'>>;
 };
 
 export type OfferAcceptedResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['OfferAccepted'] = ResolversParentTypes['OfferAccepted']> = {
@@ -3096,6 +3184,369 @@ export function useUpdateOfferInMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateOfferInMutationHookResult = ReturnType<typeof useUpdateOfferInMutation>;
 export type UpdateOfferInMutationResult = Apollo.MutationResult<UpdateOfferInMutation>;
 export type UpdateOfferInMutationOptions = Apollo.BaseMutationOptions<UpdateOfferInMutation, UpdateOfferInMutationVariables>;
+export const UpdateAlienDocument = gql`
+    mutation UpdateAlien($input: AlienInput!) {
+  updateAlien(input: $input) {
+    ...Alien
+  }
+}
+    ${AlienFragmentDoc}`;
+export type UpdateAlienMutationFn = Apollo.MutationFunction<UpdateAlienMutation, UpdateAlienMutationVariables>;
+
+/**
+ * __useUpdateAlienMutation__
+ *
+ * To run a mutation, you first call `useUpdateAlienMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAlienMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAlienMutation, { data, loading, error }] = useUpdateAlienMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAlienMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAlienMutation, UpdateAlienMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateAlienMutation, UpdateAlienMutationVariables>(UpdateAlienDocument, options);
+      }
+export type UpdateAlienMutationHookResult = ReturnType<typeof useUpdateAlienMutation>;
+export type UpdateAlienMutationResult = Apollo.MutationResult<UpdateAlienMutation>;
+export type UpdateAlienMutationOptions = Apollo.BaseMutationOptions<UpdateAlienMutation, UpdateAlienMutationVariables>;
+export const UpdateBankInspectionDocument = gql`
+    mutation UpdateBankInspection($input: BankInspectionInput!) {
+  updateBankInspection(input: $input) {
+    ...BankInspection
+  }
+}
+    ${BankInspectionFragmentDoc}`;
+export type UpdateBankInspectionMutationFn = Apollo.MutationFunction<UpdateBankInspectionMutation, UpdateBankInspectionMutationVariables>;
+
+/**
+ * __useUpdateBankInspectionMutation__
+ *
+ * To run a mutation, you first call `useUpdateBankInspectionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBankInspectionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBankInspectionMutation, { data, loading, error }] = useUpdateBankInspectionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateBankInspectionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateBankInspectionMutation, UpdateBankInspectionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateBankInspectionMutation, UpdateBankInspectionMutationVariables>(UpdateBankInspectionDocument, options);
+      }
+export type UpdateBankInspectionMutationHookResult = ReturnType<typeof useUpdateBankInspectionMutation>;
+export type UpdateBankInspectionMutationResult = Apollo.MutationResult<UpdateBankInspectionMutation>;
+export type UpdateBankInspectionMutationOptions = Apollo.BaseMutationOptions<UpdateBankInspectionMutation, UpdateBankInspectionMutationVariables>;
+export const UpdateConveyancerDocument = gql`
+    mutation UpdateConveyancer($input: ConveyancerInput!) {
+  updateConveyancer(input: $input) {
+    ...Conveyancer
+  }
+}
+    ${ConveyancerFragmentDoc}`;
+export type UpdateConveyancerMutationFn = Apollo.MutationFunction<UpdateConveyancerMutation, UpdateConveyancerMutationVariables>;
+
+/**
+ * __useUpdateConveyancerMutation__
+ *
+ * To run a mutation, you first call `useUpdateConveyancerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateConveyancerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateConveyancerMutation, { data, loading, error }] = useUpdateConveyancerMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateConveyancerMutation(baseOptions?: Apollo.MutationHookOptions<UpdateConveyancerMutation, UpdateConveyancerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateConveyancerMutation, UpdateConveyancerMutationVariables>(UpdateConveyancerDocument, options);
+      }
+export type UpdateConveyancerMutationHookResult = ReturnType<typeof useUpdateConveyancerMutation>;
+export type UpdateConveyancerMutationResult = Apollo.MutationResult<UpdateConveyancerMutation>;
+export type UpdateConveyancerMutationOptions = Apollo.BaseMutationOptions<UpdateConveyancerMutation, UpdateConveyancerMutationVariables>;
+export const UpdateElecCompCompanyDocument = gql`
+    mutation UpdateElecCompCompany($input: ElecCompCompanyInput!) {
+  updateElecCompCompany(input: $input) {
+    ...ElecCompCompany
+  }
+}
+    ${ElecCompCompanyFragmentDoc}`;
+export type UpdateElecCompCompanyMutationFn = Apollo.MutationFunction<UpdateElecCompCompanyMutation, UpdateElecCompCompanyMutationVariables>;
+
+/**
+ * __useUpdateElecCompCompanyMutation__
+ *
+ * To run a mutation, you first call `useUpdateElecCompCompanyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateElecCompCompanyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateElecCompCompanyMutation, { data, loading, error }] = useUpdateElecCompCompanyMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateElecCompCompanyMutation(baseOptions?: Apollo.MutationHookOptions<UpdateElecCompCompanyMutation, UpdateElecCompCompanyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateElecCompCompanyMutation, UpdateElecCompCompanyMutationVariables>(UpdateElecCompCompanyDocument, options);
+      }
+export type UpdateElecCompCompanyMutationHookResult = ReturnType<typeof useUpdateElecCompCompanyMutation>;
+export type UpdateElecCompCompanyMutationResult = Apollo.MutationResult<UpdateElecCompCompanyMutation>;
+export type UpdateElecCompCompanyMutationOptions = Apollo.BaseMutationOptions<UpdateElecCompCompanyMutation, UpdateElecCompCompanyMutationVariables>;
+export const UpdateElectricFenceDocument = gql`
+    mutation UpdateElectricFence($input: ElectricFenceInput!) {
+  updateElectricFence(input: $input) {
+    ...ElectricFence
+  }
+}
+    ${ElectricFenceFragmentDoc}`;
+export type UpdateElectricFenceMutationFn = Apollo.MutationFunction<UpdateElectricFenceMutation, UpdateElectricFenceMutationVariables>;
+
+/**
+ * __useUpdateElectricFenceMutation__
+ *
+ * To run a mutation, you first call `useUpdateElectricFenceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateElectricFenceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateElectricFenceMutation, { data, loading, error }] = useUpdateElectricFenceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateElectricFenceMutation(baseOptions?: Apollo.MutationHookOptions<UpdateElectricFenceMutation, UpdateElectricFenceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateElectricFenceMutation, UpdateElectricFenceMutationVariables>(UpdateElectricFenceDocument, options);
+      }
+export type UpdateElectricFenceMutationHookResult = ReturnType<typeof useUpdateElectricFenceMutation>;
+export type UpdateElectricFenceMutationResult = Apollo.MutationResult<UpdateElectricFenceMutation>;
+export type UpdateElectricFenceMutationOptions = Apollo.BaseMutationOptions<UpdateElectricFenceMutation, UpdateElectricFenceMutationVariables>;
+export const UpdateFicaDocsDocument = gql`
+    mutation UpdateFicaDocs($input: FicaDocsInput!) {
+  updateFicaDocs(input: $input) {
+    ...FicaDocs
+  }
+}
+    ${FicaDocsFragmentDoc}`;
+export type UpdateFicaDocsMutationFn = Apollo.MutationFunction<UpdateFicaDocsMutation, UpdateFicaDocsMutationVariables>;
+
+/**
+ * __useUpdateFicaDocsMutation__
+ *
+ * To run a mutation, you first call `useUpdateFicaDocsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFicaDocsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFicaDocsMutation, { data, loading, error }] = useUpdateFicaDocsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateFicaDocsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFicaDocsMutation, UpdateFicaDocsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFicaDocsMutation, UpdateFicaDocsMutationVariables>(UpdateFicaDocsDocument, options);
+      }
+export type UpdateFicaDocsMutationHookResult = ReturnType<typeof useUpdateFicaDocsMutation>;
+export type UpdateFicaDocsMutationResult = Apollo.MutationResult<UpdateFicaDocsMutation>;
+export type UpdateFicaDocsMutationOptions = Apollo.BaseMutationOptions<UpdateFicaDocsMutation, UpdateFicaDocsMutationVariables>;
+export const UpdateGasComplianceDocument = gql`
+    mutation UpdateGasCompliance($input: GasComplianceInput!) {
+  updateGasCompliance(input: $input) {
+    ...GasCompliance
+  }
+}
+    ${GasComplianceFragmentDoc}`;
+export type UpdateGasComplianceMutationFn = Apollo.MutationFunction<UpdateGasComplianceMutation, UpdateGasComplianceMutationVariables>;
+
+/**
+ * __useUpdateGasComplianceMutation__
+ *
+ * To run a mutation, you first call `useUpdateGasComplianceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateGasComplianceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateGasComplianceMutation, { data, loading, error }] = useUpdateGasComplianceMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateGasComplianceMutation(baseOptions?: Apollo.MutationHookOptions<UpdateGasComplianceMutation, UpdateGasComplianceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateGasComplianceMutation, UpdateGasComplianceMutationVariables>(UpdateGasComplianceDocument, options);
+      }
+export type UpdateGasComplianceMutationHookResult = ReturnType<typeof useUpdateGasComplianceMutation>;
+export type UpdateGasComplianceMutationResult = Apollo.MutationResult<UpdateGasComplianceMutation>;
+export type UpdateGasComplianceMutationOptions = Apollo.BaseMutationOptions<UpdateGasComplianceMutation, UpdateGasComplianceMutationVariables>;
+export const UpdateIntermologistDocument = gql`
+    mutation UpdateIntermologist($input: IntermologistInput!) {
+  updateIntermologist(input: $input) {
+    ...Intermologist
+  }
+}
+    ${IntermologistFragmentDoc}`;
+export type UpdateIntermologistMutationFn = Apollo.MutationFunction<UpdateIntermologistMutation, UpdateIntermologistMutationVariables>;
+
+/**
+ * __useUpdateIntermologistMutation__
+ *
+ * To run a mutation, you first call `useUpdateIntermologistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateIntermologistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateIntermologistMutation, { data, loading, error }] = useUpdateIntermologistMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateIntermologistMutation(baseOptions?: Apollo.MutationHookOptions<UpdateIntermologistMutation, UpdateIntermologistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateIntermologistMutation, UpdateIntermologistMutationVariables>(UpdateIntermologistDocument, options);
+      }
+export type UpdateIntermologistMutationHookResult = ReturnType<typeof useUpdateIntermologistMutation>;
+export type UpdateIntermologistMutationResult = Apollo.MutationResult<UpdateIntermologistMutation>;
+export type UpdateIntermologistMutationOptions = Apollo.BaseMutationOptions<UpdateIntermologistMutation, UpdateIntermologistMutationVariables>;
+export const UpdateMortgageOriginatorDocument = gql`
+    mutation UpdateMortgageOriginator($input: MortgageOriginatorInput!) {
+  updateMortgageOriginator(input: $input) {
+    ...MortgageOriginator
+  }
+}
+    ${MortgageOriginatorFragmentDoc}`;
+export type UpdateMortgageOriginatorMutationFn = Apollo.MutationFunction<UpdateMortgageOriginatorMutation, UpdateMortgageOriginatorMutationVariables>;
+
+/**
+ * __useUpdateMortgageOriginatorMutation__
+ *
+ * To run a mutation, you first call `useUpdateMortgageOriginatorMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMortgageOriginatorMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMortgageOriginatorMutation, { data, loading, error }] = useUpdateMortgageOriginatorMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateMortgageOriginatorMutation(baseOptions?: Apollo.MutationHookOptions<UpdateMortgageOriginatorMutation, UpdateMortgageOriginatorMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateMortgageOriginatorMutation, UpdateMortgageOriginatorMutationVariables>(UpdateMortgageOriginatorDocument, options);
+      }
+export type UpdateMortgageOriginatorMutationHookResult = ReturnType<typeof useUpdateMortgageOriginatorMutation>;
+export type UpdateMortgageOriginatorMutationResult = Apollo.MutationResult<UpdateMortgageOriginatorMutation>;
+export type UpdateMortgageOriginatorMutationOptions = Apollo.BaseMutationOptions<UpdateMortgageOriginatorMutation, UpdateMortgageOriginatorMutationVariables>;
+export const UpdateOfferAcceptedDocument = gql`
+    mutation UpdateOfferAccepted($input: OfferAcceptedInput!) {
+  updateOfferAccepted(input: $input) {
+    ...OfferAccepted
+  }
+}
+    ${OfferAcceptedFragmentDoc}`;
+export type UpdateOfferAcceptedMutationFn = Apollo.MutationFunction<UpdateOfferAcceptedMutation, UpdateOfferAcceptedMutationVariables>;
+
+/**
+ * __useUpdateOfferAcceptedMutation__
+ *
+ * To run a mutation, you first call `useUpdateOfferAcceptedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOfferAcceptedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOfferAcceptedMutation, { data, loading, error }] = useUpdateOfferAcceptedMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateOfferAcceptedMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOfferAcceptedMutation, UpdateOfferAcceptedMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOfferAcceptedMutation, UpdateOfferAcceptedMutationVariables>(UpdateOfferAcceptedDocument, options);
+      }
+export type UpdateOfferAcceptedMutationHookResult = ReturnType<typeof useUpdateOfferAcceptedMutation>;
+export type UpdateOfferAcceptedMutationResult = Apollo.MutationResult<UpdateOfferAcceptedMutation>;
+export type UpdateOfferAcceptedMutationOptions = Apollo.BaseMutationOptions<UpdateOfferAcceptedMutation, UpdateOfferAcceptedMutationVariables>;
+export const UpdateWaterCertDocument = gql`
+    mutation UpdateWaterCert($input: WaterCertInput!) {
+  updateWaterCert(input: $input) {
+    ...WaterCert
+  }
+}
+    ${WaterCertFragmentDoc}`;
+export type UpdateWaterCertMutationFn = Apollo.MutationFunction<UpdateWaterCertMutation, UpdateWaterCertMutationVariables>;
+
+/**
+ * __useUpdateWaterCertMutation__
+ *
+ * To run a mutation, you first call `useUpdateWaterCertMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateWaterCertMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateWaterCertMutation, { data, loading, error }] = useUpdateWaterCertMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateWaterCertMutation(baseOptions?: Apollo.MutationHookOptions<UpdateWaterCertMutation, UpdateWaterCertMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateWaterCertMutation, UpdateWaterCertMutationVariables>(UpdateWaterCertDocument, options);
+      }
+export type UpdateWaterCertMutationHookResult = ReturnType<typeof useUpdateWaterCertMutation>;
+export type UpdateWaterCertMutationResult = Apollo.MutationResult<UpdateWaterCertMutation>;
+export type UpdateWaterCertMutationOptions = Apollo.BaseMutationOptions<UpdateWaterCertMutation, UpdateWaterCertMutationVariables>;
 export const AddPropertyDocument = gql`
     mutation AddProperty($input: PropertyInput!) {
   addProperty(input: $input) {
@@ -3594,23 +4045,100 @@ export type UpdateOfferInResponseFragment = { __typename?: 'UpdateOfferInRespons
 
 export type AlienFragment = { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
+export type UpdateAlienMutationVariables = Exact<{
+  input: AlienInput;
+}>;
+
+
+export type UpdateAlienMutation = { __typename?: 'Mutation', updateAlien?: { __typename?: 'Alien', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+
 export type BankInspectionFragment = { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+
+export type UpdateBankInspectionMutationVariables = Exact<{
+  input: BankInspectionInput;
+}>;
+
+
+export type UpdateBankInspectionMutation = { __typename?: 'Mutation', updateBankInspection?: { __typename?: 'BankInspection', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
 export type ConveyancerFragment = { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
+export type UpdateConveyancerMutationVariables = Exact<{
+  input: ConveyancerInput;
+}>;
+
+
+export type UpdateConveyancerMutation = { __typename?: 'Mutation', updateConveyancer?: { __typename?: 'Conveyancer', id: string, offerInId: string, name?: string | null, phone?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+
 export type ElecCompCompanyFragment = { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+
+export type UpdateElecCompCompanyMutationVariables = Exact<{
+  input: ElecCompCompanyInput;
+}>;
+
+
+export type UpdateElecCompCompanyMutation = { __typename?: 'Mutation', updateElecCompCompany?: { __typename?: 'ElecCompCompany', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
 export type ElectricFenceFragment = { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
+export type UpdateElectricFenceMutationVariables = Exact<{
+  input: ElectricFenceInput;
+}>;
+
+
+export type UpdateElectricFenceMutation = { __typename?: 'Mutation', updateElectricFence?: { __typename?: 'ElectricFence', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+
 export type FicaDocsFragment = { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+
+export type UpdateFicaDocsMutationVariables = Exact<{
+  input: FicaDocsInput;
+}>;
+
+
+export type UpdateFicaDocsMutation = { __typename?: 'Mutation', updateFicaDocs?: { __typename?: 'FicaDocs', id: string, offerInId: string, address?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
 export type GasComplianceFragment = { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
+export type UpdateGasComplianceMutationVariables = Exact<{
+  input: GasComplianceInput;
+}>;
+
+
+export type UpdateGasComplianceMutation = { __typename?: 'Mutation', updateGasCompliance?: { __typename?: 'GasCompliance', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+
 export type IntermologistFragment = { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+
+export type UpdateIntermologistMutationVariables = Exact<{
+  input: IntermologistInput;
+}>;
+
+
+export type UpdateIntermologistMutation = { __typename?: 'Mutation', updateIntermologist?: { __typename?: 'Intermologist', id: string, offerInId: string, name?: string | null, phone?: string | null, email?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
 export type MortgageOriginatorFragment = { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 
+export type UpdateMortgageOriginatorMutationVariables = Exact<{
+  input: MortgageOriginatorInput;
+}>;
+
+
+export type UpdateMortgageOriginatorMutation = { __typename?: 'Mutation', updateMortgageOriginator?: { __typename?: 'MortgageOriginator', id: string, offerInId: string, phone?: string | null, name?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+
 export type OfferAcceptedFragment = { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
+
+export type UpdateOfferAcceptedMutationVariables = Exact<{
+  input: OfferAcceptedInput;
+}>;
+
+
+export type UpdateOfferAcceptedMutation = { __typename?: 'Mutation', updateOfferAccepted?: { __typename?: 'OfferAccepted', id: string, offerInId: string, withConditions?: boolean | null, conditions?: string | null, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
+
+export type UpdateWaterCertMutationVariables = Exact<{
+  input: WaterCertInput;
+}>;
+
+
+export type UpdateWaterCertMutation = { __typename?: 'Mutation', updateWaterCert?: { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null } | null };
 
 export type WaterCertFragment = { __typename?: 'WaterCert', id: string, offerInId: string, notes?: string | null, completed?: boolean | null, deadline?: Date | null, flag?: boolean | null };
 

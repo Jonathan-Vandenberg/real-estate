@@ -233,6 +233,152 @@ const resolvers: Resolvers = {
 
       return offerIn;
     },
+    updateAlien: async (_, { input }, { prisma }) => {
+      const updatedAlien = await prisma.alien.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+        },
+      });
+      return updatedAlien;
+    },
+    updateElectricFence: async (_, { input }, { prisma }) => {
+      const updatedElectricFence = await prisma.electricFence.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+        },
+      });
+      return updatedElectricFence;
+    },
+    updateFicaDocs: async (_, { input }, { prisma }) => {
+      const updatedFicaDocs = await prisma.ficaDocs.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+          address: input?.address,
+        },
+      });
+      return updatedFicaDocs;
+    },
+    updateMortgageOriginator: async (_, { input }, { prisma }) => {
+      const updatedFicaDocs = await prisma.mortgageOriginator.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+          phone: input?.phone,
+          name: input?.name,
+        },
+      });
+      return updatedFicaDocs;
+    },
+    updateConveyancer: async (_, { input }, { prisma }) => {
+      const updatedConveyancer = await prisma.conveyancer.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+          phone: input?.phone,
+          name: input?.name,
+        },
+      });
+      return updatedConveyancer;
+    },
+    updateBankInspection: async (_, { input }, { prisma }) => {
+      const updatedBankInspection = await prisma.bankInspection.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+        },
+      });
+      return updatedBankInspection;
+    },
+    updateOfferAccepted: async (_, { input }, { prisma }) => {
+      const updatedOfferAccepted = await prisma.offerAccepted.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+          withConditions: input?.withConditions,
+          conditions: input?.conditions,
+        },
+      });
+      return updatedOfferAccepted;
+    },
+    updateWaterCert: async (_, { input }, { prisma }) => {
+      const updatedWaterCert = await prisma.waterCert.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+        },
+      });
+      return updatedWaterCert;
+    },
+    updateGasCompliance: async (_, { input }, { prisma }) => {
+      const updatedGasCompliance = await prisma.gasCompliance.update({
+        where: { id: input!.id },
+        data: {
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+        },
+      });
+      return updatedGasCompliance;
+    },
+    updateIntermologist: async (_, { input }, { prisma }) => {
+      const updatedIntermologist = await prisma.intermologist.update({
+        where: { id: input!.id },
+        data: {
+          name: input?.name,
+          phone: input?.phone,
+          email: input?.email,
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+        },
+      });
+      return updatedIntermologist;
+    },
+    updateElecCompCompany: async (_, { input }, { prisma }) => {
+      const updatedElecCompCompany = await prisma.elecCompCompany.update({
+        where: { id: input!.id },
+        data: {
+          offerInId: input!.offerInId,
+          name: input?.name,
+          phone: input?.phone,
+          email: input?.email,
+          notes: input?.notes,
+          completed: input?.completed,
+          deadline: input?.deadline,
+          flag: input?.flag,
+        },
+      });
+      return updatedElecCompCompany;
+    },
     updateOfferIn: async (_, { input }, { prisma }) => {
       const offerIn = await prisma.offerIn.update({
         where: {
@@ -246,62 +392,73 @@ const resolvers: Resolvers = {
           dateOfBondApprovalInPrincipal: input?.dateOfBondApprovalInPrincipal,
           dateOfBondApproved: input?.dateOfBondApproved,
           bankName: input?.bankName,
-          elecCompCompany: {
-            update: {
-              flag: input?.elecCompCompany?.flag,
-              name: input?.elecCompCompany?.name,
-              phone: input?.elecCompCompany?.phone,
-              email: input?.elecCompCompany?.email,
-              notes: input?.elecCompCompany?.notes,
-              completed: input?.elecCompCompany?.completed,
-              deadline: input?.elecCompCompany?.deadline,
-            },
-          },
-          intermologist: {
-            update: {
-              name: input?.intermologist?.name,
-              phone: input?.intermologist?.phone,
-              email: input?.intermologist?.email,
-              notes: input?.intermologist?.notes,
-              completed: input?.intermologist?.completed,
-              deadline: input?.intermologist?.deadline,
-              flag: input?.intermologist?.flag,
-            },
-          },
-          gasCompliance: {
-            update: {
-              notes: input?.gasCompliance?.notes,
-              completed: input?.gasCompliance?.completed,
-              deadline: input?.gasCompliance?.deadline,
-              flag: input?.gasCompliance?.flag,
-            },
-          },
-          waterCert: {
-            update: {
-              notes: input?.waterCert?.notes,
-              completed: input?.waterCert?.completed,
-              deadline: input?.waterCert?.deadline,
-              flag: input?.waterCert?.flag,
-            },
-          },
-          offerAccepted: {
-            update: {
-              withConditions: input?.offerAccepted?.withConditions,
-              conditions: input?.offerAccepted?.conditions,
-              notes: input?.offerAccepted?.notes,
-              completed: input?.offerAccepted?.completed,
-              deadline: input?.offerAccepted?.deadline,
-              flag: input?.offerAccepted?.flag,
-            },
-          },
-          bankInspection: {
-            update: {
-              notes: input?.bankInspection?.notes,
-              completed: input?.bankInspection?.completed,
-              deadline: input?.bankInspection?.deadline,
-              flag: input?.bankInspection?.flag,
-            },
-          },
+          elecCompCompanyId: input!.elecCompCompanyId,
+          intermologistId: input!.intermologistId,
+          gasComplianceId: input!.gasComplianceId,
+          waterCertId: input!.waterCertId,
+          offerAcceptedId: input!.offerAcceptedId,
+          bankInspectionId: input!.bankInspectionId,
+          conveyancerId: input!.conveyancerId,
+          mortgageOriginatorId: input!.mortgageOriginatorId,
+          ficaDocsId: input!.ficaDocsId,
+          electricFenceId: input!.electricFenceId,
+          alienId: input!.alienId,
+          // elecCompCompany: {
+          //   update: {
+          //     flag: input?.elecCompCompany?.flag,
+          //     name: input?.elecCompCompany?.name,
+          //     phone: input?.elecCompCompany?.phone,
+          //     email: input?.elecCompCompany?.email,
+          //     notes: input?.elecCompCompany?.notes,
+          //     completed: input?.elecCompCompany?.completed,
+          //     deadline: input?.elecCompCompany?.deadline,
+          //   },
+          // },
+          // intermologist: {
+          //   update: {
+          //     name: input?.intermologist?.name,
+          //     phone: input?.intermologist?.phone,
+          //     email: input?.intermologist?.email,
+          //     notes: input?.intermologist?.notes,
+          //     completed: input?.intermologist?.completed,
+          //     deadline: input?.intermologist?.deadline,
+          //     flag: input?.intermologist?.flag,
+          //   },
+          // },
+          // gasCompliance: {
+          //   update: {
+          //     notes: input?.gasCompliance?.notes,
+          //     completed: input?.gasCompliance?.completed,
+          //     deadline: input?.gasCompliance?.deadline,
+          //     flag: input?.gasCompliance?.flag,
+          //   },
+          // },
+          // waterCert: {
+          //   update: {
+          //     notes: input?.waterCert?.notes,
+          //     completed: input?.waterCert?.completed,
+          //     deadline: input?.waterCert?.deadline,
+          //     flag: input?.waterCert?.flag,
+          //   },
+          // },
+          // offerAccepted: {
+          //   update: {
+          //     withConditions: input?.offerAccepted?.withConditions,
+          //     conditions: input?.offerAccepted?.conditions,
+          //     notes: input?.offerAccepted?.notes,
+          //     completed: input?.offerAccepted?.completed,
+          //     deadline: input?.offerAccepted?.deadline,
+          //     flag: input?.offerAccepted?.flag,
+          //   },
+          // },
+          // bankInspection: {
+          //   update: {
+          //     notes: input?.bankInspection?.notes,
+          //     completed: input?.bankInspection?.completed,
+          //     deadline: input?.bankInspection?.deadline,
+          //     flag: input?.bankInspection?.flag,
+          //   },
+          // },
           // conveyancer: {
           //   update: {
           //     name: input?.conveyancer?.name,
@@ -347,14 +504,14 @@ const resolvers: Resolvers = {
           //     flag: input?.alien?.flag,
           //   },
           // },
-        },
-        include: {
-          elecCompCompany: true,
-          intermologist: true,
-          gasCompliance: true,
-          waterCert: true,
-          offerAccepted: true,
-          bankInspection: true,
+          // },
+          // include: {
+          //   elecCompCompany: true,
+          //   intermologist: true,
+          //   gasCompliance: true,
+          //   waterCert: true,
+          //   offerAccepted: true,
+          //   bankInspection: true,
           // conveyancer: true,
           // mortgageOriginator: true,
           // ficaDocs: true,
@@ -508,51 +665,6 @@ const resolvers: Resolvers = {
       });
 
       return updatedAgent;
-    },
-    deleteImage: async (_, { id }, { prisma }) => {
-      const image = await prisma.imageProduct.findUnique({
-        where: {
-          id,
-        },
-      });
-
-      if (image)
-        await prisma.imageProduct.delete({
-          where: {
-            id,
-          },
-        });
-      return image;
-    },
-    deleteImageBlog: async (_, { id }, { prisma }) => {
-      const imageBlog = await prisma.imageBlog.findUnique({
-        where: {
-          id,
-        },
-      });
-
-      if (imageBlog)
-        await prisma.imageBlog.delete({
-          where: {
-            id,
-          },
-        });
-      return imageBlog;
-    },
-    deleteDocument: async (_, { id }, { prisma }) => {
-      const document = await prisma.document.findUnique({
-        where: {
-          id,
-        },
-      });
-
-      if (document)
-        await prisma.document.delete({
-          where: {
-            id,
-          },
-        });
-      return document;
     },
     addForm: async (_, { input }, { prisma }) => {
       const addItem = await prisma.form.create({
@@ -868,6 +980,52 @@ const resolvers: Resolvers = {
           });
           return document;
         });
+    },
+
+    deleteImage: async (_, { id }, { prisma }) => {
+      const image = await prisma.imageProduct.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (image)
+        await prisma.imageProduct.delete({
+          where: {
+            id,
+          },
+        });
+      return image;
+    },
+    deleteImageBlog: async (_, { id }, { prisma }) => {
+      const imageBlog = await prisma.imageBlog.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (imageBlog)
+        await prisma.imageBlog.delete({
+          where: {
+            id,
+          },
+        });
+      return imageBlog;
+    },
+    deleteDocument: async (_, { id }, { prisma }) => {
+      const document = await prisma.document.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (document)
+        await prisma.document.delete({
+          where: {
+            id,
+          },
+        });
+      return document;
     },
   },
 };

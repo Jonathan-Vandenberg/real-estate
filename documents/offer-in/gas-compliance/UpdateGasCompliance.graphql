@@ -1,0 +1,7 @@
+# import GasCompliance from './GasComplianceFragment.graphql'
+
+mutation UpdateGasCompliance($input: GasComplianceInput!) {
+  updateGasCompliance(input: $input) {
+    ...GasCompliance
+  }
+}

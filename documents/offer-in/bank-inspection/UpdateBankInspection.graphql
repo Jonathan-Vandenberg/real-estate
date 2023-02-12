@@ -1,0 +1,7 @@
+# import BankInspection from './BankInspectionFragment.graphql'
+
+mutation UpdateBankInspection($input: BankInspectionInput!) {
+  updateBankInspection(input: $input) {
+    ...BankInspection
+  }
+}

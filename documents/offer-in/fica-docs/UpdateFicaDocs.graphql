@@ -1,0 +1,7 @@
+# import FicaDocs from './FicaDocsFragment.graphql'
+
+mutation UpdateFicaDocs($input: FicaDocsInput!) {
+  updateFicaDocs(input: $input) {
+    ...FicaDocs
+  }
+}

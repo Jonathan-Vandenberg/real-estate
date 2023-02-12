@@ -1,0 +1,7 @@
+# import MortgageOriginator from './MortgageOriginatorFragment.graphql'
+
+mutation UpdateMortgageOriginator($input: MortgageOriginatorInput!) {
+  updateMortgageOriginator(input: $input) {
+    ...MortgageOriginator
+  }
+}

@@ -1,0 +1,7 @@
+# import Conveyancer from './ConveyancerFragment.graphql'
+
+mutation UpdateConveyancer($input: ConveyancerInput!) {
+  updateConveyancer(input: $input) {
+    ...Conveyancer
+  }
+}
