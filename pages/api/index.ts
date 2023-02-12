@@ -257,109 +257,109 @@ const resolvers: Resolvers = {
               deadline: input?.elecCompCompany?.deadline,
             },
           },
-          intermologist: {
-            update: {
-              name: input?.intermologist?.name,
-              phone: input?.intermologist?.phone,
-              email: input?.intermologist?.email,
-              notes: input?.intermologist?.notes,
-              completed: input?.intermologist?.completed,
-              deadline: input?.intermologist?.deadline,
-              flag: input?.intermologist?.flag,
-            },
-          },
-          gasCompliance: {
-            update: {
-              notes: input?.gasCompliance?.notes,
-              completed: input?.gasCompliance?.completed,
-              deadline: input?.gasCompliance?.deadline,
-              flag: input?.gasCompliance?.flag,
-            },
-          },
-          waterCert: {
-            update: {
-              notes: input?.waterCert?.notes,
-              completed: input?.waterCert?.completed,
-              deadline: input?.waterCert?.deadline,
-              flag: input?.waterCert?.flag,
-            },
-          },
-          offerAccepted: {
-            update: {
-              withConditions: input?.offerAccepted?.withConditions,
-              conditions: input?.offerAccepted?.conditions,
-              notes: input?.offerAccepted?.notes,
-              completed: input?.offerAccepted?.completed,
-              deadline: input?.offerAccepted?.deadline,
-              flag: input?.offerAccepted?.flag,
-            },
-          },
-          bankInspection: {
-            update: {
-              notes: input?.bankInspection?.notes,
-              completed: input?.bankInspection?.completed,
-              deadline: input?.bankInspection?.deadline,
-              flag: input?.bankInspection?.flag,
-            },
-          },
-          conveyancer: {
-            update: {
-              name: input?.conveyancer?.name,
-              phone: input?.conveyancer?.phone,
-              notes: input?.conveyancer?.notes,
-              completed: input?.conveyancer?.completed,
-              deadline: input?.conveyancer?.deadline,
-              flag: input?.conveyancer?.flag,
-            },
-          },
-          mortgageOriginator: {
-            update: {
-              phone: input?.mortgageOriginator?.phone,
-              name: input?.mortgageOriginator?.name,
-              notes: input?.mortgageOriginator?.notes,
-              completed: input?.mortgageOriginator?.completed,
-              deadline: input?.mortgageOriginator?.deadline,
-              flag: input?.mortgageOriginator?.flag,
-            },
-          },
-          ficaDocs: {
-            update: {
-              address: input?.ficaDocs?.address,
-              notes: input?.ficaDocs?.notes,
-              completed: input?.ficaDocs?.completed,
-              deadline: input?.ficaDocs?.deadline,
-              flag: input?.ficaDocs?.flag,
-            },
-          },
-          electricFence: {
-            update: {
-              notes: input?.electricFence?.notes,
-              completed: input?.electricFence?.completed,
-              deadline: input?.electricFence?.deadline,
-              flag: input?.electricFence?.flag,
-            },
-          },
-          alien: {
-            update: {
-              notes: input?.alien?.notes,
-              completed: input?.alien?.completed,
-              deadline: input?.alien?.deadline,
-              flag: input?.alien?.flag,
-            },
-          },
+          // intermologist: {
+          //   update: {
+          //     name: input?.intermologist?.name,
+          //     phone: input?.intermologist?.phone,
+          //     email: input?.intermologist?.email,
+          //     notes: input?.intermologist?.notes,
+          //     completed: input?.intermologist?.completed,
+          //     deadline: input?.intermologist?.deadline,
+          //     flag: input?.intermologist?.flag,
+          //   },
+          // },
+          // gasCompliance: {
+          //   update: {
+          //     notes: input?.gasCompliance?.notes,
+          //     completed: input?.gasCompliance?.completed,
+          //     deadline: input?.gasCompliance?.deadline,
+          //     flag: input?.gasCompliance?.flag,
+          //   },
+          // },
+          // waterCert: {
+          //   update: {
+          //     notes: input?.waterCert?.notes,
+          //     completed: input?.waterCert?.completed,
+          //     deadline: input?.waterCert?.deadline,
+          //     flag: input?.waterCert?.flag,
+          //   },
+          // },
+          // offerAccepted: {
+          //   update: {
+          //     withConditions: input?.offerAccepted?.withConditions,
+          //     conditions: input?.offerAccepted?.conditions,
+          //     notes: input?.offerAccepted?.notes,
+          //     completed: input?.offerAccepted?.completed,
+          //     deadline: input?.offerAccepted?.deadline,
+          //     flag: input?.offerAccepted?.flag,
+          //   },
+          // },
+          // bankInspection: {
+          //   update: {
+          //     notes: input?.bankInspection?.notes,
+          //     completed: input?.bankInspection?.completed,
+          //     deadline: input?.bankInspection?.deadline,
+          //     flag: input?.bankInspection?.flag,
+          //   },
+          // },
+          // conveyancer: {
+          //   update: {
+          //     name: input?.conveyancer?.name,
+          //     phone: input?.conveyancer?.phone,
+          //     notes: input?.conveyancer?.notes,
+          //     completed: input?.conveyancer?.completed,
+          //     deadline: input?.conveyancer?.deadline,
+          //     flag: input?.conveyancer?.flag,
+          //   },
+          // },
+          // mortgageOriginator: {
+          //   update: {
+          //     phone: input?.mortgageOriginator?.phone,
+          //     name: input?.mortgageOriginator?.name,
+          //     notes: input?.mortgageOriginator?.notes,
+          //     completed: input?.mortgageOriginator?.completed,
+          //     deadline: input?.mortgageOriginator?.deadline,
+          //     flag: input?.mortgageOriginator?.flag,
+          //   },
+          // },
+          // ficaDocs: {
+          //   update: {
+          //     address: input?.ficaDocs?.address,
+          //     notes: input?.ficaDocs?.notes,
+          //     completed: input?.ficaDocs?.completed,
+          //     deadline: input?.ficaDocs?.deadline,
+          //     flag: input?.ficaDocs?.flag,
+          //   },
+          // },
+          // electricFence: {
+          //   update: {
+          //     notes: input?.electricFence?.notes,
+          //     completed: input?.electricFence?.completed,
+          //     deadline: input?.electricFence?.deadline,
+          //     flag: input?.electricFence?.flag,
+          //   },
+          // },
+          // alien: {
+          //   update: {
+          //     notes: input?.alien?.notes,
+          //     completed: input?.alien?.completed,
+          //     deadline: input?.alien?.deadline,
+          //     flag: input?.alien?.flag,
+          //   },
+          // },
         },
         include: {
           elecCompCompany: true,
-          intermologist: true,
-          gasCompliance: true,
-          waterCert: true,
-          offerAccepted: true,
-          bankInspection: true,
-          conveyancer: true,
-          mortgageOriginator: true,
-          ficaDocs: true,
-          electricFence: true,
-          alien: true,
+          // intermologist: true,
+          // gasCompliance: true,
+          // waterCert: true,
+          // offerAccepted: true,
+          // bankInspection: true,
+          // conveyancer: true,
+          // mortgageOriginator: true,
+          // ficaDocs: true,
+          // electricFence: true,
+          // alien: true,
         },
       });
 
