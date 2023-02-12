@@ -257,17 +257,17 @@ const resolvers: Resolvers = {
               deadline: input?.elecCompCompany?.deadline,
             },
           },
-          // intermologist: {
-          //   update: {
-          //     name: input?.intermologist?.name,
-          //     phone: input?.intermologist?.phone,
-          //     email: input?.intermologist?.email,
-          //     notes: input?.intermologist?.notes,
-          //     completed: input?.intermologist?.completed,
-          //     deadline: input?.intermologist?.deadline,
-          //     flag: input?.intermologist?.flag,
-          //   },
-          // },
+          intermologist: {
+            update: {
+              name: input?.intermologist?.name,
+              phone: input?.intermologist?.phone,
+              email: input?.intermologist?.email,
+              notes: input?.intermologist?.notes,
+              completed: input?.intermologist?.completed,
+              deadline: input?.intermologist?.deadline,
+              flag: input?.intermologist?.flag,
+            },
+          },
           // gasCompliance: {
           //   update: {
           //     notes: input?.gasCompliance?.notes,
@@ -350,7 +350,7 @@ const resolvers: Resolvers = {
         },
         include: {
           elecCompCompany: true,
-          // intermologist: true,
+          intermologist: true,
           // gasCompliance: true,
           // waterCert: true,
           // offerAccepted: true,
