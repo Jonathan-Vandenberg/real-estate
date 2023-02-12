@@ -294,14 +294,14 @@ const resolvers: Resolvers = {
               flag: input?.offerAccepted?.flag,
             },
           },
-          // bankInspection: {
-          //   update: {
-          //     notes: input?.bankInspection?.notes,
-          //     completed: input?.bankInspection?.completed,
-          //     deadline: input?.bankInspection?.deadline,
-          //     flag: input?.bankInspection?.flag,
-          //   },
-          // },
+          bankInspection: {
+            update: {
+              notes: input?.bankInspection?.notes,
+              completed: input?.bankInspection?.completed,
+              deadline: input?.bankInspection?.deadline,
+              flag: input?.bankInspection?.flag,
+            },
+          },
           // conveyancer: {
           //   update: {
           //     name: input?.conveyancer?.name,
@@ -354,7 +354,7 @@ const resolvers: Resolvers = {
           gasCompliance: true,
           waterCert: true,
           offerAccepted: true,
-          // bankInspection: true,
+          bankInspection: true,
           // conveyancer: true,
           // mortgageOriginator: true,
           // ficaDocs: true,
