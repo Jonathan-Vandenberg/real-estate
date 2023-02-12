@@ -11,7 +11,7 @@ const footerLinks = [
   {
     title: "Company",
     links: [
-      { title: "About HomeProp", href: "/about" },
+      { title: "About Home Prop", href: "/about" },
       { title: "News", href: "/blog" },
     ],
   },
