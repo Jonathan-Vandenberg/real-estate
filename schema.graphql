@@ -49,9 +49,8 @@ type Mutation {
   deleteImage(id: ID!): ImageProduct
   updateImage(id: ID!, input: ImageProductInput!): ImageProduct
 
-  addTodo(input: TodoInput!): Todo
+  createOrUpdateTodo(id: ID!, input: TodoInput!): Todo
   deleteTodo(id: ID!): Todo
-  updateTodo(id: ID!, input: TodoInput!): Todo
 
   addDocument(input: DocumentInput!): Document
   deleteDocument(id: ID!): Document

@@ -9,7 +9,7 @@ import {
   OfferIn,
   Offer_In_Categories,
   Todo,
-  useAddTodoMutation,
+  useCreateOrUpdateTodoMutation,
   useAddOfferInMutation,
   useUpdateOfferInMutation,
   useUpdateAlienMutation,
@@ -23,6 +23,7 @@ import {
   useUpdateMortgageOriginatorMutation,
   useUpdateOfferAcceptedMutation,
   useUpdateWaterCertMutation,
+  ElecCompCompany,
 } from "../../../types";
 import RemoveImage from "../../aws/DeleteImages";
 import EmailSender from "../../aws/EmailSender";
@@ -35,7 +36,7 @@ import Todos from "../../todo/Todos";
 import Plus from "../../svgs/Plus";
 
 interface IProps {
-  offerIn: OfferIn | undefined | null;
+  offerIn: OfferIn | null | undefined;
   add: boolean;
   edit: boolean;
   onClick: () => void;
@@ -51,6 +52,8 @@ export default function OfferInForm({
   edit,
   onClick,
 }: IProps) {
+  const [saving, setSaving] = useState(false);
+
   const [formSent, setFormSent] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
@@ -163,8 +166,8 @@ export default function OfferInForm({
 
   if (errorUpdateOfferIn) console.log(errorUpdateOfferIn);
 
-  const [addTodo, { loading: loadingAddTodo, error: errorAddTodo }] =
-    useAddTodoMutation();
+  const [createOrUpdateTodo, { loading: loadingAddTodo, error: errorAddTodo }] =
+    useCreateOrUpdateTodoMutation();
 
   //~~~~~~~~~~~~~~~~~~~~~~~~ IDs ~~~~~~~~~~~~~~~~~~~~~~~~//
   useEffect(() => {
@@ -426,7 +429,7 @@ export default function OfferInForm({
   //   offerIn?.conveyancer?.message
   // );
 
-  let offerInDetailsUpdate = {
+  let offerInVariablesUpdate = {
     variables: {
       input: {
         id: offerIn!.id,
@@ -453,7 +456,7 @@ export default function OfferInForm({
     },
   };
 
-  let offerInDetailsAdd = {
+  let offerInVariablesAdd = {
     variables: {
       input: {
         id: offerIn!.id,
@@ -582,7 +585,7 @@ export default function OfferInForm({
     },
   };
 
-  let elecCompCompanyDetails = {
+  let elecCompCompanyVariables = {
     variables: {
       input: {
         id: elecCompCompanyId,
@@ -598,7 +601,7 @@ export default function OfferInForm({
     },
   };
 
-  let intermologistDetails = {
+  let intermologistVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -614,7 +617,7 @@ export default function OfferInForm({
     },
   };
 
-  let gasComplianceDetails = {
+  let gasComplianceVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -628,7 +631,7 @@ export default function OfferInForm({
     },
   };
 
-  let waterCertDetails = {
+  let waterCertVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -641,7 +644,7 @@ export default function OfferInForm({
     },
   };
 
-  let offerAcceptedDetails = {
+  let offerAcceptedVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -656,7 +659,7 @@ export default function OfferInForm({
     },
   };
 
-  let bankInspectionDetails = {
+  let bankInspectionVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -669,7 +672,7 @@ export default function OfferInForm({
     },
   };
 
-  let conveyancerDetails = {
+  let conveyancerVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -684,7 +687,7 @@ export default function OfferInForm({
     },
   };
 
-  let mortgageOriginatorDetails = {
+  let mortgageOriginatorVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -699,7 +702,7 @@ export default function OfferInForm({
     },
   };
 
-  let ficaDocsDetails = {
+  let ficaDocsVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -713,7 +716,7 @@ export default function OfferInForm({
     },
   };
 
-  let electricFenceDetails = {
+  let electricFenceVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -726,7 +729,7 @@ export default function OfferInForm({
     },
   };
 
-  let alienDetails = {
+  let alienVariables = {
     variables: {
       input: {
         offerInId: offerIn!.id,
@@ -742,45 +745,143 @@ export default function OfferInForm({
   const onFinish = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+    setSaving(true);
+
     function sendForm() {
       if (add) {
-        addOfferIn(offerInDetailsAdd);
+        addOfferIn(offerInVariablesAdd);
       }
       if (edit) {
-        updateOfferIn(offerInDetailsUpdate);
-        updateElecCompCompany(elecCompCompanyDetails);
-        updateIntermologist(intermologistDetails);
-        updateGasCompliance(gasComplianceDetails);
-        updateWaterCert(waterCertDetails);
-        updateOfferAccepted(offerAcceptedDetails);
-        updateBankInspection(bankInspectionDetails);
-        updateConveyancer(conveyancerDetails);
-        updateMortgageOriginator(mortgageOriginatorDetails);
-        updateFicaDocs(ficaDocsDetails);
-        updateElectricFence(electricFenceDetails);
-        updateAlien(alienDetails);
-      }
+        if (
+          amount !== offerIn?.amount ||
+          dot !== moment(offerIn?.dot).toDate() ||
+          dateOfBondApplication !==
+            moment(offerIn?.dateOfBondApplication).toDate() ||
+          dateOfBondApproved !== moment(offerIn?.dateOfBondApproved).toDate() ||
+          bankName !== offerIn?.bankName ||
+          flag !== offerIn?.flag
+        ) {
+          updateOfferIn(offerInVariablesUpdate);
+        }
 
-      setTimeout(() => {
-        setFormSent(!formSent);
-      }, 1000);
+        if (
+          nameElecCompCompany !== offerIn?.elecCompCompany?.name ||
+          phoneElecCompCompany !== offerIn?.elecCompCompany?.phone ||
+          emailElecCompCompany !== offerIn?.elecCompCompany?.email ||
+          notesElecCompCompany !== offerIn?.elecCompCompany?.notes ||
+          flagElecCompCompany !== offerIn?.elecCompCompany?.flag ||
+          completedElecCompCompany !== offerIn?.elecCompCompany?.completed ||
+          deadlineElecCompCompany !== offerIn?.elecCompCompany?.deadline
+        ) {
+          updateElecCompCompany(elecCompCompanyVariables);
+        }
+
+        if (
+          nameIntermologist !== offerIn?.intermologist?.name ||
+          phoneIntermologist !== offerIn?.intermologist?.phone ||
+          emailIntermologist !== offerIn?.intermologist?.email ||
+          notesIntermologist !== offerIn?.intermologist?.notes ||
+          flagIntermologist !== offerIn?.intermologist?.flag ||
+          completedIntermologist !== offerIn?.intermologist?.completed ||
+          deadlineIntermologist !== offerIn?.intermologist?.deadline
+        ) {
+          updateIntermologist(intermologistVariables);
+        }
+
+        if (
+          notesGasCompliance !== offerIn?.gasCompliance?.notes ||
+          flagGasCompliance !== offerIn?.gasCompliance?.flag ||
+          completedGasCompliance !== offerIn?.gasCompliance?.completed ||
+          deadlineGasCompliance !== offerIn?.gasCompliance?.deadline
+        ) {
+          updateGasCompliance(gasComplianceVariables);
+        }
+
+        if (
+          notesWaterCert !== offerIn?.waterCert?.notes ||
+          flagWaterCert !== offerIn?.waterCert?.flag ||
+          completedWaterCert !== offerIn?.waterCert?.completed ||
+          deadlineWaterCert !== offerIn?.waterCert?.deadline
+        ) {
+          updateWaterCert(waterCertVariables);
+        }
+
+        if (
+          notesOfferAccepted !== offerIn?.offerAccepted?.notes ||
+          flagOfferAccepted !== offerIn?.offerAccepted?.flag ||
+          completedOfferAccepted !== offerIn?.offerAccepted?.completed ||
+          deadlineOfferAccepted !== offerIn?.offerAccepted?.deadline ||
+          conditionsOfferAccepted !== offerIn?.offerAccepted?.conditions ||
+          withConditionsOfferAccepted !== offerIn?.offerAccepted?.withConditions
+        ) {
+          updateOfferAccepted(offerAcceptedVariables);
+        }
+
+        if (
+          notesBankInspection !== offerIn?.bankInspection?.notes ||
+          flagBankInspection !== offerIn?.bankInspection?.flag ||
+          completedBankInspection !== offerIn?.bankInspection?.completed ||
+          deadlineBankInspection !== offerIn?.bankInspection?.deadline
+        ) {
+          updateBankInspection(bankInspectionVariables);
+        }
+
+        if (
+          nameConveyancer !== offerIn?.conveyancer?.name ||
+          phoneConveyancer !== offerIn?.conveyancer?.phone ||
+          notesConveyancer !== offerIn?.conveyancer?.notes ||
+          flagConveyancer !== offerIn?.conveyancer?.flag ||
+          completedConveyancer !== offerIn?.conveyancer?.completed ||
+          deadlineConveyancer !== offerIn?.conveyancer?.deadline
+        ) {
+          updateConveyancer(conveyancerVariables);
+        }
+
+        if (
+          nameMortgageOriginator !== offerIn?.mortgageOriginator?.name ||
+          phoneMortgageOriginator !== offerIn?.mortgageOriginator?.phone ||
+          notesMortgageOriginator !== offerIn?.mortgageOriginator?.notes ||
+          flagMortgageOriginator !== offerIn?.mortgageOriginator?.flag ||
+          completedMortgageOriginator !==
+            offerIn?.mortgageOriginator?.completed ||
+          deadlineMortgageOriginator !== offerIn?.mortgageOriginator?.deadline
+        ) {
+          updateMortgageOriginator(mortgageOriginatorVariables);
+        }
+
+        if (
+          notesFicaDocs !== offerIn?.ficaDocs?.notes ||
+          flagFicaDocs !== offerIn?.ficaDocs?.flag ||
+          completedFicaDocs !== offerIn?.ficaDocs?.completed ||
+          deadlineFicaDocs !== offerIn?.ficaDocs?.deadline
+        ) {
+          updateFicaDocs(ficaDocsVariables);
+        }
+
+        if (
+          notesElectricFence !== offerIn?.electricFence?.notes ||
+          flagElectricFence !== offerIn?.electricFence?.flag ||
+          completedElectricFence !== offerIn?.electricFence?.completed ||
+          deadlineElectricFence !== offerIn?.electricFence?.deadline
+        ) {
+          updateElectricFence(electricFenceVariables);
+        }
+
+        if (
+          notesAlien !== offerIn?.alien?.notes ||
+          flagAlien !== offerIn?.alien?.flag ||
+          completedAlien !== offerIn?.alien?.completed ||
+          deadlineAlien !== offerIn?.alien?.deadline
+        ) {
+          updateAlien(alienVariables);
+        }
+      }
     }
 
     sendForm();
     setTimeout(() => {
-      setFormSent(!formSent);
+      setSaving(false);
     }, 1000);
-  };
-
-  const handleAddTodo = (offerInCategory: Offer_In_Categories) => {
-    addTodo({
-      variables: {
-        input: {
-          offerInCategory: offerInCategory,
-          offerInId: offerIn!.id,
-        },
-      },
-    });
   };
 
   return (
@@ -853,11 +954,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Eleccompcompany)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -865,6 +967,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Eleccompcompany && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Eleccompcompany}
                   />
@@ -978,11 +1081,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Ficadocs)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -990,6 +1094,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Ficadocs && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Ficadocs}
                   />
@@ -1085,11 +1190,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Mortgageoriginator)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1098,6 +1204,7 @@ export default function OfferInForm({
                 Offer_In_Categories.Mortgageoriginator && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Mortgageoriginator}
                   />
@@ -1204,11 +1311,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Conveyancer)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1216,6 +1324,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Conveyancer && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Conveyancer}
                   />
@@ -1320,11 +1429,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Bankinspection)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1332,6 +1442,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Bankinspection && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Bankinspection}
                   />
@@ -1418,11 +1529,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Offeraccepted)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1430,6 +1542,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Offeraccepted && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Offeraccepted}
                   />
@@ -1541,11 +1654,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Watercert)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1553,6 +1667,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Watercert && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Watercert}
                   />
@@ -1639,11 +1754,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Gascompliance)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1651,6 +1767,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Gascompliance && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Gascompliance}
                   />
@@ -1683,14 +1800,6 @@ export default function OfferInForm({
           id="notesGasCompliance"
           value={notesGasCompliance as string}
           onChange={(e) => setNotesGasCompliance(e.target.value)}
-          className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
-        />
-      </div>
-      <div className="flex items-start space-y-1 justify-center flex-col pt-4 text-md ">
-        <input
-          id="urlGasCompliance"
-          value={gasCompCerUrlGasCompliance as string}
-          onChange={(e) => setGasCompCerUrlGasCompliance(e.target.value)}
           className="p-3 rounded-xl w-full bg-[rgb(247,247,247)]"
         />
       </div>
@@ -1745,11 +1854,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Intermologist)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1757,6 +1867,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Intermologist && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Intermologist}
                   />
@@ -1870,11 +1981,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.ElectricFence)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1882,6 +1994,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.ElectricFence && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.ElectricFence}
                   />
@@ -1968,11 +2081,12 @@ export default function OfferInForm({
         </h2>
       </ContainerTitle>
       <ul className="space-y-4">
-        <div
-          onClick={() => handleAddTodo(Offer_In_Categories.Alien)}
-          className="w-full mx-auto items-center flex justify-center pt-3 text-md text-[rgb(36,138,52)] hover:cursor-pointer"
-        >
-          Add todo <Plus className="w-10 h-10 text-[rgb(36,138,52)] " />
+        <div className="md:p-5">
+          <Todos
+            offerInId={offerIn!.id}
+            create="create"
+            offerInCategory={Offer_In_Categories.Eleccompcompany}
+          />
         </div>
         {offerIn?.todos
           ?.map(
@@ -1980,6 +2094,7 @@ export default function OfferInForm({
               todo?.offerInCategory === Offer_In_Categories.Alien && (
                 <li className="md:p-5" key={i}>
                   <Todos
+                    offerInId={offerIn!.id}
                     todo={todo}
                     offerInCategory={Offer_In_Categories.Alien}
                   />
@@ -2062,7 +2177,7 @@ export default function OfferInForm({
           <Button variant="secondary" onClick={onClick} className="text-white">
             Cancel
           </Button>
-          {loadingUpdateOfferIn || loadingAddOfferIn ? (
+          {saving ? (
             <Button className="text-white">Saving Changes</Button>
           ) : (
             <Button type="submit" className="text-white">

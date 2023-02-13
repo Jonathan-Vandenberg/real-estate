@@ -509,7 +509,7 @@ export type Mutation = {
   addOfferIn?: Maybe<OfferIn>;
   addProperty?: Maybe<Property>;
   addResidentialFeature?: Maybe<ResidentialFeature>;
-  addTodo?: Maybe<Todo>;
+  createOrUpdateTodo?: Maybe<Todo>;
   deleteAgentImage?: Maybe<Agent>;
   deleteDocument?: Maybe<Document>;
   deleteImage?: Maybe<ImageProduct>;
@@ -532,7 +532,6 @@ export type Mutation = {
   updateOfferAccepted?: Maybe<OfferAccepted>;
   updateOfferIn?: Maybe<OfferIn>;
   updateProperty?: Maybe<Property>;
-  updateTodo?: Maybe<Todo>;
   updateWaterCert?: Maybe<WaterCert>;
 };
 
@@ -587,7 +586,8 @@ export type MutationAddResidentialFeatureArgs = {
 };
 
 
-export type MutationAddTodoArgs = {
+export type MutationCreateOrUpdateTodoArgs = {
+  id: Scalars['ID'];
   input: TodoInput;
 };
 
@@ -702,12 +702,6 @@ export type MutationUpdateOfferInArgs = {
 
 export type MutationUpdatePropertyArgs = {
   input: PropertyInput;
-};
-
-
-export type MutationUpdateTodoArgs = {
-  id: Scalars['ID'];
-  input: TodoInput;
 };
 
 
@@ -1525,7 +1519,7 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   addOfferIn?: Resolver<Maybe<ResolversTypes['OfferIn']>, ParentType, ContextType, RequireFields<MutationAddOfferInArgs, 'input'>>;
   addProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationAddPropertyArgs, 'input'>>;
   addResidentialFeature?: Resolver<Maybe<ResolversTypes['ResidentialFeature']>, ParentType, ContextType, RequireFields<MutationAddResidentialFeatureArgs, 'input'>>;
-  addTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationAddTodoArgs, 'input'>>;
+  createOrUpdateTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationCreateOrUpdateTodoArgs, 'id' | 'input'>>;
   deleteAgentImage?: Resolver<Maybe<ResolversTypes['Agent']>, ParentType, ContextType, RequireFields<MutationDeleteAgentImageArgs, 'id'>>;
   deleteDocument?: Resolver<Maybe<ResolversTypes['Document']>, ParentType, ContextType, RequireFields<MutationDeleteDocumentArgs, 'id'>>;
   deleteImage?: Resolver<Maybe<ResolversTypes['ImageProduct']>, ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
@@ -1548,7 +1542,6 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   updateOfferAccepted?: Resolver<Maybe<ResolversTypes['OfferAccepted']>, ParentType, ContextType, RequireFields<MutationUpdateOfferAcceptedArgs, 'input'>>;
   updateOfferIn?: Resolver<Maybe<ResolversTypes['OfferIn']>, ParentType, ContextType, RequireFields<MutationUpdateOfferInArgs, 'input'>>;
   updateProperty?: Resolver<Maybe<ResolversTypes['Property']>, ParentType, ContextType, RequireFields<MutationUpdatePropertyArgs, 'input'>>;
-  updateTodo?: Resolver<Maybe<ResolversTypes['Todo']>, ParentType, ContextType, RequireFields<MutationUpdateTodoArgs, 'id' | 'input'>>;
   updateWaterCert?: Resolver<Maybe<ResolversTypes['WaterCert']>, ParentType, ContextType, RequireFields<MutationUpdateWaterCertArgs, 'input'>>;
 };
 
@@ -3749,39 +3742,40 @@ export function useAllResidentialFeaturesLazyQuery(baseOptions?: Apollo.LazyQuer
 export type AllResidentialFeaturesQueryHookResult = ReturnType<typeof useAllResidentialFeaturesQuery>;
 export type AllResidentialFeaturesLazyQueryHookResult = ReturnType<typeof useAllResidentialFeaturesLazyQuery>;
 export type AllResidentialFeaturesQueryResult = Apollo.QueryResult<AllResidentialFeaturesQuery, AllResidentialFeaturesQueryVariables>;
-export const AddTodoDocument = gql`
-    mutation AddTodo($input: TodoInput!) {
-  addTodo(input: $input) {
+export const CreateOrUpdateTodoDocument = gql`
+    mutation CreateOrUpdateTodo($id: ID!, $input: TodoInput!) {
+  createOrUpdateTodo(id: $id, input: $input) {
     ...Todo
   }
 }
     ${TodoFragmentDoc}`;
-export type AddTodoMutationFn = Apollo.MutationFunction<AddTodoMutation, AddTodoMutationVariables>;
+export type CreateOrUpdateTodoMutationFn = Apollo.MutationFunction<CreateOrUpdateTodoMutation, CreateOrUpdateTodoMutationVariables>;
 
 /**
- * __useAddTodoMutation__
+ * __useCreateOrUpdateTodoMutation__
  *
- * To run a mutation, you first call `useAddTodoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddTodoMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateOrUpdateTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrUpdateTodoMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addTodoMutation, { data, loading, error }] = useAddTodoMutation({
+ * const [createOrUpdateTodoMutation, { data, loading, error }] = useCreateOrUpdateTodoMutation({
  *   variables: {
+ *      id: // value for 'id'
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useAddTodoMutation(baseOptions?: Apollo.MutationHookOptions<AddTodoMutation, AddTodoMutationVariables>) {
+export function useCreateOrUpdateTodoMutation(baseOptions?: Apollo.MutationHookOptions<CreateOrUpdateTodoMutation, CreateOrUpdateTodoMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddTodoMutation, AddTodoMutationVariables>(AddTodoDocument, options);
+        return Apollo.useMutation<CreateOrUpdateTodoMutation, CreateOrUpdateTodoMutationVariables>(CreateOrUpdateTodoDocument, options);
       }
-export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>;
-export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>;
-export type AddTodoMutationOptions = Apollo.BaseMutationOptions<AddTodoMutation, AddTodoMutationVariables>;
+export type CreateOrUpdateTodoMutationHookResult = ReturnType<typeof useCreateOrUpdateTodoMutation>;
+export type CreateOrUpdateTodoMutationResult = Apollo.MutationResult<CreateOrUpdateTodoMutation>;
+export type CreateOrUpdateTodoMutationOptions = Apollo.BaseMutationOptions<CreateOrUpdateTodoMutation, CreateOrUpdateTodoMutationVariables>;
 export const DeleteTodoDocument = gql`
     mutation DeleteTodo($id: ID!) {
   deleteTodo(id: $id) {
@@ -3815,40 +3809,6 @@ export function useDeleteTodoMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteTodoMutationHookResult = ReturnType<typeof useDeleteTodoMutation>;
 export type DeleteTodoMutationResult = Apollo.MutationResult<DeleteTodoMutation>;
 export type DeleteTodoMutationOptions = Apollo.BaseMutationOptions<DeleteTodoMutation, DeleteTodoMutationVariables>;
-export const UpdateTodoDocument = gql`
-    mutation UpdateTodo($id: ID!, $input: TodoInput!) {
-  updateTodo(id: $id, input: $input) {
-    ...Todo
-  }
-}
-    ${TodoFragmentDoc}`;
-export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, UpdateTodoMutationVariables>;
-
-/**
- * __useUpdateTodoMutation__
- *
- * To run a mutation, you first call `useUpdateTodoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTodoMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateTodoMutation, { data, loading, error }] = useUpdateTodoMutation({
- *   variables: {
- *      id: // value for 'id'
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateTodoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTodoMutation, UpdateTodoMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, options);
-      }
-export type UpdateTodoMutationHookResult = ReturnType<typeof useUpdateTodoMutation>;
-export type UpdateTodoMutationResult = Apollo.MutationResult<UpdateTodoMutation>;
-export type UpdateTodoMutationOptions = Apollo.BaseMutationOptions<UpdateTodoMutation, UpdateTodoMutationVariables>;
 export type AddFormMutationVariables = Exact<{
   input: FormInput;
 }>;
@@ -4184,12 +4144,13 @@ export type AllResidentialFeaturesQuery = { __typename?: 'Query', allResidential
 
 export type ResidentialFeatureFragment = { __typename?: 'ResidentialFeature', id: string, propertyId: string, residentialFeature?: string | null };
 
-export type AddTodoMutationVariables = Exact<{
+export type CreateOrUpdateTodoMutationVariables = Exact<{
+  id: Scalars['ID'];
   input: TodoInput;
 }>;
 
 
-export type AddTodoMutation = { __typename?: 'Mutation', addTodo?: { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null };
+export type CreateOrUpdateTodoMutation = { __typename?: 'Mutation', createOrUpdateTodo?: { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null };
 
 export type DeleteTodoMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -4199,11 +4160,3 @@ export type DeleteTodoMutationVariables = Exact<{
 export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo?: { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null };
 
 export type TodoFragment = { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null };
-
-export type UpdateTodoMutationVariables = Exact<{
-  id: Scalars['ID'];
-  input: TodoInput;
-}>;
-
-
-export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'Todo', id: string, offerInId: string, offerInCategory?: Offer_In_Categories | null, task?: string | null, completed?: boolean | null, deadline?: Date | null } | null };

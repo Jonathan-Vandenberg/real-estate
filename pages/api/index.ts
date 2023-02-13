@@ -873,43 +873,39 @@ const resolvers: Resolvers = {
           return commercialFeature;
         });
     },
-    addTodo: async (_, { input }, { prisma }) => {
-      return prisma.todo
-        .create({
-          data: {
-            task: "",
-            completed: false,
-            offerInCategory: input?.offerInCategory,
-            deadline: new Date(),
-            offerInId: input!.offerInId,
-          },
-        })
-        .then((todo) => {
-          prisma.offerIn.update({
-            where: { id: input.offerInId },
-            data: {
-              todos: {
-                connect: { id: todo.id },
-              },
-            },
-          });
-          return todo;
-        });
-    },
-    updateTodo: async (_, { id, input }, { prisma }) => {
-      const updatedTodo = await prisma.todo.update({
+    createOrUpdateTodo: async (_, { id, input }, { prisma }) => {
+      const existingTodo = await prisma.todo.findUnique({
         where: {
-          id: id,
-        },
-        data: {
-          task: input?.task,
-          offerInCategory: input?.offerInCategory,
-          deadline: input?.deadline,
-          offerInId: input!.offerInId,
-          completed: input?.completed,
+          id,
         },
       });
-      return updatedTodo;
+
+      if (existingTodo) {
+        const todo = await prisma.todo.update({
+          where: {
+            id,
+          },
+          data: {
+            task: input?.task,
+            offerInCategory: input?.offerInCategory,
+            deadline: input?.deadline,
+            offerInId: input!.offerInId,
+            completed: input?.completed,
+          },
+        });
+        return todo;
+      } else {
+        const todo = await prisma.todo.create({
+          data: {
+            task: input?.task,
+            offerInCategory: input?.offerInCategory,
+            deadline: input?.deadline,
+            offerInId: input!.offerInId,
+            completed: input?.completed,
+          },
+        });
+        return todo;
+      }
     },
     deleteTodo: async (_, { id }, { prisma }) => {
       const deletedTodo = await prisma.todo.delete({

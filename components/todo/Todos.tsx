@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Todo,
-  useUpdateTodoMutation,
+  useCreateOrUpdateTodoMutation,
   Offer_In_Categories,
   useDeleteTodoMutation,
 } from "../../types";
@@ -10,16 +10,44 @@ import Switch from "../global/Switch";
 import { Button } from "../global/Button";
 import moment from "moment";
 import Delete from "../svgs/Delete";
+import { String } from "aws-sdk/clients/acm";
 
 interface IProps {
-  todo: Todo | null | undefined;
+  todo?: Todo | null | undefined;
   offerInCategory: Offer_In_Categories;
+  offerInId: String;
+  create?: "create" | "update";
 }
 
-export default function Todos({ todo, offerInCategory }: IProps) {
-  const [task, setTask] = useState(todo?.task);
-  const [completed, setCompleted] = useState(todo?.completed);
+export default function Todos({
+  todo,
+  offerInCategory,
+  offerInId,
+  create,
+}: IProps) {
+  const [id, setId] = useState(todo?.id || "");
+  const [newId, setNewId] = useState("");
+  const [task, setTask] = useState(todo?.task || "");
+  const [completed, setCompleted] = useState(todo?.completed || false);
   const [deadline, setDeadline] = useState<Date | null>(null);
+  const [todoOfferInCategory, setTodoOfferInCategory] = useState(
+    offerInCategory || ""
+  );
+
+  useEffect(() => {
+    var mongoObjectId = function () {
+      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16);
+      return (
+        timestamp +
+        "xxxxxxxxxxxxxxxx"
+          .replace(/[x]/g, function () {
+            return ((Math.random() * 16) | 0).toString(16);
+          })
+          .toLowerCase()
+      );
+    };
+    setNewId(mongoObjectId());
+  }, []);
 
   useEffect(() => {
     function datify() {
@@ -29,20 +57,22 @@ export default function Todos({ todo, offerInCategory }: IProps) {
     datify();
   }, []);
 
-  const [addNewTodo, { loading, error }] = useUpdateTodoMutation();
   const [deleteTodo, { loading: loadingDelete, error: errorDelete }] =
     useDeleteTodoMutation();
 
-  const handleEditTodo = () => {
-    addNewTodo({
+  const [createOrUpdateTodo, { loading, error }] =
+    useCreateOrUpdateTodoMutation();
+
+  const handleCreateOrUpdateTodo = () => {
+    createOrUpdateTodo({
       variables: {
-        id: todo!.id,
+        id: create === "create" ? newId : id,
         input: {
+          offerInCategory: todoOfferInCategory,
+          offerInId: offerInId,
           task: task,
           completed: completed,
           deadline: deadline,
-          offerInId: todo!.offerInId,
-          offerInCategory: offerInCategory,
         },
       },
     });
@@ -59,7 +89,7 @@ export default function Todos({ todo, offerInCategory }: IProps) {
   if (error) return <p>Oops, something went wrong...</p>;
 
   return (
-    <div className="rounded-xl p-2 md:p-5 bg-[rgb(251,230,255)] drop-shadow-md">
+    <div className="rounded-xl p-2 md:p-5 bg-[rgb(240,239,239)] drop-shadow-md">
       <div>
         <label className="justify-center pt-4 text-md pb-4 flex flex-row-reverse items-center">
           <input
@@ -95,7 +125,7 @@ export default function Todos({ todo, offerInCategory }: IProps) {
           />
         </div>
       </div>
-      <div className="w-full mx-auto flex items-center justify-evenly md:justify-center md:space-x-3 pb-3 pt-6">
+      <div className="w-full mx-auto flex items-center justify-center space-x-3 pb-3 pt-6">
         <Button variant="secondary" onClick={handleDeleteTodo}>
           <div className="space-x-1 flex items-center justify-center">
             <div>{loadingDelete ? "Removing Todo" : "Delete"}</div>
@@ -105,7 +135,7 @@ export default function Todos({ todo, offerInCategory }: IProps) {
         <Button
           className="text-white"
           variant="primary"
-          onClick={handleEditTodo}
+          onClick={handleCreateOrUpdateTodo}
         >
           {loading ? "Saving" : "Save"}
         </Button>
