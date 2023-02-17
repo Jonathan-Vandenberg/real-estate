@@ -51,36 +51,32 @@ export default function ActiveListings({ property, image, agent }: IProps) {
 }
 
 export async function getStaticProps() {
-  const propertyFetcher = async () => {
-    const property = await prisma.property.findMany();
-    return property;
-  };
+  // const propertyFetcher = async () => {
+  const property = await prisma.property.findMany();
+  // return property;
+  // };
 
-  const imageFetcher = async () => {
-    const image = await prisma.imageProduct.findMany();
-    return image;
-  };
+  // const imageFetcher = async () => {
+  const image = await prisma.imageProduct.findMany();
+  // return image;
+  // };
 
-  const agentFetcher = async () => {
-    const agent = await prisma.agent.findMany();
-    return agent;
-  };
+  // const agentFetcher = async () => {
+  const agent = await prisma.agent.findMany();
+  // return agent;
+  // };
 
-  const cachedProperty = await cache.fetch(
-    "property",
-    propertyFetcher,
-    60 * 60
-  );
+  // const cachedProperty = await cache.fetch("property", propertyFetcher, 10);
 
-  const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
+  // const cachedAgent = await cache.fetch("agent", agentFetcher, 10);
 
-  const cachedImage = await cache.fetch("image", imageFetcher, 60 * 60);
+  // const cachedImage = await cache.fetch("image", imageFetcher, 10);
 
   return {
     props: {
-      property: cachedProperty,
-      image: cachedImage,
-      agent: cachedAgent,
+      property,
+      image,
+      agent,
     },
     revalidate: 10,
   };

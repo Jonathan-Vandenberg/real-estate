@@ -50,41 +50,41 @@ interface IParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as IParams;
 
-  const propertyFetcher = async () => {
-    let property = await prisma.property.findUnique({
-      where: {
-        id: params!.id,
-      },
-      include: {
-        residentialFeatures: true,
-      },
-    });
-    return property;
-  };
+  // const propertyFetcher = async () => {
+  let property = await prisma.property.findUnique({
+    where: {
+      id: params!.id,
+    },
+    include: {
+      residentialFeatures: true,
+    },
+  });
+  //   return property;
+  // };
 
-  const imageFetcher = async () => {
-    let image = await prisma.imageProduct.findMany();
-    return image;
-  };
+  // const imageFetcher = async () => {
+  let image = await prisma.imageProduct.findMany();
+  //   return image;
+  // };
 
-  const agentFetcher = async () => {
-    let agent = await prisma.agent.findMany();
-    return agent;
-  };
+  // const agentFetcher = async () => {
+  let agent = await prisma.agent.findMany();
+  //   return agent;
+  // };
 
-  const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
-  const cachedImage = await cache.fetch("image", imageFetcher, 60 * 60);
-  const cachedProperty = await cache.fetch(
-    `property-${params!}.id`,
-    propertyFetcher,
-    60 * 60
-  );
+  // const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
+  // const cachedImage = await cache.fetch("image", imageFetcher, 60 * 60);
+  // const cachedProperty = await cache.fetch(
+  //   `property-${params!}.id`,
+  //   propertyFetcher,
+  //   60 * 60
+  // );
 
   return {
     props: {
-      image: cachedImage,
-      property: cachedProperty,
-      agent: cachedAgent,
+      image,
+      property,
+      agent,
     },
     revalidate: 10,
   };
