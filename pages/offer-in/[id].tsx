@@ -430,7 +430,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return datyfiedOfferIn;
   };
 
-  const cachedOfferIn = await cache.fetch("offerIn", offerInFetcher, 60 * 60);
+  const cachedOfferIn = await cache.fetch(
+    "offerIn",
+    offerInFetcher,
+    60 * 60 * 24
+  );
   const cachedDocuments = await cache.fetch(
     "documents",
     documentsFetcher,
