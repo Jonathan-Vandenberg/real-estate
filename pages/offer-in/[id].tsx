@@ -431,7 +431,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 
   const cachedOfferIn = await cache.fetch(
-    "offerIn",
+    params as unknown as string,
     offerInFetcher,
     60 * 60 * 24
   );
