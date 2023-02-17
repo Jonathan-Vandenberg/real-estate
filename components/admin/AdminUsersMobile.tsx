@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
 import { convertEnum } from "../../lib/property-types";
 import { useAppSelector } from "../../redux-hooks/hooks";
@@ -25,34 +25,31 @@ export default function AdminListingsMobile({
 }: IProps) {
   const { agentId } = useAppSelector((state) => state.agentId);
   const [open, setOpen] = useState(false);
-  // const [agentHasFlag, setAgentHasFlag] = useState(false);
+  const [agentHasFlag, setAgentHasFlag] = useState(false);
 
-  // useEffect(() => {
-  //   if (issue) setAgentHasFlag(true);
-  //   console.log(agentHasFlag);
-  // }, []);
+  let issue: boolean;
 
-  // let issue: boolean;
-  // function hasFlag(prop: Property) {
-  //   if (
-  //     prop?.offerIn?.ficaDocs?.flag ||
-  //     prop?.offerIn?.elecCompCompany?.flag ||
-  //     prop?.offerIn?.intermologist?.flag ||
-  //     prop?.offerIn?.gasCompliance?.flag ||
-  //     prop?.offerIn?.waterCert?.flag ||
-  //     prop?.offerIn?.offerAccepted?.flag ||
-  //     prop?.offerIn?.bankInspection?.flag ||
-  //     prop?.offerIn?.conveyancer?.flag ||
-  //     prop?.offerIn?.mortgageOriginator?.flag ||
-  //     prop?.offerIn?.electricFence?.flag ||
-  //     prop?.offerIn?.alien?.flag
-  //   ) {
-  //     issue = true;
-  //   } else {
-  //     issue = false;
-  //   }
-  //   return issue;
-  // }
+  function hasFlag(prop: Property) {
+    if (
+      prop?.offerIn?.ficaDocs?.flag ||
+      prop?.offerIn?.elecCompCompany?.flag ||
+      prop?.offerIn?.intermologist?.flag ||
+      prop?.offerIn?.gasCompliance?.flag ||
+      prop?.offerIn?.waterCert?.flag ||
+      prop?.offerIn?.offerAccepted?.flag ||
+      prop?.offerIn?.bankInspection?.flag ||
+      prop?.offerIn?.conveyancer?.flag ||
+      prop?.offerIn?.mortgageOriginator?.flag ||
+      prop?.offerIn?.electricFence?.flag ||
+      prop?.offerIn?.alien?.flag
+    ) {
+      issue = true;
+    } else {
+      issue = false;
+    }
+
+    return issue;
+  }
 
   return (
     <div className="bg-white w-full md:hidden">
@@ -80,7 +77,7 @@ export default function AdminListingsMobile({
                           </div>
                         )}
                       </div>
-                      {agent?.flag && (
+                      {issue && (
                         <div className="absolute top-[0.4rem] -left-[0.8rem] bg-[rgb(253,27,27)] w-2 h-2 rounded-full animate-blink"></div>
                       )}
                       <div className="flex items-center justify-start py-3 font-semibold">
@@ -107,7 +104,7 @@ export default function AdminListingsMobile({
                               <div className="flex items-center justify-start py-3 font-semibold w-full">
                                 <p>{prop.address}</p>
                               </div>
-                              {prop?.offerIn?.flag && (
+                              {hasFlag(prop) && (
                                 <div className="absolute top-0 bg-[rgb(253,27,27)] w-2 h-2 rounded-full animate-blink"></div>
                               )}
                               <div

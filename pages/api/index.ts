@@ -5,7 +5,7 @@ import { DateScalar, DateTimeScalar, TimeScalar } from "graphql-date-scalars";
 import { NextApiRequest, NextApiResponse } from "next";
 import { join } from "path";
 import prisma from "../../lib/prisma";
-import { Offer_In_Categories, Resolvers } from "../../types";
+import { Resolvers } from "../../types";
 
 export async function createContext(): Promise<GraphQLContext> {
   return { prisma };
@@ -405,110 +405,6 @@ const resolvers: Resolvers = {
           alienId: input!.alienId,
         },
       });
-
-      // if (
-      //   elecCompCompany.flag ||
-      //   intermologist.flag ||
-      //   gasCompliance.flag ||
-      //   waterCert.flag ||
-      //   offerAccepted.flag ||
-      //   bankInspection.flag ||
-      //   conveyancer.flag ||
-      //   mortgageOriginator.flag ||
-      //   ficaDocs.flag ||
-      //   electricFence.flag ||
-      //   alien.flag
-      // ) {
-      //   await prisma.offerIn.update({
-      //     where: {
-      //       propertyId: offerIn.propertyId,
-      //     },
-      //     data: {
-      //       flag: true,
-      //     },
-      //   });
-
-      // const property = await prisma.property.findUnique({
-      //   where: {
-      //     id: input!.propertyId,
-      //   },
-      //   include: {
-      //     agent: {
-      //       include: {
-      //         properties: true,
-      //       },
-      //     },
-      //   },
-      // });
-
-      // if (property) {
-      //   const agent = await prisma.agent.findUnique({
-      //     where: {
-      //       id: property.agentId,
-      //     },
-      //     include: {
-      //       properties: {
-      //         include: {
-      //           offerIn: true,
-      //         },
-      //       },
-      //     },
-      //   });
-
-      //   if (agent?.properties.some((prop) => prop.offerIn?.flag)) {
-      //     await prisma.agent.update({
-      //       where: {
-      //         id: agent.id,
-      //       },
-      //       data: {
-      //         flag: true,
-      //       },
-      //     });
-      //   }
-      // }
-      // } else {
-      //   await prisma.offerIn.update({
-      //     where: {
-      //       propertyId: offerIn.propertyId,
-      //     },
-      //     data: {
-      //       flag: false,
-      //     },
-      //   });
-
-      // const property = await prisma.property.findUnique({
-      //   where: {
-      //     id: input!.propertyId,
-      //   },
-      // });
-
-      // if (property) {
-      //   const agent = await prisma.agent.findUnique({
-      //     where: {
-      //       id: property.agentId,
-      //     },
-      //     include: {
-      //       properties: {
-      //         include: {
-      //           offerIn: true,
-      //         },
-      //       },
-      //     },
-      //   });
-
-      //   if (agent?.properties.some((prop) => !prop.offerIn?.flag)) {
-      //     await prisma.agent.update({
-      //       where: {
-      //         id: agent.id,
-      //       },
-      //       data: {
-      //         flag: false,
-      //       },
-      //     });
-      //   }
-      // }
-      // }
-
       return offerIn;
     },
     addAgent: async (_, { input }, { prisma }) => {
@@ -531,7 +427,7 @@ const resolvers: Resolvers = {
       return agent;
     },
     updateAgent: async (_, { input }, { prisma }) => {
-      const updatedAgent = await prisma.agent.update({
+      const agent = await prisma.agent.update({
         where: {
           id: input!.id,
         },
@@ -550,7 +446,7 @@ const resolvers: Resolvers = {
         },
       });
 
-      return updatedAgent;
+      return agent;
     },
     addForm: async (_, { input }, { prisma }) => {
       const addItem = await prisma.form.create({

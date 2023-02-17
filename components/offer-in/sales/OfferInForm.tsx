@@ -8,8 +8,6 @@ import {
   Document_Category,
   OfferIn,
   Offer_In_Categories,
-  Todo,
-  useCreateOrUpdateTodoMutation,
   useAddOfferInMutation,
   useUpdateOfferInMutation,
   useUpdateAlienMutation,
@@ -23,7 +21,7 @@ import {
   useUpdateMortgageOriginatorMutation,
   useUpdateOfferAcceptedMutation,
   useUpdateWaterCertMutation,
-  ElecCompCompany,
+  useUpdateAgentMutation,
 } from "../../../types";
 import RemoveImage from "../../aws/DeleteImages";
 import EmailSender from "../../aws/EmailSender";
@@ -33,7 +31,7 @@ import Calender from "../../global/Calender";
 import ContainerTitle from "../../global/ContainerTitle";
 import Switch from "../../global/Switch";
 import Todos from "../../todo/Todos";
-import Plus from "../../svgs/Plus";
+import { useAppSelector } from "../../../redux-hooks/hooks";
 
 interface IProps {
   offerIn: OfferIn | null | undefined;
@@ -59,6 +57,10 @@ export default function OfferInForm({
   const [recipientEmail, setRecipientEmail] = useState("");
 
   const { data: session } = useSession();
+  const agentId = useAppSelector((state) => state.agentId.agentId);
+  const userId = useAppSelector((state) => state.userId.userId);
+
+  console.log(agentId);
 
   useEffect(() => {
     function email() {
@@ -152,6 +154,9 @@ export default function OfferInForm({
     { loading: loadingUpdateOfferIn, error: errorUpdateOfferIn },
   ] = useUpdateOfferInMutation();
 
+  const [updateAgent, { loading: loadingAddTodo, error: errorAddTodo }] =
+    useUpdateAgentMutation();
+
   const [updateElecCompCompany] = useUpdateElecCompCompanyMutation();
   const [updateIntermologist] = useUpdateIntermologistMutation();
   const [updateGasCompliance] = useUpdateGasComplianceMutation();
@@ -165,9 +170,6 @@ export default function OfferInForm({
   const [updateAlien] = useUpdateAlienMutation();
 
   if (errorUpdateOfferIn) console.log(errorUpdateOfferIn);
-
-  const [createOrUpdateTodo, { loading: loadingAddTodo, error: errorAddTodo }] =
-    useCreateOrUpdateTodoMutation();
 
   //~~~~~~~~~~~~~~~~~~~~~~~~ IDs ~~~~~~~~~~~~~~~~~~~~~~~~//
   useEffect(() => {
@@ -752,6 +754,29 @@ export default function OfferInForm({
         addOfferIn(offerInVariablesAdd);
       }
       if (edit) {
+        if (
+          flagElecCompCompany ||
+          flagIntermologist ||
+          flagGasCompliance ||
+          flagWaterCert ||
+          flagOfferAccepted ||
+          flagBankInspection ||
+          flagConveyancer ||
+          flagMortgageOriginator ||
+          flagFicaDocs ||
+          flagElectricFence ||
+          flagAlien
+        ) {
+          updateAgent({
+            variables: {
+              input: {
+                id: agentId,
+                userId: userId,
+                flag: true,
+              },
+            },
+          });
+        }
         if (
           amount !== offerIn?.amount ||
           dot !== moment(offerIn?.dot).toDate() ||

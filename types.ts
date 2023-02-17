@@ -996,6 +996,17 @@ export enum Status {
 export type Subscription = {
   __typename?: 'Subscription';
   updatedAgent?: Maybe<Agent>;
+  updatedHeroImage?: Maybe<ImageProduct>;
+};
+
+
+export type SubscriptionUpdatedAgentArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type SubscriptionUpdatedHeroImageArgs = {
+  id: Scalars['ID'];
 };
 
 export type Todo = {
@@ -1671,7 +1682,8 @@ export type RolesResolvers = { ADMIN: 'undefined', AGENT: 'undefined', CEO: 'und
 export type StatusResolvers = { FOR_RENT: 'undefined', FOR_SALE: 'undefined', OFFER_IN: 'undefined', SOLD: 'undefined' };
 
 export type SubscriptionResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  updatedAgent?: SubscriptionResolver<Maybe<ResolversTypes['Agent']>, "updatedAgent", ParentType, ContextType>;
+  updatedAgent?: SubscriptionResolver<Maybe<ResolversTypes['Agent']>, "updatedAgent", ParentType, ContextType, RequireFields<SubscriptionUpdatedAgentArgs, 'id'>>;
+  updatedHeroImage?: SubscriptionResolver<Maybe<ResolversTypes['ImageProduct']>, "updatedHeroImage", ParentType, ContextType, RequireFields<SubscriptionUpdatedHeroImageArgs, 'id'>>;
 };
 
 export interface TimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Time'], any> {
@@ -2510,8 +2522,8 @@ export type UpdateAgentMutationHookResult = ReturnType<typeof useUpdateAgentMuta
 export type UpdateAgentMutationResult = Apollo.MutationResult<UpdateAgentMutation>;
 export type UpdateAgentMutationOptions = Apollo.BaseMutationOptions<UpdateAgentMutation, UpdateAgentMutationVariables>;
 export const UpdatedAgentDocument = gql`
-    subscription UpdatedAgent {
-  updatedAgent {
+    subscription UpdatedAgent($id: ID!) {
+  updatedAgent(id: $id) {
     ...Agent
   }
 }
@@ -2529,10 +2541,11 @@ export const UpdatedAgentDocument = gql`
  * @example
  * const { data, loading, error } = useUpdatedAgentSubscription({
  *   variables: {
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useUpdatedAgentSubscription(baseOptions?: Apollo.SubscriptionHookOptions<UpdatedAgentSubscription, UpdatedAgentSubscriptionVariables>) {
+export function useUpdatedAgentSubscription(baseOptions: Apollo.SubscriptionHookOptions<UpdatedAgentSubscription, UpdatedAgentSubscriptionVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useSubscription<UpdatedAgentSubscription, UpdatedAgentSubscriptionVariables>(UpdatedAgentDocument, options);
       }
@@ -3111,6 +3124,36 @@ export function useImageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Imag
 export type ImageQueryHookResult = ReturnType<typeof useImageQuery>;
 export type ImageLazyQueryHookResult = ReturnType<typeof useImageLazyQuery>;
 export type ImageQueryResult = Apollo.QueryResult<ImageQuery, ImageQueryVariables>;
+export const UpdatedHeroImageDocument = gql`
+    subscription UpdatedHeroImage($id: ID!) {
+  updatedHeroImage(id: $id) {
+    ...ImageProduct
+  }
+}
+    ${ImageProductFragmentDoc}`;
+
+/**
+ * __useUpdatedHeroImageSubscription__
+ *
+ * To run a query within a React component, call `useUpdatedHeroImageSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useUpdatedHeroImageSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUpdatedHeroImageSubscription({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdatedHeroImageSubscription(baseOptions: Apollo.SubscriptionHookOptions<UpdatedHeroImageSubscription, UpdatedHeroImageSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<UpdatedHeroImageSubscription, UpdatedHeroImageSubscriptionVariables>(UpdatedHeroImageDocument, options);
+      }
+export type UpdatedHeroImageSubscriptionHookResult = ReturnType<typeof useUpdatedHeroImageSubscription>;
+export type UpdatedHeroImageSubscriptionResult = Apollo.SubscriptionResult<UpdatedHeroImageSubscription>;
 export const AddOfferInDocument = gql`
     mutation AddOfferIn($input: OfferInInput!) {
   addOfferIn(input: $input) {
@@ -3859,7 +3902,9 @@ export type UpdateAgentMutationVariables = Exact<{
 
 export type UpdateAgentMutation = { __typename?: 'Mutation', updateAgent?: { __typename?: 'Agent', id: string, userId: string, flag?: boolean | null, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
 
-export type UpdatedAgentSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type UpdatedAgentSubscriptionVariables = Exact<{
+  id: Scalars['ID'];
+}>;
 
 
 export type UpdatedAgentSubscription = { __typename?: 'Subscription', updatedAgent?: { __typename?: 'Agent', id: string, userId: string, flag?: boolean | null, roles?: Roles | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, createdAt?: string | null, updatedAt?: string | null, address?: string | null, phoneNumber?: string | null, aboutMe?: string | null, profileImage?: string | null, properties?: Array<{ __typename?: 'Property', id: string, agentId: string, interior: string, bedrooms: number, bathrooms: number, basement?: string | null, flooring: string, appliances?: string | null, otherPropertyFeatures?: string | null, otherInteriorFeatures?: string | null, schools?: string | null, distanceToNearestSchool?: string | null, shopping?: string | null, nightlife?: string | null, forKids?: string | null, surroundingSuburbs?: string | null, featured?: boolean | null, status?: Status | null, title: string, overview: string, address: string, price: string, yearBuilt?: string | null, heating?: string | null, cooling?: string | null, parking: number, lotSize: string, propertyCategory: Property_Category, residentialCategory?: Residential_Category | null, images?: Array<{ __typename?: 'ImageProduct', url?: string | null, id: string, imageCategory?: Image_Category | null, propertyId: string } | null> | null } | null> | null } | null };
@@ -3984,6 +4029,13 @@ export type ImageQueryVariables = Exact<{
 
 
 export type ImageQuery = { __typename?: 'Query', image?: { __typename?: 'ImageProduct', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null };
+
+export type UpdatedHeroImageSubscriptionVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type UpdatedHeroImageSubscription = { __typename?: 'Subscription', updatedHeroImage?: { __typename?: 'ImageProduct', id: string, url?: string | null, propertyId: string, imageCategory?: Image_Category | null } | null };
 
 export type AddOfferInMutationVariables = Exact<{
   input: OfferInInput;

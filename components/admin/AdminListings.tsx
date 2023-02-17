@@ -70,7 +70,7 @@ export default function AdminListings({
         </div>
       )}
 
-      <div className="overflow-x-auto bg-off-white">
+      <div className="overflow-x-auto bg-white">
         <div className="hidden md:block">
           {!showAddListing && !showEditListing && (
             <table className="min-w-full text-xs">

@@ -18,6 +18,7 @@ import { Document, OfferIn, Offer_In_Categories } from "../../types";
 import Link from "next/link";
 import ElectricFenceIcon from "../../components/svgs/ElectricFenceIcon";
 import AlienSpeciesIcon from "../../components/svgs/AlienSpeciesIcon";
+import cache from "../../lib/cache";
 
 interface IOfferIn {
   offerIn: OfferIn;
@@ -396,34 +397,50 @@ interface IParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as IParams;
 
-  let documents = await prisma.document.findMany();
+  const documentsFetcher = async () => {
+    let documents = await prisma.document.findMany();
+    return documents;
+  };
 
-  let offerIn = await prisma.offerIn.findUnique({
-    where: {
-      propertyId: params!.id,
-    },
-    include: {
-      ficaDocs: true,
-      mortgageOriginator: true,
-      conveyancer: true,
-      bankInspection: true,
-      offerAccepted: true,
-      waterCert: true,
-      gasCompliance: true,
-      intermologist: true,
-      elecCompCompany: true,
-      electricFence: true,
-      alien: true,
-      todos: true,
-    },
-  });
+  const offerInFetcher = async () => {
+    let offerIn = await prisma.offerIn.findUnique({
+      where: {
+        propertyId: params!.id,
+      },
+      include: {
+        ficaDocs: true,
+        mortgageOriginator: true,
+        conveyancer: true,
+        bankInspection: true,
+        offerAccepted: true,
+        waterCert: true,
+        gasCompliance: true,
+        intermologist: true,
+        elecCompCompany: true,
+        electricFence: true,
+        alien: true,
+        todos: true,
+      },
+    });
 
-  let datyfiedOfferIn = await JSON.parse(JSON.stringify(offerIn));
+    let datyfiedOfferIn = await JSON.parse(JSON.stringify(offerIn));
+
+    console.log(new Date());
+
+    return datyfiedOfferIn;
+  };
+
+  const cachedOfferIn = await cache.fetch("offerIn", offerInFetcher, 60 * 60);
+  const cachedDocuments = await cache.fetch(
+    "documents",
+    documentsFetcher,
+    60 * 60
+  );
 
   return {
     props: {
-      documents,
-      offerIn: datyfiedOfferIn,
+      documents: cachedDocuments,
+      offerIn: cachedOfferIn,
     },
     revalidate: 10,
   };

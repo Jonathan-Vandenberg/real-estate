@@ -1,0 +1,7 @@
+# ImageProduct from './ImageFragment.graphql'
+
+subscription UpdatedHeroImage($id: ID!) {
+  updatedHeroImage(id: $id) {
+    ...ImageProduct
+  }
+}

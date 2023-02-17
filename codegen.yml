@@ -13,6 +13,7 @@ generates:
       types:
         UpdateOfferInResponse: "./documents/offer-in/UpdateOfferInResponseFragment.graphql"
         UpdatedAgent: "./documents/agent/UpdatedAgent.graphql"
+        UpdatedHeroImage: "./documents/images/UpdatedHeroImage.graphql"
       mapperTypeSuffix: Model
       mappers:
         Agent: "@prisma/client#Agent"
