@@ -425,8 +425,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     let datyfiedOfferIn = await JSON.parse(JSON.stringify(offerIn));
 
-    console.log(new Date());
-
     return datyfiedOfferIn;
   };
 

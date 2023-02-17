@@ -100,7 +100,7 @@ export async function getStaticProps() {
   const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
   const cachedUser = await cache.fetch("user", userFetcher, 60 * 60);
   const cachedProperty = await cache.fetch(
-    "Property",
+    "property",
     PropertyFetcher,
     60 * 60
   );

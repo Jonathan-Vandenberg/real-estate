@@ -3,6 +3,7 @@ import { Container } from "../components/global/Container";
 import PropertyCard from "../components/property/PropertyCard";
 import prisma from "../lib/prisma";
 import { ImageProduct, Property, Agent, ResidentialFeature } from "../types";
+import cache from "../lib/cache";
 
 interface IProps {
   property: Property[];
@@ -50,15 +51,36 @@ export default function ActiveListings({ property, image, agent }: IProps) {
 }
 
 export async function getStaticProps() {
-  const property = await prisma.property.findMany();
-  const image = await prisma.imageProduct.findMany();
-  const agent = await prisma.agent.findMany();
+  const propertyFetcher = async () => {
+    const property = await prisma.property.findMany();
+    return property;
+  };
+
+  const imageFetcher = async () => {
+    const image = await prisma.imageProduct.findMany();
+    return image;
+  };
+
+  const agentFetcher = async () => {
+    const agent = await prisma.agent.findMany();
+    return agent;
+  };
+
+  const cachedProperty = await cache.fetch(
+    "property",
+    propertyFetcher,
+    60 * 60
+  );
+
+  const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
+
+  const cachedImage = await cache.fetch("image", imageFetcher, 60 * 60);
 
   return {
     props: {
-      property,
-      image,
-      agent,
+      property: cachedProperty,
+      image: cachedImage,
+      agent: cachedAgent,
     },
     revalidate: 10,
   };

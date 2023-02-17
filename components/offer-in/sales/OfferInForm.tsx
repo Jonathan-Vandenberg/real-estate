@@ -749,7 +749,7 @@ export default function OfferInForm({
 
     setSaving(true);
 
-    function sendForm() {
+    async function sendForm() {
       if (add) {
         addOfferIn(offerInVariablesAdd);
       }
