@@ -14,7 +14,8 @@ const get = async <T>(key: string) => {
 
 const set = async <T>(key: string, fetcher: () => T, expires: number) => {
   const value = await fetcher();
-  await redis.set(key, JSON.stringify(value), "EX", expires);
+  await redis.set(key, JSON.stringify(value));
+  await redis.expire(key, expires);
   return value;
 };
 

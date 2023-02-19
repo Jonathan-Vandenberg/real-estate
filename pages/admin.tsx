@@ -57,60 +57,60 @@ export default function Admin({ property, image, agents, user }: IAdmin) {
 }
 
 export async function getStaticProps() {
-  // const imageFetcher = async () => {
-  const image = await prisma.imageProduct.findMany();
-  //   return image;
-  // };
+  const imageFetcher = async () => {
+    const image = await prisma.imageProduct.findMany();
+    return image;
+  };
 
-  // const agentFetcher = async () => {
-  const agents = await prisma.agent.findMany();
-  //   return agents;
-  // };
+  const agentFetcher = async () => {
+    const agents = await prisma.agent.findMany();
+    return agents;
+  };
 
-  // const userFetcher = async () => {
-  const user = await prisma.user.findMany();
-  //   return user;
-  // };
+  const userFetcher = async () => {
+    const user = await prisma.user.findMany();
+    return user;
+  };
 
-  // const PropertyFetcher = async () => {
-  const property = await prisma.property.findMany({
-    include: {
-      offerIn: {
-        include: {
-          ficaDocs: true,
-          elecCompCompany: true,
-          intermologist: true,
-          gasCompliance: true,
-          waterCert: true,
-          offerAccepted: true,
-          bankInspection: true,
-          conveyancer: true,
-          mortgageOriginator: true,
-          electricFence: true,
-          alien: true,
+  const PropertyFetcher = async () => {
+    const property = await prisma.property.findMany({
+      include: {
+        offerIn: {
+          include: {
+            ficaDocs: true,
+            elecCompCompany: true,
+            intermologist: true,
+            gasCompliance: true,
+            waterCert: true,
+            offerAccepted: true,
+            bankInspection: true,
+            conveyancer: true,
+            mortgageOriginator: true,
+            electricFence: true,
+            alien: true,
+          },
         },
       },
-    },
-  });
-  let datyfiedProperty = await JSON.parse(JSON.stringify(property));
-  // return datyfiedProperty;
-  // };
+    });
+    let datyfiedProperty = await JSON.parse(JSON.stringify(property));
+    return datyfiedProperty;
+  };
 
-  // const cachedImage = await cache.fetch("image", imageFetcher, 60 * 60);
-  // const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
-  // const cachedUser = await cache.fetch("user", userFetcher, 60 * 60);
-  // const cachedProperty = await cache.fetch(
-  //   "Property",
-  //   PropertyFetcher,
-  //   60 * 60
-  // );
+  const cachedImage = await cache.fetch("image", imageFetcher, 60 * 60);
+  const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
+  const cachedUser = await cache.fetch("user", userFetcher, 60 * 60);
+  const cachedProperty = await cache.fetch(
+    "Property",
+    PropertyFetcher,
+    60 * 60
+  );
 
   return {
     props: {
-      property: datyfiedProperty,
-      image,
-      agents,
-      user,
+      property: cachedProperty,
+      image: cachedImage,
+      agents: cachedAgent,
+      user: cachedUser,
     },
     revalidate: 10,
   };

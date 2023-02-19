@@ -18,6 +18,7 @@ import { ImageGallery } from "../property/PropertyDetails";
 import RadioButtonGroup from "./RadioPropertyType";
 import RadioStatus from "./RadioStatus";
 import { formatMoney } from "../../lib/format-money";
+import cache from "../../lib/cache";
 
 interface IProps {
   property: Property | undefined | null;
