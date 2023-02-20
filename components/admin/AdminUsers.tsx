@@ -6,9 +6,9 @@ import AdminUsersMobile from "./AdminUsersMobile";
 import Plus from "../svgs/Plus";
 
 interface IAdminUsers {
-  property: Property[];
-  agents: Agent[];
-  user: any[];
+  property: Property[] | null | undefined;
+  agents: Agent[] | null | undefined;
+  user: any[] | null | undefined;
 }
 
 export default function AdminUsers({ property, agents, user }: IAdminUsers) {

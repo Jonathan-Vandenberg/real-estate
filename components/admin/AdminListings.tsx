@@ -15,8 +15,8 @@ export default function AdminListings({
   property,
   image,
 }: {
-  property: Property[];
-  image: ImageProduct[];
+  property: Property[] | null | undefined;
+  image: ImageProduct[] | null | undefined;
 }) {
   const [showAddListing, setShowAddListing] = useState(false);
   const [showEditListing, setShowEditListing] = useState(false);
@@ -105,80 +105,81 @@ export default function AdminListings({
               </thead>
 
               <tbody>
-                {property.map(
-                  (listing, i) =>
-                    listing.agentId === agentId && (
-                      <tr key={i} className="border-b-2 border-b-off-white">
-                        <td className="p-3">
-                          <div
-                            onClick={() => {
-                              editForm(listing),
-                                setShowEditListing(true),
-                                setShowAddListing(false);
-                              setSelectedListing(false);
-                            }}
-                          >
-                            <Edit className="w-5 h-5" />
-                          </div>
-                        </td>
-                        <td className="p-3">
-                          <Todo className="h-6 w-6" />
-                        </td>
-                        <td className="p-3">
-                          <p className="font-bold whitespace-nowrap">
-                            {listing.address}
-                          </p>
-                        </td>
-                        <td className="p-3">
-                          <p>{convertEnum(listing.propertyCategory)}</p>
-                        </td>
-                        <td className="p-3">
-                          <p className="whitespace-nowrap">{`${formatMoney(
-                            +listing.price
-                          )}`}</p>
-                        </td>
-                        <td className="p-3">
-                          <span
-                            className={classNames(
-                              "px-3 py-1 font-semibold rounded-full text-white",
-                              listing.status === "SOLD"
-                                ? "bg-primary-gradient"
-                                : listing.status === "OFFER_IN"
-                                ? "bg-primary-gradient"
-                                : "bg-white text-black border-[1px]"
-                            )}
-                          >
-                            <span className="whitespace-nowrap">
-                              {listing.status === Status.OfferIn ? (
-                                <a
-                                  className="hover:cursor-pointer"
-                                  href={`/offer-in/${listing.id}`}
-                                >
-                                  {convertStatus(listing.status)}
-                                </a>
-                              ) : (
-                                convertStatus(listing.status)
+                {property &&
+                  property.map(
+                    (listing, i) =>
+                      listing.agentId === agentId && (
+                        <tr key={i} className="border-b-2 border-b-off-white">
+                          <td className="p-3">
+                            <div
+                              onClick={() => {
+                                editForm(listing),
+                                  setShowEditListing(true),
+                                  setShowAddListing(false);
+                                setSelectedListing(false);
+                              }}
+                            >
+                              <Edit className="w-5 h-5" />
+                            </div>
+                          </td>
+                          <td className="p-3">
+                            <Todo className="h-6 w-6" />
+                          </td>
+                          <td className="p-3">
+                            <p className="font-bold whitespace-nowrap">
+                              {listing.address}
+                            </p>
+                          </td>
+                          <td className="p-3">
+                            <p>{convertEnum(listing.propertyCategory)}</p>
+                          </td>
+                          <td className="p-3">
+                            <p className="whitespace-nowrap">{`${formatMoney(
+                              +listing.price
+                            )}`}</p>
+                          </td>
+                          <td className="p-3">
+                            <span
+                              className={classNames(
+                                "px-3 py-1 font-semibold rounded-full text-white",
+                                listing.status === "SOLD"
+                                  ? "bg-primary-gradient"
+                                  : listing.status === "OFFER_IN"
+                                  ? "bg-primary-gradient"
+                                  : "bg-white text-black border-[1px]"
                               )}
+                            >
+                              <span className="whitespace-nowrap">
+                                {listing.status === Status.OfferIn ? (
+                                  <a
+                                    className="hover:cursor-pointer"
+                                    href={`/offer-in/${listing.id}`}
+                                  >
+                                    {convertStatus(listing.status)}
+                                  </a>
+                                ) : (
+                                  convertStatus(listing.status)
+                                )}
+                              </span>
                             </span>
-                          </span>
-                        </td>
-                        <td className="p-3">
-                          {listing.status === Status.ForRent && (
-                            <OfferInButton
-                              className="text-white text-xs px-3 py-1 rounded-full bg-green-gradient whitespace-nowrap font-semibold"
-                              propertyId={listing.id}
-                            />
-                          )}
-                          {listing.status === Status.ForSale && (
-                            <OfferInButton
-                              className="text-white text-xs px-3 py-1 rounded-full bg-green-gradient whitespace-nowrap font-semibold"
-                              propertyId={listing.id}
-                            />
-                          )}
-                        </td>
-                      </tr>
-                    )
-                )}
+                          </td>
+                          <td className="p-3">
+                            {listing.status === Status.ForRent && (
+                              <OfferInButton
+                                className="text-white text-xs px-3 py-1 rounded-full bg-green-gradient whitespace-nowrap font-semibold"
+                                propertyId={listing.id}
+                              />
+                            )}
+                            {listing.status === Status.ForSale && (
+                              <OfferInButton
+                                className="text-white text-xs px-3 py-1 rounded-full bg-green-gradient whitespace-nowrap font-semibold"
+                                propertyId={listing.id}
+                              />
+                            )}
+                          </td>
+                        </tr>
+                      )
+                  )}
               </tbody>
             </table>
           )}

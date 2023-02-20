@@ -30,6 +30,8 @@ export default function AddAgentForm({
     userId();
   }, [email]);
 
+  console.log(user);
+
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 

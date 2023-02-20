@@ -4,6 +4,7 @@ import PropertyCard from "../components/property/PropertyCard";
 import prisma from "../lib/prisma";
 import { ImageProduct, Property, Agent, ResidentialFeature } from "../types";
 import cache from "../lib/cache";
+import useSWR from "swr";
 
 interface IProps {
   property: Property[];
@@ -12,7 +13,57 @@ interface IProps {
   residentialFeatures: ResidentialFeature[];
 }
 
+const IMAGES_URL = "http://localhost:3000/api/images";
+const AGENTS_URL = "http://localhost:3000/api/agents";
+const PROPERTIES_URL = "http://localhost:3000/api/properties";
+
+const imagesFetcher = async () => {
+  const res = await fetch(IMAGES_URL);
+  return res.json();
+};
+
+const propertiesFetcher = async () => {
+  const res = await fetch(PROPERTIES_URL);
+  let property: Property[] = await res.json();
+  property = await JSON.parse(JSON.stringify(property));
+  return property;
+};
+
+const agentsFetcher = async () => {
+  const res = await fetch(AGENTS_URL);
+  return res.json();
+};
+
 export default function ActiveListings({ property, image, agent }: IProps) {
+  const { data: imageData, error: imageError } = useSWR(
+    IMAGES_URL,
+    imagesFetcher,
+    {
+      fallbackData: image,
+      refreshInterval: 1000,
+    }
+  );
+
+  const { data: agentsData, error: agentsError } = useSWR(
+    AGENTS_URL,
+    agentsFetcher,
+    {
+      fallbackData: agent,
+      refreshInterval: 1000,
+    }
+  );
+  const { data: propertiesData, error: propertiesError } = useSWR(
+    PROPERTIES_URL,
+    propertiesFetcher,
+    {
+      fallbackData: property,
+      refreshInterval: 1000,
+    }
+  );
+
+  if (agentsError) console.log(agentsError);
+  if (propertiesError) console.log(propertiesError);
+  if (imageError) console.log(imageError);
   return (
     <>
       <Head>
@@ -44,43 +95,32 @@ export default function ActiveListings({ property, image, agent }: IProps) {
         <p>Active Listings</p>
       </div>
       <Container>
-        <PropertyCard agent={agent} image={image} property={property} />
+        <PropertyCard
+          agent={agentsData}
+          image={imageData}
+          property={propertiesData}
+        />
       </Container>
     </>
   );
 }
 
 export async function getStaticProps() {
-  // const propertyFetcher = async () => {
-  const property = await prisma.property.findMany();
-  // return property;
-  // };
+  const resAgents = await fetch(AGENTS_URL);
+  const agent = await resAgents.json();
 
-  const imageFetcher = async () => {
-    const image = await prisma.imageProduct.findMany();
-    return image;
-  };
+  const resProperties = await fetch(PROPERTIES_URL);
+  let property = await resProperties.json();
+  property = await JSON.parse(JSON.stringify(property));
 
-  const agentFetcher = async () => {
-    const agent = await prisma.agent.findMany();
-    return agent;
-  };
-
-  // const cachedProperty = await cache.fetch(
-  //   "property",
-  //   propertyFetcher,
-  //   60 * 60
-  // );
-
-  const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
-
-  const cachedImage = await cache.fetch("image", imageFetcher, 60 * 60);
+  const resImages = await fetch(IMAGES_URL);
+  const image = await resImages.json();
 
   return {
     props: {
       property,
-      image: cachedImage,
-      agent: cachedAgent,
+      image,
+      agent,
     },
     revalidate: 10,
   };

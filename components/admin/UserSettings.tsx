@@ -11,7 +11,7 @@ export default function AddAgentForm({
   onCancel,
   agents,
 }: {
-  agents: Agent[];
+  agents: Agent[] | null | undefined;
   onCancel: () => void;
 }) {
   const [firstName, setFirstName] = useState("");
@@ -25,16 +25,17 @@ export default function AddAgentForm({
 
   useEffect(() => {
     if (session?.user?.email) {
-      agents.map((agent) => {
-        if (agent.email === session?.user?.email) {
-          setFirstName(agent!.firstName! || "");
-          setLastName(agent!.lastName! || "");
-          setAddress(agent!.address! || "");
-          setPhoneNumber(agent!.phoneNumber! || "");
-          setAboutMe(agent!.aboutMe! || "");
-          setProfileImage(agent!.profileImage! || "");
-        }
-      });
+      agents &&
+        agents.map((agent) => {
+          if (agent.email === session?.user?.email) {
+            setFirstName(agent!.firstName! || "");
+            setLastName(agent!.lastName! || "");
+            setAddress(agent!.address! || "");
+            setPhoneNumber(agent!.phoneNumber! || "");
+            setAboutMe(agent!.aboutMe! || "");
+            setProfileImage(agent!.profileImage! || "");
+          }
+        });
     }
   }, []);
 

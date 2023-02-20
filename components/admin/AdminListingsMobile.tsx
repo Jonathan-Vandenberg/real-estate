@@ -11,9 +11,9 @@ import { ChevDown } from "../svgs/Arrows";
 import Edit from "../svgs/Edit";
 
 interface IProps {
-  property: Property[];
+  property: Property[] | null | undefined;
   onShowEditListing: () => void;
-  image: ImageProduct[];
+  image: ImageProduct[] | null | undefined;
 }
 
 export default function AdminListingsMobile({

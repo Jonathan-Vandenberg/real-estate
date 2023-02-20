@@ -5,14 +5,66 @@ import PropertyDetails from "../../components/property/PropertyDetails";
 import prisma from "../../lib/prisma";
 import { Agent, ImageProduct, Property } from "../../types";
 import cache from "../../lib/cache";
+import useSWR from "swr";
 
 interface IProperty {
   property: Property;
   image: ImageProduct[];
   agent: Agent[];
+  params: any;
 }
 
-export default function Blog({ property, image, agent }: IProperty) {
+const IMAGES_URL = "http://localhost:3000/api/images";
+const AGENTS_URL = "http://localhost:3000/api/agents";
+const PROPERTY_URL = `http://localhost:3000/api/property`;
+
+export default function Blog({ property, image, agent, params }: IProperty) {
+  const imagesFetcher = async () => {
+    const res = await fetch(IMAGES_URL);
+    return res.json();
+  };
+
+  const propertiesFetcher = async () => {
+    const res = await fetch(`${PROPERTY_URL}?id=${params.id}`);
+    let property: Property = await res.json();
+    property = await JSON.parse(JSON.stringify(property));
+    return property;
+  };
+
+  const agentsFetcher = async () => {
+    const res = await fetch(AGENTS_URL);
+    return res.json();
+  };
+
+  const { data: imageData, error: imageError } = useSWR(
+    IMAGES_URL,
+    imagesFetcher,
+    {
+      fallbackData: image,
+      refreshInterval: 1000,
+    }
+  );
+
+  const { data: agentsData, error: agentsError } = useSWR(
+    AGENTS_URL,
+    agentsFetcher,
+    {
+      fallbackData: agent,
+      refreshInterval: 1000,
+    }
+  );
+  const { data: propertiesData, error: propertiesError } = useSWR(
+    `${PROPERTY_URL}?id=${params.id}`,
+    propertiesFetcher,
+    {
+      fallbackData: property,
+      refreshInterval: 1000,
+    }
+  );
+  if (agentsError) console.log(agentsError);
+  if (propertiesError) console.log(propertiesError);
+  if (imageError) console.log(imageError);
+
   return (
     <div className="w-full mx-auto">
       <Head>
@@ -22,9 +74,9 @@ export default function Blog({ property, image, agent }: IProperty) {
       </Head>
       <div className="w-full mx-auto">
         <PropertyDetails
-          image={image}
-          property={property}
-          agent={agent}
+          agent={agentsData}
+          image={imageData}
+          property={propertiesData}
           newId={""}
           add={true}
         />
@@ -50,41 +102,26 @@ interface IParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as IParams;
 
-  // const propertyFetcher = async () => {
-  let property = await prisma.property.findUnique({
-    where: {
-      id: params!.id,
-    },
-    include: {
-      residentialFeatures: true,
-    },
-  });
-  //   return property;
-  // };
+  const resAgents = await fetch(AGENTS_URL);
+  const agent: Agent = await resAgents.json();
 
-  // const imageFetcher = async () => {
-  let image = await prisma.imageProduct.findMany();
-  //   return image;
-  // };
+  const resImages = await fetch(IMAGES_URL);
+  const image: ImageProduct[] = await resImages.json();
 
-  // const agentFetcher = async () => {
-  let agent = await prisma.agent.findMany();
-  //   return agent;
-  // };
-
-  // const cachedAgent = await cache.fetch("agent", agentFetcher, 60 * 60);
-  // const cachedImage = await cache.fetch("image", imageFetcher, 60 * 60);
-  // const cachedProperty = await cache.fetch(
-  //   `property-${params!}.id`,
-  //   propertyFetcher,
-  //   60 * 60
-  // );
+  const resProperties = await fetch(`${PROPERTY_URL}?id=${params.id}`);
+  let property: Property = await resProperties.json();
+  try {
+    property = await JSON.parse(JSON.stringify(property));
+  } catch (error) {
+    console.log("Error parsing JSON:", error, property);
+  }
 
   return {
     props: {
       image,
       property,
       agent,
+      params,
     },
     revalidate: 10,
   };

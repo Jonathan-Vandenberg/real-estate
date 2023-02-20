@@ -8,10 +8,10 @@ import AdminUsers from "./AdminUsers";
 import UserSettings from "./UserSettings";
 
 interface IDash {
-  property: Property[];
-  image: ImageProduct[];
-  agents: Agent[];
-  user: any[];
+  property: Property[] | null | undefined;
+  image: ImageProduct[] | null | undefined;
+  agents: Agent[] | null | undefined;
+  user: any[] | null | undefined;
   role: string | null | undefined;
 }
 
