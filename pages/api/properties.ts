@@ -13,28 +13,28 @@ export default async function handler(
     origin: "*",
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
-  if (req.method !== "POST") {
-    const properties: Property[] = await prisma.property.findMany({
-      include: {
-        offerIn: {
-          include: {
-            ficaDocs: true,
-            elecCompCompany: true,
-            intermologist: true,
-            gasCompliance: true,
-            waterCert: true,
-            offerAccepted: true,
-            bankInspection: true,
-            conveyancer: true,
-            mortgageOriginator: true,
-            electricFence: true,
-            alien: true,
-          },
+  // if (req.method !== "POST") {
+  const properties: Property[] = await prisma.property.findMany({
+    include: {
+      offerIn: {
+        include: {
+          ficaDocs: true,
+          elecCompCompany: true,
+          intermologist: true,
+          gasCompliance: true,
+          waterCert: true,
+          offerAccepted: true,
+          bankInspection: true,
+          conveyancer: true,
+          mortgageOriginator: true,
+          electricFence: true,
+          alien: true,
         },
       },
-    });
-    return res.status(200).json(properties);
-  }
+    },
+  });
+  return res.status(200).json(properties);
+  // }
 }
 
 //
