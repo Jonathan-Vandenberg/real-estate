@@ -397,53 +397,35 @@ interface IParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params as IParams;
 
-  const documentsFetcher = async () => {
-    let documents = await prisma.document.findMany();
-    return documents;
-  };
+  let documents = await prisma.document.findMany();
 
-  const offerInFetcher = async () => {
-    let offerIn = await prisma.offerIn.findUnique({
-      where: {
-        propertyId: params!.id,
-      },
-      include: {
-        ficaDocs: true,
-        mortgageOriginator: true,
-        conveyancer: true,
-        bankInspection: true,
-        offerAccepted: true,
-        waterCert: true,
-        gasCompliance: true,
-        intermologist: true,
-        elecCompCompany: true,
-        electricFence: true,
-        alien: true,
-        todos: true,
-      },
-    });
+  let offerIn = await prisma.offerIn.findUnique({
+    where: {
+      propertyId: params!.id,
+    },
+    include: {
+      ficaDocs: true,
+      mortgageOriginator: true,
+      conveyancer: true,
+      bankInspection: true,
+      offerAccepted: true,
+      waterCert: true,
+      gasCompliance: true,
+      intermologist: true,
+      elecCompCompany: true,
+      electricFence: true,
+      alien: true,
+      todos: true,
+    },
+  });
 
-    let datyfiedOfferIn = await JSON.parse(JSON.stringify(offerIn));
-
-    return datyfiedOfferIn;
-  };
-
-  const cachedOfferIn = await cache.fetch(
-    params!.id,
-    offerInFetcher,
-    60 * 60 * 24
-  );
-  const cachedDocuments = await cache.fetch(
-    "documents",
-    documentsFetcher,
-    60 * 60
-  );
+  let datyfiedOfferIn = await JSON.parse(JSON.stringify(offerIn));
 
   return {
     props: {
-      documents: cachedDocuments,
-      offerIn: cachedOfferIn,
+      offerIn: datyfiedOfferIn,
+      documents,
     },
-    revalidate: 10,
+    revalidate: 1,
   };
 };
