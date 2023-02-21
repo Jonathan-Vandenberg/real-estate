@@ -14,7 +14,7 @@ export default function AddAgentForm({
   const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState("");
-  const { agentId } = useAppSelector((state) => state.agentId);
+  const [newId, setNewId] = useState("");
 
   const [addAgent, { loading, error }] = useAddAgentMutation();
   const [role, setRole] = useState<Roles>(Roles.Agent);
@@ -23,14 +23,28 @@ export default function AddAgentForm({
     async function userId() {
       await user.map((u: any) => {
         if (u.email === email) {
-          setUserId(u.id), setProfileImage(u.image);
+          setUserId(u.id);
+          setProfileImage("/profileImagePlaceholder.png");
         }
       });
     }
     userId();
   }, [email]);
 
-  console.log(user);
+  useEffect(() => {
+    var mongoObjectId = function () {
+      var timestamp = ((new Date().getTime() / 1000) | 0).toString(16);
+      return (
+        timestamp +
+        "xxxxxxxxxxxxxxxx"
+          .replace(/[x]/g, function () {
+            return ((Math.random() * 16) | 0).toString(16);
+          })
+          .toLowerCase()
+      );
+    };
+    setNewId(mongoObjectId());
+  }, []);
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -38,7 +52,7 @@ export default function AddAgentForm({
     try {
       const variables = {
         input: {
-          id: agentId,
+          id: newId,
           userId: userId,
           email: email,
           roles: role,
@@ -78,7 +92,7 @@ export default function AddAgentForm({
         </div>
         <p className="text-md p-3 font-bold">Role</p>
         <AddRole
-          value={undefined}
+          value={role}
           selectedRole={role}
           onRoleChange={(event) => setRole(event.target.value)}
         />

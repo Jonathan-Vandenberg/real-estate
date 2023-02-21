@@ -414,6 +414,7 @@ const resolvers: Resolvers = {
           firstName: input?.firstName,
           lastName: input?.lastName,
           flag: input?.flag,
+          roles: input?.roles,
           email: input?.email,
           password: input?.password,
           createdAt: input!.createdAt,

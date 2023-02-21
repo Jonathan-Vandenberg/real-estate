@@ -44,13 +44,11 @@ export default function AdminUsersDesktop({ property, agents }: IProps) {
             <col className="w-auto" />
             <col className="w-auto" />
             <col className="w-auto" />
-            <col className="w-auto" />
           </colgroup>
           <thead className="w-auto border-y-2 border-y-off-white">
             <tr className="text-left">
-              <th className="p-3">Message</th>
-              <th className="p-3">Picture</th>
-              <th className="p-3">Name</th>
+              <th className="p-3"></th>
+              <th className="p-3"></th>
               <th className="p-3">Listings</th>
               <th className="p-3">status</th>
               <th className="p-3">Email</th>
@@ -63,9 +61,6 @@ export default function AdminUsersDesktop({ property, agents }: IProps) {
               agents.map((agent, i) => (
                 <tr key={i} className="border-b-2 border-b-off-white">
                   <td className="p-3">
-                    <Message className="w-7 h-7" />
-                  </td>
-                  <td className="p-3">
                     <div className="rounded-full w-12 h-12 overflow-hidden">
                       {agent.profileImage && (
                         <img
@@ -77,7 +72,9 @@ export default function AdminUsersDesktop({ property, agents }: IProps) {
                     </div>
                   </td>
                   <td className="p-3">
-                    <p className="whitespace-nowrap">{agent.firstName}</p>
+                    <p className="whitespace-nowrap font-semibold">
+                      {agent.firstName} {agent.lastName}
+                    </p>
                   </td>
                   <td className="p-3">
                     <div className="whitespace-nowrap space-y-3">
