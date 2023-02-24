@@ -27,7 +27,7 @@ export default function AdminListingsMobile({
   const [open, setOpen] = useState(false);
   const [agentHasFlag, setAgentHasFlag] = useState(false);
 
-  let issue: boolean;
+  let issue: boolean = false;
 
   function hasFlag(prop: Property) {
     if (
@@ -47,7 +47,6 @@ export default function AdminListingsMobile({
     } else {
       issue = false;
     }
-
     return issue;
   }
 
@@ -77,9 +76,9 @@ export default function AdminListingsMobile({
                           </div>
                         )}
                       </div>
-                      {issue && (
+                      {/* {issue && (
                         <div className="absolute top-[0.4rem] -left-[0.8rem] bg-[rgb(253,27,27)] w-2 h-2 rounded-full animate-blink"></div>
-                      )}
+                      )} */}
                       <div className="flex items-center justify-start py-3 font-semibold">
                         <p>{`${agent.firstName} ${agent.lastName}`}</p>
                       </div>
